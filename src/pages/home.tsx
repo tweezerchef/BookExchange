@@ -1,9 +1,9 @@
 import { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
-import WishListBox from "@/components/Carousels/wistListBox";
+import WishListBox from "../components/Carousels/wistListBox";
 
-export default function Home() {
+const Home: React.FC = () => {
   const [wishListBooks, setWishListBooks] = useState([]);
 
   return (
@@ -26,4 +26,6 @@ export default function Home() {
       </Grid>
     </Grid>
   );
-}
+};
+
+export default Home;
