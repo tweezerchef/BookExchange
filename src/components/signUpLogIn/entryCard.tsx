@@ -1,11 +1,60 @@
+import { useState } from "react";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Image from "next/image";
+import Link from "next/link";
+import { InputGroup, Input } from "./styles";
+
 const EntryCard: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const loginHandler = async () => {
+    try {
+      const response = await fetch("/auth/login-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+
+      if (data && setUser) {
+        let { user } = data;
+        setUser(user);
+        user = JSON.stringify(user);
+        localStorage.setItem("user", user);
+      }
+
+      if (
+        data.user.radius !== null ||
+        data.user.lastName !== null ||
+        data.user.longitude !== null
+      ) {
+        <Link href="/home" />;
+      } else {
+        <Link href="/usersettings" />;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Box
       sx={{
         width: "100%",
-        maxWidth: "500px",
+        maxWidth: "400px",
         maxHeight: "700px",
         display: "flex",
         flexDirection: "column",
@@ -44,6 +93,51 @@ const EntryCard: React.FC = () => {
           layout="responsive" // This will make the image scale based on its parent's width
         />
       </Box>
+      <InputGroup>
+        <Typography component="label" htmlFor="login-email" variant="body1">
+          Email Address
+        </Typography>
+        <Input
+          type="text"
+          placeholder="name@email.com"
+          id="login-email"
+          value={email}
+          onChange={(e: any) => setEmail(e.target.value)}
+        />
+      </InputGroup>
+      <InputGroup>
+        <label htmlFor="login-password">Password</label>
+        <Input
+          type="password"
+          placeholder="Password"
+          id="login-password"
+          value={password}
+          onChange={(e: any) => setPassword(e.target.value)}
+        />
+      </InputGroup>
+      <Button onClick={loginHandler} style={{ marginBottom: "40px" }}>
+        Log in
+      </Button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div id="loginDiv" />
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <div id="loginDiv" />
+      </div>
     </Box>
   );
 };
