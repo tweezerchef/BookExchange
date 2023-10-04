@@ -13,3 +13,8 @@ declare interface Book {
       image: string;
       title: string;
 }
+declare namespace React {
+  interface ChildrenProps {
+      children: React.ReactNode;
+  }
+}
