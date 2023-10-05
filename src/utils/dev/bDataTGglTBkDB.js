@@ -37,9 +37,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var prismaClient_1 = require("../prismaClient");
+var getGooglebyISBN_1 = require("../books/getGooglebyISBN");
+var googleFuncs_1 = require("../books/googleFuncs");
+var findOrCreateBookISBN_1 = require("../books/findOrCreateBookISBN");
 function bDataTGglTBkDB() {
     return __awaiter(this, void 0, void 0, function () {
-        var ISBNs;
+        var ISBNs, ISBNsArray;
+        var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, prismaClient_1.default.bookdata.findMany({
@@ -49,7 +53,34 @@ function bDataTGglTBkDB() {
                     })];
                 case 1:
                     ISBNs = _a.sent();
-                    console.log('hello', ISBNs);
+                    ISBNsArray = ISBNs.map(function (ISBN) { return ISBN.ISBN10; });
+                    console.log(ISBNsArray);
+                    ISBNsArray.forEach(function (ISBN) { return __awaiter(_this, void 0, void 0, function () {
+                        var data, book, transformedData;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0: return [4 /*yield*/, (0, getGooglebyISBN_1.getGoogleByISBN)(ISBN)];
+                                case 1:
+                                    data = _a.sent();
+                                    book = data.items[0];
+                                    console.log(book);
+                                    transformedData = {
+                                        selfLink: book.selfLink,
+                                        pubDate: book.volumeInfo.publishedDate ? book.volumeInfo.publishedDate : '',
+                                        pageCount: book.volumeInfo.pageCount ? book.volumeInfo.pageCount : null,
+                                        mainGenre: book.volumeInfo.categories ? book.volumeInfo.categories[0] : '',
+                                        title: book.volumeInfo.title,
+                                        author: book.volumeInfo.authors ? book.volumeInfo.authors[0] : '',
+                                        image: book.volumeInfo.imageLinks ? (0, googleFuncs_1.getLargestImage)(book.volumeInfo.imageLinks) : '',
+                                        description: book.volumeInfo.description ? book.volumeInfo.description : '',
+                                        rating: book.volumeInfo.averageRating ? book.volumeInfo.averageRating : null,
+                                        ISBN10: (0, googleFuncs_1.getISBN)(book.volumeInfo.industryIdentifiers),
+                                    };
+                                    (0, findOrCreateBookISBN_1.findOrCreateBookISBN)({ book: transformedData });
+                                    return [2 /*return*/];
+                            }
+                        });
+                    }); });
                     return [2 /*return*/];
             }
         });
