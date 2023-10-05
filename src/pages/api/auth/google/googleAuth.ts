@@ -76,6 +76,7 @@ router.get((req, res, next) => {
             username: user.username,
           },
         });
+        res.setHeader("Set-Cookie", cookie);
         res.writeHead(302, { Location: '/home' });
         res.end();
       }
