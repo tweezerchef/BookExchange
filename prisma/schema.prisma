@@ -43,6 +43,43 @@ model User {
   Conversations      Conversations[]    @relation("conversationMembers")
 }
 
+model Books {
+  id          String        @id @default(uuid())
+  title       String        @unique
+  subTitle    String?
+  pubDate     String?
+  pageCount   Int?
+  author      String
+  selfLink    String?
+  description String?
+  content     String?
+  image       String?
+  mainGenre   String?
+  buyLink     String?
+  viewAbility String?
+  rating      Float?
+  ISBN10      String        @unique
+  BookAccess  BookAccess[]
+  Activity    Activity[]
+  Clubs_Books Clubs_Books[]
+  Discussions Discussions[]
+  Genre       Genre[]
+  Posts       Posts[]
+  UserBooks   UserBooks[]
+  }
+
+model BookAccess {
+  id           String  @id @default(uuid())
+  downloadLink String?
+  acsToken     String?
+  pdfLink      String?
+  pdfAcsToken  String?
+  infoLink     String?
+  canVolLink   String?
+  bookId       String
+  Book         Books   @relation(fields: [bookId], references: [id])
+}
+
 model UserGenre {
   id     String @id @default(uuid())
   genre  String
@@ -170,28 +207,11 @@ model DirectMessages {
   sender         User          @relation(fields: [senderId], references: [id])
 }
 
-model Books {
-  id          String        @id @default(uuid())
-  title       String        @unique
-  author      String
-  description String?
-  paperback   Boolean?
-  content     String?
-  image       String?
-  ISBN10      String        @unique
-  Activity    Activity[]
-  Clubs_Books Clubs_Books[]
-  Discussions Discussions[]
-  Genre       Genre[]
-  Posts       Posts[]
-  UserBooks   UserBooks[]
-}
-
 model Genre {
-  id      String @id @default(uuid())
+  id      String   @id @default(uuid())
   booksId String
   genre   String
-  Books   Books  @relation(fields: [booksId], references: [id])
+  Books   Books    @relation(fields: [booksId], references: [id])
 }
 
 model bookdata {
