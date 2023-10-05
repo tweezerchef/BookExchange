@@ -21,6 +21,12 @@ export const config = {
   },
 };
 
+interface User {
+  email: string;
+  id: string;
+  username: string;
+}
+
 passport.use(
   new Google.OAuth2Strategy(
     {
@@ -57,7 +63,7 @@ router.get((req, res, next) => {
           res.status(500).end();
           return;
         }
-        let user = await findUserByEmailDetailed({
+        let user: User = await findUserByEmailDetailed({
           email: profile.emails[0].value,
         });
         if (!user) {
