@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Image from "next/image";
 import Link from "next/link";
 import { InputGroup, Input } from "./styles";
+import UserContext from "../../context/context";
 
 const EntryCard: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const context = useContext(UserContext);
+  const { setUser } = context || {};
 
   const loginHandler = async () => {
     try {

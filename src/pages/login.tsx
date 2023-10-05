@@ -1,6 +1,8 @@
 import Box from "@mui/material/Box";
 import EntryCard from "../components/signUpLogIn/entryCard";
 
+declare const google: any;
+
 const Login = () => {
   return (
     <Box
@@ -9,7 +11,7 @@ const Login = () => {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "space-evenly",
-        minHeight: "100vh",
+        minHeight: "98vh",
         backgroundColor: " #fbfbfb",
       }}
     >

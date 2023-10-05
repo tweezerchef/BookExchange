@@ -1,4 +1,4 @@
-declare interface Book {
+interface Book {
     books: {
         id: string;
         title: string;
@@ -13,13 +13,13 @@ declare interface Book {
       image: string;
       title: string;
 }
-declare namespace React {
+namespace React {
   interface ChildrenProps {
       children: React.ReactNode;
   }
 }
 
-declare interface User {
+interface User {
   id: string;
   firstName: string;
   userName: string;
