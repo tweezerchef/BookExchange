@@ -1,8 +1,11 @@
+import { ConstructionOutlined } from "@mui/icons-material";
 import prisma from "./prismaClient";
 
 export const findUserByEmailDetailed = async (email) => {
+    email = email.email
+    console.log(email)
     return await prisma.user.findUnique({
-        here: {
+        where: {
             email,
           },
           select: {
@@ -38,7 +41,7 @@ export const findUserByEmailDetailed = async (email) => {
                     email: true,
                     googleId: true,
                     picture: true,
-                    token: true,
+                    password: false,
                     latitude: true,
                     longitude: true,
                     radius: true,

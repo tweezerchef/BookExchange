@@ -18,7 +18,7 @@ model User {
   googleId           String             @unique
   lastName           String?
   picture            String?
-  token              String?
+  password           String?
   latitude           Float?
   longitude          Float?
   radius             Int?

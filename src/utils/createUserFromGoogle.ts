@@ -1,13 +1,12 @@
 import prisma from './prismaClient';
 
 
-export const createUserFromGoogle = async (profile) => {
+export const createUserFromGoogle = async ({ profile }) => {
     return prisma.user.create({
         data: {
             firstName: profile.given_name ?? '',
-            lastName: profile.family_name ?? '',
-            email: profile.email ?? '',
-            googleId: profile.sub,
+            email: profile._json.email,
+            googleId: profile.id ?? '',
             picture: profile.picture ?? '',
           },
         });

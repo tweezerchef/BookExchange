@@ -20,8 +20,6 @@ export const config = {
     externalResolver: true,
   },
 };
-const findUser = async (email: any) => {
-}
 
 passport.use(
   new Google.OAuth2Strategy(
@@ -55,6 +53,7 @@ router.get((req, res, next) => {
       "google",
       async (err: any, profile: any, info: any) => {
         if (err) {
+          console.error(err);
           res.status(500).end();
           return;
         }
@@ -77,8 +76,8 @@ router.get((req, res, next) => {
             username: user.username,
           },
         });
-        res.setHeader("Set-Cookie", cookie);
-        res.redirect("/home");
+        res.writeHead(302, { Location: '/home' });
+        res.end();
       }
     )(req, res, next);
   } else {
