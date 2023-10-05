@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { InputGroup, Input } from "./styles";
 import UserContext from "../../context/context";
+import GoogleButton from "./googleButton";
 
 const EntryCard: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -142,6 +143,7 @@ const EntryCard: React.FC = () => {
       >
         <div id="loginDiv" />
       </div>
+      <GoogleButton />
     </Box>
   );
 };

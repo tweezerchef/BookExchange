@@ -1,8 +1,6 @@
 import Box from "@mui/material/Box";
 import EntryCard from "../components/signUpLogIn/entryCard";
 
-declare const google: any;
-
 const Login = () => {
   return (
     <Box

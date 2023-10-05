@@ -9,9 +9,9 @@ import Google, {
 // import { findUser, sendWelcomeEmail } from "@/app/account/actions";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
-// import { getSecureCookie } from "@/app/lib/services/cookies";
 import { findUserByEmailDetailed } from "../../../../utils/userService";
 import { createUserFromGoogle } from "../../../../utils/createUserFromGoogle";
+import { getSecureCookie } from "../../../../utils/getSecureCookie";
 
 dayjs.extend(duration);
 
@@ -69,18 +69,16 @@ router.get((req, res, next) => {
           //      await sendWelcomeEmail({ email: user!.email });
           //    }, 0);
         }
-        const cookie = await getSecureCookie({
+        const cookie = getSecureCookie({
           name: "user",
           value: {
-            email: user!.email,
-            id: user!.id,
-            photo: get(profile, "photos[0].value", ""),
-            name: get(profile, "displayName", ""),
-            username: user!.username,
+            email: user.email,
+            id: user.id,
+            username: user.username,
           },
         });
         res.setHeader("Set-Cookie", cookie);
-        res.redirect("/profile");
+        res.redirect("/home");
       }
     )(req, res, next);
   } else {
