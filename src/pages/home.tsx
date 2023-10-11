@@ -2,6 +2,7 @@ import { useState } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import WishListBox from "../components/Carousels/wistListBox";
+import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
 import { parse } from "cookie";
 
 const Home: React.FC = () => {
@@ -20,8 +21,10 @@ const Home: React.FC = () => {
             backgroundImage: "url(https://i.imgur.com/oB9cYCo.png)",
             backgroundSize: "cover",
             backgroundPosition: "center",
+            marginBottom: "24px",
           }}
         />
+        <ExploreBooksBox />
 
         {wishListBooks.length > 0 && <WishListBox books={wishListBooks} />}
       </Grid>
