@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'nobe.s3.us-east-2.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'books.google.com',
+      },
     ],
   },
 }

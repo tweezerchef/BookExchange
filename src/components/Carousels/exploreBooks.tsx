@@ -1,4 +1,11 @@
 import { useState, useEffect } from "react";
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import Slide from "@mui/material/Slide";
+import Stack from "@mui/material/Stack";
+import { Book } from "../book/book";
 
 const ExploreBooks: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -67,9 +74,94 @@ const ExploreBooks: React.FC = () => {
     getRandomBooks();
   }, []);
   return (
-    <div>
-      <h1>Explore</h1>
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        alignContent: "center",
+        justifyContent: "center",
+        width: "100%",
+        // height: isMobile ? "80vw" : "20vw",
+        // maxHeight: isMobile ? "80vw" : "370px",
+        // marginTop: isMobile ? ".2vh" : "1.5vh",
+        paddingBottom: "0",
+      }}
+    >
+      <IconButton
+        onClick={handlePrevPage}
+        sx={{
+          marginRight: 10,
+          padding: 0,
+          alignSelf: "center",
+          justifySelf: "start",
+        }}
+        disabled={currentPage === 0}
+      >
+        <NavigateBeforeIcon />
+      </IconButton>
+
+      <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
+        {books.map((book, index) => (
+          <Box
+            key={index}
+            sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              display: currentPage === index ? "block" : "none",
+            }}
+          >
+            <Slide direction={slideDirection} in={currentPage === index}>
+              <Stack
+                spacing={2}
+                direction="row"
+                maxWidth="100%"
+                maxHeight="100%"
+                alignContent="center"
+                justifyContent="center"
+              >
+                {books
+                  .slice(
+                    index * booksPerPage,
+                    index * booksPerPage + booksPerPage
+                  )
+                  .map((book: Book) => (
+                    <Box key={book.id || book.title}>
+                      <Book
+                        book={book}
+                        // onClick={handleBookClick}
+                        // onClose={handleBigBookClose}
+                        // showBigBook={showBigBook && book === selectedBook}
+                        // bigBookPosition={bigBookPosition}
+                        // nearMeBooks={nearMeBooks}
+                      />
+                    </Box>
+                  ))}
+              </Stack>
+            </Slide>
+          </Box>
+        ))}
+      </Box>
+
+      <IconButton
+        onClick={handleNextPage}
+        sx={{
+          marginLeft: 10,
+          marginRight: 1,
+          padding: 0,
+          alignSelf: "center",
+          justifySelf: "end",
+        }}
+        disabled={
+          currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
+        }
+      >
+        <NavigateNextIcon />
+      </IconButton>
+    </Box>
   );
 };
 
