@@ -24,10 +24,15 @@ const ExploreBooks: React.FC = () => {
     setLoading(true);
     try {
       const res = await fetch(`/bookdata/id?id=${id}`);
-      setBooks((prevBooks) => [...[res], ...prevBooks]);
-      setCurrentPage(0);
+      if (res.ok) {
+        setBooks((prevBooks) => [...[res], ...prevBooks]);
+        setCurrentPage(0);
+      } else {
+        throw new Error("Failed to fetch book data");
+      }
     } catch (err) {
       console.error(err);
+      // Show error message to the user
     } finally {
       setLoading(false);
     }
@@ -82,9 +87,9 @@ const ExploreBooks: React.FC = () => {
         alignContent: "center",
         justifyContent: "center",
         width: "100%",
-        // height: isMobile ? "80vw" : "20vw",
-        // maxHeight: isMobile ? "80vw" : "370px",
-        // marginTop: isMobile ? ".2vh" : "1.5vh",
+        height: "20vw",
+        maxHeight: "370px",
+        marginTop: "1.5vh",
         paddingBottom: "0",
       }}
     >
