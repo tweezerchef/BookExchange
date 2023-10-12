@@ -2,15 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'nobe.s3.us-east-2.amazonaws.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'books.google.com',
-      },
+    domains: [
+      'nobe.s3.us-east-2.amazonaws.com',
+      'books.google.com',
+      'i.imgur.com',
     ],
   },
 }

@@ -24,7 +24,7 @@ const ExploreBooks: React.FC = () => {
     setLoading(true);
     try {
       const res = await fetch(`/bookdata/id?id=${id}`);
-      setBooks((prevBooks) => [...[res.data], ...prevBooks]);
+      setBooks((prevBooks) => [...[res], ...prevBooks]);
       setCurrentPage(0);
     } catch (err) {
       console.error(err);
@@ -38,7 +38,7 @@ const ExploreBooks: React.FC = () => {
     try {
       if (searchText === "") {
         const res = await fetch(`/google-books/?title=${inputValue}`);
-        setBooks((prevBooks) => [...res.data, ...prevBooks]);
+        setBooks((prevBooks) => [...res.json(), ...prevBooks]);
         setCurrentPage(0);
       }
     } catch (err) {
