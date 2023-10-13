@@ -88,9 +88,9 @@ const ExploreBooks: React.FC = () => {
         justifyContent: "center",
         width: "100%",
         height: "20vw",
-        maxHeight: "370px",
-        marginTop: "1.5vh",
-        paddingBottom: "0",
+        //   maxHeight: "370px",
+        //   marginTop: "1.5vh",
+        //   paddingBottom: "0",
       }}
     >
       <IconButton

@@ -9,11 +9,11 @@ const Home: React.FC = () => {
   const [wishListBooks, setWishListBooks] = useState([]);
 
   return (
-    <Grid container>
-      <Grid xs={3}>
+    <Grid container maxWidth="1500px">
+      <Grid xs={2}>
         <h1>Yo</h1>
       </Grid>
-      <Grid xs={9}>
+      <Grid xs={10} minWidth="1000px">
         <Box
           sx={{
             width: "100%",
