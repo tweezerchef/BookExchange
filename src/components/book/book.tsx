@@ -1,36 +1,39 @@
 import Image from "next/image";
 import {
   StyledBookCard,
-  StyledBookCardImageBox,
-  StyledSideOfBookBox,
-  StyledBoxContainer,
+  ImageBox,
+  SideOfImageBox,
+  TopContainer,
   ContentContainer,
+  TitleTypography,
 } from "./bookStyles";
 import { StarRating } from "./starRating";
-import { LendingLibraryButton } from "./bookButtons/lendingLibraryButton";
 import Typography from "@mui/material/Typography";
+import { ButtonStack } from "./bookButtons/buttonStack";
 interface BookProps {
   book: Book;
 }
 
 export const Book: React.FC<BookProps> = ({ book }) => (
   <StyledBookCard>
-    <StyledBoxContainer>
-      <StyledBookCardImageBox>
+    <TopContainer>
+      <ImageBox>
+        {/* Needs Futher Styling */}
         <Image
           src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
           alt="Book Cover"
-          fill={true} // This will make the image take the full dimensions of its parent
-          objectFit="cover" // Adjust this as needed
+          fill={true}
+          objectFit="cover"
         />
-      </StyledBookCardImageBox>
-      <StyledSideOfBookBox>
+      </ImageBox>
+      <SideOfImageBox>
         <StarRating />
-        <LendingLibraryButton />
-      </StyledSideOfBookBox>
-    </StyledBoxContainer>
-    <ContentContainer>
-      <Typography variant="body1">{book.title}</Typography>
-    </ContentContainer>
+        <ButtonStack />
+        <TitleTypography align="center" variant="body1">
+          {book.title}
+        </TitleTypography>
+      </SideOfImageBox>
+    </TopContainer>
+    <ContentContainer></ContentContainer>
   </StyledBookCard>
 );

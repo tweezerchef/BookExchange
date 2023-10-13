@@ -1,4 +1,5 @@
 import { styled } from "@mui/system";
+import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 
@@ -14,37 +15,36 @@ import Box from "@mui/material/Box";
       flex-direction: column;
       align-items: center;
     `;
-        export const StyledBoxContainer = styled(Box)`
+        export const TopContainer = styled(Box)`
         display: flex;
         flex-direction: row;
         width: 100%;
-        height: 55%; // Ensure it takes up the maximum height
+        height: 50%;
         justify-content: start;
         align-items: start;
         background-color: transparent;
       `;
 
-    export const StyledBookCardImageBox = styled(Box)`
+    export const ImageBox = styled(Box)`
       position: relative;
       width: 80%;
       height: 100%;
       overflow: hidden;
       /* align-content: center; */
       /* justify-content: start; */
-      margin: 0;
-      padding: 0;
       background-color: transparent;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       cursor: pointer;
     `;
-    export const StyledSideOfBookBox = styled(Box)`
-      position: relative;
+    export const SideOfImageBox = styled(Box)`
+      display: flex;
+      /* position: relative; */
+      flex-direction: column;
       width: 100%;
       height: 100%;
       overflow: hidden;
-      align-content: center;
-      margin: 0;
-      padding: 0;
+      justify-content: flex-start;
+      align-items: center;
       background-color: transparent;
       cursor: pointer;
     `;
@@ -59,3 +59,11 @@ import Box from "@mui/material/Box";
       height: auto;            // Take up the remaining space
       text-align: center;      // Center the text
     `;
+    export const TitleTypography = styled(Typography)`
+    max-height: 45%; // Adjust as needed
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* white-space: nowrap; */
+    padding: 0 5px; // Add some padding to prevent text touching the edges
+  `;
+

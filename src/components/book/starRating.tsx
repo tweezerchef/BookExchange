@@ -1,11 +1,12 @@
+import Rating from "@mui/material/Rating";
 
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
-
-export function StarRating() {
-  return (
-    <Stack spacing={1}>
-      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
-    </Stack>
-  );
-}
+export const StarRating: React.FC = () => (
+  <Rating
+    name="half-rating"
+    defaultValue={2.5}
+    precision={0.5}
+    style={{
+      marginTop: 5,
+    }}
+  />
+);
