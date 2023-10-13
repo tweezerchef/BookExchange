@@ -6,6 +6,11 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { Book } from "../book/book";
+import {
+  OuterBox,
+  BookBox,
+  StyledIconButton,
+} from "./styles/exploreBooksStyle";
 
 const ExploreBooks: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -79,43 +84,15 @@ const ExploreBooks: React.FC = () => {
     getRandomBooks();
   }, []);
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        alignContent: "center",
-        justifyContent: "center",
-        width: "100%",
-        height: "35vw",
-        maxHeight: "370px",
-        //   marginTop: "1.5vh",
-        //   paddingBottom: "0",
-      }}
-    >
-      <IconButton
-        onClick={handlePrevPage}
-        sx={{
-          marginRight: 10,
-          padding: 0,
-          alignSelf: "center",
-          justifySelf: "start",
-        }}
-        disabled={currentPage === 0}
-      >
+    <OuterBox>
+      <StyledIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
         <NavigateBeforeIcon />
-      </IconButton>
-
+      </StyledIconButton>
       <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
         {books.map((book, index) => (
-          <Box
+          <BookBox
             key={index}
             sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
               display: currentPage === index ? "block" : "none",
             }}
           >
@@ -147,26 +124,19 @@ const ExploreBooks: React.FC = () => {
                   ))}
               </Stack>
             </Slide>
-          </Box>
+          </BookBox>
         ))}
       </Box>
 
-      <IconButton
+      <StyledIconButton
         onClick={handleNextPage}
-        sx={{
-          marginLeft: 10,
-          marginRight: 1,
-          padding: 0,
-          alignSelf: "center",
-          justifySelf: "end",
-        }}
         disabled={
           currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
         }
       >
         <NavigateNextIcon />
-      </IconButton>
-    </Box>
+      </StyledIconButton>
+    </OuterBox>
   );
 };
 
