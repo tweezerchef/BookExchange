@@ -87,8 +87,8 @@ const ExploreBooks: React.FC = () => {
         alignContent: "center",
         justifyContent: "center",
         width: "100%",
-        height: "20vw",
-        //   maxHeight: "370px",
+        height: "35vw",
+        maxHeight: "370px",
         //   marginTop: "1.5vh",
         //   paddingBottom: "0",
       }}

@@ -1,5 +1,5 @@
+import Image from "next/image";
 import { CardMedia } from "@mui/material";
-import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import { StyledBookCard } from "./bookStyles";
 
@@ -13,8 +13,9 @@ export const Book: React.FC<BookProps> = ({ book }) => (
       sx={{
         position: "relative",
         width: "100%",
-        height: "45%",
+        height: "60%",
         overflow: "hidden",
+        alignContent: "center",
         margin: "0",
         padding: "0",
         backgroundColor: "transparent",
@@ -22,17 +23,23 @@ export const Book: React.FC<BookProps> = ({ book }) => (
       }}
       // onClick={handleOnClick}
     >
-      <CardMedia
+      {/* <CardMedia
         component="img"
-        height="194"
         image={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
         alt="Book Cover "
         style={{
-          position: "absolute",
+          position: "static",
           width: "100%",
           height: "100%",
-          objectFit: "scale-down",
+          objectFit: "none",
+          margin: "3",
         }}
+      /> */}
+      <Image
+        src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
+        alt="Book Cover"
+        layout="fill" // This will make the image take the full dimensions of its parent
+        objectFit="cover" // Adjust this as needed
       />
     </Box>
     {book.title}
