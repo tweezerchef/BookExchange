@@ -8,7 +8,6 @@ import {
   TitleTypography,
 } from "./bookStyles";
 import { StarRating } from "./starRating";
-import Typography from "@mui/material/Typography";
 import { ButtonStack } from "./bookButtons/buttonStack";
 interface BookProps {
   book: Book;
@@ -29,11 +28,19 @@ export const Book: React.FC<BookProps> = ({ book }) => (
       <SideOfImageBox>
         <StarRating />
         <ButtonStack />
-        <TitleTypography align="center" variant="body1">
-          {book.title}
-        </TitleTypography>
+
+        {book.author && (
+          <TitleTypography align="center" variant="body1">
+            Written By: <br />
+            {book.author}
+          </TitleTypography>
+        )}
       </SideOfImageBox>
     </TopContainer>
-    <ContentContainer></ContentContainer>
+    <ContentContainer>
+      <TitleTypography align="center" variant="body1">
+        {book.title}
+      </TitleTypography>
+    </ContentContainer>
   </StyledBookCard>
 );

@@ -5,12 +5,11 @@ import Box from "@mui/material/Box";
 
     export const StyledBookCard = styled(Card)`
       width: 18vw;
-      height: 33vw;
-      min-height: 260px;
-      max-height: 300px;
+      height: 20vw;
+      min-height: 170px;
+      max-height: 250px;
       min-width: 220px;
       max-width: 250px;
-      /* box-shadow: 5px 5px 7px  rgba(37, 37, 37, 0.6); */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -19,7 +18,7 @@ import Box from "@mui/material/Box";
         display: flex;
         flex-direction: row;
         width: 100%;
-        height: 50%;
+        height: 60%;
         justify-content: start;
         align-items: start;
         background-color: transparent;
@@ -45,12 +44,14 @@ import Box from "@mui/material/Box";
       overflow: hidden;
       justify-content: flex-start;
       align-items: center;
+      gap: 0.5em;
       background-color: transparent;
       cursor: pointer;
     `;
 
 
     export const ContentContainer = styled(Box)`
+      margin-top: 0.5em;
       display: flex;
       flex-direction: column;
       justify-content: center; // Vertically center the content
@@ -60,10 +61,10 @@ import Box from "@mui/material/Box";
       text-align: center;      // Center the text
     `;
     export const TitleTypography = styled(Typography)`
-    max-height: 45%; // Adjust as needed
-    overflow: hidden;
+    /* max-height: 50%; // Adjust as needed */
     text-overflow: ellipsis;
-    /* white-space: nowrap; */
-    padding: 0 5px; // Add some padding to prevent text touching the edges
+    white-space: pre-line;
+    line-height: 1.2em; // Or whatever line height you want
+    /* padding: 0 5px; // Add some padding to prevent text touching the edges */
   `;
 
