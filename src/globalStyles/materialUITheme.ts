@@ -10,8 +10,8 @@ export const themeOptions: ThemeOptions = {
       main: '#f50057',
     },
     background: {
-      default: 'rgba(255,255,255,0.9)',
-      paper: 'rgba(159,220,239,0.31)',
+      default: '#f5f5f5',
+      paper: 'rgba(215,240,255,0.24)',
     },
   },
   components: {
@@ -101,6 +101,9 @@ export const themeOptions: ThemeOptions = {
       fontFamily: 'Lato',
     },
     subtitle2: {
+      fontFamily: 'Lato',
+    },
+    body1: {
       fontFamily: 'Lato',
     },
   },
