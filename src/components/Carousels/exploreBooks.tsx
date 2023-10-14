@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
+import { BigBook } from "../book/bigBook";
 import { Book } from "../book/book";
 import {
   OuterBox,
@@ -21,7 +21,7 @@ const ExploreBooks: React.FC = () => {
   const [searchText, setSearchText] = useState("");
   const [showBigBook, setShowBigBook] = useState(false);
   const [bigBookPosition, setBigBookPosition] = useState({ top: 0, left: 0 });
-  const [selectedBook, setSelectedBook] = useState(null);
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -79,6 +79,9 @@ const ExploreBooks: React.FC = () => {
     setSlideDirection("right");
     setCurrentPage((prevPage) => prevPage - 1);
   };
+  const handleBookClick = (book: Book) => {
+    setSelectedBook(book);
+  };
 
   useEffect(() => {
     getRandomBooks();
@@ -114,7 +117,7 @@ const ExploreBooks: React.FC = () => {
                     <Box key={book.id || book.title}>
                       <Book
                         book={book}
-                        // onClick={handleBookClick}
+                        onClick={() => handleBookClick(book)}
                         // onClose={handleBigBookClose}
                         // showBigBook={showBigBook && book === selectedBook}
                         // bigBookPosition={bigBookPosition}
@@ -136,6 +139,11 @@ const ExploreBooks: React.FC = () => {
       >
         <NavigateNextIcon />
       </StyledIconButton>
+      <BigBook
+        book={selectedBook}
+        open={!!selectedBook}
+        onClose={() => setSelectedBook(null)}
+      />
     </OuterBox>
   );
 };

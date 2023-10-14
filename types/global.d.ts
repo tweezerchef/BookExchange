@@ -5,6 +5,7 @@ interface Book {
         author: string;
         image: string;
       }
+      description: string;
       author: string;
       UserBooks: UserBook[];
       id: string;

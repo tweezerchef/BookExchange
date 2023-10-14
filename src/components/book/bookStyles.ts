@@ -2,6 +2,7 @@ import { styled } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
 
     export const StyledBookCard = styled(Card)`
       width: 18vw;
@@ -35,6 +36,7 @@ import Box from "@mui/material/Box";
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
       cursor: pointer;
     `;
+
     export const SideOfImageBox = styled(Box)`
       display: flex;
       /* position: relative; */
@@ -60,6 +62,7 @@ import Box from "@mui/material/Box";
       height: auto;            // Take up the remaining space
       text-align: center;      // Center the text
     `;
+
     export const TitleTypography = styled(Typography)`
     /* max-height: 50%; // Adjust as needed */
     text-overflow: ellipsis;
@@ -67,4 +70,27 @@ import Box from "@mui/material/Box";
     line-height: 1.2em; // Or whatever line height you want
     /* padding: 0 5px; // Add some padding to prevent text touching the edges */
   `;
+  export const CenteredModal = styled(Dialog)`
+  && {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent; // Ensure the Dialog's background is transparent
+    .MuiDialog-paper {
+      background-color: white;
+      border-radius: 4px;
+      height: 80vh;
+      width: 80vw;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      overflow-y: unset;
+      margin: 0;
+      max-width: fit-content;
+      box-shadow: none;
+    }
+  }
+`;
+
 

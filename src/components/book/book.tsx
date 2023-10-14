@@ -11,11 +11,12 @@ import { StarRating } from "./starRating";
 import { ButtonStack } from "./bookButtons/buttonStack";
 interface BookProps {
   book: Book;
+  onClick: () => void;
 }
 
-export const Book: React.FC<BookProps> = ({ book }) => (
+export const Book: React.FC<BookProps> = ({ book, onClick }) => (
   <StyledBookCard>
-    <TopContainer>
+    <TopContainer onClick={onClick}>
       <ImageBox>
         {/* Needs Futher Styling */}
         <Image
