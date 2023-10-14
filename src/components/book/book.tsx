@@ -16,8 +16,8 @@ interface BookProps {
 
 export const Book: React.FC<BookProps> = ({ book, onClick }) => (
   <StyledBookCard>
-    <TopContainer onClick={onClick}>
-      <ImageBox>
+    <TopContainer>
+      <ImageBox onClick={onClick}>
         {/* Needs Futher Styling */}
         <Image
           src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
