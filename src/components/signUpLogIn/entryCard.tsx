@@ -5,15 +5,11 @@ import Button from "@mui/material/Button";
 import Image from "next/image";
 import Link from "next/link";
 import { InputGroup, Input } from "./styles";
-import UserContext from "../../context/context";
 import GoogleButton from "./googleButton";
 
 const EntryCard: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const context = useContext(UserContext);
-  const { setUser } = context || {};
 
   const loginHandler = async () => {
     try {
@@ -33,13 +29,6 @@ const EntryCard: React.FC = () => {
       }
 
       const data = await response.json();
-
-      if (data && setUser) {
-        let { user } = data;
-        setUser(user);
-        user = JSON.stringify(user);
-        localStorage.setItem("user", user);
-      }
 
       if (
         data.user.radius !== null ||

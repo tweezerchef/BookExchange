@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
 import { parse } from "cookie";
+import { useUser } from "../context/context";
 
 interface UserProp {
   email: string;
@@ -16,9 +17,10 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ userProp }) => {
-  const [wishListBooks, setWishListBooks] = useState([]);
+  const { wishList, setWishList } = useUser();
   const [user, setUser] = useState<User>();
 
+  //delete if not needed
   const getUser = async () => {
     try {
       const response = await fetch(`/api/user/id/${userProp.id}`);
@@ -29,10 +31,21 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
     }
   };
 
+  const getUserWishlist = async () => {
+    try {
+      const response = await fetch(`/api/user/wishList/${userProp.id}`);
+      const data = await response.json();
+      console.log(data);
+      setWishList(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    getUser();
+    getUserWishlist();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userProp.id]);
 
   return (
     <Grid container maxWidth="1500px">
@@ -53,7 +66,7 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
         />
         <ExploreBooksBox />
 
-        {wishListBooks.length > 0 && <WishListBox books={wishListBooks} />}
+        {wishList.length > 0 && <WishListBox books={wishListBooks} />}
       </Grid>
     </Grid>
   );

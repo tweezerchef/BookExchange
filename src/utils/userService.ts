@@ -1,5 +1,6 @@
 import { ConstructionOutlined } from "@mui/icons-material";
 import prisma from "./prismaClient";
+import LendingLibraryButton from '../components/book/bookButtons/lendingLibraryButton';
 
 export const findUserByEmailDetailed = async (email) => {
     email = email.email
@@ -70,7 +71,7 @@ export const findUserByEmailDetailed = async (email) => {
               select: {
                 id: true,
                 wishlist: true,
-                owned: true,
+                lendingLibrary: true,
                 booksId: true,
                 userId: true,
                 rating: true,
@@ -88,7 +89,7 @@ export const findUserByEmailDetailed = async (email) => {
                       select: {
                         id: true,
                         wishlist: true,
-                        owned: true,
+                        lendingLibrary: true,
                         booksId: true,
                         userId: true,
                         rating: true,
@@ -176,7 +177,7 @@ export const findUserByIdDetailed = async (id) => {
             select: {
               id: true,
               wishlist: true,
-              owned: true,
+              lendingLibrary: true,
               booksId: true,
               userId: true,
               rating: true,
@@ -194,7 +195,7 @@ export const findUserByIdDetailed = async (id) => {
                     select: {
                       id: true,
                       wishlist: true,
-                      lendingLibrary:  true,
+                      lendingLibrary: true,
                       booksId: true,
                       userId: true,
                       rating: true,
