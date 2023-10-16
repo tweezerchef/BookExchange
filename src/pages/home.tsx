@@ -1,15 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
 import { parse } from "cookie";
 
-const Home: React.FC<{ user: string }> = ({ user }) => {
+interface UserProp {
+  email: string;
+  id: string;
+  username: string | null;
+}
+
+interface HomeProps {
+  userProp: UserProp;
+}
+
+const Home: React.FC<HomeProps> = ({ userProp }) => {
   const [wishListBooks, setWishListBooks] = useState([]);
-  //write a function that logs "user" from local storage
-  // const user = localStorage.getItem("user");
-  console.log(user);
+  const [user, setUser] = useState<User>();
+
+  const getUser = async () => {
+    try {
+      const response = await fetch(`/api/user/id/${userProp.id}`);
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Grid container maxWidth="1500px">
       <Grid xs={2}>
@@ -20,7 +44,8 @@ const Home: React.FC<{ user: string }> = ({ user }) => {
           sx={{
             width: "100%",
             height: "200px",
-            backgroundImage: "url(https://i.imgur.com/oB9cYCo.png)",
+            backgroundImage:
+              "url(https://nobe.s3.us-east-2.amazonaws.com/TopBanner.png)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             marginBottom: "24px",
@@ -48,11 +73,11 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
+  const userProp = JSON.parse(userCookie);
 
-  // If there's a user cookie, continue to render the home page
   return {
     props: {
-      user: userCookie, // Pass the userCookie as a prop
+      userProp: userProp, // Pass the parsed user object as a prop
     },
   };
 };
