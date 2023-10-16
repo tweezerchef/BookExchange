@@ -1,10 +1,11 @@
 import prisma from '../prismaClient';
+import { Books } from '@prisma/client';
 
 export const findOrCreateBookISBN = async ({ book }) => {
     const {
         title, ISBN10, author, image, description, subTitle, pubDate, pageCount, genre, buyLink, viewAbility, rating, content, mainGenre,
       } = book;
-    let newBook
+    let newBook: Books = null;
     newBook = await prisma.books.findUnique({
         where: { ISBN10 },
         select: {
@@ -34,7 +35,7 @@ export const findOrCreateBookISBN = async ({ book }) => {
               select: {
                 id: true,
                 wishlist: true,
-                owned: true,
+                lendingLibrary: true,
                 booksId: true,
                 userId: true,
                 rating: true,
@@ -52,7 +53,7 @@ export const findOrCreateBookISBN = async ({ book }) => {
                       select: {
                         id: true,
                         wishlist: true,
-                        owned: true,
+                        lendingLibrary: true,
                         booksId: true,
                         userId: true,
                         rating: true,
@@ -72,18 +73,17 @@ export const findOrCreateBookISBN = async ({ book }) => {
         },
         );
     if (!newBook) {
-      newBook =  prisma.books.create({
+      newBook = await prisma.books.create({
             data: {
                 title,
+                image,
                 subTitle,
                 pubDate,
                 pageCount,
-                author,
-                selfLink: book.selfLink,
                 description,
                 content,
-                image,
                 mainGenre,
+                author,
                 buyLink,
                 viewAbility,
                 rating,

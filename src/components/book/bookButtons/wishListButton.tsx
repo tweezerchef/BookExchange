@@ -2,37 +2,41 @@ import { useContext, useEffect, useState } from "react";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-// import UserContext from "../../hooks/Context";
+import { useUserDispatch, useUserState } from "../../../context/context";
 
-// interface WishListButtonProps {
-//   book: any;
-//   isWishListed: boolean;
-//   setIsWishListed: React.Dispatch<React.SetStateAction<boolean>>;
-// }
+interface WishListButtonProps {
+  book: Book;
+}
 
 type CustomColor = "success" | "danger";
 
-// function WishListButton({
-//   book,
-//   isWishListed,
-//   setIsWishListed,
-// }: WishListButtonProps) {
-//   const userContext = useContext(UserContext);
-//   const user = userContext?.user;
-//   const id = user?.id;
-export const WishListButton: React.FC = () => {
+export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
+  const state = useUserState();
+  const dispatch = useUserDispatch();
+
   const [color, setColor] = useState<CustomColor>("danger");
   const [toolTip, setToolTip] = useState<NonNullable<React.ReactNode>>(
     <h1>Add to Wishlist</h1>
   );
 
+  const { wishListIDs } = state;
+  const { user } = state;
+  const userID = user?.id;
+  const bookID = book?.id;
+
+  const isInWishList = wishListIDs?.includes(bookID);
+
   const addToWishlist = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    // axios.post("/user-books/wishlist", {
-    //   book,
-    //   id,
-    //   color,
-    // });
+
+    const newUserBook = await fetch(`/api/user/wishList/${bookID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ color: color, book: book, userId: userID }),
+    });
+    console.log(newUserBook);
     if (color === "success") {
       //   setIsWishListed(false);
       setColor("error" as CustomColor);
@@ -44,12 +48,13 @@ export const WishListButton: React.FC = () => {
     }
   };
   useEffect(() => {
-    // if (isWishListed) {
-    //   setColor("success" as CustomColor);
-    //   setToolTip(<h1>Remove from Wishlist</h1>);
-    // } else {
-    setColor("error" as CustomColor);
-    setToolTip(<h1>Add to Wishlist</h1>);
+    if (isInWishList) {
+      setColor("success" as CustomColor);
+      setToolTip(<h1>Remove from Wishlist</h1>);
+    } else {
+      setColor("error" as CustomColor);
+      setToolTip(<h1>Add to Wishlist</h1>);
+    }
   }, []);
 
   return (

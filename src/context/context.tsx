@@ -14,6 +14,7 @@ interface UserState {
   lendingLibrary?: any[]; // Replace any with the appropriate type
   userBooks?: any[]; // Replace any with the appropriate type
   userBooksIDs?: any[]; // Replace any with the appropriate type
+  user: any;
 }
 
 const UserStateContext = createContext<UserState | undefined>(undefined);
@@ -44,6 +45,7 @@ export const UserProvider = ({ children }) => {
     userBooks: [],
     userBooksIDs: [],
     wishListIDs: [],
+    user: {},
   });
 
   return (

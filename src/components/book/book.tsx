@@ -37,7 +37,7 @@ export const Book: React.FC<BookProps> = ({ book, onClick }) => {
         </ImageBox>
         <SideOfImageBox>
           <StarRating />
-          <ButtonStack />
+          <ButtonStack book={book} />
 
           {book.author && (
             <TitleTypography align="center" variant="body1">

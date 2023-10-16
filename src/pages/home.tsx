@@ -5,7 +5,7 @@ import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
 import { parse } from "cookie";
 import { useUserDispatch, useUserState } from "../context/context";
-import { SET_WISHLIST } from "../context/actions";
+import { SET_WISHLIST, SET_USER } from "../context/actions";
 
 interface UserProp {
   email: string;
@@ -20,7 +20,6 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ userProp }) => {
   const state = useUserState();
   const dispatch = useUserDispatch();
-  const [user, setUser] = useState<User>();
 
   const { wishList } = state;
   const { wishListIDs } = state;
@@ -30,7 +29,7 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
     try {
       const response = await fetch(`/api/user/id/${userProp.id}`);
       const data = await response.json();
-      setUser(data);
+      dispatch({ type: SET_USER, payload: data });
     } catch (error) {
       console.error(error);
     }
@@ -56,6 +55,7 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
   };
 
   useEffect(() => {
+    getUser();
     getUserWishlist();
     getWishListIds();
     // eslint-disable-next-line react-hooks/exhaustive-deps

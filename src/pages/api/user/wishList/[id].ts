@@ -21,42 +21,49 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   }
   else if (req.method === 'POST') {
-    const { book, userId, action } = req.body;
-    if (action === 'add'){
+    const { book, userId, color } = req.body;
+    if (color === 'error'){
       try {
         const newBook = await findOrCreateBookISBN({ book });
-        const newUserBook = await prisma.userBooks.create({
-          data: {
-            booksId: newBook.id,
-            userId: userId,
-            wishlist: true
-          }
-        });
+        const newUserBook = await prisma.userBooks.upsert({
+            where: {
+              userId_bookId: {
+                booksId: newBook.id,
+                userId: userId
+              }
+            },
+            create: {
+              booksId: newBook.id,
+              userId: userId,
+              wishlist: true
+            },
+            update: {
+              wishlist: true
+            }
+          });
+
         res.status(200).json(newUserBook);
       } catch (error) {
         res.status(500).json({ error: 'Failed to add book to wishlist' });
       }
     }
-    else if (action === 'remove'){
-      try {
-        const book = await prisma.userBooks.upsert({
-          where: {
-            booksId_userId: {
-              booksId: book.id,
-              userId: userId
-            }
-          },
-          update: {
-            wishlist: false
-          },
-        });
-        res.status(200).json(book);
-      } catch (error) {
-        res.status(500).json({ error: 'Failed to remove book from wishlist' });
-      }
-    }
-
-    if (action === 'add'){
+    else if (color === 'success'){
+        try {
+            await prisma.userBooks.update({
+              where: {
+                userId_bookId: {
+                  booksId: book.id,
+                  userId: userId
+                }
+              },
+              data: {
+                wishlist: false
+              }
+            });
+            res.status(200).json(book);
+          } catch (error) {
+            res.status(500).json({ error: 'Failed to remove book from wishlist' });
+          }
 
     }
     }
