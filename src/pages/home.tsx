@@ -4,7 +4,8 @@ import Box from "@mui/material/Box";
 import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
 import { parse } from "cookie";
-import { useUser } from "../context/context";
+import { useUserDispatch, useUserState } from "../context/context";
+import { SET_WISHLIST } from "../context/actions";
 
 interface UserProp {
   email: string;
@@ -17,8 +18,12 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ userProp }) => {
-  const { wishList, setWishList } = useUser();
+  const state = useUserState();
+  const dispatch = useUserDispatch();
   const [user, setUser] = useState<User>();
+
+  const { wishList } = state;
+  const { wishListIDs } = state;
 
   //delete if not needed
   const getUser = async () => {
@@ -35,8 +40,16 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
     try {
       const response = await fetch(`/api/user/wishList/${userProp.id}`);
       const data = await response.json();
-      console.log(data);
-      setWishList(data);
+      dispatch({ type: SET_WISHLIST, payload: data });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const getWishListIds = async () => {
+    try {
+      const response = await fetch(`/api/user/wishListIds/${userProp.id}`);
+      const data = await response.json();
+      dispatch({ type: SET_WISHLIST, payload: data });
     } catch (error) {
       console.error(error);
     }
@@ -44,6 +57,7 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
 
   useEffect(() => {
     getUserWishlist();
+    getWishListIds();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProp.id]);
 
@@ -66,7 +80,7 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
         />
         <ExploreBooksBox />
 
-        {wishList.length > 0 && <WishListBox books={wishListBooks} />}
+        {wishList.length > 0 && <WishListBox books={wishList} />}
       </Grid>
     </Grid>
   );
