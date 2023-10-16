@@ -9,7 +9,8 @@ import { Book } from "../book/book";
 import {
   OuterBox,
   BookBox,
-  StyledIconButton,
+  LeftIconButton,
+  RightIconButton,
 } from "./styles/exploreBooksStyle";
 
 const ExploreBooks: React.FC = () => {
@@ -88,57 +89,51 @@ const ExploreBooks: React.FC = () => {
   }, []);
   return (
     <OuterBox>
-      <StyledIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
+      <LeftIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
         <NavigateBeforeIcon />
-      </StyledIconButton>
-      <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
-        {books.map((book, index) => (
-          <BookBox
-            key={index}
-            sx={{
-              display: currentPage === index ? "block" : "none",
-            }}
-          >
-            <Slide direction={slideDirection} in={currentPage === index}>
-              <Stack
-                spacing={2}
-                direction="row"
-                maxWidth="100%"
-                maxHeight="100%"
-                alignContent="center"
-                justifyContent="center"
-              >
-                {books
-                  .slice(
-                    index * booksPerPage,
-                    index * booksPerPage + booksPerPage
-                  )
-                  .map((book: Book) => (
-                    <Box key={book.id || book.title}>
-                      <Book
-                        book={book}
-                        onClick={() => handleBookClick(book)}
-                        // onClose={handleBigBookClose}
-                        // showBigBook={showBigBook && book === selectedBook}
-                        // bigBookPosition={bigBookPosition}
-                        // nearMeBooks={nearMeBooks}
-                      />
-                    </Box>
-                  ))}
-              </Stack>
-            </Slide>
-          </BookBox>
-        ))}
-      </Box>
-
-      <StyledIconButton
+      </LeftIconButton>
+      {books.map((book, index) => (
+        <BookBox
+          key={index}
+          sx={{
+            display: currentPage === index ? "block" : "none",
+          }}
+        >
+          <Slide direction={slideDirection} in={currentPage === index}>
+            <Stack
+              spacing={2}
+              direction="row"
+              maxWidth="100%"
+              maxHeight="100%"
+              alignContent="center"
+              justifyContent="center"
+            >
+              {books
+                .slice(
+                  index * booksPerPage,
+                  index * booksPerPage + booksPerPage
+                )
+                .map((book: Book) => (
+                  <Box key={book.id || book.title}>
+                    <Book
+                      book={book}
+                      onClick={() => handleBookClick(book)}
+                      // nearMeBooks={nearMeBooks}
+                    />
+                  </Box>
+                ))}
+            </Stack>
+          </Slide>
+        </BookBox>
+      ))}
+      <RightIconButton
         onClick={handleNextPage}
         disabled={
           currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
         }
       >
         <NavigateNextIcon />
-      </StyledIconButton>
+      </RightIconButton>
       <BigBook
         book={selectedBook}
         open={!!selectedBook}

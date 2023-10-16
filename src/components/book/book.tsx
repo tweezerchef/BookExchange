@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Typography from "@mui/material/Typography";
 import {
   StyledBookCard,
   ImageBox,
@@ -9,6 +10,7 @@ import {
 } from "./bookStyles";
 import { StarRating } from "./starRating";
 import { ButtonStack } from "./bookButtons/buttonStack";
+import React from "react";
 interface BookProps {
   book: Book;
   onClick: () => void;
@@ -39,9 +41,14 @@ export const Book: React.FC<BookProps> = ({ book, onClick }) => (
       </SideOfImageBox>
     </TopContainer>
     <ContentContainer>
-      <TitleTypography align="center" variant="body1">
+      <Typography
+        align="center"
+        justifySelf="center"
+        variant="body1"
+        margin="1"
+      >
         {book.title}
-      </TitleTypography>
+      </Typography>
     </ContentContainer>
   </StyledBookCard>
 );

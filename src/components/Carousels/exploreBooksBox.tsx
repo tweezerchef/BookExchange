@@ -12,9 +12,7 @@ export default function ExploreBooksBox() {
       <StyledDivider textAlign="right">
         <Chip label="Explore Books" />
       </StyledDivider>
-      <Box overflow="hidden">
-        <ExploreBooks />
-      </Box>
+      <ExploreBooks />
     </>
   );
 }

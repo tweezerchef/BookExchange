@@ -7,7 +7,7 @@ import Dialog from "@mui/material/Dialog";
     export const StyledBookCard = styled(Card)`
       width: 18vw;
       height: 20vw;
-      min-height: 170px;
+      min-height: 200px;
       max-height: 250px;
       min-width: 220px;
       max-width: 250px;
@@ -58,9 +58,11 @@ import Dialog from "@mui/material/Dialog";
       flex-direction: column;
       justify-content: center; // Vertically center the content
       align-items: center;     // Horizontally center the content
+      justify-items: center;
       width: 100%;
       height: auto;            // Take up the remaining space
       text-align: center;      // Center the text
+      text-justify: center;
     `;
 
     export const TitleTypography = styled(Typography)`
@@ -70,27 +72,26 @@ import Dialog from "@mui/material/Dialog";
     line-height: 1.2em; // Or whatever line height you want
     /* padding: 0 5px; // Add some padding to prevent text touching the edges */
   `;
-  export const CenteredModal = styled(Dialog)`
-  && {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent; // Ensure the Dialog's background is transparent
-    .MuiDialog-paper {
-      background-color: white;
-      border-radius: 4px;
-      height: 80vh;
-      width: 80vw;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      overflow-y: unset;
-      margin: 0;
-      max-width: fit-content;
-      box-shadow: none;
+    export const CenteredModal = styled(Dialog)`
+    && {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent; // Ensure the Dialog's background is transparent
+      .MuiDialog-paper {
+        background-color: white;
+        border-radius: 4px;
+        height: 80vh;
+        width: 80vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        overflow-y: auto;
+        margin: 0;
+        max-width: fit-content;
+        box-shadow: none;
+      }
     }
-  }
 `;
 
 
