@@ -194,7 +194,7 @@ export const findUserByIdDetailed = async (id) => {
                     select: {
                       id: true,
                       wishlist: true,
-                      owned: true,
+                      lendingLibrary:  true,
                       booksId: true,
                       userId: true,
                       rating: true,

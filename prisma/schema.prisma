@@ -105,7 +105,7 @@ model UserPictures {
 model UserBooks {
   id            String          @id @default(uuid())
   wishlist      Boolean         @default(false)
-  owned         Boolean         @default(false)
+  lendingLibrary         Boolean         @default(false)
   booksId       String
   userId        String
   rating        Float?

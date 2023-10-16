@@ -77,7 +77,7 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      userProp: userProp, // Pass the parsed user object as a prop
+      userProp: userProp,
     },
   };
 };
