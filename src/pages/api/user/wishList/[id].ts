@@ -18,6 +18,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch wishlist' });
     }
+    finally{
+      await prisma.$disconnect();
+    }
 
   }
   else if (req.method === 'POST') {
@@ -46,6 +49,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       } catch (error) {
         res.status(500).json({ error: 'Failed to add book to wishlist' });
       }
+      finally{
+        await prisma.$disconnect();
+      }
     }
     else if (color === 'success'){
         try {
@@ -64,7 +70,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           } catch (error) {
             res.status(500).json({ error: 'Failed to remove book from wishlist' });
           }
-
+          finally{
+            await prisma.$disconnect();
+          }
     }
     }
   else {

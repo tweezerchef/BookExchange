@@ -66,7 +66,7 @@ model Books {
   Genre       Genre[]
   Posts       Posts[]
   UserBooks   UserBooks[]
-  }
+}
 
 model BookAccess {
   id           String  @id @default(uuid())
@@ -103,19 +103,19 @@ model UserPictures {
 }
 
 model UserBooks {
-  id            String          @id @default(uuid())
-  wishlist      Boolean         @default(false)
-  lendingLibrary         Boolean         @default(false)
-  booksId       String
-  userId        String
-  rating        Float?
-  review        String?
-  read          Boolean         @default(false)
-  reading       Boolean         @default(false)
-  LendingTable  LendingTable[]
-  UserBookNotes UserBookNotes[]
-  Books         Books           @relation(fields: [booksId], references: [id])
-  User          User            @relation(fields: [userId], references: [id])
+  id             String          @id @default(uuid())
+  wishlist       Boolean         @default(false)
+  lendingLibrary Boolean         @default(false)
+  booksId        String
+  userId         String
+  rating         Float?
+  review         String?
+  read           Boolean         @default(false)
+  reading        Boolean         @default(false)
+  LendingTable   LendingTable[]
+  UserBookNotes  UserBookNotes[]
+  Books          Books           @relation(fields: [booksId], references: [id])
+  User           User            @relation(fields: [userId], references: [id])
 
   @@unique([userId, booksId], name: "userId_bookId")
 }
@@ -208,10 +208,10 @@ model DirectMessages {
 }
 
 model Genre {
-  id      String   @id @default(uuid())
+  id      String @id @default(uuid())
   booksId String
   genre   String
-  Books   Books    @relation(fields: [booksId], references: [id])
+  Books   Books  @relation(fields: [booksId], references: [id])
 }
 
 model bookdata {

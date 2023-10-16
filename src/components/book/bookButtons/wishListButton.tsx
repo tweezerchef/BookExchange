@@ -55,6 +55,7 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
       setColor("error" as CustomColor);
       setToolTip(<h1>Add to Wishlist</h1>);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

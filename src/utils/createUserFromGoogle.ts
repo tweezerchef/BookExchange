@@ -2,6 +2,7 @@ import prisma from './prismaClient';
 
 
 export const createUserFromGoogle = async ({ profile }) => {
+  try {
     return prisma.user.create({
         data: {
             firstName: profile.given_name ?? '',
@@ -10,4 +11,10 @@ export const createUserFromGoogle = async ({ profile }) => {
             picture: profile.picture ?? '',
           },
         });
-};
+} catch (error) {
+    console.log(error)
+  }
+  finally{
+    await prisma.$disconnect();
+  }
+}

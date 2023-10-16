@@ -4,6 +4,7 @@ import LendingLibraryButton from '../components/book/bookButtons/lendingLibraryB
 
 export const findUserByEmailDetailed = async (email) => {
     email = email.email
+    try{
     console.log(email)
     return await prisma.user.findUnique({
         where: {
@@ -108,8 +109,16 @@ export const findUserByEmailDetailed = async (email) => {
           },
         });
 }
+catch (error) {
+    console.log(error)
+  }
+  finally{
+    await prisma.$disconnect();
+  }
+}
 
 export const findUserByIdDetailed = async (id) => {
+  try{
   console.log('id'+ id)
   return await prisma.user.findUnique({
       where: {
@@ -213,4 +222,10 @@ export const findUserByIdDetailed = async (id) => {
           },
         },
       });
+} catch (error) {
+  console.log(error)
+}
+finally{
+  await prisma.$disconnect();
+}
 }

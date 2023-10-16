@@ -6,6 +6,7 @@ export const findOrCreateBookISBN = async ({ book }) => {
         title, ISBN10, author, image, description, subTitle, pubDate, pageCount, genre, buyLink, viewAbility, rating, content, mainGenre,
       } = book;
     let newBook: Books = null;
+    try {
     newBook = await prisma.books.findUnique({
         where: { ISBN10 },
         select: {
@@ -92,4 +93,10 @@ export const findOrCreateBookISBN = async ({ book }) => {
         });
     }
     return newBook;
-};
+} catch (error) {
+    console.log(error)
+  }
+  finally{
+    await prisma.$disconnect();
+  }
+}
