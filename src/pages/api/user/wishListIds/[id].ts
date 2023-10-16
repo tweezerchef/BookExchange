@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const userId: string = req.query.id as string;
 
         try {
-        const userBookIds = await prisma.userBooks.findMany({
+        const userBookIDs = await prisma.userBooks.findMany({
             where: {
             userId: userId,
             wishlist: true
@@ -15,8 +15,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 booksId: true
             }
         });
-
-        res.status(200).json(userBookIds);
+       const bookIds = userBookIDs.map((book) => (book.booksId))
+        console.log('api' + bookIds)
+        res.status(200).json(bookIds);
         } catch (error) {
         res.status(500).json({ error: 'Failed to fetch wishlist' });
         }

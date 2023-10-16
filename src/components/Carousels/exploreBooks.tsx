@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import Box from "@mui/material/Box";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
@@ -13,15 +13,13 @@ import {
   RightIconButton,
 } from "./styles/exploreBooksStyle";
 
-const ExploreBooks: React.FC = () => {
+const ExploreBooksComponent: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
   const [books, setBooks] = useState<Book[]>([]);
   const [searchText, setSearchText] = useState("");
-  const [showBigBook, setShowBigBook] = useState(false);
-  const [bigBookPosition, setBigBookPosition] = useState({ top: 0, left: 0 });
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
@@ -62,7 +60,6 @@ const ExploreBooks: React.FC = () => {
     fetch("/api/bookDB/randomBooks")
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setBooks(data);
       })
       .catch((error) => {
@@ -143,4 +140,4 @@ const ExploreBooks: React.FC = () => {
   );
 };
 
-export default ExploreBooks;
+export const ExploreBooks = memo(ExploreBooksComponent);

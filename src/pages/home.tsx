@@ -5,7 +5,7 @@ import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
 import { parse } from "cookie";
 import { useUserDispatch, useUserState } from "../context/context";
-import { SET_WISHLIST, SET_USER } from "../context/actions";
+import { SET_WISHLIST, SET_USER, SET_WISHLIST_IDS } from "../context/actions";
 
 interface UserProp {
   email: string;
@@ -48,7 +48,8 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
     try {
       const response = await fetch(`/api/user/wishListIds/${userProp.id}`);
       const data = await response.json();
-      dispatch({ type: SET_WISHLIST, payload: data });
+      console.log(data);
+      dispatch({ type: SET_WISHLIST_IDS, payload: data });
     } catch (error) {
       console.error(error);
     }

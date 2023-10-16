@@ -28,24 +28,22 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
 
   const addToWishlist = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
+    const currentColor = color;
+    if (color === "success") {
+      setColor("error" as CustomColor);
+      setToolTip(<h1>Add to Wishlist</h1>);
+    } else {
+      setColor("success" as CustomColor);
+      setToolTip(<h1>Remove from Wishlist</h1>);
+    }
 
     const newUserBook = await fetch(`/api/user/wishList/${bookID}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ color: color, book: book, userId: userID }),
+      body: JSON.stringify({ color: currentColor, book: book, userId: userID }),
     });
-    console.log(newUserBook);
-    if (color === "success") {
-      //   setIsWishListed(false);
-      setColor("error" as CustomColor);
-      setToolTip(<h1>Add to Wishlist</h1>);
-    } else {
-      //   setIsWishListed(true);
-      setColor("success" as CustomColor);
-      setToolTip(<h1>Remove from Wishlist</h1>);
-    }
   };
   useEffect(() => {
     if (isInWishList) {
