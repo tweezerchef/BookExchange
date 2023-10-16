@@ -5,9 +5,11 @@ import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
 import { parse } from "cookie";
 
-const Home: React.FC = () => {
+const Home: React.FC<{ user: string }> = ({ user }) => {
   const [wishListBooks, setWishListBooks] = useState([]);
-
+  //write a function that logs "user" from local storage
+  // const user = localStorage.getItem("user");
+  console.log(user);
   return (
     <Grid container maxWidth="1500px">
       <Grid xs={2}>
@@ -49,7 +51,9 @@ export const getServerSideProps = async (context) => {
 
   // If there's a user cookie, continue to render the home page
   return {
-    props: {}, // you can pass some props to the page component if needed
+    props: {
+      user: userCookie, // Pass the userCookie as a prop
+    },
   };
 };
 

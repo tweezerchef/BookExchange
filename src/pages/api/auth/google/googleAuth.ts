@@ -82,6 +82,8 @@ router.get((req, res, next) => {
             username: user.username,
           },
         });
+        // write a function that stores user in local storage
+        // localStorage.setItem("user", JSON.stringify(user));
         res.setHeader("Set-Cookie", cookie);
         res.writeHead(302, { Location: '/home' });
         res.end();

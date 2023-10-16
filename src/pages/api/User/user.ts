@@ -2,7 +2,7 @@ import { findUserByEmailDetailed } from '../../../utils/userService';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
-    const { email } = req.query;
+    const email: string = req.query.email as string;
     try {
       const user = await findUserByEmailDetailed(email);
       res.status(200).json(user);

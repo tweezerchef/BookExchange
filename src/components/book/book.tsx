@@ -25,7 +25,7 @@ export const Book: React.FC<BookProps> = ({ book, onClick }) => (
           src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
           alt="Book Cover"
           fill={true}
-          objectFit="cover"
+          quality={100}
         />
       </ImageBox>
       <SideOfImageBox>
