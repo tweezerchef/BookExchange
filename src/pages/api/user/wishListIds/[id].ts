@@ -16,7 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         });
        const bookIds = userBookIDs.map((book) => (book.booksId))
-        console.log('api' + bookIds)
         res.status(200).json(bookIds);
         } catch (error) {
         res.status(500).json({ error: 'Failed to fetch wishlist' });

@@ -7,14 +7,14 @@ type WishListProps = {
   books: Book[];
 };
 
-const wishListBox: React.FC<WishListProps> = ({ books }) => {
+const wishListBox: React.FC = () => {
   return (
     <>
       <Divider textAlign="right">
         <Chip label="Your Wish List" />
       </Divider>
       <Box overflow="hidden">
-        <WishList books={books} />
+        <WishList />
       </Box>
     </>
   );

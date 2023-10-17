@@ -1,20 +1,49 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../../utils/prismaClient';
 import { findOrCreateBookISBN } from '../../../../utils/books/findOrCreateBookISBN';
+//try to work on this
+import { ALL_USERBOOK_RELATIONS } from '../../../../utils/allRelations';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
     const userId = req.query.id as string;
-
     try {
       const userBooks = await prisma.userBooks.findMany({
         where: {
           userId: userId,
           wishlist: true
-        }
+        },
+        include: {
+        Books: {
+              select: {
+                  id: true,
+                  title: true,
+                  author: true,
+                  ISBN10: true,
+                  description: true,
+                  image: true,
+                  UserBooks: {
+                      select: {
+                          id: true,
+                          wishlist: true,
+                          lendingLibrary: true,
+                          booksId: true,
+                          userId: true,
+                          rating: true,
+                          review: true,
+                          LendingTable: true,
+                          User: true,
+                      },
+                  },
+                  Discussions: true,
+                  Activity: true,
+              },
+          },
+      }
       });
-
-      res.status(200).json(userBooks);
+      //correct the type of userBooksArray
+      const userBooksArray = userBooks.map((userBook) => (userBook.Books))
+      res.status(200).json(userBooksArray);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch wishlist' });
     }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import WishListBox from "../components/Carousels/wistListBox";
@@ -22,8 +22,6 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
   const dispatch = useUserDispatch();
 
   const { wishList } = state;
-  const { wishListIDs } = state;
-
   //delete if not needed
   const getUser = async () => {
     try {
@@ -48,7 +46,6 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
     try {
       const response = await fetch(`/api/user/wishListIds/${userProp.id}`);
       const data = await response.json();
-      console.log(data);
       dispatch({ type: SET_WISHLIST_IDS, payload: data });
     } catch (error) {
       console.error(error);
@@ -56,11 +53,13 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
   };
 
   useEffect(() => {
-    getUser();
-    getUserWishlist();
-    getWishListIds();
+    if (typeof window !== "undefined") {
+      getUser();
+      getUserWishlist();
+      getWishListIds();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userProp.id]);
+  }, [userProp]);
 
   return (
     <Grid container maxWidth="1500px">
@@ -80,8 +79,7 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
           }}
         />
         <ExploreBooksBox />
-
-        {wishList.length > 0 && <WishListBox books={wishList} />}
+        <WishListBox books={wishList} />
       </Grid>
     </Grid>
   );

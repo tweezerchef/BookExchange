@@ -84,6 +84,7 @@ const ExploreBooksComponent: React.FC = () => {
   useEffect(() => {
     getRandomBooks();
   }, []);
+
   return (
     <OuterBox>
       <LeftIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
