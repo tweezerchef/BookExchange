@@ -12,6 +12,7 @@ interface UserState {
   wishList?: any[]; // Replace any with the appropriate type
   wishListIDs?: any[]; // Replace any with the appropriate type
   lendingLibrary?: any[]; // Replace any with the appropriate type
+  lendingLibraryIDs?: any[]; // Replace any with the appropriate type
   userBooks?: any[]; // Replace any with the appropriate type
   userBooksIDs?: any[]; // Replace any with the appropriate type
   user: any;

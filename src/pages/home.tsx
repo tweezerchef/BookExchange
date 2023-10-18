@@ -21,13 +21,11 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
   const state = useUserState();
   const dispatch = useUserDispatch();
 
-  const { wishList } = state;
-  //delete if not needed
   const getUser = async () => {
     try {
       const response = await fetch(`/api/user/id/${userProp.id}`);
-      const data = await response.json();
-      dispatch({ type: SET_USER, payload: data });
+      const user = await response.json();
+      dispatch({ type: SET_USER, payload: user });
     } catch (error) {
       console.error(error);
     }
@@ -44,7 +42,7 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
   };
   const getWishListIds = async () => {
     try {
-      const response = await fetch(`/api/user/wishListIds/${userProp.id}`);
+      const response = await fetch(`/api/user/wishListIDs/${userProp.id}`);
       const data = await response.json();
       dispatch({ type: SET_WISHLIST_IDS, payload: data });
     } catch (error) {
