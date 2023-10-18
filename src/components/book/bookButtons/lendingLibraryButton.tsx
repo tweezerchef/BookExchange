@@ -54,7 +54,7 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
       //on server side call
       dispatch({
         type: SET_LENDING_LIBRARY_IDS,
-        payload: [...state.lendingLibraryIDs, book.id],
+        payload: [...state.lendingLibraryIDs, bookID],
       });
       dispatch({
         type: SET_LENDING_LIBRARY,
@@ -77,15 +77,15 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
       // If the server request fails, revert the local state
       if (color === "success") {
         setColor("error" as CustomColor);
-        setToolTip(<h1>Remove from Wishlist</h1>);
+        setToolTip(<h1>Remove from Lending Library</h1>);
         // Add the book back to the wishlist locally
         dispatch({
           type: SET_LENDING_LIBRARY_IDS,
-          payload: [...state.wishList, book.id],
+          payload: [...state.lendingLibraryIDs, book.id],
         });
       } else {
         setColor("success" as CustomColor);
-        setToolTip(<h1>Add to Wishlist</h1>);
+        setToolTip(<h1>Add to Lending Library</h1>);
         // Remove the book from the wishlist locally
         dispatch({
           type: SET_LENDING_LIBRARY_IDS,
@@ -95,21 +95,22 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
     }
   };
   useEffect(() => {
+    console.log(lendingLibraryIDs);
     if (isInLendingLibrary) {
       setColor("success" as CustomColor);
-      setToolTip(<h1>Remove from Wishlist</h1>);
+      setToolTip(<h1>Remove from Lending Library</h1>);
     } else {
       setColor("error" as CustomColor);
-      setToolTip(<h1>Add to Wishlist</h1>);
+      setToolTip(<h1>Add to Lending Library</h1>);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Tooltip title={toolTip} placement="top-end">
+    <Tooltip title={toolTip} placement='top-end'>
       <IconButton
-        aria-label="Lending Library"
-        size="small"
+        aria-label='Lending Library'
+        size='small'
         color={color === "danger" ? "error" : color}
         onClick={lendingLibraryAction}
       >

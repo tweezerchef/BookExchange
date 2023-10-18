@@ -9,7 +9,7 @@ function userReducer(state, action) {
     case SET_LENDING_LIBRARY:
       return { ...state, lendingLibrary: action.payload };
       case SET_LENDING_LIBRARY_IDS:
-        return { ...state, lendingLibrary: action.payload };
+        return { ...state, lendingLibraryIDs: action.payload };
     case SET_USER_BOOKS:
       return { ...state, userBooks: action.payload };
     case SET_USER_BOOKS_IDS:

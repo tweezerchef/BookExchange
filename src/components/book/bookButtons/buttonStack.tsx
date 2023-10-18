@@ -6,8 +6,8 @@ interface ButtonStackProps {
   book: Book;
 }
 export const ButtonStack: React.FC<ButtonStackProps> = ({ book }) => (
-  <Stack direction="row" spacing={2}>
-    <LendingLibraryButton />
+  <Stack direction='row' spacing={2}>
+    <LendingLibraryButton book={book} />
     <WishListButton book={book} />
   </Stack>
 );

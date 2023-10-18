@@ -3,6 +3,7 @@ import reducer from "./reducer";
 import {
   SET_WISHLIST,
   SET_LENDING_LIBRARY,
+  SET_LENDING_LIBRARY_IDS,
   SET_USER_BOOKS,
   SET_USER_BOOKS_IDS,
   SET_WISHLIST_IDS,
@@ -43,6 +44,7 @@ export const UserProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     wishList: [],
     lendingLibrary: [],
+    lendingLibraryIDs: [],
     userBooks: [],
     userBooksIDs: [],
     wishListIDs: [],

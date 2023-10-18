@@ -21,16 +21,13 @@ export const Book: React.FC<BookProps> = ({ book, onClick }) => {
   const state = useUserState();
   const dispatch = useUserDispatch();
 
-  const { wishList } = state;
-  const { wishListIDs } = state;
-
   return (
     <StyledBookCard>
       <TopContainer>
         <ImageBox onClick={onClick}>
           <Image
             src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
-            alt="Book Cover"
+            alt='Book Cover'
             fill={true}
             quality={100}
           />
@@ -40,7 +37,7 @@ export const Book: React.FC<BookProps> = ({ book, onClick }) => {
           <ButtonStack book={book} />
 
           {book.author && (
-            <TitleTypography align="center" variant="body1">
+            <TitleTypography align='center' variant='body1'>
               Written By: <br />
               {book.author}
             </TitleTypography>
@@ -49,10 +46,10 @@ export const Book: React.FC<BookProps> = ({ book, onClick }) => {
       </TopContainer>
       <ContentContainer>
         <Typography
-          align="center"
-          justifySelf="center"
-          variant="body1"
-          margin="1"
+          align='center'
+          justifySelf='center'
+          variant='body1'
+          margin='1'
         >
           {book.title}
         </Typography>

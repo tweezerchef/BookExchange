@@ -1,6 +1,6 @@
 import { findUserByIdDetailed } from "../../../../utils/userService";
 
-export default async function handler(req, res) {
+export default async function handler(req: { method: string; query: { id: string; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; }) {
   if (req.method === "GET") {
     const id: string = req.query.id as string;
     try {
