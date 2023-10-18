@@ -1,22 +1,22 @@
 interface Book {
-    books: {
-        id: string;
-        title: string;
-        author: string;
-        image: string;
-      }
-      description: string;
-      author: string;
-      UserBooks: UserBook[];
-      id: string;
-      wishlist: boolean;
-      owned: boolean;
-      image: string;
-      title: string;
+  books: {
+    id: string;
+    title: string;
+    author: string;
+    image: string;
+  };
+  description: string;
+  author: string;
+  UserBooks: UserBook[];
+  id: string;
+  wishlist: boolean;
+  owned: boolean;
+  image: string;
+  title: string;
 }
 namespace React {
   interface ChildrenProps {
-      children: React.ReactNode;
+    children: React.ReactNode;
   }
 }
 
@@ -41,7 +41,7 @@ interface User {
   Discussion: Discussions[];
   DiscussionUsers: DiscussionUsers[];
   friendships: Friendship[];
-  friends: Friendship[]
+  friends: Friendship[];
   LendingTable: LendingTable[];
   Notifications: Notifications[];
   Posts: Posts[];
