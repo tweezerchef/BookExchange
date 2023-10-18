@@ -79,7 +79,7 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
           }}
         />
         <ExploreBooksBox />
-        <WishListBox books={wishList} />
+        <WishListBox />
       </Grid>
     </Grid>
   );
