@@ -83,7 +83,9 @@ const Home: React.FC<HomeProps> = ({ userProp }) => {
   );
 };
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context: {
+  req: { headers: { cookie: any } };
+}) => {
   // Extract the user cookie from the request headers
   const cookies = context.req.headers.cookie;
   const userCookie = cookies && parse(cookies).user;
