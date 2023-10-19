@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { useUserDispatch, useUserState } from "../../../context/context";
 import { SET_WISHLIST, SET_WISHLIST_IDS } from "../../../context/actions";
+import useSWR, { mutate } from "swr"; // Import useSWR and mutate from SWR
 
 interface WishListButtonProps {
   book: Book;
@@ -16,7 +17,6 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
   const dispatch = useUserDispatch();
 
   const [color, setColor] = useState<CustomColor>("danger");
-  //work on this later
   const [toolTip, setToolTip] = useState<NonNullable<React.ReactNode>>(
     <h1>Add to Wishlist</h1>
   );
@@ -27,6 +27,16 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
   const bookID = book?.id;
 
   const isInWishList = wishListIDs?.includes(bookID);
+
+  useEffect(() => {
+    if (isInWishList) {
+      setColor("success" as CustomColor);
+      setToolTip(<h1>Remove from Wishlist</h1>);
+    } else {
+      setColor("error" as CustomColor);
+      setToolTip(<h1>Add to Wishlist</h1>);
+    }
+  }, [isInWishList]); // Watch for changes in isInWishList
 
   const wishListAction = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
@@ -46,13 +56,14 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
       setColor("success" as CustomColor);
       setToolTip(<h1>Remove from Wishlist</h1>);
       dispatch({ type: SET_WISHLIST, payload: [...state.wishList, book] });
-      //there might be an issue here when the book is directly from google books potentially fix
-      //on server side call
+      // There might be an issue here when the book is directly from google books, potentially fix
+      // On the server-side call
       dispatch({
         type: SET_WISHLIST_IDS,
         payload: [...state.wishListIDs, book.id],
       });
     }
+
     try {
       await fetch(`/api/user/wishList/${bookID}`, {
         method: "POST",
@@ -65,6 +76,9 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
           userId: userID,
         }),
       });
+
+      // Use mutate to send the updated data to the server without fetching new data
+      mutate(`/api/user/wishList/${userID}`);
     } catch (error) {
       // If the server request fails, revert the local state
       if (color === "success") {
@@ -99,10 +113,10 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
   }, []);
 
   return (
-    <Tooltip title={toolTip} placement="top-end">
+    <Tooltip title={toolTip} placement='top-end'>
       <IconButton
-        aria-label="Lending Library"
-        size="small"
+        aria-label='add to wishlist'
+        size='small'
         color={color === "danger" ? "error" : color}
         onClick={wishListAction}
       >

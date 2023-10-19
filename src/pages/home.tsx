@@ -1,4 +1,5 @@
 import { useEffect, useState, useCallback, memo } from "react";
+import useSWR, { SWRConfig } from "swr";
 import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import WishListBox from "../components/Carousels/wistListBox";
@@ -12,14 +13,14 @@ import {
 } from "../context/actions";
 import { parse } from "cookie";
 
-interface UserProp {
+interface UserData {
   email: string;
   id: string;
   username: string | null;
 }
 
 interface HomeProps {
-  user: UserProp;
+  user: UserData;
   wishlistData: any;
   wishlistIdsData: any;
   lendingLibraryIdsData: any;
@@ -28,33 +29,40 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = memo(
   ({ user, wishlistData, wishlistIdsData, lendingLibraryIdsData }) => {
     const [isLoading, setIsLoading] = useState(true);
-
     const dispatch = useUserDispatch();
 
-    const fetchUpdatedData = useCallback(async () => {
-      try {
-        const updatedWishlistResponse = await fetch(
-          `/api/user/wishList/${user.id}`
-        );
-        const updatedWishlist = await updatedWishlistResponse.json();
-        dispatch({ type: SET_WISHLIST, payload: updatedWishlist });
+    // Define a fetcher function for SWR
+    const fetcher = async (url) => {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    };
 
-        const updatedLendingLibraryIDs = await fetch(
-          `/api/user/lendingLibraryIDs/${user.id}`
-        );
-        const updatedLendingLibraryIDsData =
-          await updatedLendingLibraryIDs.json();
+    // Use SWR to fetch updated wishlist data
+    const { data: updatedWishlist } = useSWR(
+      `/api/user/wishList/${user.id}`,
+      fetcher
+    );
+
+    // Use SWR to fetch updated lending library data
+    const { data: updatedLendingLibraryIDs } = useSWR(
+      `/api/user/lendingLibraryIDs/${user.id}`,
+      fetcher
+    );
+
+    // Handle data loading and errors
+    useEffect(() => {
+      if (updatedWishlist && updatedLendingLibraryIDs) {
+        dispatch({ type: SET_WISHLIST, payload: updatedWishlist });
         dispatch({
           type: SET_LENDING_LIBRARY_IDS,
-          payload: updatedLendingLibraryIDsData,
+          payload: updatedLendingLibraryIDs,
         });
-
         setIsLoading(false);
-      } catch (error) {
-        handleError(error);
       }
-    }, [dispatch, user.id]);
+    }, [dispatch, updatedWishlist, updatedLendingLibraryIDs]);
 
+    // Fetch user data initially (you can use SWR here too if needed)
     useEffect(() => {
       dispatch({ type: SET_USER, payload: user });
       dispatch({ type: SET_WISHLIST, payload: wishlistData });
@@ -65,11 +73,8 @@ const Home: React.FC<HomeProps> = memo(
       });
     }, [dispatch, user, wishlistData, wishlistIdsData, lendingLibraryIdsData]);
 
-    useEffect(() => {
-      fetchUpdatedData();
-    }, [fetchUpdatedData]);
-
-    const handleError = useCallback((error) => {
+    // Your existing handleError function for error handling
+    const handleError = useCallback((error: any) => {
       console.error(error);
       // Additional error handling logic
     }, []);
@@ -79,26 +84,28 @@ const Home: React.FC<HomeProps> = memo(
     }
 
     return (
-      <Grid container maxWidth='1500px'>
-        <Grid xs={2}>
-          <h1>Yo</h1>
+      <SWRConfig value={{ onError: handleError }}>
+        <Grid container maxWidth='1500px'>
+          <Grid xs={2}>
+            <h1>Yo</h1>
+          </Grid>
+          <Grid xs={10} minWidth='1000px'>
+            <Box
+              sx={{
+                width: "100%",
+                height: "200px",
+                backgroundImage:
+                  "url(https://nobe.s3.us-east-2.amazonaws.com/TopBanner.png)",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                marginBottom: "24px",
+              }}
+            />
+            <ExploreBooksBox />
+            <WishListBox />
+          </Grid>
         </Grid>
-        <Grid xs={10} minWidth='1000px'>
-          <Box
-            sx={{
-              width: "100%",
-              height: "200px",
-              backgroundImage:
-                "url(https://nobe.s3.us-east-2.amazonaws.com/TopBanner.png)",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              marginBottom: "24px",
-            }}
-          />
-          <ExploreBooksBox />
-          <WishListBox />
-        </Grid>
-      </Grid>
+      </SWRConfig>
     );
   }
 );
