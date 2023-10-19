@@ -2,7 +2,7 @@ import { ThemeOptions, createTheme } from '@mui/material/styles';
 
 export const themeOptions: ThemeOptions = {
   palette: {
-    mode: 'light',
+    // mode: 'light',
     primary: {
       main: '#3f51b5',
     },
@@ -10,11 +10,12 @@ export const themeOptions: ThemeOptions = {
       main: '#f50057',
     },
     background: {
-      default: '#f5f5f5',
+      default: '#cfcf10f1',
       paper: 'rgba(215,240,255,0.24)',
     },
   },
-  components: {
+
+    components: {
     MuiList: {
       defaultProps: {
         dense: true,
