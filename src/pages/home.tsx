@@ -4,7 +4,7 @@ import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
-import { useUserDispatch, useUserState } from "../context/context";
+import { useUserDispatch } from "../context/context";
 import {
   SET_USER,
   SET_WISHLIST,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
@@ -62,7 +62,7 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
 
       mutate(`/api/user/wishList/${userID}`);
     } catch (error) {
-      // Handle errors here if needed
+      console.error(error);
     }
   };
 
