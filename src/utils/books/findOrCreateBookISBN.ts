@@ -52,7 +52,7 @@ export const findOrCreateBookISBN = async ({ book }) => {
             lendingLibrary: true,
             booksId: true,
             userId: true,
-            rating: true,
+            starRating: true,
             review: true,
             LendingTable: true,
             Books: {
@@ -70,7 +70,7 @@ export const findOrCreateBookISBN = async ({ book }) => {
                     lendingLibrary: true,
                     booksId: true,
                     userId: true,
-                    rating: true,
+                    starRating: true,
                     review: true,
                     LendingTable: true,
                     User: true,

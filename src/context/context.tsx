@@ -7,6 +7,7 @@ import {
   SET_USER_BOOKS,
   SET_USER_BOOKS_IDS,
   SET_WISHLIST_IDS,
+  SET_STAR_RATINGS,
 } from "./actions";
 
 interface UserState {
@@ -16,6 +17,7 @@ interface UserState {
   lendingLibraryIDs?: any[]; // Replace any with the appropriate type
   userBooks?: any[]; // Replace any with the appropriate type
   userBooksIDs?: any[]; // Replace any with the appropriate type
+  starRatings?: any[]; // Replace any with the appropriate type
   user: any;
 }
 
@@ -48,6 +50,7 @@ export const UserProvider = ({ children }) => {
     userBooks: [],
     userBooksIDs: [],
     wishListIDs: [],
+    starRatings: [],
     user: {},
   });
 

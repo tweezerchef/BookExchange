@@ -10,6 +10,7 @@ import {
   SET_WISHLIST,
   SET_WISHLIST_IDS,
   SET_LENDING_LIBRARY_IDS,
+  SET_STAR_RATINGS,
 } from "../context/actions";
 import { parse } from "cookie";
 
@@ -24,46 +25,71 @@ interface HomeProps {
   wishlistData: any;
   wishlistIdsData: any;
   lendingLibraryIdsData: any;
+  starRatingData: any;
 }
 
 const Home: React.FC<HomeProps> = memo(
-  ({ user, wishlistData, wishlistIdsData, lendingLibraryIdsData }) => {
+  ({
+    user,
+    wishlistData,
+    wishlistIdsData,
+    lendingLibraryIdsData,
+    starRatingData,
+  }) => {
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useUserDispatch();
 
     // Define a fetcher function for SWR
-    const fetcher = async (url) => {
+    const fetcher = async (url: RequestInfo | URL) => {
       const response = await fetch(url);
       const data = await response.json();
       return data;
     };
 
-    // Use SWR to fetch updated wishlist data
     const { data: updatedWishlist } = useSWR(
       `/api/user/wishList/${user.id}`,
       fetcher
     );
-
-    // Use SWR to fetch updated lending library data
+    const { data: updatedWishlistIDs } = useSWR(
+      `/api/user/wishListIDs/${user.id}`,
+      fetcher
+    );
+    const { data: updatedStarRatings } = useSWR(
+      `/api/user/starRating/${user.id}`,
+      fetcher
+    );
     const { data: updatedLendingLibraryIDs } = useSWR(
       `/api/user/lendingLibraryIDs/${user.id}`,
       fetcher
     );
 
-    // Handle data loading and errors
     useEffect(() => {
-      if (updatedWishlist && updatedLendingLibraryIDs) {
+      if (
+        updatedWishlist &&
+        updatedLendingLibraryIDs &&
+        updatedWishlistIDs &&
+        updatedStarRatings
+      ) {
         dispatch({ type: SET_WISHLIST, payload: updatedWishlist });
         dispatch({
           type: SET_LENDING_LIBRARY_IDS,
           payload: updatedLendingLibraryIDs,
         });
+        dispatch({ type: SET_WISHLIST_IDS, payload: updatedWishlistIDs });
+        dispatch({ type: SET_STAR_RATINGS, payload: updatedStarRatings });
         setIsLoading(false);
       }
-    }, [dispatch, updatedWishlist, updatedLendingLibraryIDs]);
+    }, [
+      dispatch,
+      updatedWishlist,
+      updatedLendingLibraryIDs,
+      updatedWishlistIDs,
+      updatedStarRatings,
+    ]);
 
     // Fetch user data initially (you can use SWR here too if needed)
     useEffect(() => {
+      console.log("home", starRatingData);
       dispatch({ type: SET_USER, payload: user });
       dispatch({ type: SET_WISHLIST, payload: wishlistData });
       dispatch({ type: SET_WISHLIST_IDS, payload: wishlistIdsData });
@@ -71,6 +97,7 @@ const Home: React.FC<HomeProps> = memo(
         type: SET_LENDING_LIBRARY_IDS,
         payload: lendingLibraryIdsData,
       });
+      dispatch({ type: SET_STAR_RATINGS, payload: starRatingData });
     }, [dispatch, user, wishlistData, wishlistIdsData, lendingLibraryIdsData]);
 
     // Your existing handleError function for error handling
@@ -110,7 +137,7 @@ const Home: React.FC<HomeProps> = memo(
   }
 );
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async (context: { req: any }) => {
   const { req } = context;
   const cookies = req.headers.cookie;
   const userCookie = cookies && parse(cookies).user;
@@ -131,23 +158,27 @@ export const getServerSideProps = async (context) => {
   const wishlistUrl = `${baseUrl}/api/user/wishList/${userProp.id}`;
   const wishlistIdsUrl = `${baseUrl}/api/user/wishListIDs/${userProp.id}`;
   const lendingLibraryIdsUrl = `${baseUrl}/api/user/lendingLibraryIDs/${userProp.id}`;
+  const starRatingURL = `${baseUrl}/api/user/starRating/${userProp.id}`;
 
   const [
     userResponse,
     wishlistResponse,
     wishlistIdsResponse,
     lendingLibraryIdsResponse,
+    starRatingResponse,
   ] = await Promise.all([
     fetch(userUrl),
     fetch(wishlistUrl),
     fetch(wishlistIdsUrl),
     fetch(lendingLibraryIdsUrl),
+    fetch(starRatingURL),
   ]);
 
   const userData = await userResponse.json();
   const wishlistData = await wishlistResponse.json();
   const wishlistIdsData = await wishlistIdsResponse.json();
   const lendingLibraryIdsData = await lendingLibraryIdsResponse.json();
+  const starRatingData = await starRatingResponse.json();
 
   return {
     props: {
@@ -155,6 +186,7 @@ export const getServerSideProps = async (context) => {
       wishlistData: wishlistData,
       wishlistIdsData: wishlistIdsData,
       lendingLibraryIdsData: lendingLibraryIdsData,
+      starRatingData: starRatingData,
     },
   };
 };

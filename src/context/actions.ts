@@ -5,3 +5,4 @@ export const SET_USER_BOOKS = "SET_USER_BOOKS";
 export const SET_USER_BOOKS_IDS = "SET_USER_BOOKS_IDS";
 export const SET_WISHLIST_IDS = "SET_WISHLIST_IDS";
 export const SET_USER = "SET_USER";
+export const SET_STAR_RATINGS = "SET_STAR_RATINGS";

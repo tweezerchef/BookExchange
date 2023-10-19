@@ -11,6 +11,7 @@ module.exports = {
   ],
   extends: [
     "airbnb",
+    "next",
     "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
     'plugin:jsx-a11y/recommended',
@@ -24,7 +25,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "prettier", "@typescript-eslint"],
+  plugins: ["react", "@typescript-eslint", 'jsx-a11y', 'airbnb-typescript', 'prettier'],
   rules: {
     "import/prefer-default-export": "off",
     "prettier/prettier": "error",

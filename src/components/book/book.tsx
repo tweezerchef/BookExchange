@@ -10,7 +10,6 @@ import {
 } from "./bookStyles";
 import { StarRating } from "./starRating";
 import { ButtonStack } from "./bookButtons/buttonStack";
-import { useUserDispatch, useUserState } from "../../context/context";
 
 interface BookProps {
   book: Book;
@@ -18,9 +17,6 @@ interface BookProps {
 }
 
 export const Book: React.FC<BookProps> = ({ book, onClick }) => {
-  const state = useUserState();
-  const dispatch = useUserDispatch();
-
   return (
     <StyledBookCard elevation={3}>
       <TopContainer>
@@ -34,7 +30,7 @@ export const Book: React.FC<BookProps> = ({ book, onClick }) => {
           />
         </ImageBox>
         <SideOfImageBox>
-          <StarRating />
+          <StarRating book={book} />
           <ButtonStack book={book} />
 
           {book.author && (
