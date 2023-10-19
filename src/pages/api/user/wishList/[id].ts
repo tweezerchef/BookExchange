@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                           lendingLibrary: true,
                           booksId: true,
                           userId: true,
-                          rating: true,
+                          starRating: true,
                           review: true,
                           LendingTable: true,
                           User: true,
