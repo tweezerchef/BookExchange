@@ -108,7 +108,7 @@ model UserBooks {
   lendingLibrary Boolean         @default(false)
   booksId        String
   userId         String
-  rating         Float?
+  starRating     Float?
   review         String?
   read           Boolean         @default(false)
   reading        Boolean         @default(false)

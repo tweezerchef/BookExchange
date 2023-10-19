@@ -1,12 +1,26 @@
 module.exports = {
-  extends: ["airbnb","airbnb-typescript", "prettier", "next", "plugin:@typescript-eslint/recommended",
-  'plugin:jsx-a11y/recommended',],
+  "import/extensions": [
+    "error",
+    "ignorePackages",
+    {
+      js: "never",
+      jsx: "never",
+      ts: "never",
+      tsx: "never",
+    },
+  ],
+  extends: [
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    'plugin:jsx-a11y/recommended',
+  ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
+    project: "./tsconfig.json",
     ecmaFeatures: {
       jsx: true,
     },
-    project: './tsconfig.json',
     ecmaVersion: 12,
     sourceType: "module",
   },
@@ -21,14 +35,5 @@ module.exports = {
     "react/forbid-prop-types": "off",
     "import/no-unresolved": "off",
   },
-  "import/extensions": [
-    "error",
-    "ignorePackages",
-    {
-      js: "never",
-      jsx: "never",
-      ts: "never",
-      tsx: "never",
-    },
-  ],
+
 };
