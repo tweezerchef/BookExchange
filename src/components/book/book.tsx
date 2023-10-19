@@ -22,10 +22,11 @@ export const Book: React.FC<BookProps> = ({ book, onClick }) => {
   const dispatch = useUserDispatch();
 
   return (
-    <StyledBookCard>
+    <StyledBookCard elevation={3}>
       <TopContainer>
         <ImageBox onClick={onClick}>
           <Image
+            // try to find better generic image for books
             src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
             alt='Book Cover'
             fill={true}

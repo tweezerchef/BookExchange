@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -7,6 +7,7 @@ import {
   SET_LENDING_LIBRARY,
   SET_LENDING_LIBRARY_IDS,
 } from "../../../context/actions";
+import { mutate } from "swr";
 
 type CustomColor = "success" | "danger";
 
@@ -19,10 +20,10 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
 }) => {
   const state = useUserState();
   const dispatch = useUserDispatch();
+
   const [color, setColor] = useState<CustomColor>("danger");
-  //work on this later
   const [toolTip, setToolTip] = useState<NonNullable<React.ReactNode>>(
-    <h1>Add to Lending Library</h1>
+    "Add to Lending Library"
   );
   const { lendingLibraryIDs } = state;
   const { user } = state;
@@ -31,6 +32,16 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
 
   const isInLendingLibrary = lendingLibraryIDs?.includes(bookID);
 
+  useEffect(() => {
+    if (isInLendingLibrary) {
+      setColor("success" as CustomColor);
+      setToolTip("Remove from Lending Library");
+    } else {
+      setColor("error" as CustomColor);
+      setToolTip("Add to Lending Library");
+    }
+  }, [isInLendingLibrary]);
+
   const lendingLibraryAction = async (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -38,7 +49,7 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
     const currentColor = color;
     if (color === "success") {
       setColor("error" as CustomColor);
-      setToolTip(<h1>Add to Lending Library</h1>);
+      setToolTip("Add to Lending Library");
       dispatch({
         type: SET_LENDING_LIBRARY_IDS,
         payload: state.lendingLibraryIDs.filter((b) => b !== bookID),
@@ -49,7 +60,7 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
       });
     } else {
       setColor("success" as CustomColor);
-      setToolTip(<h1>Remove from LendingLibrary</h1>);
+      setToolTip("Remove from LendingLibrary");
       //there might be an issue here when the book is directly from google books potentially fix
       //on server side call
       dispatch({
@@ -73,20 +84,19 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
           userId: userID,
         }),
       });
+      mutate(`/api/user/lendingLibrary/${userID}`);
     } catch (error) {
       // If the server request fails, revert the local state
       if (color === "success") {
         setColor("error" as CustomColor);
-        setToolTip(<h1>Remove from Lending Library</h1>);
-        // Add the book back to the wishlist locally
+        setToolTip("Remove from Lending Library");
         dispatch({
           type: SET_LENDING_LIBRARY_IDS,
           payload: [...state.lendingLibraryIDs, book.id],
         });
       } else {
         setColor("success" as CustomColor);
-        setToolTip(<h1>Add to Lending Library</h1>);
-        // Remove the book from the wishlist locally
+        setToolTip("Add to Lending Library");
         dispatch({
           type: SET_LENDING_LIBRARY_IDS,
           payload: state.lendingLibraryIDs.filter((b) => b !== bookID),
@@ -94,17 +104,6 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
       }
     }
   };
-  useEffect(() => {
-    console.log(lendingLibraryIDs);
-    if (isInLendingLibrary) {
-      setColor("success" as CustomColor);
-      setToolTip(<h1>Remove from Lending Library</h1>);
-    } else {
-      setColor("error" as CustomColor);
-      setToolTip(<h1>Add to Lending Library</h1>);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Tooltip title={toolTip} placement='top-end'>

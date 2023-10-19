@@ -4,7 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { useUserDispatch, useUserState } from "../../../context/context";
 import { SET_WISHLIST, SET_WISHLIST_IDS } from "../../../context/actions";
-import useSWR, { mutate } from "swr"; // Import useSWR and mutate from SWR
+import { mutate } from "swr"; // Import useSWR and mutate from SWR
 
 interface WishListButtonProps {
   book: Book;
@@ -17,9 +17,8 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
   const dispatch = useUserDispatch();
 
   const [color, setColor] = useState<CustomColor>("danger");
-  const [toolTip, setToolTip] = useState<NonNullable<React.ReactNode>>(
-    <h1>Add to Wishlist</h1>
-  );
+  const [toolTip, setToolTip] =
+    useState<NonNullable<React.ReactNode>>("Add to Wishlist");
 
   const { wishListIDs } = state;
   const { user } = state;
@@ -31,10 +30,10 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
   useEffect(() => {
     if (isInWishList) {
       setColor("success" as CustomColor);
-      setToolTip(<h1>Remove from Wishlist</h1>);
+      setToolTip("Remove from Wishlist");
     } else {
       setColor("error" as CustomColor);
-      setToolTip(<h1>Add to Wishlist</h1>);
+      setToolTip("Add to Wishlist");
     }
   }, [isInWishList]); // Watch for changes in isInWishList
 
@@ -43,7 +42,7 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
     const currentColor = color;
     if (color === "success") {
       setColor("error" as CustomColor);
-      setToolTip(<h1>Add to Wishlist</h1>);
+      setToolTip("Add to Wishlist");
       dispatch({
         type: SET_WISHLIST,
         payload: state.wishList.filter((b) => b.id !== bookID),
@@ -54,7 +53,7 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
       });
     } else {
       setColor("success" as CustomColor);
-      setToolTip(<h1>Remove from Wishlist</h1>);
+      setToolTip("Remove from Wishlist");
       dispatch({ type: SET_WISHLIST, payload: [...state.wishList, book] });
       // There might be an issue here when the book is directly from google books, potentially fix
       // On the server-side call
@@ -83,7 +82,7 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
       // If the server request fails, revert the local state
       if (color === "success") {
         setColor("error" as CustomColor);
-        setToolTip(<h1>Remove from Wishlist</h1>);
+        setToolTip("Remove from Wishlist");
         // Add the book back to the wishlist locally
         dispatch({
           type: SET_WISHLIST,
@@ -91,7 +90,7 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
         });
       } else {
         setColor("success" as CustomColor);
-        setToolTip(<h1>Add to Wishlist</h1>);
+        setToolTip("Add to Wishlist");
         // Remove the book from the wishlist locally
         dispatch({
           type: SET_WISHLIST,
@@ -100,17 +99,6 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
       }
     }
   };
-
-  useEffect(() => {
-    if (isInWishList) {
-      setColor("success" as CustomColor);
-      setToolTip(<h1>Remove from Wishlist</h1>);
-    } else {
-      setColor("error" as CustomColor);
-      setToolTip(<h1>Add to Wishlist</h1>);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <Tooltip title={toolTip} placement='top-end'>
