@@ -83,7 +83,6 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
       if (color === "success") {
         setColor("error" as CustomColor);
         setToolTip("Remove from Wishlist");
-        // Add the book back to the wishlist locally
         dispatch({
           type: SET_WISHLIST,
           payload: [...state.wishList, book],
@@ -91,7 +90,6 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
       } else {
         setColor("success" as CustomColor);
         setToolTip("Add to Wishlist");
-        // Remove the book from the wishlist locally
         dispatch({
           type: SET_WISHLIST,
           payload: state.wishList.filter((b) => b.id !== bookID),
