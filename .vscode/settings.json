@@ -1,32 +1,6 @@
 {
   "eslint.format.enable": true,
   "eslint.enable": true,
-  "prettier.jsxSingleQuote": true,
-  // Extend ESLint configuration for TypeScript files (Add this block)
-  "[typescript]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true,
-      "source.fixAll.eslint": true
-    },
-    "eslint.options": {
-      "configFile": "./node_modules/eslint-config-airbnb-typescript/base.js"
-    }
-  },
-
-  // Extend ESLint configuration for TypeScript React files (Add this block)
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll": true,
-      "source.fixAll.eslint": true
-    },
-    "eslint.options": {
-      "configFile": "./node_modules/eslint-config-airbnb-typescript/base.js"
-    }
-  },
-  "WillLuke.nextjs.addTypesOnSave": true,
-  "WillLuke.nextjs.hasPrompted": true
+  "prettier.jsxSingleQuote": true
+  // Extend ESLint configuration for TypeScript files (Add this block
 }

@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import { mutate } from "swr";
 import { useUserState, useUserDispatch } from "../../../context/context";
 import { SET_WISHLIST, SET_WISHLIST_IDS } from "../../../context/actions";
-import { mutate } from "swr";
 
 type CustomColor = "success" | "danger";
 
@@ -12,7 +12,7 @@ interface WishListButtonProps {
   book: Book;
 }
 
-export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
+export function WishListButton({ book }: WishListButtonProps) {
   const state = useUserState();
   const dispatch = useUserDispatch();
 
@@ -57,19 +57,25 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
       dispatch({ type: SET_WISHLIST, payload: updatedWishList });
       dispatch({ type: SET_WISHLIST_IDS, payload: updatedWishListIDs });
 
-      await fetch(`/api/user/wishList/${bookID}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          color: oldColor,
-          book: book,
-          userId: userID,
-        }),
-      });
-
-      mutate(`/api/user/wishList/${userID}`, updatedWishList, false);
+      try {
+        await fetch(`/api/user/wishList/${bookID}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            color: oldColor,
+            book,
+            userId: userID,
+          }),
+        }).catch((error) => {
+          console.error(error);
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
+        await mutate(`/api/user/wishList/${userID}`, updatedWishList, false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -77,7 +83,7 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    toggleWishList();
+    void toggleWishList();
   };
 
   return (
@@ -96,4 +102,4 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
       </IconButton>
     </Tooltip>
   );
-};
+}
