@@ -39,7 +39,6 @@ const Header = () => {
           "url(https://nobe.s3.us-east-2.amazonaws.com/TopBanner.png)",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        // marginBottom: "24px",
       }}
     >
       <Toolbar>

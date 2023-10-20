@@ -18,7 +18,7 @@ export const StyledBookCard = styled(Card)`
 
 &:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust shadow as needed */
-  background-color: rgba(230, 244, 253, 0.836); /* Change to a lighter background color */
+  background-color: rgba(230, 244, 253, 0.836);
 }
 //eventually add some sort of animation to the card when it is clicked
 `;
@@ -37,8 +37,6 @@ export const ImageBox = styled(Box)`
   width: 80%;
   height: 100%;
   overflow: hidden;
-  /* align-content: center; */
-  /* justify-content: start; */
   background-color: transparent;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;

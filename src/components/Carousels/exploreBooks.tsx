@@ -4,8 +4,8 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
-import { BigBook } from "../book/bigBook";
-import { Book } from "../book/book";
+import { BigBook } from "../book/BigBook";
+import { Book } from "../book/Book";
 import {
   OuterBox,
   BookBox,
@@ -100,11 +100,11 @@ const ExploreBooksComponent: React.FC = () => {
           <Slide direction={slideDirection} in={currentPage === index}>
             <Stack
               spacing={2}
-              direction="row"
-              maxWidth="100%"
-              maxHeight="100%"
-              alignContent="center"
-              justifyContent="center"
+              direction='row'
+              maxWidth='100%'
+              maxHeight='100%'
+              alignContent='center'
+              justifyContent='center'
             >
               {books
                 .slice(

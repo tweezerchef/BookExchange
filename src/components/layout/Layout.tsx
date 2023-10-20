@@ -15,13 +15,21 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <>
+    <Box
+      maxWidth='1400px'
+      display='flex'
+      flexDirection='column'
+      justifyContent='center'
+      margin='0 auto'
+    >
       <Header />
-      <Box sx={{ display: "flex" }}>
-        <Sidebar />
-        <main style={{ flexGrow: 1 }}>{children}</main>
+      <Box width='100%' display='flex'>
+        <Box maxWidth='1400px' width='100%' display='flex'>
+          <Sidebar />
+          <main style={{ flexGrow: 1 }}>{children}</main>
+        </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 
