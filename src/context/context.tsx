@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
+import { UserBooks } from "@prisma/client";
 import reducer from "./reducer";
 import {
   SET_WISHLIST,
@@ -11,18 +12,18 @@ import {
 } from "./actions";
 
 interface UserState {
-  wishList?: any[]; // Replace any with the appropriate type
-  wishListIDs?: any[]; // Replace any with the appropriate type
-  lendingLibrary?: any[]; // Replace any with the appropriate type
-  lendingLibraryIDs?: any[]; // Replace any with the appropriate type
-  userBooks?: any[]; // Replace any with the appropriate type
-  userBooksIDs?: any[]; // Replace any with the appropriate type
-  starRatings?: any[]; // Replace any with the appropriate type
-  user: any;
+  wishList?: Book[];
+  wishListIDs?: Book["id"][];
+  lendingLibrary?: Book[];
+  lendingLibraryIDs?: Book["id"][];
+  userBooks?: UserBooks[];
+  userBooksIDs?: Book["id"][];
+  starRatings?: UserBooks[];
+  user: User;
 }
 
 const UserStateContext = createContext<UserState | undefined>(undefined);
-const UserDispatchContext = createContext<React.Dispatch<any> | undefined>(
+const UserDispatchContext = createContext<React.Dispatch<unknown> | undefined>(
   undefined
 );
 
@@ -42,16 +43,17 @@ export const useUserDispatch = () => {
   return context;
 };
 
-export const UserProvider = ({ children }) => {
+export function UserProvider({ children }) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [state, dispatch] = useReducer(reducer, {
-    wishList: [],
-    lendingLibrary: [],
-    lendingLibraryIDs: [],
-    userBooks: [],
-    userBooksIDs: [],
-    wishListIDs: [],
-    starRatings: [],
-    user: {},
+    wishList: [] as Book[],
+    lendingLibrary: [] as Book[],
+    lendingLibraryIDs: [] as Book["id"][],
+    userBooks: [] as UserBooks[],
+    userBooksIDs: [] as Book["id"][],
+    wishListIDs: [] as Book["id"][],
+    starRatings: [] as UserBooks[],
+    user: {} as User,
   });
 
   return (
@@ -61,4 +63,4 @@ export const UserProvider = ({ children }) => {
       </UserDispatchContext.Provider>
     </UserStateContext.Provider>
   );
-};
+}

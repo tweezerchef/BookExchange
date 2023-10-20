@@ -1,3 +1,12 @@
+declare global {
+  namespace NodeJS {
+    interface Global {
+      prisma: import('@prisma/client').PrismaClient;
+    }
+  }
+}
+
+
 interface Book {
   books: {
     id: string;
