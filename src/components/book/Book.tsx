@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import {
@@ -8,8 +9,8 @@ import {
   ContentContainer,
   TitleTypography,
 } from "./bookStyles";
-import { StarRating } from "./starRating";
-import { ButtonStack } from "./bookButtons/buttonStack";
+import { StarRating } from "./StarRating";
+import { ButtonStack } from "./bookButtons/ButtonStack";
 
 interface BookProps {
   book: Book;

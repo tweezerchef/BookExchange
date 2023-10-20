@@ -1,18 +1,27 @@
-import { findUserByIdDetailed } from "../../../../utils/userService";
+import { NextApiRequest, NextApiResponse } from "next";
+import { User } from "@prisma/client";
 
-export default async function handler(req: { method: string; query: { id: string; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { message: string; }): void; new(): any; }; }; }) {
-  if (req.method === "GET") {
-    const id: string = req.query.id as string;
+import { findUserByIdDetailed} from "../../../../utils/userService";
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<User | { message: string }>
+) {
+  const { method, query: { id } } = req;
+
+  if (method === "GET") {
     try {
-      console.log(`Retrieving user with id ${id}`);
       const user = await findUserByIdDetailed(id);
-      console.log(`Retrieved user with id ${id}`);
       res.status(200).json(user);
     } catch (error) {
-      console.error("There was a problem:", error.message);
-      res.status(500).json({ message: "Error retrieving user data" });
+      console.error("There was a problem:", error);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const message = error || "Error retrieving user data";
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      res.status(500).json({ message });
     }
   } else {
-    res.status(405).json({ message: "Method not allowed" });
+    const message = "Method not allowed";
+    res.status(405).json({ message });
   }
 }

@@ -1,4 +1,4 @@
-import { styled } from "@mui/system";
+import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
@@ -75,25 +75,4 @@ export const TitleTypography = styled(Typography)`
   white-space: pre-line;
   line-height: 1.2em; // Or whatever line height you want
   /* padding: 0 5px; // Add some padding to prevent text touching the edges */
-`;
-export const CenteredModal = styled(Dialog)`
-  && {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent; // Ensure the Dialog's background is transparent
-    .MuiDialog-paper {
-      background-color: white;
-      border-radius: 4px;
-      height: 80vh;
-      width: 80vw;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      overflow-y: auto;
-      margin: 0;
-      max-width: fit-content;
-      box-shadow: none;
-    }
-  }
 `;

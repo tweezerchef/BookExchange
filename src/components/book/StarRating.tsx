@@ -1,7 +1,6 @@
+import Rating from "@mui/material/Rating";
 import { useUserDispatch, useUserState } from "../../context/context";
 import { SET_STAR_RATINGS } from "../../context/actions";
-import { mutate } from "swr";
-import Rating from "@mui/material/Rating";
 
 interface StarRatingProps {
   book: Book;
@@ -23,7 +22,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
   const starRatingValue = starRatingObj ? starRatingObj.starRating : 0;
 
   const handleStarRatingChange = async (
-    event: React.ChangeEvent<{}>,
+    event: React.ChangeEvent<Record<string, never>>,
     newValue: number
   ) => {
     const updatedStarRatings = [...starRatings];
@@ -46,13 +45,11 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          book: book,
+          book,
           userId: userID,
           starRating: newValue,
         }),
       });
-
-      mutate(`/api/user/starRating/${userID}`);
     } catch (error) {
       console.error(error);
     }

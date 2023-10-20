@@ -3,6 +3,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
+import { useState } from "react";
 import { BigBook } from "../book/BigBook";
 import { Book } from "../book/Book";
 import {
@@ -13,7 +14,6 @@ import {
 } from "./styles/exploreBooksStyle";
 
 import { useUserDispatch, useUserState } from "../../context/context";
-import { useState } from "react";
 
 const WishList: React.FC = () => {
   const state = useUserState();
@@ -47,7 +47,7 @@ const WishList: React.FC = () => {
       </LeftIconButton>
       {books.map((book, index) => (
         <BookBox
-          key={index}
+          key={book.id || book.title}
           sx={{
             display: currentPage === index ? "block" : "none",
           }}
@@ -66,11 +66,11 @@ const WishList: React.FC = () => {
                   index * booksPerPage,
                   index * booksPerPage + booksPerPage
                 )
-                .map((book: Book) => (
-                  <Box key={book.id || book.title}>
+                .map((bookItem: Book) => (
+                  <Box key={bookItem.id || bookItem.title}>
                     <Book
-                      book={book}
-                      onClick={() => handleBookClick(book)}
+                      book={bookItem}
+                      onClick={() => handleBookClick(bookItem)}
                       // nearMeBooks={nearMeBooks}
                     />
                   </Box>

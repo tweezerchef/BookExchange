@@ -1,6 +1,8 @@
 {
   "eslint.format.enable": true,
   "eslint.enable": true,
-  "prettier.jsxSingleQuote": true
+  "prettier.jsxSingleQuote": true,
+  "WillLuke.nextjs.addTypesOnSave": true,
+  "WillLuke.nextjs.hasPrompted": true
   // Extend ESLint configuration for TypeScript files (Add this block
 }

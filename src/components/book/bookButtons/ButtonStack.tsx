@@ -1,6 +1,6 @@
 import Stack from "@mui/material/Stack";
-import { WishListButton } from "./wishListButton";
-import { LendingLibraryButton } from "./lendingLibraryButton";
+import { WishListButton } from "./WishListButton";
+import { LendingLibraryButton } from "./LendingLibraryButton";
 
 interface ButtonStackProps {
   book: Book;

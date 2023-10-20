@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
         const userBookIDs = await prisma.userBooks.findMany({
             where: {
-            userId: userId,
+            userId,
             lendingLibrary: true
             },
             select: {

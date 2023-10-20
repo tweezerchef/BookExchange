@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { Books, UserBooks } from "@prisma/client";
+import { Books } from "@prisma/client";
 import prisma from "../../../../utils/prismaClient";
 import { findOrCreateBookISBN } from "../../../../utils/books/findOrCreateBookISBN";
 
@@ -77,7 +77,7 @@ export default async function handler(
             lendingLibrary: true,
           },
           update: {
-            wishlist: true,
+            lendingLibrary: true,
           },
         });
         res.status(200).json(newUserBook);

@@ -59,7 +59,7 @@ const ExploreBooksComponent: React.FC = () => {
   const getRandomBooks = () => {
     fetch("/api/bookDB/randomBooks")
       .then((res) => res.json())
-      .then((data) => {
+      .then((data: Book[]) => {
         setBooks(data);
       })
       .catch((error) => {
@@ -92,7 +92,7 @@ const ExploreBooksComponent: React.FC = () => {
       </LeftIconButton>
       {books.map((book, index) => (
         <BookBox
-          key={index}
+          key={book.id || book.title}
           sx={{
             display: currentPage === index ? "block" : "none",
           }}
@@ -111,6 +111,7 @@ const ExploreBooksComponent: React.FC = () => {
                   index * booksPerPage,
                   index * booksPerPage + booksPerPage
                 )
+                // eslint-disable-next-line @typescript-eslint/no-shadow
                 .map((book: Book) => (
                   <Box key={book.id || book.title}>
                     <Book

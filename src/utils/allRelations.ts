@@ -1,12 +1,12 @@
 
 
-export const ALL_USERBOOK_RELATIONS = {
+export const ALL_BOOK_USERBOOK_RELATIONS = {
         id: true,
         wishlist: true,
         lendingLibrary: true,
         booksId: true,
         userId: true,
-        rating: true,
+        starRating: true,
         review: true,
         LendingTable: true,
         Books: {

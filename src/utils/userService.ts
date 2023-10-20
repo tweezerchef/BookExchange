@@ -1,6 +1,6 @@
 import { ConstructionOutlined } from "@mui/icons-material";
 import prisma from "./prismaClient";
-import LendingLibraryButton from '../components/book/bookButtons/lendingLibraryButton';
+import LendingLibraryButton from '../components/book/bookButtons/LendingLibraryButton';
 
 export const findUserByEmailDetailed = async (email) => {
     email = email.email
@@ -119,7 +119,6 @@ catch (error) {
 
 export const findUserByIdDetailed = async (id) => {
   try{
-  console.log('id'+ id)
   return await prisma.user.findUnique({
       where: {
           id,
