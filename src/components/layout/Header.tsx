@@ -39,7 +39,7 @@ const Header = () => {
           "url(https://nobe.s3.us-east-2.amazonaws.com/TopBanner.png)",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        marginBottom: "24px",
+        // marginBottom: "24px",
       }}
     >
       <Toolbar>
@@ -48,10 +48,33 @@ const Header = () => {
           edge='start'
           color='inherit'
           aria-label='menu'
+          onClick={handleOpenNavMenu}
           sx={{ mr: 2 }}
         >
           <MenuIcon />
         </IconButton>
+        <Menu
+          sx={{ mt: "45px" }}
+          id='menu-appbar'
+          anchorEl={anchorElNav}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(anchorElNav)}
+          onClose={handleCloseNavMenu}
+        >
+          {menuItems.map((item) => (
+            <MenuItem key={item} onClick={handleCloseNavMenu}>
+              <Typography textAlign='center'>{item}</Typography>
+            </MenuItem>
+          ))}
+        </Menu>
         <Box />
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title='Open settings'>

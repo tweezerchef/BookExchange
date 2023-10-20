@@ -6,7 +6,6 @@ import Google, {
   Profile,
   VerifyFunction,
 } from "passport-google-oauth";
-// import { findUser, sendWelcomeEmail } from "@/app/account/actions";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import { findUserByEmailDetailed } from "../../../../utils/userService";
