@@ -54,7 +54,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   else if (req.method === 'POST') {
     const { book, userId, color } = req.body;
-    if (color === 'error'){
+    if (color === 'danger'){
       try {
         const newBook = await findOrCreateBookISBN({ book });
         const newUserBook = await prisma.userBooks.upsert({

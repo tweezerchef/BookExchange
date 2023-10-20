@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
@@ -15,34 +15,43 @@ interface WishListButtonProps {
 export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
   const state = useUserState();
   const dispatch = useUserDispatch();
+
+  const [color, setColor] = useState<CustomColor>("danger");
+  const [toolTip, setToolTip] = useState<NonNullable<React.ReactNode>>(
+    "Add to Lending Library"
+  );
+
   const { wishListIDs, user } = state;
   const userID = user?.id;
   const bookID = book?.id;
 
   const isInWishList = wishListIDs?.includes(bookID);
-  const [color, setColor] = useState<CustomColor>(
-    isInWishList ? "success" : "danger"
-  );
-  const [toolTip, setToolTip] = useState<React.ReactNode>(
-    isInWishList ? "Remove from Wishlist" : "Add to Wishlist"
-  );
+
+  useEffect(() => {
+    if (isInWishList) {
+      setColor("success" as CustomColor);
+      setToolTip("Remove from Wishlist");
+    } else {
+      setColor("danger" as CustomColor);
+      setToolTip("Add to Wishlist");
+    }
+  }, [isInWishList]);
 
   const toggleWishList = async () => {
     try {
-      // Update color and tooltip immediately
-      const newColor = isInWishList ? "danger" : "success";
-      const newToolTip = isInWishList
-        ? "Add to Wishlist"
-        : "Remove from Wishlist";
+      const oldColor = color;
+      const newColor = color === "success" ? "danger" : "success";
+      const newToolTip =
+        newColor === "success" ? "Add to Wishlist" : "Remove from Wishlist";
       setColor(newColor);
       setToolTip(newToolTip);
 
       const updatedWishList = isInWishList
         ? state.wishList.filter((b) => b.id !== bookID)
-        : [...state.wishList, book];
+        : [book, ...state.wishList];
       const updatedWishListIDs = isInWishList
         ? state.wishListIDs.filter((b) => b !== bookID)
-        : [...state.wishListIDs, book.id];
+        : [book.id, ...state.wishListIDs];
 
       // Update local state immediately
       dispatch({ type: SET_WISHLIST, payload: updatedWishList });
@@ -54,13 +63,13 @@ export const WishListButton: React.FC<WishListButtonProps> = ({ book }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          color: newColor,
+          color: oldColor,
           book: book,
           userId: userID,
         }),
       });
 
-      mutate(`/api/user/wishList/${userID}`);
+      mutate(`/api/user/wishList/${userID}`, updatedWishList, false);
     } catch (error) {
       console.error(error);
     }
