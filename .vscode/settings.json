@@ -26,5 +26,7 @@
     "eslint.options": {
       "configFile": "./node_modules/eslint-config-airbnb-typescript/base.js"
     }
-  }
+  },
+  "WillLuke.nextjs.addTypesOnSave": true,
+  "WillLuke.nextjs.hasPrompted": true
 }

@@ -1,15 +1,16 @@
 import type { AppProps } from "next/app";
-import { useState } from "react";
 import { UserProvider } from "../context/context";
 import MuiThemeProvider from "../globalStyles/muiThemeProvider";
 import "../styles/global.css";
+import Layout from "../components/layout/Layout";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const [user, setUser] = useState(null);
   return (
     <MuiThemeProvider>
       <UserProvider>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </UserProvider>
     </MuiThemeProvider>
   );

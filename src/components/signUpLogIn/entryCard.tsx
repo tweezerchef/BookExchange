@@ -35,9 +35,9 @@ const EntryCard: React.FC = () => {
         data.user.lastName !== null ||
         data.user.longitude !== null
       ) {
-        <Link href="/home" />;
+        <Link href='/home' />;
       } else {
-        <Link href="/usersettings" />;
+        <Link href='/usersettings' />;
       }
     } catch (error) {
       console.error(error);
@@ -48,8 +48,8 @@ const EntryCard: React.FC = () => {
     <Box
       sx={{
         width: "100%",
-        maxWidth: "400px",
-        maxHeight: "700px",
+        maxWidth: "350px",
+        maxHeight: "600px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -80,31 +80,31 @@ const EntryCard: React.FC = () => {
         }}
       >
         <Image
-          src="https://nobe.s3.us-east-2.amazonaws.com/Nobe_Logo.png"
-          alt="logo"
-          width={280} // You need to provide a width
-          height={280} // You need to provide a height, adjust this based on your image's aspect ratio
-          layout="responsive" // This will make the image scale based on its parent's width
+          src='https://nobe.s3.us-east-2.amazonaws.com/Nobe_Logo.png'
+          alt='logo'
+          width={220} // You need to provide a width
+          height={220} // You need to provide a height, adjust this based on your image's aspect ratio
+          quality={100}
         />
       </Box>
       <InputGroup>
-        <Typography component="label" htmlFor="login-email" variant="body1">
+        <Typography component='label' htmlFor='login-email' variant='body1'>
           Email Address
         </Typography>
         <Input
-          type="text"
-          placeholder="name@email.com"
-          id="login-email"
+          type='text'
+          placeholder='name@email.com'
+          id='login-email'
           value={email}
           onChange={(e: any) => setEmail(e.target.value)}
         />
       </InputGroup>
       <InputGroup>
-        <label htmlFor="login-password">Password</label>
+        <label htmlFor='login-password'>Password</label>
         <Input
-          type="password"
-          placeholder="Password"
-          id="login-password"
+          type='password'
+          placeholder='Password'
+          id='login-password'
           value={password}
           onChange={(e: any) => setPassword(e.target.value)}
         />
@@ -120,7 +120,7 @@ const EntryCard: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <div id="loginDiv" />
+        <div id='loginDiv' />
       </div>
       <div
         style={{
@@ -130,7 +130,7 @@ const EntryCard: React.FC = () => {
           alignItems: "center",
         }}
       >
-        <div id="loginDiv" />
+        <div id='loginDiv' />
       </div>
       <GoogleButton />
     </Box>

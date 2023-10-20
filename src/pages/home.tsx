@@ -1,6 +1,5 @@
 import { useEffect, useState, useCallback, memo } from "react";
 import useSWR, { SWRConfig } from "swr";
-import Grid from "@mui/material/Unstable_Grid2";
 import Box from "@mui/material/Box";
 import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
@@ -112,26 +111,10 @@ const Home: React.FC<HomeProps> = memo(
 
     return (
       <SWRConfig value={{ onError: handleError }}>
-        <Grid container maxWidth='1500px'>
-          <Grid xs={2}>
-            <h1>Yo</h1>
-          </Grid>
-          <Grid xs={10} minWidth='1000px'>
-            <Box
-              sx={{
-                width: "100%",
-                height: "200px",
-                backgroundImage:
-                  "url(https://nobe.s3.us-east-2.amazonaws.com/TopBanner.png)",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                marginBottom: "24px",
-              }}
-            />
-            <ExploreBooksBox />
-            <WishListBox />
-          </Grid>
-        </Grid>
+        <Box sx={{ flexGrow: 1, p: 2 }}>
+          <ExploreBooksBox />
+          <WishListBox />
+        </Box>
       </SWRConfig>
     );
   }
