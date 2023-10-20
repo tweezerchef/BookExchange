@@ -60,6 +60,7 @@ module.exports = {
   ],
 
   rules: {
+    "react/function-component-definition": "off",
     "@typescript-eslint/restrict-plus-operands": "off",
     "mdx/no-unused-expressions": "off",
     "@typescript-eslint/no-unsafe-argument": "warn",

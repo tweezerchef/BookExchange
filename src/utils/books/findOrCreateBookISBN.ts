@@ -1,7 +1,8 @@
 import { Books } from "@prisma/client";
 import prisma from "../prismaClient";
 
-export const findOrCreateBookISBN = async ({ book }) => {
+// eslint-disable-next-line consistent-return
+export const findOrCreateBookISBN = async ({ book }: {book: Books}) => {
   const {
     title,
     ISBN10,
@@ -11,7 +12,6 @@ export const findOrCreateBookISBN = async ({ book }) => {
     subTitle,
     pubDate,
     pageCount,
-    genre,
     buyLink,
     viewAbility,
     rating,

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { InputGroup, Input } from "./styles";
 import GoogleButton from "./googleButton";
 
-const EntryCard: React.FC = () => {
+function EntryCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -135,5 +135,5 @@ const EntryCard: React.FC = () => {
       <GoogleButton />
     </Box>
   );
-};
+}
 export default EntryCard;

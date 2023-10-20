@@ -7,7 +7,6 @@ import {
   SET_LENDING_LIBRARY,
   SET_LENDING_LIBRARY_IDS,
 } from "../../../context/actions";
-import { mutate } from "swr";
 
 type CustomColor = "success" | "danger";
 
@@ -15,9 +14,9 @@ interface LendingLibraryButtonProps {
   book: Book;
 }
 
-export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
-  book,
-}) => {
+// need to refactor similar to wishlist button
+
+export function LendingLibraryButton({ book }: LendingLibraryButtonProps) {
   const state = useUserState();
   const dispatch = useUserDispatch();
 
@@ -61,8 +60,8 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
     } else {
       setColor("success" as CustomColor);
       setToolTip("Remove from LendingLibrary");
-      //there might be an issue here when the book is directly from google books potentially fix
-      //on server side call
+      // there might be an issue here when the book is directly from google books potentially fix
+      // on server side call
       dispatch({
         type: SET_LENDING_LIBRARY_IDS,
         payload: [...state.lendingLibraryIDs, bookID],
@@ -80,11 +79,10 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
         },
         body: JSON.stringify({
           color: currentColor,
-          book: book,
+          book,
           userId: userID,
         }),
       });
-      mutate(`/api/user/lendingLibrary/${userID}`);
     } catch (error) {
       // If the server request fails, revert the local state
       if (color === "success") {
@@ -117,6 +115,6 @@ export const LendingLibraryButton: React.FC<LendingLibraryButtonProps> = ({
       </IconButton>
     </Tooltip>
   );
-};
+}
 
 export default LendingLibraryButton;

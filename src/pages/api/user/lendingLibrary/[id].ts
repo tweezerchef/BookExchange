@@ -1,7 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { Books, UserBooks } from "@prisma/client";
 import prisma from "../../../../utils/prismaClient";
 import { findOrCreateBookISBN } from "../../../../utils/books/findOrCreateBookISBN";
 
+interface RequestBody {
+  book: Books;
+  userId: string;
+  color: string;
+}
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -11,7 +17,7 @@ export default async function handler(
     try {
       const userBooks = await prisma.userBooks.findMany({
         where: {
-          userId: userId,
+          userId,
           lendingLibrary: true,
         },
         include: {
@@ -42,9 +48,9 @@ export default async function handler(
           },
         },
       });
-      //correct the type of userBooksArray
+      // correct the type of userBooksArray
       const userBooksArray = userBooks.map(
-        (userBook: { Books: Book }) => userBook.Books
+        (userBook) => userBook.Books
       );
       res.status(200).json(userBooksArray);
     } catch (error) {
@@ -53,7 +59,8 @@ export default async function handler(
       await prisma.$disconnect();
     }
   } else if (req.method === "POST") {
-    const { book, userId, color } = req.body;
+    const { book, userId, color }: RequestBody = req.body as RequestBody;
+
     if (color === "error") {
       try {
         const newBook = await findOrCreateBookISBN({ book });
@@ -61,12 +68,12 @@ export default async function handler(
           where: {
             userId_bookId: {
               booksId: newBook.id,
-              userId: userId,
+              userId,
             },
           },
           create: {
             booksId: newBook.id,
-            userId: userId,
+            userId,
             lendingLibrary: true,
           },
           update: {
@@ -85,7 +92,7 @@ export default async function handler(
           where: {
             userId_bookId: {
               booksId: book.id,
-              userId: userId,
+              userId,
             },
           },
           data: {

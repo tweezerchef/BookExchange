@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { mutate } from "swr";
 import { useUserState, useUserDispatch } from "../../../context/context";
 import { SET_WISHLIST, SET_WISHLIST_IDS } from "../../../context/actions";
 
@@ -37,7 +36,7 @@ export function WishListButton({ book }: WishListButtonProps) {
     }
   }, [isInWishList]);
 
-  const toggleWishList = async () => {
+  const toggleWishList = () => {
     try {
       const oldColor = color;
       const newColor = color === "success" ? "danger" : "success";
@@ -57,25 +56,21 @@ export function WishListButton({ book }: WishListButtonProps) {
       dispatch({ type: SET_WISHLIST, payload: updatedWishList });
       dispatch({ type: SET_WISHLIST_IDS, payload: updatedWishListIDs });
 
-      try {
-        await fetch(`/api/user/wishList/${bookID}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            color: oldColor,
-            book,
-            userId: userID,
-          }),
-        }).catch((error) => {
-          console.error(error);
-        });
-      } catch (error) {
+      // You can make this part async
+      // But no need to await if you don't need the response
+      fetch(`/api/user/wishList/${bookID}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          color: oldColor,
+          book,
+          userId: userID,
+        }),
+      }).catch((error) => {
         console.error(error);
-      } finally {
-        await mutate(`/api/user/wishList/${userID}`, updatedWishList, false);
-      }
+      });
     } catch (error) {
       console.error(error);
     }
@@ -83,7 +78,7 @@ export function WishListButton({ book }: WishListButtonProps) {
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    void toggleWishList();
+    toggleWishList();
   };
 
   return (
