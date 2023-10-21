@@ -39,7 +39,6 @@ export const Book: React.FC<BookProps> = ({ book }) => {
     try {
       const res = await fetch(`/api/bookDB/reviews/${book.id}`);
       const data: Review[] = await res.json();
-      console.log("bigbookReviewData", data);
       setReviews(data);
     } catch (err) {
       console.error(err);

@@ -3,7 +3,7 @@ import prisma from './prismaClient';
 
 export const createUserFromGoogle = async ({ profile }) => {
   try {
-    return prisma.user.create({
+    return await prisma.user.create({
         data: {
             firstName: profile.given_name ?? '',
             email: profile._json.email,
