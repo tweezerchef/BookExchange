@@ -1,5 +1,5 @@
 
-export const getGoogleByISBN = async (ISBN: String) => {
+export const getGoogleByISBN = async (ISBN: string) => {
   const url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${ISBN}`;
   const response = await fetch(url);
   const data = await response.json();

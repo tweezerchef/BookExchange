@@ -1,5 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
-import { UserBooks } from "@prisma/client";
+import { UserBooks, User } from "@prisma/client";
 import reducer from "./reducer";
 import {
   SET_WISHLIST,
@@ -19,7 +19,7 @@ interface UserState {
   userBooks?: UserBooks[];
   userBooksIDs?: Book["id"][];
   starRatings?: UserBooks[];
-  user: User;
+  user?: User;
 }
 
 const UserStateContext = createContext<UserState | undefined>(undefined);

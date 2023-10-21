@@ -12,7 +12,7 @@ export default async function handler(
     try {
       const starRatings = await prisma.userBooks.findMany({
         where: {
-          userId: userId,
+          userId,
           NOT: {
             starRating: {
               equals: null,
@@ -41,16 +41,16 @@ export default async function handler(
         where: {
           userId_bookId: {
             booksId: newBook.id,
-            userId: userId,
+            userId,
           },
         },
         create: {
           booksId: newBook.id,
-          userId: userId,
-          starRating: starRating,
+          userId,
+          starRating,
         },
         update: {
-          starRating: starRating,
+          starRating,
         },
       });
       res.status(200).json(newUserBook);

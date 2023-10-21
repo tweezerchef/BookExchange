@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback, memo } from "react";
+import { User, Books } from "@prisma/client";
 import Box from "@mui/material/Box";
 import { parse } from "cookie";
-import { Books } from "@prisma/client";
-import { GetServerSideProps } from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
 import { useUserDispatch } from "../context/context";
@@ -14,18 +14,13 @@ import {
   SET_STAR_RATINGS,
 } from "../context/actions";
 
-interface UserData {
-  email: string;
-  id: string;
-  username: string | null;
-}
 interface StarRating {
   bookID: string;
   rating: number;
 }
 
 interface HomeProps {
-  user: UserData;
+  user: User;
   wishlistData: Books[];
   wishlistIdsData: Books["id"][];
   lendingLibraryIdsData: Books["id"][];
@@ -117,7 +112,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const data: [
-    UserData | null,
+    User | null,
     Books[] | null,
     Books["id"][] | null,
     Books["id"][] | null,
@@ -133,7 +128,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
   );
 
   const [
-    userData,
+    user,
     wishlistData,
     wishlistIdsData,
     lendingLibraryIdsData,
@@ -142,7 +137,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async (
 
   return {
     props: {
-      user: userData,
+      user,
       wishlistData,
       wishlistIdsData,
       lendingLibraryIdsData,

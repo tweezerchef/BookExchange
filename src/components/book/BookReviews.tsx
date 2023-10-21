@@ -1,3 +1,4 @@
+import { User } from "@prisma/client";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";

@@ -1,4 +1,4 @@
-import { getISBN, getLargestImage } from '../books/googleFuncs';
+import { getISBN, getLargestImage } from './googleFuncs';
 
 
 export const transGoogToBKModel = async (googleBook) => {

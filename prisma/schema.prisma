@@ -25,12 +25,12 @@ model User {
   NotificationsCount Int                @default(0)
   phoneNumber        String?
   Activity           Activity[]
-  clubMembers        ClubMembers[]
+  ClubMembers        ClubMembers[]
   DirectMessages     DirectMessages[]
   Discussions        Discussions[]
   DiscussionsUsers   DiscussionsUsers[]
-  friends            Friendship[]       @relation("friend")
-  friendships        Friendship[]       @relation("user")
+  Friends            Friends[]          @relation("friend")
+  Friendships        Friends[]          @relation("user")
   LendingTable       LendingTable[]
   Notifications      Notifications[]
   Posts              Posts[]
@@ -39,7 +39,7 @@ model User {
   UserGenre          UserGenre[]
   UserHobbies        UserHobbies[]
   UserPictures       UserPictures[]
-  User_Places        User_Places[]
+  User_Places        UserPlaces[]
   Conversations      Conversations[]    @relation("conversationMembers")
 }
 
@@ -61,7 +61,7 @@ model Books {
   ISBN10      String        @unique
   BookAccess  BookAccess[]
   Activity    Activity[]
-  Clubs_Books Clubs_Books[]
+  Clubs_Books ClubsBooks[]
   Discussions Discussions[]
   Genre       Genre[]
   Posts       Posts[]
@@ -130,7 +130,7 @@ model UserBookNotes {
   UserBooks  UserBooks @relation(fields: [userBookId], references: [id])
 }
 
-model User_Places {
+model UserPlaces {
   id            String       @id @default(uuid())
   userId        String?
   placeId       String
@@ -147,12 +147,12 @@ model User_Places {
 }
 
 model PlacesToRead {
-  id              String            @id @default(uuid())
+  id              String           @id @default(uuid())
   nickName        String?
-  Private         Boolean           @default(false)
+  Private         Boolean          @default(false)
   Lat             Float?
   Long            Float?
-  googlePlaceId   String            @unique
+  googlePlaceId   String           @unique
   location        String
   name            String?
   placeEditorial  String?
@@ -161,13 +161,13 @@ model PlacesToRead {
   website         String?
   phone           String?
   Activity        Activity[]
-  LendingTableIn  LendingTable[]    @relation("inPlace")
-  LendingTableOut LendingTable[]    @relation("outPlace")
-  Places_Pictures Places_Pictures[]
-  userPlaces      User_Places[]
+  LendingTableIn  LendingTable[]   @relation("inPlace")
+  LendingTableOut LendingTable[]   @relation("outPlace")
+  PlacesPictures  PlacesPictures[]
+  userPlaces      UserPlaces[]
 }
 
-model Places_Pictures {
+model PlacesPictures {
   id          String       @id @default(uuid())
   url         String
   googlePic   Boolean?
@@ -232,11 +232,11 @@ model Clubs {
   image       String?
   admin       String?
   clubMembers ClubMembers[]
-  Clubs_Books Clubs_Books[]
+  Clubs_Books ClubsBooks[]
   Discussions Discussions[]
 }
 
-model Clubs_Books {
+model ClubsBooks {
   id          String  @id @default(uuid())
   booksId     String
   clubId      String
@@ -324,7 +324,7 @@ model Activity {
   user        User          @relation(fields: [userId], references: [id])
 }
 
-model Friendship {
+model Friends {
   id        String  @id @default(uuid())
   userId    String
   friendId  String
