@@ -1,16 +1,17 @@
-import Header from "./Header";
-import Sidebar from "./SideBar";
 import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
+import Header from "./Header";
+import Sidebar from "./SideBar";
 
 const Layout = ({ children }) => {
   const router = useRouter();
 
   const isLoginPage = router.pathname === "/login";
   const isIndexPage = router.pathname === "/";
+  const isSignUpPage = router.pathname === "/signUp";
 
   // Don't render Header and Sidebar on the Login and Index pages
-  if (isLoginPage || isIndexPage) {
+  if (isLoginPage || isIndexPage || isSignUpPage) {
     return <main>{children}</main>;
   }
 

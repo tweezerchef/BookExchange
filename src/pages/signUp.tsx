@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
-import EntryCard from "../components/signUpLogIn/entryCard";
+import { SignUpCard } from "../components/signUpLogIn/SignUpCard";
 
-const Login = (props) => (
+const Login = () => (
   <Box
     sx={{
       display: "flex",
@@ -12,7 +12,7 @@ const Login = (props) => (
       backgroundColor: " #fbfbfb",
     }}
   >
-    <EntryCard />
+    <SignUpCard />
   </Box>
 );
 

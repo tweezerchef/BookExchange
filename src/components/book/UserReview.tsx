@@ -8,6 +8,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import { useUserState } from "../../context/context";
+import { AddReviewModal } from "./bigBookStyles";
 
 type Review = {
   user: User;
@@ -57,9 +58,8 @@ export const UserReview: React.FC<UserReviewProps> = ({
   };
 
   return (
-    <Box>
-      <Dialog open={open} onClose={handleClose} fullWidth maxWidth='md'>
-        {" "}
+    <Box width='80%'>
+      <AddReviewModal open={open} onClose={handleClose} fullWidth maxWidth='sm'>
         {/* Adjust maxWidth as per need */}
         <form onSubmit={handleSubmit}>
           <DialogContent>
@@ -67,9 +67,9 @@ export const UserReview: React.FC<UserReviewProps> = ({
             <TextField
               autoFocus
               id='name'
-              label='Review'
-              type='Review'
-              variant='standard'
+              // label='Review'
+              // type='Review'
+              // variant='standard'
               onChange={handleReviewChange}
               fullWidth
               multiline
@@ -81,7 +81,7 @@ export const UserReview: React.FC<UserReviewProps> = ({
             <Button type='submit'>Add Review</Button>
           </DialogActions>
         </form>
-      </Dialog>
+      </AddReviewModal>
     </Box>
   );
 };

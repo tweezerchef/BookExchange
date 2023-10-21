@@ -26,13 +26,15 @@ interface User {
   username: string;
 }
 
+const strategyOptions: IOAuth2StrategyOption = {
+  clientID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL,
+};
+
 passport.use(
   new Google.OAuth2Strategy(
-    {
-      clientID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.NEXT_PUBLIC_GOOGLE_CALLBACK_URL,
-    } as IOAuth2StrategyOption,
+    strategyOptions,
     (
       accessToken: string,
       refreshToken: string,
@@ -53,7 +55,7 @@ router.get((req, res, next) => {
       res,
       next
     );
-  } else if (req.query.operation === "callback") {
+  } if (req.query.operation === "callback") {
     return passport.authenticate(
       "google",
       async (err: any, profile: any, info: any) => {
@@ -84,9 +86,9 @@ router.get((req, res, next) => {
         res.end();
       }
     )(req, res, next);
-  } else {
-    res.status(400).json({ error: "Unknown operation." });
   }
+    res.status(400).json({ error: "Unknown operation." });
+
 });
 
 export default router.handler({

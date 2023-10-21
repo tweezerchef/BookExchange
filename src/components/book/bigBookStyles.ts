@@ -95,3 +95,11 @@ export const ContentContainer = styled(Box)`
   text-align: center; // Center the text
   text-justify: center;
 `;
+
+export const AddReviewModal = styled(Dialog)`
+&& {
+  .MuiDialog-paper {
+ background-color: rgba(215, 240, 255, 1);
+  }
+}
+ `
