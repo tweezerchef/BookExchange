@@ -18,9 +18,9 @@ const ExploreBooksComponent: React.FC = () => {
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
+  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [books, setBooks] = useState<Book[]>([]);
   const [searchText, setSearchText] = useState("");
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
   const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -133,11 +133,11 @@ const ExploreBooksComponent: React.FC = () => {
       >
         <NavigateNextIcon />
       </RightIconButton>
-      <BigBook
+      {/* <BigBook
         book={selectedBook}
         open={!!selectedBook}
         onClose={() => setSelectedBook(null)}
-      />
+      /> */}
     </OuterBox>
   );
 };

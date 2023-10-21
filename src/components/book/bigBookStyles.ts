@@ -1,5 +1,7 @@
+import Image from 'next/image';
 import { Box, Dialog, DialogContent, IconButton, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { Book } from './Book';
 
 export const CenteredModal = styled(Dialog)`
   && {
@@ -24,6 +26,15 @@ export const CenteredModal = styled(Dialog)`
     }
   }
 `;
+export const BookImage = styled(Image)`
+filter: contrast()(1.2);
+object-fit: contain;
+object-position: center;
+width: 100%;
+height: 100%;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
 export const CloseButton = styled(IconButton)`
   && {
     position: absolute;

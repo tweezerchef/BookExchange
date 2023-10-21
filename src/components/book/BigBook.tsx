@@ -4,10 +4,10 @@ import Typography from "@mui/material/Typography";
 import DialogContent from "@mui/material/DialogContent";
 import Tooltip from "@mui/material/Tooltip";
 import CloseIcon from "@mui/icons-material/Close";
-import Image from "next/image";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import {
+  BookImage,
   CenteredModal,
   CloseButton,
   CloseButtonContainer,
@@ -78,19 +78,12 @@ export const BigBook: React.FC<BigBookProps> = ({ book, open, onClose }) => {
       <DialogContent>
         <TopContainer>
           <ImageBox>
-            <Image
+            <BookImage
               // try to find better generic image for books
               src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
               fill
               alt='Book Cover'
               quality={100}
-              style={{
-                filter: "contrast(1.2)",
-                objectFit: "contain",
-                width: "100%",
-                height: "100%",
-                boxShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
-              }}
             />
           </ImageBox>
           <SideOfImageBox>
