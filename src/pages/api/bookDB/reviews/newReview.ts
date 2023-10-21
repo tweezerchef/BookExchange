@@ -33,7 +33,6 @@ export default async function handler(
           review,
         },
       });
-      console.log('newReview', newReview);
       res.status(200).json(newReview);
     } catch (error) {
       res.status(500).json({ error: "Failed to create review" });

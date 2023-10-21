@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { User } from "@prisma/client";
 import Typography from "@mui/material/Typography";
 import DialogContent from "@mui/material/DialogContent";
@@ -20,18 +20,25 @@ import { BigBookButtonStack } from "./bookButtons/BigBookButtonStack";
 import { UserReview } from "./UserReview";
 import { BookReviews } from "./BookReviews";
 
-interface BigBookProps {
-  book: Book | null;
-  open: boolean;
-  onClose: () => void;
-}
-type Review = {
-  user: User;
-  review: string;
+type BigBookReview = {
+  User?: User;
+  review?: string;
 };
 
-export const BigBook: React.FC<BigBookProps> = ({ book, open, onClose }) => {
-  const [reviews, setReviews] = useState<Review[]>([]);
+interface BigBookProps {
+  book: Book | null;
+  bigBookOpen: boolean;
+  handleCloseBigBook: () => void;
+  reviews: BigBookReview[];
+  setReviews: React.Dispatch<React.SetStateAction<BigBookReview[]>>;
+}
+export const BigBook: React.FC<BigBookProps> = ({
+  book,
+  bigBookOpen,
+  handleCloseBigBook,
+  reviews,
+  setReviews,
+}) => {
   const [reviewOpen, setReviewOpen] = useState(false);
 
   const addReviewOpen = () => {
@@ -42,18 +49,6 @@ export const BigBook: React.FC<BigBookProps> = ({ book, open, onClose }) => {
     setReviewOpen(false);
   };
 
-  const getBookReviews = async () => {
-    if (!book?.id) return;
-    try {
-      const res = await fetch(`/api/bookDB/reviews/${book.id}`);
-      const data: Review[] = await res.json();
-      console.log("bigbookReviewData", data);
-      setReviews(data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   function truncateDescription(description: string, wordLimit: number) {
     const words = description.split(" ");
     if (words.length > wordLimit) {
@@ -62,16 +57,12 @@ export const BigBook: React.FC<BigBookProps> = ({ book, open, onClose }) => {
     return description;
   }
 
-  useEffect(() => {
-    void getBookReviews();
-  }, [book]);
-
   if (!book) return null;
 
   return (
-    <CenteredModal open={open} onClose={onClose}>
-      <CloseButtonContainer onClick={onClose}>
-        <CloseButton onClick={onClose}>
+    <CenteredModal open={bigBookOpen} onClose={handleCloseBigBook}>
+      <CloseButtonContainer onClick={handleCloseBigBook}>
+        <CloseButton onClick={handleCloseBigBook}>
           <CloseIcon />
         </CloseButton>
       </CloseButtonContainer>
@@ -109,7 +100,6 @@ export const BigBook: React.FC<BigBookProps> = ({ book, open, onClose }) => {
         <ContentContainer>
           <Typography variant='h4'>{book.title}</Typography>
           <Typography variant='h6'>{book.author}</Typography>
-
           <BookReviews reviews={reviews} />
         </ContentContainer>
       </DialogContent>

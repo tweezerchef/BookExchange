@@ -2,7 +2,6 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
-import Dialog from "@mui/material/Dialog";
 
 export const StyledBookCard = styled(Card)`
   width: 18vw;

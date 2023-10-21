@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { Box, Dialog, DialogContent, IconButton, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Book } from './Book';
 
 export const CenteredModal = styled(Dialog)`
   && {

@@ -8,15 +8,16 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Typography from "@mui/material/Typography";
 // import MiniStar from "./MiniStar";
 
-type Review = {
-  User: User;
-  review: string;
+type BookReview = {
+  User?: User;
+  review?: string;
 };
-interface ReviewsProps {
-  reviews: Review[];
+
+interface BookReviewsProps {
+  reviews: BookReview[];
 }
 
-export const BookReviews: React.FC<ReviewsProps> = ({ reviews }) => (
+export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => (
   <Box sx={{ width: 320 }}>
     <Typography
     // id="ellipsis-list-demo"
