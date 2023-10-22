@@ -12,10 +12,10 @@ datasource db {
 
 model User {
   id                 String             @id @default(uuid())
-  firstName          String
+  firstName          String?
   username           String?            @unique
   email              String             @unique
-  googleId           String             @unique
+  googleId           String?            @unique
   lastName           String?
   picture            String?
   password           String?

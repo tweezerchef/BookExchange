@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState, useContext } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -13,7 +14,7 @@ function EntryCard() {
 
   const loginHandler = async () => {
     try {
-      const response = await fetch("/auth/login-email", {
+      const response = await fetch("/api/auth/emailLogin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -23,21 +24,11 @@ function EntryCard() {
           password,
         }),
       });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const data = await response.json();
-
-      if (
-        data.user.radius !== null ||
-        data.user.lastName !== null ||
-        data.user.longitude !== null
-      ) {
-        <Link href='/home' />;
+      if (response.ok) {
+        // Redirect to the home page (client-side) after successful login
+        window.location.href = "/home";
       } else {
-        <Link href='/usersettings' />;
+        console.error("Login failed");
       }
     } catch (error) {
       console.error(error);
@@ -96,17 +87,23 @@ function EntryCard() {
           placeholder='name@email.com'
           id='login-email'
           value={email}
-          onChange={(e: any) => setEmail(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
         />
       </InputGroup>
       <InputGroup>
-        <label htmlFor='login-password'>Password</label>
+        <Typography component='label' htmlFor='login-password' variant='body1'>
+          Password
+        </Typography>
         <Input
           type='password'
           placeholder='Password'
           id='login-password'
           value={password}
-          onChange={(e: any) => setPassword(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
         />
       </InputGroup>
       <Button onClick={loginHandler} style={{ marginBottom: "40px" }}>

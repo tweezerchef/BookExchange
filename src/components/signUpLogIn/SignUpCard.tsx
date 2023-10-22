@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-shadow */
 import { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Link from "next/link";
 import { InputGroup, Input, BackgroundBox } from "./styles";
 import GoogleButton from "./googleButton";
 
@@ -30,6 +30,28 @@ export const SignUpCard: React.FC = () => {
       setPasswordError(true);
     } else {
       setPasswordError(false);
+    }
+  };
+  const signUpHandler = async () => {
+    try {
+      const response = await fetch("/api/auth/emailSignup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      if (response.ok) {
+        // Redirect to the home page (client-side) after successful login
+        window.location.href = "/home";
+      } else {
+        console.error("Login failed");
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -121,6 +143,7 @@ export const SignUpCard: React.FC = () => {
         {passwordError && <p className='error'>{passwordErrorMSG}</p>}
       </InputGroup>
       <Button
+        onClick={signUpHandler}
         style={{ marginBottom: "40px" }}
         disabled={emailError || passwordError}
       >
@@ -149,34 +172,4 @@ export const SignUpCard: React.FC = () => {
       <GoogleButton />
     </BackgroundBox>
   );
-};
-
-const loginHandler = async () => {
-  try {
-    const response = await fetch("/auth/login-email", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    const data = await response.json();
-    if (
-      data.user.radius !== null ||
-      data.user.lastName !== null ||
-      data.user.longitude !== null
-    ) {
-      <Link href='/home' />;
-    } else {
-      <Link href='/usersettings' />;
-    }
-  } catch (error) {
-    console.error(error);
-  }
 };

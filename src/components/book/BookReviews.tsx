@@ -19,16 +19,7 @@ interface BookReviewsProps {
 
 export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => (
   <Box sx={{ width: 320 }}>
-    <Typography
-    // id="ellipsis-list-demo"
-    // level="body4"
-    // textTransform="uppercase"
-    // fontWeight="xl"
-    // mb={1}
-    // sx={{ letterSpacing: '0.15rem' }}
-    >
-      Reviews
-    </Typography>
+    <Typography>Reviews</Typography>
     <List
       aria-labelledby='ellipsis-list-demo'
       sx={{ "--ListItemDecorator-size": "56px" }}

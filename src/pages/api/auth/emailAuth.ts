@@ -2,16 +2,16 @@
 
 import { NextApiRequest, NextApiResponse } from "next";
 import { createRouter } from "next-connect";
+// eslint-disable-next-line import/no-extraneous-dependencies
 import bcrypt from "bcrypt";
-import { getSecureCookie } from "../../../../utils/getSecureCookie";
+import { getSecureCookie } from "../../../utils/getSecureCookie";
 import {
   createUserByEmailAndPassword,
   findUserByEmail,
-} from "../../../../utils/createFindUserEmail";
+} from "../../../utils/createFindUserEmail";
 
 const router = createRouter<NextApiRequest, NextApiResponse>();
 
-// Email/password signup
 router.post("/signup", async (req, res) => {
   const { email, password } = req.body as { email: string; password: string };
 
@@ -41,18 +41,15 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// Email/password login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body as { email: string; password: string };
 
-    // Authenticate the user
     const user = await findUserByEmail(email);
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ message: "Incorrect email or password" });
     }
 
-    // Set a secure cookie with user information
     const cookie = getSecureCookie({
       name: "user",
       value: {

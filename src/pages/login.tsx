@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import EntryCard from "../components/signUpLogIn/entryCard";
+import EntryCard from "../components/signUpLogIn/LogInCard";
 
 const Login = (props) => (
   <Box
