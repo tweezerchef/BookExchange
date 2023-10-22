@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Image from "next/image";
-import Link from "next/link";
 import { InputGroup, Input } from "./styles";
 import GoogleButton from "./googleButton";
 

@@ -6,8 +6,8 @@ interface MuiThemeProviderProps {
   children: ReactNode;
 }
 
-const MuiThemeProvider: React.FC<MuiThemeProviderProps> = ({ children }) => {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
-};
+const MuiThemeProvider: React.FC<MuiThemeProviderProps> = ({ children }) => (
+  <ThemeProvider theme={theme}>{children}</ThemeProvider>
+);
 
 export default MuiThemeProvider;

@@ -9,9 +9,10 @@ const Layout = ({ children }) => {
   const isLoginPage = router.pathname === "/login";
   const isIndexPage = router.pathname === "/";
   const isSignUpPage = router.pathname === "/signUp";
+  const isRegistrationPage = router.pathname === "/register";
 
   // Don't render Header and Sidebar on the Login and Index pages
-  if (isLoginPage || isIndexPage || isSignUpPage) {
+  if (isLoginPage || isIndexPage || isSignUpPage || isRegistrationPage) {
     return <main>{children}</main>;
   }
 
