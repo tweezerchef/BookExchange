@@ -1,7 +1,8 @@
-import { styled } from "@mui/system";
+import { styled } from "@mui/material/styles";
 import { blueGrey } from '@mui/material/colors';
 import Chip from '@mui/material/Chip';
 import  Divider  from "@mui/material/Divider";
+import TextField from "@mui/material/TextField";
 
 export const StyledDivider = styled(Divider)`
     width: 100%;
@@ -14,3 +15,17 @@ export const FlameStyledChip = styled(Chip)`
     color: black;
     size: lg;
 `
+export const ChipContainer = styled("div")({
+    display: "inline-flex",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    padding: "5px 10px",
+    borderRadius: "100px",
+    gap: "5px",
+  });
+
+  export const RoundedTextField = styled(TextField)({
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "20px",
+    },
+  });

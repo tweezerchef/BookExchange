@@ -1,14 +1,8 @@
 import Chip from "@mui/material/Chip";
 import { ExploreBooks } from "./exploreBooks";
 import { StyledDivider } from "../chips/chipStyle";
+import { ExploreChip } from "../chips/ExploreChip";
 
 export default function ExploreBooksBox() {
-  return (
-    <>
-      <StyledDivider textAlign='right'>
-        <Chip label='Explore Books' />
-      </StyledDivider>
-      <ExploreBooks />
-    </>
-  );
+  return <ExploreBooks />;
 }

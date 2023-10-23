@@ -4,7 +4,8 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
-import { BigBook } from "../book/BigBook";
+import { StyledDivider } from "../chips/chipStyle";
+import { ExploreChip } from "../chips/ExploreChip";
 import { Book } from "../book/Book";
 import {
   OuterBox,
@@ -86,59 +87,65 @@ const ExploreBooksComponent: React.FC = () => {
   }, []);
 
   return (
-    <OuterBox>
-      <LeftIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
-        <NavigateBeforeIcon />
-      </LeftIconButton>
-      {books.map((book, index) => (
-        <BookBox
-          key={book.id || book.title}
-          sx={{
-            display: currentPage === index ? "block" : "none",
-          }}
+    <Box>
+      <StyledDivider textAlign='right'>
+        <ExploreChip />
+      </StyledDivider>
+
+      <OuterBox>
+        <LeftIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
+          <NavigateBeforeIcon />
+        </LeftIconButton>
+        {books.map((book, index) => (
+          <BookBox
+            key={book.id || book.title}
+            sx={{
+              display: currentPage === index ? "block" : "none",
+            }}
+          >
+            <Slide direction={slideDirection} in={currentPage === index}>
+              <Stack
+                spacing={2}
+                direction='row'
+                maxWidth='100%'
+                maxHeight='100%'
+                alignContent='center'
+                justifyContent='center'
+              >
+                {books
+                  .slice(
+                    index * booksPerPage,
+                    index * booksPerPage + booksPerPage
+                  )
+                  // eslint-disable-next-line @typescript-eslint/no-shadow
+                  .map((book: Book) => (
+                    <Box key={book.id || book.title}>
+                      <Book
+                        book={book}
+                        onClick={() => handleBookClick(book)}
+                        // nearMeBooks={nearMeBooks}
+                      />
+                    </Box>
+                  ))}
+              </Stack>
+            </Slide>
+          </BookBox>
+        ))}
+        <RightIconButton
+          onClick={handleNextPage}
+          disabled={
+            currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
+          }
         >
-          <Slide direction={slideDirection} in={currentPage === index}>
-            <Stack
-              spacing={2}
-              direction='row'
-              maxWidth='100%'
-              maxHeight='100%'
-              alignContent='center'
-              justifyContent='center'
-            >
-              {books
-                .slice(
-                  index * booksPerPage,
-                  index * booksPerPage + booksPerPage
-                )
-                // eslint-disable-next-line @typescript-eslint/no-shadow
-                .map((book: Book) => (
-                  <Box key={book.id || book.title}>
-                    <Book
-                      book={book}
-                      onClick={() => handleBookClick(book)}
-                      // nearMeBooks={nearMeBooks}
-                    />
-                  </Box>
-                ))}
-            </Stack>
-          </Slide>
-        </BookBox>
-      ))}
-      <RightIconButton
-        onClick={handleNextPage}
-        disabled={
-          currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
-        }
-      >
-        <NavigateNextIcon />
-      </RightIconButton>
-      {/* <BigBook
+          <NavigateNextIcon />
+        </RightIconButton>
+        {/* <BigBook
         book={selectedBook}
         open={!!selectedBook}
         onClose={() => setSelectedBook(null)}
       /> */}
-    </OuterBox>
+      </OuterBox>
+    </Box>
   );
 };
 

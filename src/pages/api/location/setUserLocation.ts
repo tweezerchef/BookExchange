@@ -41,12 +41,9 @@ export default async function handler(
           longitude: lng,
         },
       });
-      console.log("location", location, "userId", userId);
-      console.log("location", address, "userId", userId);
       res.status(200).json({ userId, address });
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
+      console.error(error);
       res.status(500).json({ error: "Failed to add location" });
     }
   }
