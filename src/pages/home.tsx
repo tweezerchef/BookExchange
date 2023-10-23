@@ -59,16 +59,6 @@ const Home: React.FC<HomeProps> = memo(
       wishlistIdsData,
     ]);
 
-    // Your existing handleError function for error handling
-    const handleError = useCallback((error: Error) => {
-      console.error(error);
-      // Additional error handling logic
-    }, []);
-
-    if (isLoading) {
-      return <div>Loading...</div>;
-    }
-
     return (
       <Box sx={{ flexGrow: 1, p: 2 }}>
         <Link href='./register'>Register</Link>
