@@ -1,6 +1,7 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import UserAddress from "./UserAddress";
 
 interface Step1FormProps {
   handleNext: () => void;
@@ -42,6 +43,7 @@ const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
         fullWidth
         required
       />
+      <UserAddress />
       <Button type='submit' variant='contained' color='primary'>
         Next
       </Button>
