@@ -76,7 +76,7 @@ export default function UserAddress() {
     }
   }
 
-  const fetch = useMemo(
+  const fetchADD = useMemo(
     () =>
       debounce(
         (
@@ -90,34 +90,28 @@ export default function UserAddress() {
     []
   );
 
-  const handleSendAddress = async () => {
+  const handleSendAddress = () => {
     if (!value) {
       return; // No selected address
     }
-    console.log(value);
-    try {
-      const response = await fetch("/api/location/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ address: value?.description, userId }),
+    const address = value.description;
+    fetch("/api/location/setUserLocation", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ address, userId }),
+    })
+      .then((response) => {
+        // handle response
+      })
+      .catch((error) => {
+        console.error(error);
       });
-
-      if (response.ok) {
-        console.log("Address sent successfully!");
-        // Optionally, you can reset the value and input value here:
-        // setValue(null);
-        // setInputValue("");
-      } else {
-        console.error("Failed to send address");
-      }
-    } catch (error) {
-      console.error("Error sending address:", error);
-    }
   };
 
   useEffect(() => {
+    console.log(user);
     let active = true;
     if (!autocompleteService.current && (window as any).google) {
       autocompleteService.current = new (
@@ -133,7 +127,7 @@ export default function UserAddress() {
       return undefined;
     }
 
-    fetch({ input: inputValue }, (results?: readonly PlaceType[]) => {
+    fetchADD({ input: inputValue }, (results?: readonly PlaceType[]) => {
       if (active) {
         let newOptions: readonly PlaceType[] = [];
 
@@ -152,7 +146,7 @@ export default function UserAddress() {
     return () => {
       active = false;
     };
-  }, [value, inputValue, fetch]);
+  }, [value, inputValue, fetchADD]);
 
   return (
     <div>

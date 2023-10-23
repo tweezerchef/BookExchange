@@ -3,6 +3,7 @@ import { User, Books } from "@prisma/client";
 import Box from "@mui/material/Box";
 import { parse } from "cookie";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Link from "next/link";
 import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
 import { useUserDispatch } from "../context/context";
@@ -70,6 +71,7 @@ const Home: React.FC<HomeProps> = memo(
 
     return (
       <Box sx={{ flexGrow: 1, p: 2 }}>
+        <Link href='./register'>Register</Link>
         <ExploreBooksBox />
         <WishListBox />
       </Box>
