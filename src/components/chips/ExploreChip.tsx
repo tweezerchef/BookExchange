@@ -54,7 +54,6 @@ export function ExploreChip({
       const id = typeof value === "object" ? value.id : undefined;
 
       if (!value.id) {
-        console.log("value", value);
         fetch(`api/bookDB/queryGoogleBooks/${title}`, {
           method: "GET",
           headers: {
@@ -63,19 +62,10 @@ export function ExploreChip({
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             setBooks((prevBooks) => {
-              const currentPageIndices = new Set(
-                Array.from(
-                  { length: booksPerPage },
-                  (_, i) => currentPage * booksPerPage + i
-                )
-              );
-              const lastIndex = prevBooks.length - 1;
-              if (currentPageIndices.has(lastIndex)) {
-                return [data, ...prevBooks.slice(1)];
-              }
-              return [...prevBooks.slice(0, lastIndex), data];
+              const updatedBooks: Books[] = [data, ...prevBooks] as Books[];
+              updatedBooks.pop();
+              return updatedBooks;
             });
           })
           .catch((error) => {
@@ -89,27 +79,16 @@ export function ExploreChip({
           },
         })
           .then((res) => res.json())
-          .then((data) => {
+          .then((data: Books) => {
             setBooks((prevBooks) => {
-              const bookIndex = prevBooks.findIndex(
-                (book) => book.id === data.id
+              const filteredBooks = prevBooks.filter(
+                (book) => book.id !== data.id
               );
-              if (bookIndex !== -1) {
-                const before = prevBooks.slice(0, bookIndex);
-                const after = prevBooks.slice(bookIndex + 1);
-                return [data, ...before, ...after];
-              }
-              const currentPageIndices = new Set(
-                Array.from(
-                  { length: booksPerPage },
-                  (_, i) => currentPage * booksPerPage + i
-                )
-              );
-              const lastIndex = prevBooks.length - 1;
-              if (currentPageIndices.has(lastIndex)) {
-                return [data, ...prevBooks.slice(1)];
-              }
-              return [...prevBooks.slice(0, lastIndex), data];
+              // Insert the new book at the front of the array
+              const updatedBooks = [data, ...filteredBooks];
+              // Remove the last book to keep the total count the same
+              updatedBooks.pop();
+              return updatedBooks;
             });
           })
           .catch((error) => {
@@ -148,18 +127,3 @@ export function ExploreChip({
     </ChipContainer>
   );
 }
-
-// const handleSearchOnBlur = async () => {
-//   setLoading(true);
-//   try {
-//     if (searchText === "") {
-//       const res = await fetch(`/google-books/?title=${inputValue}`);
-//       setBooks((prevBooks) => [...res.json(), ...prevBooks]);
-//       setCurrentPage(0);
-//     }
-//   } catch (err) {
-//     console.error(err);
-//   } finally {
-//     setLoading(false);
-//   }
-// };

@@ -9,7 +9,6 @@ export default async function handler(
     const parsedTitle = typeof title === 'string' ? title: "title";
         try {
          const book = await getGoogleBookByTitle(parsedTitle);
-         console.log(book);
             res.status(200).json(book);
 
         }

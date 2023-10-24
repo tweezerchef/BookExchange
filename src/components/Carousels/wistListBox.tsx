@@ -12,9 +12,7 @@ const wishListBox: React.FC = () => (
     <Divider textAlign='right'>
       <Chip label='Your Wish List' />
     </Divider>
-    <Box overflow='hidden'>
-      <WishList />
-    </Box>
+    <WishList />
   </>
 );
 
