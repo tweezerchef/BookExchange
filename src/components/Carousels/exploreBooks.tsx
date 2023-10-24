@@ -56,7 +56,11 @@ const ExploreBooksComponent: React.FC = () => {
   return (
     <Box minHeight='230px'>
       <StyledDivider textAlign='right'>
-        <ExploreChip setBooks={setBooks} />
+        <ExploreChip
+          setBooks={setBooks}
+          booksPerPage={booksPerPage}
+          currentPage={currentPage}
+        />
       </StyledDivider>
       {loading && (
         <OuterBox>
@@ -106,11 +110,6 @@ const ExploreBooksComponent: React.FC = () => {
           >
             <NavigateNextIcon />
           </RightIconButton>
-          {/* <BigBook
-        book={selectedBook}
-        open={!!selectedBook}
-        onClose={() => setSelectedBook(null)}
-      /> */}
         </OuterBox>
       )}
     </Box>

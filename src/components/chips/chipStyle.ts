@@ -18,6 +18,7 @@ export const FlameStyledChip = styled(Chip)`
 export const ChipContainer = styled("div")({
     display: "inline-flex",
     alignItems: "center",
+    width: "300px",
     backgroundColor: "transparent",
     padding: "5px 10px",
     borderRadius: "100px",
@@ -27,5 +28,6 @@ export const ChipContainer = styled("div")({
   export const RoundedTextField = styled(TextField)({
     "& .MuiOutlinedInput-root": {
       borderRadius: "20px",
+      width : "300px",
     },
   });
