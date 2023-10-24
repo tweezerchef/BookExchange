@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 export const StyledBookCard = styled(Card)`
   width: 18vw;
   height: 20vw;
-  min-height: 200px;
+  min-height: 180px;
   max-height: 250px;
   min-width: 220px;
   max-width: 250px;

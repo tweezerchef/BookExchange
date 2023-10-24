@@ -56,7 +56,7 @@ const ExploreBooksComponent: React.FC = () => {
   return (
     <Box minHeight='230px'>
       <StyledDivider textAlign='right'>
-        <ExploreChip />
+        <ExploreChip setBooks={setBooks} />
       </StyledDivider>
       {loading && (
         <OuterBox>
