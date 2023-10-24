@@ -50,45 +50,72 @@ export function ExploreChip({
     value: AutoCompleteData | null
   ) => {
     if (value) {
-      fetch(`api/bookDB/getBook/${value.id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setBooks((prevBooks) => {
-            const bookIndex = prevBooks.findIndex(
-              (book) => book.id === data.id
-            );
-            if (bookIndex !== -1) {
-              // If book is already present, move it to the front of the array
-              const before = prevBooks.slice(0, bookIndex); // Elements before the existing book
-              const after = prevBooks.slice(bookIndex + 1); // Elements after the existing book
-              return [data, ...before, ...after]; // New array with the existing book moved to the front
-            }
+      const title = typeof value === "string" ? value : value.title;
+      const id = typeof value === "object" ? value.id : undefined;
 
-            // If book is not already present, proceed as before
-            const currentPageIndices = new Set(
-              Array.from(
-                { length: booksPerPage },
-                (_, i) => currentPage * booksPerPage + i
-              )
-            );
-            const lastIndex = prevBooks.length - 1;
-
-            // If the last book is being displayed, remove the first book
-            if (currentPageIndices.has(lastIndex)) {
-              return [data, ...prevBooks.slice(1)];
-            }
-            // Otherwise, remove the last book
-            return [...prevBooks.slice(0, lastIndex), data];
-          });
+      if (!value.id) {
+        console.log("value", value);
+        fetch(`api/bookDB/queryGoogleBooks/${title}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
         })
-        .catch((error) => {
-          console.error("Error fetching random books:", error);
-        });
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            setBooks((prevBooks) => {
+              const currentPageIndices = new Set(
+                Array.from(
+                  { length: booksPerPage },
+                  (_, i) => currentPage * booksPerPage + i
+                )
+              );
+              const lastIndex = prevBooks.length - 1;
+              if (currentPageIndices.has(lastIndex)) {
+                return [data, ...prevBooks.slice(1)];
+              }
+              return [...prevBooks.slice(0, lastIndex), data];
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching data from Google Books API:", error);
+          });
+      } else {
+        fetch(`api/bookDB/getBook/${value.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setBooks((prevBooks) => {
+              const bookIndex = prevBooks.findIndex(
+                (book) => book.id === data.id
+              );
+              if (bookIndex !== -1) {
+                const before = prevBooks.slice(0, bookIndex);
+                const after = prevBooks.slice(bookIndex + 1);
+                return [data, ...before, ...after];
+              }
+              const currentPageIndices = new Set(
+                Array.from(
+                  { length: booksPerPage },
+                  (_, i) => currentPage * booksPerPage + i
+                )
+              );
+              const lastIndex = prevBooks.length - 1;
+              if (currentPageIndices.has(lastIndex)) {
+                return [data, ...prevBooks.slice(1)];
+              }
+              return [...prevBooks.slice(0, lastIndex), data];
+            });
+          })
+          .catch((error) => {
+            console.error("Error fetching random books:", error);
+          });
+      }
     }
   };
 
@@ -101,11 +128,14 @@ export function ExploreChip({
       <Autocomplete
         id='auto-complete'
         options={autoCompleteData}
-        getOptionLabel={(option) => option.title}
+        getOptionLabel={(option) =>
+          typeof option === "string" ? option : option.title
+        }
         onChange={handleAutoCompleteChange}
         onInputChange={(event, newInputValue) => {
           setSearch(newInputValue);
         }}
+        freeSolo
         renderInput={(params: AutocompleteRenderInputParams) => (
           <RoundedTextField
             {...params}

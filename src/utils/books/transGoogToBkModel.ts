@@ -4,6 +4,8 @@ import { getISBN, getLargestImage } from './googleFuncs';
 export const transGoogToBKModel = async (googleBook) => {
  const book = googleBook.items[0];
  const transformedData = {
+  // for book id create a ranom string
+    id: Math.random().toString(36).substr(2, 9),
     selfLink: book.selfLink,
     pubDate: book.volumeInfo.publishedDate ? book.volumeInfo.publishedDate : '',
     pageCount: book.volumeInfo.pageCount ? book.volumeInfo.pageCount : null,
