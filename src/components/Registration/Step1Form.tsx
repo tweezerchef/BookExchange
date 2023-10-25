@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 import { useFormData } from "../../context/regContext";
 import { UserAddress } from "./components/UserAddress";
 import { UserName } from "./components/UserName";
+import AviAdd from "./components/AviAdd";
 
 interface Step1FormProps {
   handleNext: () => void;
@@ -24,6 +25,7 @@ export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      <AviAdd />
       <UserName />
       <UserAddress />
       <Button type='submit' variant='contained' color='primary'>

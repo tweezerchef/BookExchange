@@ -1,49 +1,44 @@
-import { makeStyles } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
+import { ChangeEvent, FC } from "react";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  input: {
-    display: "none",
-  },
-  large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+const Wrapper = styled("div")(({ theme }) => ({
+  alignSelf: "center",
+  justifyContent: "center",
+  alignItems: "center",
+  display: "flex",
+  "& > *": {
+    margin: theme.spacing(1),
   },
 }));
 
-export default function ProfileAvatar() {
-  const classes = useStyles();
+const HiddenFileInput = styled("input")({
+  display: "none",
+});
 
-  return (
-    <div className={classes.root}>
-      <input
-        accept='image/*'
-        className={classes.input}
-        id='icon-button-file'
-        type='file'
-      />
-      <label htmlFor='icon-button-file'>
-        <IconButton
-          color='primary'
-          aria-label='upload picture'
-          component='span'
-        >
-          <Avatar
-            src='https://www.w3schools.com/howto/img_avatar.png'
-            className={classes.large}
-          />
-        </IconButton>
-      </label>
-    </div>
-  );
+const LargeAvatar = styled(Avatar)(({ theme }) => ({
+  width: theme.spacing(7),
+  height: theme.spacing(7),
+}));
+
+interface ProfileAvatarProps {
+  onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
+
+const ProfileAvatar: FC<ProfileAvatarProps> = ({ onFileChange }) => (
+  <Wrapper>
+    <HiddenFileInput
+      accept='image/*'
+      id='icon-button-file'
+      type='file'
+      onChange={onFileChange}
+    />
+
+    <IconButton color='primary' aria-label='upload picture' component='span'>
+      <LargeAvatar src='https://www.w3schools.com/howto/img_avatar.png' />
+    </IconButton>
+  </Wrapper>
+);
+
+export default ProfileAvatar;
