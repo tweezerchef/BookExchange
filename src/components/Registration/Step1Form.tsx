@@ -1,5 +1,4 @@
 import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
 import { useFormData } from "../../context/regContext";
 import { UserAddress } from "./components/UserAddress";
 import { UserName } from "./components/UserName";

@@ -3,6 +3,7 @@ import { useState, useContext, createContext, useMemo } from "react";
 interface FormData {
   address: string;
   userName: string;
+  avatarUrl?: string;
 }
 
 interface FormContextProps {
@@ -28,6 +29,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
   const [formData, setFormData] = useState<FormData>({
     address: "",
     userName: "",
+    avatarUrl: "",
   });
 
   const value = useMemo(() => {

@@ -1,7 +1,9 @@
 import { styled } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import { ChangeEvent, FC } from "react";
+import { FC, ChangeEvent } from "react";
+import { uploadToS3 } from "../../../utils/s3Upload";
+import { useFormData } from "../../../context/regContext";
 
 const Wrapper = styled("div")(({ theme }) => ({
   alignSelf: "center",
@@ -22,23 +24,40 @@ const LargeAvatar = styled(Avatar)(({ theme }) => ({
   height: theme.spacing(7),
 }));
 
-interface ProfileAvatarProps {
-  onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+const ProfileAvatar: FC = () => {
+  const { formData, updateFormData } = useFormData();
 
-const ProfileAvatar: FC<ProfileAvatarProps> = ({ onFileChange }) => (
-  <Wrapper>
-    <HiddenFileInput
-      accept='image/*'
-      id='icon-button-file'
-      type='file'
-      onChange={onFileChange}
-    />
+  const handleFileUpload = async (file: File) => {
+    try {
+      const fileUrl = await uploadToS3(file);
+      updateFormData({ avatarUrl: fileUrl });
+    } catch (error) {
+      console.error("Error uploading file: ", error);
+    }
+  };
 
-    <IconButton color='primary' aria-label='upload picture' component='span'>
-      <LargeAvatar src='https://www.w3schools.com/howto/img_avatar.png' />
-    </IconButton>
-  </Wrapper>
-);
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    // Update the type here
+    const file = event.target.files ? event.target.files[0] : null;
+    if (!file) return;
+
+    void handleFileUpload(file);
+  };
+
+  return (
+    <Wrapper>
+      <HiddenFileInput
+        accept='image/*'
+        id='icon-button-file'
+        type='file'
+        onChange={handleFileChange}
+      />
+
+      <IconButton color='primary' aria-label='upload picture' component='span'>
+        <LargeAvatar src='https://www.w3schools.com/howto/img_avatar.png' />
+      </IconButton>
+    </Wrapper>
+  );
+};
 
 export default ProfileAvatar;
