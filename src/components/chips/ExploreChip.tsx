@@ -84,9 +84,7 @@ export function ExploreChip({
               const filteredBooks = prevBooks.filter(
                 (book) => book.id !== data.id
               );
-              // Insert the new book at the front of the array
               const updatedBooks = [data, ...filteredBooks];
-              // Remove the last book to keep the total count the same
               updatedBooks.pop();
               return updatedBooks;
             });
