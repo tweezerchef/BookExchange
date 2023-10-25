@@ -1,9 +1,8 @@
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { Typography } from "@mui/material";
 import { useFormData } from "../../context/regContext";
 import { UserAddress } from "./components/UserAddress";
-import UserName from "./components/UserName";
+import { UserName } from "./components/UserName";
 
 interface Step1FormProps {
   handleNext: () => void;
@@ -25,23 +24,7 @@ export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField
-        label='Campaign Name'
-        name='campaignName'
-        value={formData.campaignName}
-        onChange={handleChange}
-        fullWidth
-        required
-      />
-      <TextField
-        label='Budget'
-        name='budget'
-        type='number'
-        value={formData.budget}
-        onChange={handleChange}
-        fullWidth
-        required
-      />
+      <UserName />
       <UserAddress />
       <Button type='submit' variant='contained' color='primary'>
         Next

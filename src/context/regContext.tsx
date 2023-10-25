@@ -25,10 +25,13 @@ export const useFormData = () => {
 };
 
 export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
-  const [formData, setFormData] = useState<FormData>({ address: "" });
+  const [formData, setFormData] = useState<FormData>({
+    address: "",
+    userName: "",
+  });
 
   const value = useMemo(() => {
-    const updateFormData = (data: FormData | (() => FormData)) => {
+    const updateFormData = (data: Partial<FormData> | (() => FormData)) => {
       if (typeof data === "function") {
         setFormData((prevData) => ({
           ...prevData,
