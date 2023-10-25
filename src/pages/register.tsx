@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { getSignedURL } from "../utils/getSignedURL";
 import { Step1Form } from "../components/Registration/Step1Form";
 import Step2Form from "../components/Registration/Step2Form";
 import Step3Form from "../components/Registration/Step3Form";
 import { RegisterBox, CenteredContainer } from "./pageStyles/pageStyles";
 import { FormProvider } from "../context/regContext";
+
+const fileName =
+  "DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png";
 
 const Registration = (props) => {
   const [activeStep, setActiveStep] = useState(0);
@@ -13,22 +15,30 @@ const Registration = (props) => {
     "" || null
   );
 
+  // In your Registration component
   useEffect(() => {
-    // Assume getSignedUrl is a function that fetches a signed URL from your server
-    getSignedURL(
-      "DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png"
-    )
-      .then(setBackgroundImageUrl)
+    fetch(`/api/AWS/signedURL?fileName=${fileName}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const { url } = data;
+        setBackgroundImageUrl(url);
+      })
       .catch(console.error); // Log errors to the console
   }, []);
 
   const forms = [
-    <Step1Form handleNext={() => setActiveStep(1)} />,
+    <Step1Form key='step1' handleNext={() => setActiveStep(1)} />,
     <Step2Form
+      key='step2'
       handleNext={() => setActiveStep(2)}
       handleBack={() => setActiveStep(0)}
     />,
-    <Step3Form handleBack={() => setActiveStep(1)} />,
+    <Step3Form key='step3' handleBack={() => setActiveStep(1)} />,
   ];
 
   return (
@@ -39,9 +49,9 @@ const Registration = (props) => {
             <Image
               src={backgroundImageUrl}
               alt='Background'
-              layout='fill'
-              objectFit='cover'
+              fill
               quality={100}
+              priority
             />
           )}
           {forms[activeStep]}

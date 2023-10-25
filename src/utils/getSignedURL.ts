@@ -9,8 +9,6 @@ const s3 = new S3({
   });
 
 export const getSignedURL = async (fileName: string) => {
-    console.log(fileName)
-    console.log(process.env.AWS_S3_BUCKET_NAME)
   const params = {
     Bucket: process.env.AWS_S3_BUCKET_NAME,
     Key: fileName,
@@ -19,7 +17,6 @@ export const getSignedURL = async (fileName: string) => {
 
   try {
     const url = await s3.getSignedUrlPromise('getObject', params);
-    console.log('Signed URL: ', url);
     return url;
   } catch (error) {
     console.error('Error getting signed URL: ', error);

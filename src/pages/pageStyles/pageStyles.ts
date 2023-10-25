@@ -29,6 +29,7 @@ export const CenteredContainer = styled(Container)`
 `;
 
 export const RegisterBox = styled(Box)`
+  position : relative;
   min-height: 750px;
   min-width: 800px;
   display: flex;
