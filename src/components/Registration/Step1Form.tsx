@@ -1,26 +1,25 @@
 import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import UserAddress from "./UserAddress";
+import { useFormData } from "../../context/regContext";
+import { UserAddress } from "./components/UserAddress";
+import UserName from "./components/UserName";
 
 interface Step1FormProps {
   handleNext: () => void;
 }
 
-const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
-  const [formData, setFormData] = useState({
-    campaignName: "",
-    budget: "",
-  });
+export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
+  const { formData, updateFormData } = useFormData();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    updateFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Add your form submission logic here
+    console.log("formData", formData);
     handleNext(); // Move to the next step
   };
 
@@ -50,5 +49,3 @@ const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
     </form>
   );
 };
-
-export default Step1Form;

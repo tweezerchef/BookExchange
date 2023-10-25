@@ -1,11 +1,12 @@
 /* eslint-disable react/jsx-key */
-import React, { useState } from "react";
-import Step1Form from "../components/Registration/Step1Form";
+import { useState } from "react";
+import { Step1Form } from "../components/Registration/Step1Form";
 import Step2Form from "../components/Registration/Step2Form";
 import Step3Form from "../components/Registration/Step3Form";
 import { BackgroundBox, CenteredContainer } from "./pageStyles/pageStyles";
+import { FormProvider } from "../context/regContext";
 
-const Registration = (props) => {
+const Registration = () => {
   const [activeStep, setActiveStep] = useState(0);
 
   const forms = [
@@ -18,9 +19,11 @@ const Registration = (props) => {
   ];
 
   return (
-    <CenteredContainer maxWidth='sm'>
-      <BackgroundBox>{forms[activeStep]}</BackgroundBox>
-    </CenteredContainer>
+    <FormProvider>
+      <CenteredContainer maxWidth='sm'>
+        <BackgroundBox>{forms[activeStep]}</BackgroundBox>
+      </CenteredContainer>
+    </FormProvider>
   );
 };
 

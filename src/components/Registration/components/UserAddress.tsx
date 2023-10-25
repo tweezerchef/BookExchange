@@ -16,12 +16,18 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import parse from "autosuggest-highlight/parse";
 import { debounce } from "@mui/material/utils";
-import { useUserState } from "../../context/context";
+import { useUserState } from "../../../context/context";
+import { useFormData } from "../../../context/regContext";
 
 // eslint-disable-next-line prefer-destructuring
 const GOOGLE_MAPS_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
-function loadScript(src, position, id, callback) {
+function loadScript(
+  src: string,
+  position: HTMLElement | null,
+  id: string,
+  callback: () => void
+) {
   if (!position) {
     return;
   }
@@ -30,8 +36,6 @@ function loadScript(src, position, id, callback) {
   script.setAttribute("async", "");
   script.setAttribute("id", id);
   script.src = src;
-
-  // Add an event listener to call the callback function when the script has loaded
   script.addEventListener("load", callback);
 
   position.appendChild(script);
@@ -53,7 +57,8 @@ interface PlaceType {
   structured_formatting: StructuredFormatting;
 }
 
-export default function UserAddress() {
+export function UserAddress() {
+  const { formData, updateFormData } = useFormData();
   const [value, setValue] = useState<PlaceType | null>(null);
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState<readonly PlaceType[]>([]);
@@ -95,23 +100,10 @@ export default function UserAddress() {
       return; // No selected address
     }
     const address = value.description;
-    fetch("/api/location/setUserLocation", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ address, userId }),
-    })
-      .then((response) => {
-        // handle response
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    updateFormData({ address });
   };
 
   useEffect(() => {
-    console.log(user);
     let active = true;
     if (!autocompleteService.current && (window as any).google) {
       autocompleteService.current = new (
@@ -146,7 +138,7 @@ export default function UserAddress() {
     return () => {
       active = false;
     };
-  }, [value, inputValue, fetchADD]);
+  }, [value, inputValue, fetchADD, user]);
 
   return (
     <div>
