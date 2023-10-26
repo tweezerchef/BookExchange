@@ -20,7 +20,7 @@ export async function uploadToS3(fileStream: Readable, fileName: string): Promis
 
   try {
     await new Promise((resolve, reject) => {
-      s3.upload(params, (error, data) => {
+      s3.upload(params, (error: unknown, data: unknown) => {
         if (error) {
           reject(error);
         } else {

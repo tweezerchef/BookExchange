@@ -1,11 +1,13 @@
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { FC, ChangeEvent, useState, createRef } from "react";
+import { FC, ChangeEvent, useState, createRef, useRef } from "react";
 import Webcam from "react-webcam";
 import Modal from "@mui/material/Modal";
+import Cropper from "react-cropper";
 import { useFormData } from "../../../context/regContext";
 import { HiddenFileInput, LargeAvatar, Wrapper } from "./regCompStyles";
+import "cropperjs/dist/cropper.css"; // import styles
 
 const ProfileAvatar: FC = () => {
   const { formData, updateFormData } = useFormData();
@@ -15,6 +17,12 @@ const ProfileAvatar: FC = () => {
     "https://www.w3schools.com/howto/img_avatar.png"
   );
   const webcamRef = createRef<Webcam>();
+  const cropperRef = useRef<Cropper>(null);
+  const cropperInstance = useRef<Cropper>(null);
+
+  const onCropperReady = (instance: Cropper) => {
+    cropperInstance.current = instance;
+  };
 
   const handleFileUpload = async (file: File) => {
     const formDataNew = new FormData();
@@ -52,9 +60,16 @@ const ProfileAvatar: FC = () => {
     setCapturedImage(imageSrc);
   };
   const handleUseCapturedImage = async () => {
-    if (capturedImage) {
-      // Convert base64 URL to Blob
-      const response = await fetch(capturedImage);
+    if (cropperRef.current) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const cropperInstance = cropperRef.current.cropper; // Access the cropperjs instance
+      const canvas = cropperInstance.getCroppedCanvas(); // Now call getCroppedCanvas on the cropperjs instance
+      if (!canvas) {
+        // handle error
+        return;
+      }
+      const croppedImage = canvas.toDataURL();
+      const response = await fetch(croppedImage);
       const blob = await response.blob();
       const file = new File([blob], "captured-image.jpg", { type: blob.type });
 
@@ -103,13 +118,15 @@ const ProfileAvatar: FC = () => {
         <div>
           {capturedImage && (
             <>
-              <img src={capturedImage} alt='Captured' />
-              <button
-                type='button'
-                onClick={() => {
-                  void handleUseCapturedImage();
-                }}
-              >
+              <Cropper
+                src={capturedImage}
+                ref={cropperRef}
+                ready={() => onCropperReady(cropperInstance.current)}
+                style={{ height: 400, width: "100%" }}
+                aspectRatio={1}
+                guides={false}
+              />
+              <button type='button' onClick={handleUseCapturedImage}>
                 Use this photo
               </button>
               <button type='button' onClick={() => setCapturedImage(null)}>
