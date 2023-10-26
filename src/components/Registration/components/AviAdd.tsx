@@ -1,13 +1,26 @@
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
-import { FC, ChangeEvent, useState, createRef, useRef } from "react";
+import {
+  FC,
+  ChangeEvent,
+  useState,
+  createRef,
+  useRef,
+  MouseEvent,
+} from "react";
 import Webcam from "react-webcam";
-import Modal from "@mui/material/Modal";
-import Cropper from "react-cropper";
+import { Button } from "@mui/material";
+import { ReactCropperElement } from "react-cropper";
 import { useFormData } from "../../../context/regContext";
 import { HiddenFileInput, LargeAvatar, Wrapper } from "./regCompStyles";
-import "cropperjs/dist/cropper.css"; // import styles
+import "cropperjs/dist/cropper.css";
+import { CropperComp } from "./CropperComp";
+
+interface CropperInstance {
+  cropper: Cropper;
+  getCroppedCanvas(): HTMLCanvasElement | null;
+}
 
 const ProfileAvatar: FC = () => {
   const { formData, updateFormData } = useFormData();
@@ -16,67 +29,65 @@ const ProfileAvatar: FC = () => {
   const [avatarUrl, setAvatarUrl] = useState(
     "https://www.w3schools.com/howto/img_avatar.png"
   );
+  const [cropper, setCropper] = useState(false);
+  const [originalImage, setOriginalImage] = useState<string | null>(null);
+
   const webcamRef = createRef<Webcam>();
-  const cropperRef = useRef<Cropper>(null);
+  const cropperRef = useRef<
+    HTMLImageElement | CropperInstance | ReactCropperElement
+  >(null);
   const cropperInstance = useRef<Cropper>(null);
+
+  const onCropperClick = (event: MouseEvent<HTMLButtonElement>) => {
+    setCropper(true);
+  };
 
   const onCropperReady = (instance: Cropper) => {
     cropperInstance.current = instance;
   };
 
-  const handleFileUpload = async (file: File) => {
-    const formDataNew = new FormData();
-    formDataNew.append("file", file);
-
-    try {
-      const response = await fetch("/api/AWS/uploadS3", {
-        method: "POST",
-        body: formDataNew,
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to upload file: ${response.statusText}`);
-      }
-
-      const data = (await response.json()) as { url: string };
-      const fileUrl = data.url;
-      console.log(fileUrl);
-      setAvatarUrl(fileUrl);
-      updateFormData({ avatarUrl: fileUrl });
-      // Update the avatar URL to display the new image
-    } catch (error) {
-      console.error("Error uploading file: ", error);
-    }
-  };
-
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
+    // eslint-disable-next-line no-useless-return
     if (!file) return;
 
-    void handleFileUpload(file);
+    // void handleFileUpload(file);
   };
+
   const handleCameraCapture = () => {
     const imageSrc = webcamRef.current?.getScreenshot();
+    setOriginalImage(imageSrc); // Set original image
     setCapturedImage(imageSrc);
+    setAvatarUrl(imageSrc || avatarUrl);
+    setIsCameraOpen(false);
   };
-  const handleUseCapturedImage = async () => {
+
+  const handleUseCapturedImage = async (): Promise<void> => {
+    setCropper(false);
+
     if (cropperRef.current) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const cropperInstance = cropperRef.current.cropper; // Access the cropperjs instance
-      const canvas = cropperInstance.getCroppedCanvas(); // Now call getCroppedCanvas on the cropperjs instance
+      const newCropperInstance = (cropperRef.current as ReactCropperElement)
+        .cropper;
+      const canvas = newCropperInstance.getCroppedCanvas();
       if (!canvas) {
-        // handle error
+        console.error("Failed to get cropped canvas");
         return;
       }
       const croppedImage = canvas.toDataURL();
+      setAvatarUrl(croppedImage);
       const response = await fetch(croppedImage);
       const blob = await response.blob();
+      // add User.id to "capturedImage"
       const file = new File([blob], "captured-image.jpg", { type: blob.type });
 
-      await handleFileUpload(file);
-
-      setCapturedImage(null); // Reset the captured image URL
-      setIsCameraOpen(false); // Close the camera
+      void setCapturedImage(null);
+      void setIsCameraOpen(false);
+    } else {
+      // Handle other cases
+      console.error(
+        "Unexpected type for cropperRef.current:",
+        cropperRef.current
+      );
     }
   };
 
@@ -94,6 +105,23 @@ const ProfileAvatar: FC = () => {
         </>
       ) : (
         <>
+          {avatarUrl !== "https://www.w3schools.com/howto/img_avatar.png" && (
+            <>
+              <Button onClick={onCropperClick}>Crop Your Photo</Button>
+              {cropper && (
+                <CropperComp
+                  cropperRef={cropperRef}
+                  cropperInstance={cropperInstance}
+                  originalImage={originalImage}
+                  onCropperReady={onCropperReady}
+                  setCapturedImage={setCapturedImage}
+                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                  handleUseCapturedImage={handleUseCapturedImage}
+                />
+              )}
+            </>
+          )}
+          <LargeAvatar src={avatarUrl} />
           <HiddenFileInput
             accept='image/*'
             id='icon-button-file'
@@ -105,39 +133,45 @@ const ProfileAvatar: FC = () => {
               color='primary'
               aria-label='upload picture'
               component='span'
-            >
-              <LargeAvatar src={avatarUrl} />
-            </IconButton>
+            />
           </label>
           <IconButton color='default' onClick={() => setIsCameraOpen(true)}>
             <CameraAltIcon />
           </IconButton>
         </>
       )}
-      <Modal open={!!capturedImage} onClose={() => setCapturedImage(null)}>
-        <div>
-          {capturedImage && (
-            <>
-              <Cropper
-                src={capturedImage}
-                ref={cropperRef}
-                ready={() => onCropperReady(cropperInstance.current)}
-                style={{ height: 400, width: "100%" }}
-                aspectRatio={1}
-                guides={false}
-              />
-              <button type='button' onClick={handleUseCapturedImage}>
-                Use this photo
-              </button>
-              <button type='button' onClick={() => setCapturedImage(null)}>
-                Retake
-              </button>
-            </>
-          )}
-        </div>
-      </Modal>
     </Wrapper>
   );
 };
 
 export default ProfileAvatar;
+
+// const handleFileUpload = async (file: File) => {
+//   const formDataNew = new FormData();
+//   formDataNew.append("file", file);
+
+//   try {
+//     const response = await fetch("/api/AWS/uploadS3", {
+//       method: "POST",
+//       body: formDataNew,
+//     });
+
+//     if (!response.ok) {
+//       throw new Error(`Failed to upload file: ${response.statusText}`);
+//     }
+
+//     const data = (await response.json()) as { url: string };
+//     const fileUrl = data.url;
+//     setAvatarUrl(fileUrl);
+//     updateFormData({ avatarUrl: fileUrl });
+//     // Update the avatar URL to display the new image
+//   } catch (error) {
+//     console.error("Error uploading file: ", error);
+//   }
+// };
+
+// try {
+//   await handleFileUpload(file);
+// } catch (error) {
+//   console.error("Failed to upload file:", error);
+// }
