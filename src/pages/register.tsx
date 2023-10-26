@@ -50,9 +50,10 @@ const Registration = (props) => {
               src={backgroundImageUrl}
               alt='Background'
               fill
-              sizes='(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 600px'
+              sizes='(max-width: 600px) 100vw, (max-width: 800px) 50vw, 750px'
               quality={100}
               priority
+              style={{ zIndex: -1 }}
             />
           )}
           {forms[activeStep]}

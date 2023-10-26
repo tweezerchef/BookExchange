@@ -1,17 +1,16 @@
 
 import { styled } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
+import { Box } from "@mui/material";
 
-export const Wrapper = styled("div")(({ theme }) => ({
+export const Wrapper = styled(Box)({
     alignSelf: "center",
     justifyContent: "center",
+    alignContent: "center",
     alignItems: "center",
     display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-      zIndex: 2,
-    },
-  }));
+    flexDirection: "row",
+  })
 
 export const HiddenFileInput = styled("input")({
     display: "none",
