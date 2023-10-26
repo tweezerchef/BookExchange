@@ -1,15 +1,26 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { useState, useContext } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Image from "next/image";
-import { InputGroup, Input } from "./styles";
+import {
+  InputGroup,
+  Input,
+  LoginBox,
+  BackgroundImageContainer,
+} from "./styles";
 import GoogleButton from "./googleButton";
+
+const fileName =
+  "DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png";
 
 function EntryCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
+    "" || null
+  );
 
   const loginHandler = async () => {
     try {
@@ -34,28 +45,34 @@ function EntryCard() {
     }
   };
 
+  useEffect(() => {
+    fetch(`/api/AWS/signedURL?fileName=${fileName}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const { url } = data;
+        setBackgroundImageUrl(url);
+      })
+      .catch(console.error); // Log errors to the console
+  }, []);
+
   return (
-    <Box
-      sx={{
-        width: "100%",
-        maxWidth: "350px",
-        maxHeight: "600px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: "10px",
-        padding: "50px",
-        margin: "-20px auto 60px",
-        boxShadow:
-          "0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.1)",
-        textAlign: "center",
-        backgroundSize: "cover",
-        backgroundImage:
-          "url(https://nobe.s3.us-east-2.amazonaws.com/DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png)",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
+    <LoginBox>
+      {backgroundImageUrl && (
+        <BackgroundImageContainer>
+          <Image
+            src={backgroundImageUrl}
+            alt='Background'
+            fill
+            quality={100}
+            priority
+          />
+        </BackgroundImageContainer>
+      )}
       <Box
         sx={{
           display: "flex",
@@ -129,7 +146,7 @@ function EntryCard() {
         <div id='loginDiv' />
       </div>
       <GoogleButton />
-    </Box>
+    </LoginBox>
   );
 }
 export default EntryCard;

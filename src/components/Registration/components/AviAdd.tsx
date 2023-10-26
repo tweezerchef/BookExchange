@@ -1,5 +1,4 @@
 import IconButton from "@mui/material/IconButton";
-import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import CloseIcon from "@mui/icons-material/Close";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { FC, ChangeEvent, useState, createRef } from "react";
@@ -13,11 +12,18 @@ const ProfileAvatar: FC = () => {
   const { formData, updateFormData } = useFormData();
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState(
+    "https://www.w3schools.com/howto/img_avatar.png"
+  );
   const webcamRef = createRef<Webcam>();
+
   const handleFileUpload = async (file: File) => {
     try {
       const fileUrl = await uploadToS3(file);
+      console.log(fileUrl);
+      setAvatarUrl(fileUrl);
       updateFormData({ avatarUrl: fileUrl });
+      // Update the avatar URL to display the new image
     } catch (error) {
       console.error("Error uploading file: ", error);
     }
@@ -33,10 +39,21 @@ const ProfileAvatar: FC = () => {
     const imageSrc = webcamRef.current?.getScreenshot();
     setCapturedImage(imageSrc); // Store the captured image URL
   };
-  const handleUseCapturedImage = () => {
-    // Use the captured image as needed, e.g., upload it to the server
-    setCapturedImage(null); // Reset the captured image URL
-    setIsCameraOpen(false); // Close the camera
+  const handleUseCapturedImage = async () => {
+    if (capturedImage) {
+      // Convert base64 URL to Blob
+      const response = await fetch(capturedImage);
+      const blob = await response.blob();
+
+      // Create a File object
+      const file = new File([blob], "captured-image.jpg", { type: blob.type });
+
+      // Upload the File object
+      await handleFileUpload(file);
+
+      setCapturedImage(null); // Reset the captured image URL
+      setIsCameraOpen(false); // Close the camera
+    }
   };
 
   return (
@@ -65,7 +82,7 @@ const ProfileAvatar: FC = () => {
               aria-label='upload picture'
               component='span'
             >
-              <LargeAvatar src='https://www.w3schools.com/howto/img_avatar.png' />
+              <LargeAvatar src={avatarUrl} />
             </IconButton>
           </label>
           <IconButton color='default' onClick={() => setIsCameraOpen(true)}>
