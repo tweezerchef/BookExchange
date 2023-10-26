@@ -24,7 +24,7 @@ const Registration = (props) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: { url: string }) => {
         const { url } = data;
         setBackgroundImageUrl(url);
       })
@@ -50,6 +50,7 @@ const Registration = (props) => {
               src={backgroundImageUrl}
               alt='Background'
               fill
+              sizes='(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 600px'
               quality={100}
               priority
             />

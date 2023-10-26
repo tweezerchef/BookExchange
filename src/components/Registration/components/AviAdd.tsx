@@ -4,7 +4,6 @@ import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import { FC, ChangeEvent, useState, createRef } from "react";
 import Webcam from "react-webcam";
 import Modal from "@mui/material/Modal";
-import { uploadToS3 } from "../../../utils/s3Upload";
 import { useFormData } from "../../../context/regContext";
 import { HiddenFileInput, LargeAvatar, Wrapper } from "./regCompStyles";
 
@@ -18,8 +17,21 @@ const ProfileAvatar: FC = () => {
   const webcamRef = createRef<Webcam>();
 
   const handleFileUpload = async (file: File) => {
+    const formDataNew = new FormData();
+    formDataNew.append("file", file);
+
     try {
-      const fileUrl = await uploadToS3(file);
+      const response = await fetch("/api/AWS/uploadS3", {
+        method: "POST",
+        body: formDataNew,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to upload file: ${response.statusText}`);
+      }
+
+      const data = (await response.json()) as { url: string };
+      const fileUrl = data.url;
       console.log(fileUrl);
       setAvatarUrl(fileUrl);
       updateFormData({ avatarUrl: fileUrl });
@@ -37,18 +49,15 @@ const ProfileAvatar: FC = () => {
   };
   const handleCameraCapture = () => {
     const imageSrc = webcamRef.current?.getScreenshot();
-    setCapturedImage(imageSrc); // Store the captured image URL
+    setCapturedImage(imageSrc);
   };
   const handleUseCapturedImage = async () => {
     if (capturedImage) {
       // Convert base64 URL to Blob
       const response = await fetch(capturedImage);
       const blob = await response.blob();
-
-      // Create a File object
       const file = new File([blob], "captured-image.jpg", { type: blob.type });
 
-      // Upload the File object
       await handleFileUpload(file);
 
       setCapturedImage(null); // Reset the captured image URL
@@ -95,7 +104,12 @@ const ProfileAvatar: FC = () => {
           {capturedImage && (
             <>
               <img src={capturedImage} alt='Captured' />
-              <button type='button' onClick={handleUseCapturedImage}>
+              <button
+                type='button'
+                onClick={() => {
+                  void handleUseCapturedImage();
+                }}
+              >
                 Use this photo
               </button>
               <button type='button' onClick={() => setCapturedImage(null)}>
