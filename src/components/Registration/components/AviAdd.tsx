@@ -19,7 +19,12 @@ import { ReactCropperElement } from "react-cropper";
 import { Typography } from "@mui/material";
 import { dataURLtoBlob } from "../../../utils/clientUtils/dataURLtoBlob";
 import { useFormData } from "../../../context/regContext";
-import { HiddenFileInput, LargeAvatar, Wrapper } from "./regCompStyles";
+import {
+  HiddenFileInput,
+  LargeAvatar,
+  Wrapper,
+  BigIconButton,
+} from "./regCompStyles";
 import "cropperjs/dist/cropper.css";
 import { CropperComp } from "./CropperComp";
 
@@ -166,20 +171,15 @@ const ProfileAvatar: FC = () => {
           />
           <label htmlFor='icon-button-file'>
             <ToolTip title='Choose From An Existing File' arrow>
-              <IconButton
-                size='large'
-                color='primary'
-                aria-label='upload picture'
-                component='span'
-              >
+              <BigIconButton color='primary' aria-label='upload picture'>
                 <UploadFileIcon style={{ fontSize: "3.3rem" }} />
-              </IconButton>
+              </BigIconButton>
             </ToolTip>
           </label>
           <ToolTip title='Take a photo with your webcam' arrow>
-            <IconButton color='primary' size='large' onClick={handleOpen}>
+            <BigIconButton color='primary' onClick={handleOpen}>
               <CameraAltIcon style={{ fontSize: "3.3rem" }} />
-            </IconButton>
+            </BigIconButton>
           </ToolTip>
 
           <Modal

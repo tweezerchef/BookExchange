@@ -94,8 +94,15 @@ export function UserAddress() {
 
   return (
     <div>
-      <Typography variant='body2'>
-        Please Add Your Address: to match you with books and users in your area
+      <Typography
+        variant='body1'
+        // sx={{
+        //   textShadow: "1px 1px 2px rgba(0,0,0,0.4)",
+        // }}
+      >
+        Please Add Your Address
+        <br />
+        So we can match you with books and users in your area
       </Typography>
       <Autocomplete
         id='UserAddress'
