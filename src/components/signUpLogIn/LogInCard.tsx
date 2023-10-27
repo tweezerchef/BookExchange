@@ -46,7 +46,7 @@ function EntryCard() {
   };
 
   useEffect(() => {
-    fetch(`/api/AWS/signedURL?fileName=${fileName}`, {
+    fetch(`/api/AWS/signedURL?fileNames=${fileName}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -55,6 +55,7 @@ function EntryCard() {
       .then((response) => response.json())
       .then((data) => {
         const { url } = data;
+        console.log("data", data);
         setBackgroundImageUrl(url);
       })
       .catch(console.error); // Log errors to the console

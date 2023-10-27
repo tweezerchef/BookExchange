@@ -2,6 +2,7 @@ import Button from "@mui/material/Button";
 import { useFormData } from "../../context/regContext";
 import { UserAddress } from "./components/UserAddress";
 import { UserName } from "./components/UserName";
+import { GenrePicker } from "./components/GenrePicker";
 import AviAdd from "./components/AviAdd";
 
 interface Step1FormProps {
@@ -19,7 +20,7 @@ export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("formData", formData);
-    handleNext(); // Move to the next step
+    handleNext();
   };
 
   return (
@@ -27,7 +28,13 @@ export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
       <AviAdd />
       <UserName />
       <UserAddress />
-      <Button type='submit' variant='contained' color='primary'>
+      <GenrePicker />
+      <Button
+        type='submit'
+        variant='contained'
+        color='primary'
+        sx={{ margin: 3 }}
+      >
         Next
       </Button>
     </form>

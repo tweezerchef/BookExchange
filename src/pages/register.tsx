@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Box from "@mui/material/Box";
 import { Step1Form } from "../components/Registration/Step1Form";
 import Step2Form from "../components/Registration/Step2Form";
 import Step3Form from "../components/Registration/Step3Form";
@@ -8,27 +9,32 @@ import { FormProvider } from "../context/regContext";
 
 const fileName =
   "DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png";
+const libraryCardFile = "NOBELibraryCard.png";
 
 const Registration = (props) => {
   const [activeStep, setActiveStep] = useState(0);
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
     "" || null
   );
+  const [libraryCardImageUrl, setLibraryCardImageUrl] = useState<string>(
+    "" || null
+  );
 
-  // In your Registration component
   useEffect(() => {
-    fetch(`/api/AWS/signedURL?fileName=${fileName}`, {
+    const fileNames = [fileName, libraryCardFile].join(",");
+    fetch(`/api/AWS/signedURL?fileNames=${fileNames}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
-      .then((data: { url: string }) => {
-        const { url } = data;
-        setBackgroundImageUrl(url);
+      .then((data) => {
+        console.log("data", data);
+        setBackgroundImageUrl(data.urls[0]);
+        setLibraryCardImageUrl(data.urls[1]); // Assume setLibraryCardImageUrl is a state setter function
       })
-      .catch(console.error); // Log errors to the console
+      .catch(console.error);
   }, []);
 
   const forms = [
@@ -56,6 +62,27 @@ const Registration = (props) => {
               style={{ zIndex: -1 }}
             />
           )}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignContent: "start",
+              mt: "0",
+              width: "400px",
+              filter: "brightness(1.2) contrast(1.2)",
+            }}
+          >
+            {libraryCardImageUrl && (
+              <Image
+                src={libraryCardImageUrl}
+                alt='logo'
+                width={400} // You need to provide a width
+                height={220} // You need to provide a height, adjust this based on your image's aspect ratio
+                quality={100}
+              />
+            )}
+          </Box>
+
           {forms[activeStep]}
         </RegisterBox>
       </CenteredContainer>

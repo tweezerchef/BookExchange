@@ -14,6 +14,10 @@ interface GeocodeResponse {
         lng: number;
       };
     };
+    address_components: {
+      long_name: string;
+      types: string[];
+    }[];
   }[];
 }
 
@@ -27,11 +31,17 @@ export default async function handler(
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.GOOGLE_MAPS_API_KEY}`
       );
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const data: GeocodeResponse = await response.json();
+      const data: GeocodeResponse = await response.json() as GeocodeResponse;
 
       const { location } = data.results[0].geometry;
       const { lat, lng } = location;
+
+      const cityComponent = data.results[0].address_components.find(
+        component => component.types.includes('locality')
+      );
+
+      const city = cityComponent ? cityComponent.long_name : '';
+
       await prisma.user.update({
         where: {
           id: userId,
@@ -39,9 +49,11 @@ export default async function handler(
         data: {
           latitude: lat,
           longitude: lng,
+          city,
         },
       });
-      res.status(200).json({ userId, address });
+
+      res.status(200).json({ userId, address, city });
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Failed to add location" });
