@@ -36,7 +36,7 @@ interface StarRating {
     const userProp: { id: string } = JSON.parse(userCookie);
     const baseUrl = req ? `http://${req.headers.host}` : "";
     const userId = userProp.id;
-
+    // consolidate to one call
     const urls = {
       user: `${baseUrl}/api/user/id/${userId}`,
       wishlist: `${baseUrl}/api/user/wishList/${userId}`,
