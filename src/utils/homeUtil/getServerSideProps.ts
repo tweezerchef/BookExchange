@@ -1,11 +1,16 @@
 import { GetServerSideProps } from 'next';
 import { parse } from 'cookie';
 import { User, Books } from '@prisma/client';
-
+import * as signature from 'cookie-signature';
 
 interface StarRating {
     bookID: string;
     rating: number;
+  }
+  interface UserProp {
+    id: string;
+    name: string;
+    email: string;
   }
 
   interface HomeProps {
@@ -15,6 +20,7 @@ interface StarRating {
     lendingLibraryIdsData: Books['id'][];
     starRatingData: StarRating[];
   }
+  const {secretKey} = process.env;
 
   export const getServerSideProps: GetServerSideProps<HomeProps> = async (
     context
@@ -31,9 +37,17 @@ interface StarRating {
         },
       };
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const userProp: { id: string } = JSON.parse(userCookie);
+    const unsignedValue = signature.unsign(userCookie, secretKey)
+    if (unsignedValue === false) {
+      // Signature validation failed, cookie has been tampered with
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
+    }
+    const userProp: UserProp = JSON.parse(unsignedValue) as UserProp;
     const baseUrl = req ? `http://${req.headers.host}` : "";
     const userId = userProp.id;
     // consolidate to one call

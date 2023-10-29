@@ -12,7 +12,8 @@
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "typeRoots": ["node_modules/@types", "src/types"]
   },
   "include": [
     "next.config.js",
