@@ -5,7 +5,7 @@ import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { BigBook } from "../book/BigBook";
-import { Book } from "../book/Book";
+import { BookCard } from "../book/Book";
 import {
   OuterBox,
   BookBox,
@@ -14,6 +14,25 @@ import {
 } from "./styles/exploreBooksStyle";
 
 import { useUserDispatch, useUserState } from "../../context/context";
+
+interface Book {
+  id?: string;
+  title?: string;
+  subTitle?: string;
+  pubDate?: string;
+  pageCount?: number;
+  author?: string;
+  selfLink?: string;
+  description?: string;
+  content?: string;
+  image?: string;
+  mainGenre?: string;
+  buyLink?: string;
+  viewAbility?: string;
+  rating?: number;
+  ISBN10?: string;
+  books?: Book[];
+}
 
 const WishList: React.FC = () => {
   const state = useUserState();
@@ -68,9 +87,8 @@ const WishList: React.FC = () => {
                 )
                 .map((bookItem: Book) => (
                   <Box key={bookItem.id || bookItem.title}>
-                    <Book
+                    <BookCard
                       book={bookItem}
-                      onClick={() => handleBookClick(bookItem)}
                       // nearMeBooks={nearMeBooks}
                     />
                   </Box>
@@ -87,11 +105,6 @@ const WishList: React.FC = () => {
       >
         <NavigateNextIcon />
       </RightIconButton>
-      <BigBook
-        book={selectedBook}
-        open={!!selectedBook}
-        onClose={() => setSelectedBook(null)}
-      />
     </OuterBox>
   );
 };

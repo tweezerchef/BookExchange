@@ -4,9 +4,10 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
+import { Books } from "@prisma/client";
+import { BookCard } from "../book/Book";
 import { StyledDivider } from "../chips/chipStyle";
 import { ExploreChip } from "../chips/ExploreChip";
-import { Book } from "../book/Book";
 import {
   OuterBox,
   BookBox,
@@ -14,26 +15,20 @@ import {
   RightIconButton,
 } from "./styles/exploreBooksStyle";
 
-const ExploreBooksComponent: React.FC = () => {
+type ExploreBooksProps = {
+  books: Books[];
+  setBooks: (books: Books[]) => void;
+};
+
+const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
+  setBooks,
+  books,
+}) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-  const [books, setBooks] = useState<Book[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  const getRandomBooks = () => {
-    fetch("/api/bookDB/randomBooks")
-      .then((res) => res.json())
-      .then((data: Book[]) => {
-        setBooks(data);
-        setLoading(true);
-      })
-      .catch((error) => {
-        console.error("Error fetching random books:", error);
-      });
-  };
+  const [selectedBook, setSelectedBook] = useState<Books | null>(null);
   const booksPerPage = 4;
 
   const handleNextPage = () => {
@@ -45,13 +40,9 @@ const ExploreBooksComponent: React.FC = () => {
     setSlideDirection("right");
     setCurrentPage((prevPage) => prevPage - 1);
   };
-  const handleBookClick = (book: Book) => {
+  const handleBookClick = (book: Books) => {
     setSelectedBook(book);
   };
-
-  useEffect(() => {
-    getRandomBooks();
-  }, []);
 
   return (
     <Box minHeight='230px'>
@@ -62,7 +53,7 @@ const ExploreBooksComponent: React.FC = () => {
           currentPage={currentPage}
         />
       </StyledDivider>
-      {loading && (
+      {books && books.length >= 1 && (
         <OuterBox>
           <LeftIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
             <NavigateBeforeIcon />
@@ -89,11 +80,11 @@ const ExploreBooksComponent: React.FC = () => {
                       index * booksPerPage + booksPerPage
                     )
                     // eslint-disable-next-line @typescript-eslint/no-shadow
-                    .map((book: Book) => (
+                    .map((book: Books) => (
                       <Box key={book.id || book.title}>
-                        <Book
+                        <BookCard
                           book={book}
-                          onClick={() => handleBookClick(book)}
+
                           // nearMeBooks={nearMeBooks}
                         />
                       </Box>

@@ -38,9 +38,20 @@ const Home: React.FC<HomeProps> = memo(
   }) => {
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useUserDispatch();
+    const [books, setBooks] = useState<Books[]>([]);
+    const getRandomBooks = () => {
+      fetch("/api/bookDB/randomBooks")
+        .then((res) => res.json())
+        .then((data: Books[]) => {
+          setBooks(data);
+        })
+        .catch((error) => {
+          console.error("Error fetching random books:", error);
+        });
+    };
 
-    // Fetch user data initially (you can use SWR here too if needed)
     useEffect(() => {
+      getRandomBooks();
       dispatch({ type: SET_USER, payload: user });
       dispatch({ type: SET_WISHLIST, payload: wishlistData });
       dispatch({ type: SET_WISHLIST_IDS, payload: wishlistIdsData });
@@ -51,6 +62,7 @@ const Home: React.FC<HomeProps> = memo(
       dispatch({ type: SET_STAR_RATINGS, payload: starRatingData });
       setIsLoading(false);
     }, [
+      books.length,
       dispatch,
       lendingLibraryIdsData,
       starRatingData,
@@ -61,9 +73,13 @@ const Home: React.FC<HomeProps> = memo(
 
     return (
       <Box sx={{ flexGrow: 1, p: 2 }}>
-        <Link href='./register'>Register</Link>
-        <ExploreBooksBox />
-        <WishListBox />
+        {books && !isLoading && (
+          <>
+            <Link href='./register'>Register</Link>
+            <ExploreBooksBox books={books} setBooks={setBooks} />
+            <WishListBox />
+          </>
+        )}
       </Box>
     );
   }

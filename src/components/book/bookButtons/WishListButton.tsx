@@ -6,6 +6,24 @@ import { useUserState, useUserDispatch } from "../../../context/context";
 import { SET_WISHLIST, SET_WISHLIST_IDS } from "../../../context/actions";
 
 type CustomColor = "success" | "danger";
+interface Book {
+  id?: string;
+  title?: string;
+  subTitle?: string;
+  pubDate?: string;
+  pageCount?: number;
+  author?: string;
+  selfLink?: string;
+  description?: string;
+  content?: string;
+  image?: string;
+  mainGenre?: string;
+  buyLink?: string;
+  viewAbility?: string;
+  rating?: number;
+  ISBN10?: string;
+  books?: Book[];
+}
 
 interface WishListButtonProps {
   book: Book;

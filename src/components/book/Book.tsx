@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
-import { User } from "@prisma/client";
+import { User, UserBooks } from "@prisma/client";
 import {
   StyledBookCard,
   ImageBox,
@@ -14,6 +14,26 @@ import { StarRating } from "./StarRating";
 import { ButtonStack } from "./bookButtons/ButtonStack";
 import { BigBook } from "./BigBook";
 
+interface Book {
+  id?: string;
+  title?: string;
+  subTitle?: string;
+  pubDate?: string;
+  pageCount?: number;
+  author?: string;
+  selfLink?: string;
+  description?: string;
+  content?: string;
+  image?: string;
+  mainGenre?: string;
+  buyLink?: string;
+  viewAbility?: string;
+  rating?: number;
+  ISBN10?: string;
+  books?: Book[];
+  wishlist?: UserBooks[];
+  owned?: UserBooks[];
+}
 interface BookProps {
   book: Book;
 }
@@ -22,7 +42,7 @@ type Review = {
   review: string;
 };
 
-export const Book: React.FC<BookProps> = ({ book }) => {
+export const BookCard: React.FC<BookProps> = ({ book }) => {
   const [bigBookOpen, setBigBookOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
 
@@ -46,7 +66,7 @@ export const Book: React.FC<BookProps> = ({ book }) => {
   };
   useEffect(() => {
     void getBookReviews();
-  }, [book]);
+  }, []);
   return (
     <>
       {bigBookOpen && (

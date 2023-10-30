@@ -20,6 +20,25 @@ import { BigBookButtonStack } from "./bookButtons/BigBookButtonStack";
 import { UserReview } from "./UserReview";
 import { BookReviews } from "./BookReviews";
 
+interface Book {
+  id?: string;
+  title?: string;
+  subTitle?: string;
+  pubDate?: string;
+  pageCount?: number;
+  author?: string;
+  selfLink?: string;
+  description?: string;
+  content?: string;
+  image?: string;
+  mainGenre?: string;
+  buyLink?: string;
+  viewAbility?: string;
+  rating?: number;
+  ISBN10?: string;
+  books?: Book[];
+}
+
 type BigBookReview = {
   User?: User;
   review?: string;

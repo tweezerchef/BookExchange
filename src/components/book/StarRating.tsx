@@ -2,6 +2,25 @@ import Rating from "@mui/material/Rating";
 import { useUserDispatch, useUserState } from "../../context/context";
 import { SET_STAR_RATINGS } from "../../context/actions";
 
+interface Book {
+  id?: string;
+  title?: string;
+  subTitle?: string;
+  pubDate?: string;
+  pageCount?: number;
+  author?: string;
+  selfLink?: string;
+  description?: string;
+  content?: string;
+  image?: string;
+  mainGenre?: string;
+  buyLink?: string;
+  viewAbility?: string;
+  rating?: number;
+  ISBN10?: string;
+  books?: Book[];
+}
+
 interface StarRatingProps {
   book: Book;
 }
@@ -21,38 +40,49 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
   );
   const starRatingValue = starRatingObj ? starRatingObj.starRating : 0;
 
-  const handleStarRatingChange = async (
-    event: React.ChangeEvent<Record<string, never>>,
-    newValue: number
+  const handleStarRatingChange = (
+    event: React.SyntheticEvent,
+    newValue: number | null
   ) => {
-    const updatedStarRatings = [...starRatings];
-    const index = updatedStarRatings.findIndex(
-      (ratingObj) => ratingObj.booksId === bookID
-    );
-    if (index !== -1) {
-      updatedStarRatings[index].starRating = newValue;
-    } else {
-      updatedStarRatings.push({ booksId: bookID, starRating: newValue });
-    }
+    if (newValue === null) return;
+    dispatch({
+      type: SET_STAR_RATINGS,
+      payload: (prevStarRatings) => {
+        const updatedStarRatings = [...prevStarRatings];
+        const index = updatedStarRatings.findIndex(
+          (ratingObj) => ratingObj.booksId === bookID
+        );
+        if (index !== -1) {
+          updatedStarRatings[index].starRating = newValue;
+        } else if (bookID) {
+          updatedStarRatings.push({ booksId: bookID, starRating: newValue });
+        }
+        return updatedStarRatings;
+      },
+    });
 
-    // Update the state with the new starRatings array
-    dispatch({ type: SET_STAR_RATINGS, payload: updatedStarRatings });
-
-    try {
-      await fetch(`/api/user/starRating/${bookID}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          book,
-          userId: userID,
-          starRating: newValue,
-        }),
+    fetch(`/api/user/starRating/${bookID}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        book,
+        userId: userID,
+        starRating: newValue,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
       });
-    } catch (error) {
-      console.error(error);
-    }
   };
 
   return (

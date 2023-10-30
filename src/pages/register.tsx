@@ -4,14 +4,17 @@ import Box from "@mui/material/Box";
 import { Step1Form } from "../components/Registration/Step1Form";
 import Step2Form from "../components/Registration/Step2Form";
 import Step3Form from "../components/Registration/Step3Form";
-import { RegisterBox, CenteredContainer } from "./pageStyles/pageStyles";
+import {
+  RegisterBox,
+  CenteredContainer,
+} from "../styles/pageStyles/pageStyles";
 import { FormProvider } from "../context/regContext";
 
 const fileName =
   "DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png";
 const libraryCardFile = "NOBELibraryCard.png";
 
-const Registration = () => {
+const Registration = (props) => {
   const [activeStep, setActiveStep] = useState(0);
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
     "" || null

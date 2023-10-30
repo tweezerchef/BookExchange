@@ -1,4 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import * as signature from 'cookie-signature';
+import { verifyCookie } from "../../../../utils/verifyCookie";
+
 import prisma from "../../../../utils/prismaClient";
 
 interface Genres {
@@ -31,6 +34,12 @@ async function processFormData(formData: FormData, userId: string) {
   console.log(formData);
 }
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
+
+  const userFromCookie = verifyCookie(req);
+  if (!userFromCookie) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
   if (req.method === "POST" && req.body) {
     const { formData, userId } = req.body as Body;
 
