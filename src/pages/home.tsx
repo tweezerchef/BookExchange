@@ -2,6 +2,7 @@ import { useEffect, useState, memo } from "react";
 import { User, Books } from "@prisma/client";
 import Box from "@mui/material/Box";
 import Link from "next/link";
+import { InferGetServerSidePropsType } from "next";
 import { getServerSideProps as exportedGetServerSideProps } from "../utils/homeUtil/getServerSideProps";
 import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
@@ -13,7 +14,6 @@ import {
   SET_LENDING_LIBRARY_IDS,
   SET_STAR_RATINGS,
 } from "../context/actions";
-import { InferGetServerSidePropsType } from "next";
 
 interface StarRating {
   bookID: string;

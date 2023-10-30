@@ -1,8 +1,8 @@
-import { ValueAsStringList } from 'aws-sdk/clients/sagemakerfeaturestoreruntime';
+
 import { serialize } from 'cookie';
 import * as signature from 'cookie-signature';
 
-const {secretKey} = process.env ;
+const secretKey = process.env.SECRET_COOKIE_KEY ;
 interface Value {
   email: string;
   id: string;
