@@ -20,7 +20,7 @@ interface StarRating {
     lendingLibraryIdsData: Books['id'][];
     starRatingData: StarRating[];
   }
-  const {secretKey} = process.env;
+  const secretKey = process.env.SECRET_COOKIE_KEY;
 
   export const getServerSideProps: GetServerSideProps<HomeProps> = async (
     context

@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { User } from "@prisma/client";
-
-import { findUserByIdDetailed} from "../../../../utils/userService";
+import { findUserByIdDetailed } from "../../../../utils/userService";
+import { verifyCookie } from "../../../../utils/verifyCookie";
+// Assuming you have a utility function to verify cookies
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,19 +10,26 @@ export default async function handler(
 ) {
   const { method, query: { id } } = req;
 
+  // Verify the cookie
+  const userFromCookie = verifyCookie(req);
+  if (!userFromCookie) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
+
   if (method === "GET") {
     try {
       const user = await findUserByIdDetailed(id);
       res.status(200).json(user);
-    } catch (error) {
-      console.error("There was a problem:", error);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const message = error || "Error retrieving user data";
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      res.status(500).json({ message });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error("There was a problem:", error);
+        const message = error.message || "Error retrieving user data";
+        res.status(500).json({ message });
+      } else {
+        console.error("An unknown error occurred:", error);
+        res.status(500).json({ message: "An unknown error occurred" });
+      }
     }
-  } else {
-    const message = "Method not allowed";
-    res.status(405).json({ message });
-  }
+   }
 }

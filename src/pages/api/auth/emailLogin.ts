@@ -4,9 +4,10 @@ import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import { getSecureCookie } from "../../../utils/getSecureCookie";
 import {
-  createUserByEmailAndPassword,
   findUserByEmail,
 } from "../../../utils/createFindUserEmail";
+
+
 
 export default async function handler(
   req: NextApiRequest,

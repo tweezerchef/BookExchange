@@ -1,9 +1,16 @@
+import { ValueAsStringList } from 'aws-sdk/clients/sagemakerfeaturestoreruntime';
 import { serialize } from 'cookie';
 import * as signature from 'cookie-signature';
 
 const {secretKey} = process.env ;
+interface Value {
+  email: string;
+  id: string;
+  username: string;
+}
 
-export const getSecureCookie = ({ name, value }) => {
+
+export const getSecureCookie =  ({ name, value }: { name: string, value: Value })=> {
   const signedValue = signature.sign(JSON.stringify(value), secretKey);
 
   return serialize(name, signedValue, {
