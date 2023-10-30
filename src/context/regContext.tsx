@@ -14,7 +14,7 @@ interface FormData {
   address: string;
   userName: string;
   avatarUrl?: string;
-  aviFileData?: unknown;
+  aviFileData?: File;
   genres?: Genres;
 }
 
@@ -45,7 +45,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     avatarUrl: "",
   });
 
-  const updateAviFileData = (newData: unknown) => {
+  const updateAviFileData = (newData: File) => {
     // Replace `any` with the actual type of your AVI file data
     setFormData((prevData) => ({
       ...prevData,

@@ -17,10 +17,40 @@ export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
     updateFormData({ ...formData, [name]: value });
   };
 
+  const submitForm = async () => {
+    try {
+      const form = new FormData();
+      form.append("address", formData.address);
+      form.append("userName", formData.userName);
+      form.append("avatarUrl", formData.avatarUrl);
+
+      if (formData.aviFileData) {
+        form.append("aviFile", formData.aviFileData);
+      }
+
+      const response = await fetch("api/user/info/updateStep1", {
+        method: "POST",
+        body: form,
+      });
+
+      if (response.ok) {
+        // Handle success
+        console.log("Form submitted successfully");
+        handleNext();
+      } else {
+        // Handle error
+        console.error("Failed to submit form");
+      }
+    } catch (error) {
+      console.error("Error submitting form", error);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("formData", formData);
-    handleNext();
+    submitForm().catch((error) =>
+      console.error("Form submission failed", error)
+    );
   };
 
   return (
