@@ -11,8 +11,7 @@ export default async function handler(
   const { method, query: { id } } = req;
 
   // Verify the cookie
-  const userFromCookie = verifyCookie(req);
-  if (!userFromCookie) {
+  if (!verifyCookie(req)) {
     res.status(401).json({ message: "Unauthorized" });
     return;
   }

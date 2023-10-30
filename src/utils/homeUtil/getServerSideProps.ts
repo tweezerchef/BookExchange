@@ -50,7 +50,7 @@ interface StarRating {
     const userProp: UserProp = JSON.parse(unsignedValue) as UserProp;
     const baseUrl = req ? `http://${req.headers.host}` : "";
     const userId = userProp.id;
-    // consolidate to one call
+
     const urls = {
       user: `${baseUrl}/api/user/id/${userId}`,
       wishlist: `${baseUrl}/api/user/wishList/${userId}`,
@@ -59,11 +59,16 @@ interface StarRating {
       starRating: `${baseUrl}/api/user/starRating/${userId}`,
     };
 
+    const headers = {
+      Cookie: cookies // Attach the cookies to the request
+    };
+
     const responses = await Promise.allSettled(
-      Object.values(urls).map((url) => fetch(url))
+      Object.values(urls).map((url) =>
+        fetch(url, { headers }) // Pass the headers to fetch
+      )
     );
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+
     const data: [
       User | null,
       Books[] | null,

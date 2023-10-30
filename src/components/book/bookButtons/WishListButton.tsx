@@ -41,7 +41,7 @@ export function WishListButton({ book }: WishListButtonProps) {
   const { wishListIDs, user } = state;
   const userID = user?.id;
   const bookID = book?.id;
-
+  // console.log("bookID:", user);
   const isInWishList = wishListIDs?.includes(bookID);
 
   useEffect(() => {

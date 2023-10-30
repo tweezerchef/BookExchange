@@ -4,6 +4,7 @@ import { UserAddress } from "./components/UserAddress";
 import { UserName } from "./components/UserName";
 import { GenrePicker } from "./components/GenrePicker";
 import AviAdd from "./components/AviAdd";
+import { useUserState } from "../../context/context";
 
 interface Step1FormProps {
   handleNext: () => void;
@@ -11,7 +12,10 @@ interface Step1FormProps {
 
 export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
   const { formData, updateFormData } = useFormData();
-
+  const state = useUserState();
+  const { user } = state;
+  console.log("user:", user);
+  console.log("formData:", formData);
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     updateFormData({ ...formData, [name]: value });

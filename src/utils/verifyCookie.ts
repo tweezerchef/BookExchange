@@ -8,6 +8,8 @@ const secret = process.env.SECRET_COOKIE_KEY;
 export function verifyCookie(req: NextApiRequest) {
   const cookies = req.headers.cookie;
   if (!cookies) {
+
+    console.log('No cookies bitch');
     return false;
   }
 
@@ -16,11 +18,9 @@ export function verifyCookie(req: NextApiRequest) {
   if (!userCookie) {
     return false;
   }
-
+console.log("success bitch")
   const unsignedCookie = signature.unsign(userCookie, secret);
-  if (unsignedCookie === false) {
-    return false;
-  }
-    return true;
+  return unsignedCookie !== false;
+
 
 }
