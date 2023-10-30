@@ -1,10 +1,21 @@
 import { useState, useContext, createContext, useMemo } from "react";
 
+interface Genres {
+  action?: boolean;
+  comedy?: boolean;
+  drama?: boolean;
+  horror?: boolean;
+  romance?: boolean;
+  thriller?: boolean;
+  sciFI?: boolean;
+}
+
 interface FormData {
   address: string;
   userName: string;
   avatarUrl?: string;
   aviFileData?: unknown;
+  genres?: Genres;
 }
 
 interface FormContextProps {
@@ -33,6 +44,7 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     userName: "",
     avatarUrl: "",
   });
+
   const updateAviFileData = (newData: unknown) => {
     // Replace `any` with the actual type of your AVI file data
     setFormData((prevData) => ({

@@ -12,7 +12,7 @@ interface Step1FormProps {
 export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
   const { formData, updateFormData } = useFormData();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     updateFormData({ ...formData, [name]: value });
   };

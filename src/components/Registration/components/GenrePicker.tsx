@@ -7,6 +7,7 @@ import Card from "@mui/material/Card";
 import { FC, useState } from "react";
 import { Genre1 } from "./Genre1";
 import { Genre2 } from "./Genre2";
+import { useFormData } from "../../../context/regContext";
 
 export const GenrePicker: FC = () => {
   const [state, setState] = useState({
@@ -18,9 +19,17 @@ export const GenrePicker: FC = () => {
     thriller: false,
     sciFI: false,
   });
+  const { formData, updateFormData } = useFormData();
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    const { name, checked } = event.target;
+    setState({ ...state, [name]: checked });
+    updateFormData({
+      genres: {
+        ...formData.genres,
+        [name]: checked,
+      },
+    });
   };
 
   return (

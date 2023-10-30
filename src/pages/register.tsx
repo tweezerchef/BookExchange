@@ -11,7 +11,7 @@ const fileName =
   "DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png";
 const libraryCardFile = "NOBELibraryCard.png";
 
-const Registration = (props) => {
+const Registration = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
     "" || null
@@ -29,10 +29,20 @@ const Registration = (props) => {
       },
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log("data", data);
-        setBackgroundImageUrl(data.urls[0]);
-        setLibraryCardImageUrl(data.urls[1]); // Assume setLibraryCardImageUrl is a state setter function
+      .then((data: ApiResponse) => {
+        if ("urls" in data) {
+          if (data.urls.length >= 2) {
+            setBackgroundImageUrl(data.urls[0]);
+            setLibraryCardImageUrl(data.urls[1]);
+          } else {
+            console.error("Not enough URLs in response");
+          }
+        } else if ("url" in data) {
+          console.log("Received a single URL:", data.url);
+        } else if ("message" in data) {
+          // data is of type ErrorMessage
+          console.error("Error:", data.message);
+        }
       })
       .catch(console.error);
   }, []);

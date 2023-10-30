@@ -2,7 +2,7 @@ import { NextApiRequest } from "next";
 import cookie from "cookie";
 import signature from "cookie-signature";
 
-// Assuming your secret is stored in an environment variable
+
 const secret = process.env.SECRET_COOKIE_KEY;
 
 export function verifyCookie(req: NextApiRequest) {
