@@ -12,6 +12,13 @@ interface StarRating {
     name: string;
     email: string;
   }
+  type Data = [
+    User | null,
+    Books[] | null,
+    Books["id"][] | null,
+    Books["id"][] | null,
+    StarRating[] | null
+  ];
 
   interface HomeProps {
     user: User;
@@ -76,14 +83,21 @@ interface StarRating {
       Books["id"][] | null,
       StarRating[] | null,
     ] = await Promise.all(
-      responses.map(async (response) => {
+      responses.map(async (response, index) => {
         if (response.status === "fulfilled") {
           return response.value.json();
         }
-        // Handle error or unavailable API here
-        return null;
+        // Provide default values based on the expected type of each API call
+        switch (index) {
+          case 0: return null; // User | null
+          case 1: return [];   // Books[] | null
+          case 2: return [];   // Books["id"][] | null
+          case 3: return [];   // Books["id"][] | null
+          case 4: return [];   // StarRating[] | null
+          default: return null;
+        }
       })
-    );
+    ) as Data;
 
     const [
       user,

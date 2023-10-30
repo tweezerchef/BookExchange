@@ -20,6 +20,7 @@ interface FormData {
 
 interface FormContextProps {
   formData: FormData;
+  aviFileData?: File;
   updateFormData: (data: Partial<FormData>) => void;
   updateAviFileData: (newData: unknown) => void;
 }
@@ -44,13 +45,11 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
     userName: "",
     avatarUrl: "",
   });
+  const [aviFileData, setAviFileData] = useState<File | undefined>(undefined);
 
   const updateAviFileData = (newData: File) => {
     // Replace `any` with the actual type of your AVI file data
-    setFormData((prevData) => ({
-      ...prevData,
-      aviFileData: newData,
-    }));
+    setAviFileData(newData);
   };
 
   const value = useMemo(() => {
@@ -67,8 +66,8 @@ export const FormProvider: React.FC<FormProviderProps> = ({ children }) => {
         }));
       }
     };
-    return { formData, updateFormData, updateAviFileData };
-  }, [formData]);
+    return { formData, aviFileData, updateFormData, updateAviFileData };
+  }, [formData, aviFileData]);
 
   return <FormContext.Provider value={value}>{children}</FormContext.Provider>;
 };

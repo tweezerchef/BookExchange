@@ -11,30 +11,30 @@ interface Step1FormProps {
 }
 
 export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
-  const { formData, updateFormData } = useFormData();
+  const { formData, aviFileData } = useFormData();
+
   const state = useUserState();
+
   const { user } = state;
-  console.log("user:", user);
-  console.log("formData:", formData);
-  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    updateFormData({ ...formData, [name]: value });
-  };
+  const userId = user?.id;
+  console.log("userId", userId);
 
   const submitForm = async () => {
+    // if (aviFileData) {
+    //   form.append("aviFile", aviFileData);
+    // }
+
     try {
-      const form = new FormData();
-      form.append("address", formData.address);
-      form.append("userName", formData.userName);
-      form.append("avatarUrl", formData.avatarUrl);
-
-      if (formData.aviFileData) {
-        form.append("aviFile", formData.aviFileData);
-      }
-
-      const response = await fetch("api/user/info/updateStep1", {
+      const data = {
+        formData,
+        userId,
+      };
+      const response = await fetch("/api/user/info/updateStep1", {
         method: "POST",
-        body: form,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
