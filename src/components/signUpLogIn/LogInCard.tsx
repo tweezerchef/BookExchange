@@ -53,10 +53,12 @@ function EntryCard() {
       },
     })
       .then((response) => response.json())
-      .then((data) => {
-        const { url } = data;
-        console.log("data", data);
-        setBackgroundImageUrl(url);
+      .then((data: ApiResponse) => {
+        if ("url" in data) {
+          const { url } = data;
+          console.log("data", data);
+          setBackgroundImageUrl(url);
+        }
       })
       .catch(console.error); // Log errors to the console
   }, []);

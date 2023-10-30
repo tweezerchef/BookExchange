@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -9,10 +9,14 @@ import { useUserState } from "../../context/context";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const menuItems = ["Home", "Explore", "Wishlist", "Lending Library"];
+const backgroundImageFile = "TopBanner.png";
 
 const Header = () => {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
+    "" || null
+  );
   const { user } = useUserState();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -28,15 +32,28 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  useEffect(() => {
+    fetch(`/api/AWS/signedURL?fileNames=${backgroundImageFile}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const { url } = data;
+        console.log("data", data);
+        setBackgroundImageUrl(url);
+      })
+      .catch(console.error); // Log errors to the console
+  });
   return (
     <AppBar
       position='sticky'
       sx={{
         width: "100%",
         height: "150px",
-        backgroundImage:
-          "url(https://nobe.s3.us-east-2.amazonaws.com/TopBanner.png)",
+        backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

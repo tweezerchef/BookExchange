@@ -22,34 +22,16 @@ namespace React {
     children: React.ReactNode;
   }
 }
+interface ErrorMessage {
+  message: string;
+}
 
-// interface User {
-//   id: string;
-//   firstName: string;
-//   userName: string;
-//   username: string;
-//   email: string;
-//   email: string;
-//   googleId: string;
-//   lastName: string;
-//   picture: string;
-//   token: string;
-//   latitude: number;
-//   longitude: number;
-//   radius: number;
-//   NotificationCount: number;
-//   Activity: Activity[];
-//   clubMembers: ClubMembers[];
-//   DirectMessages: DirectMessages[];
-//   Discussion: Discussions[];
-//   DiscussionUsers: DiscussionUsers[];
-//   friendships: Friendship[];
-//   friends: Friendship[];
-//   LendingTable: LendingTable[];
-//   Notifications: Notifications[];
-//   Posts: Posts[];
-//   PostsUsers: PostsUsers[];
-//   UserBooks: UserBooks[];
-//   User_Places: UserPlaces[];
-//   Conversations: Conversations[];
-// }
+interface UrlResponse {
+  url: string;
+}
+
+interface UrlsResponse {
+  urls: string[];
+}
+
+type ApiResponse = ErrorMessage | UrlResponse | UrlsResponse;

@@ -3,7 +3,7 @@ import { getSignedURL } from "../../../utils/getSignedURL";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<string | { message: string } | {url: string} | {urls: string[]}>
+  res: NextApiResponse<ApiResponse>
 ) {
   const { method, query: { fileNames } } = req;
 

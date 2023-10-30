@@ -28,7 +28,6 @@ export default async function handler(
         username: user.username,
       },
     });
-    console.log(cookie);
     res.setHeader("Set-Cookie", cookie);
     res.writeHead(302, { Location: "/home" });
     res.end();
