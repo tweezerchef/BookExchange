@@ -29,7 +29,7 @@ export default async function handler(
       },
     });
     res.setHeader("Set-Cookie", cookie);
-    res.writeHead(302, { Location: "/home" });
+    res.status(200).json({ success: true })
     res.end();
   } catch (error) {
     console.error(error);

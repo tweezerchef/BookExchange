@@ -1,10 +1,10 @@
-import type { AppProps } from "next/app";
+/* eslint-disable react/jsx-props-no-spreading */
 import { UserProvider } from "../context/context";
 import MuiThemeProvider from "../globalStyles/muiThemeProvider";
 import "../styles/global.css";
 import Layout from "../components/layout/Layout";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }) {
   return (
     <MuiThemeProvider>
       <UserProvider>

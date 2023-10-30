@@ -1,5 +1,6 @@
 import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
+import { memo } from "react";
 import Header from "./Header";
 import Sidebar from "./SideBar";
 
@@ -35,4 +36,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default memo(Layout);

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -21,7 +22,7 @@ function EntryCard() {
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
     "" || null
   );
-
+  const router = useRouter();
   const loginHandler = async () => {
     try {
       const response = await fetch("/api/auth/emailLogin", {
@@ -36,7 +37,8 @@ function EntryCard() {
       });
       if (response.ok) {
         // Redirect to the home page (client-side) after successful login
-        window.location.href = "/home";
+        // window.location.href = "/home";
+        void router.push("/home");
       } else {
         console.error("Login failed");
       }

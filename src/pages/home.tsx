@@ -1,4 +1,5 @@
-import { useEffect, useState, memo } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState, memo, useCallback } from "react";
 import { User, Books } from "@prisma/client";
 import Box from "@mui/material/Box";
 import Link from "next/link";
@@ -39,17 +40,18 @@ const Home: React.FC<HomeProps> = memo(
     const [isLoading, setIsLoading] = useState(true);
     const dispatch = useUserDispatch();
     const [books, setBooks] = useState<Books[]>([]);
-    const getRandomBooks = () => {
+    const getRandomBooks = useCallback(() => {
       fetch("/api/bookDB/randomBooks")
         .then((res) => res.json())
         .then((data: Books[]) => {
           setBooks(data);
+          setIsLoading(false);
         })
         .catch((error) => {
           console.error("Error fetching random books:", error);
+          setIsLoading(false);
         });
-    };
-
+    }, []);
     useEffect(() => {
       getRandomBooks();
       dispatch({ type: SET_USER, payload: user });
@@ -60,16 +62,7 @@ const Home: React.FC<HomeProps> = memo(
         payload: lendingLibraryIdsData,
       });
       dispatch({ type: SET_STAR_RATINGS, payload: starRatingData });
-      setIsLoading(false);
-    }, [
-      books.length,
-      dispatch,
-      lendingLibraryIdsData,
-      starRatingData,
-      user,
-      wishlistData,
-      wishlistIdsData,
-    ]);
+    }, []);
 
     return (
       <Box sx={{ flexGrow: 1, p: 2 }}>
