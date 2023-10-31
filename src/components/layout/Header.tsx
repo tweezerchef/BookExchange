@@ -17,7 +17,9 @@ const Header = () => {
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
     "" || null
   );
+  const [userAvi, setUserAvi] = useState<string>("" || null);
   const { user } = useUserState();
+  const rawUserPicture = user?.picture;
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -33,17 +35,28 @@ const Header = () => {
     setAnchorElUser(null);
   };
   useEffect(() => {
-    fetch(`/api/AWS/signedURL?fileNames=${backgroundImageFile}`, {
+    const fileNames = [backgroundImageFile, rawUserPicture].join(",");
+    fetch(`/api/AWS/signedURL?fileNames=${fileNames}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
-      .then((data) => {
-        const { url } = data;
-        console.log("data", data);
-        setBackgroundImageUrl(url);
+      .then((data: ApiResponse) => {
+        if ("urls" in data) {
+          if (data.urls.length >= 2) {
+            setBackgroundImageUrl(data.urls[0]);
+            setUserAvi(data.urls[1]);
+          } else {
+            console.error("Not enough URLs in response");
+          }
+        } else if ("url" in data) {
+          console.log("Received a single URL:", data.url);
+        } else if ("message" in data) {
+          // data is of type ErrorMessage
+          console.error("Error:", data.message);
+        }
       })
       .catch(console.error); // Log errors to the console
   });
@@ -95,7 +108,7 @@ const Header = () => {
         <Box sx={{ flexGrow: 0 }}>
           <Tooltip title='Open settings'>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt='Remy Sharp' src={user.picture} />
+              <Avatar alt='Remy Sharp' src={userAvi} />
             </IconButton>
           </Tooltip>
           <Menu

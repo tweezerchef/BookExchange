@@ -15,12 +15,26 @@ interface Genres {
     address: string;
     userName: string;
     avatarUrl?: string;
-    aviFileData?: File;
     genres?: Genres;
   }
 
 export function processFormData(formData: FormData, userId: string) {
-    const {address, userName, genres} = formData;
+    const {address, userName, genres, avatarUrl} = formData;
+    console.log(avatarUrl);
+    if (avatarUrl) {
+      prisma.user.update({
+        where: {
+          id: userId
+        },
+        data: {
+          picture: avatarUrl,
+        }
+      }
+      ).catch((error) => {
+        console.error('Error processing data', error);
+      }
+      );
+    }
     Object.keys(genres).forEach((genre) => {
         console.log('genre', genre);
        prisma.userGenre.create({

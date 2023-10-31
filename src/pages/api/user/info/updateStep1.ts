@@ -25,7 +25,7 @@ interface Body {
 }
 
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const userFromCookie = verifyCookie(req);
   if (!userFromCookie) {

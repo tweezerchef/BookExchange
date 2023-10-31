@@ -17,6 +17,7 @@ import Webcam from "react-webcam";
 import Button from "@mui/material/Button";
 import { ReactCropperElement } from "react-cropper";
 import { Typography } from "@mui/material";
+import { useUserState } from "../../../context/context";
 import { dataURLtoBlob } from "../../../utils/clientUtils/dataURLtoBlob";
 import { useFormData } from "../../../context/regContext";
 import {
@@ -34,7 +35,8 @@ interface CropperInstance {
 }
 
 const ProfileAvatar: FC = () => {
-  const { updateAviFileData } = useFormData();
+  const { user } = useUserState();
+  const { updateAviFileData, updateFormData } = useFormData();
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [avatarUrl, setAvatarUrl] = useState(
@@ -49,6 +51,7 @@ const ProfileAvatar: FC = () => {
     HTMLImageElement | CropperInstance | ReactCropperElement
   >(null);
   const cropperInstance = useRef<Cropper>(null);
+  const userId = user?.id;
 
   const onCropperClick = (event: MouseEvent<HTMLButtonElement>) => {
     if (cropper === false) {
@@ -71,11 +74,32 @@ const ProfileAvatar: FC = () => {
   const onCropperReady = (instance: Cropper) => {
     cropperInstance.current = instance;
   };
+  const handleFileUpload = async (file: File) => {
+    const fileName = `${userId}userAvi.jpg`;
+    const formDataNew = new FormData();
+    formDataNew.append("file", file);
+    try {
+      const response = await fetch("/api/AWS/uploadS3", {
+        method: "POST",
+        body: formDataNew,
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to upload file: ${response.statusText}`);
+      }
+      updateFormData({ avatarUrl: fileName });
+    } catch (error) {
+      console.error("Error uploading file: ", error);
+    }
+  };
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (!file) return;
-    updateAviFileData(file);
+    const blob = file.slice(0, file.size, file.type);
+    const newFileName = `${userId}userAvi.jpg`;
+    const newFile = new File([blob], newFileName, { type: file.type });
+    updateAviFileData(newFile);
+    void handleFileUpload(newFile);
     const reader = new FileReader();
     reader.onload = () => {
       setOriginalImage(reader.result as string);
@@ -87,9 +111,12 @@ const ProfileAvatar: FC = () => {
   const handleCameraCapture = () => {
     const imageSrc = webcamRef.current?.getScreenshot();
     const imageBlob = dataURLtoBlob(imageSrc);
-    const file = new File([imageBlob], "userAvi.jpg", { type: imageBlob.type });
+    const file = new File([imageBlob], `${userId}userAvi.jpg`, {
+      type: imageBlob.type,
+    });
 
     updateAviFileData(file);
+    void handleFileUpload(file);
     setOriginalImage(imageSrc); // Set original image
     setCapturedImage(imageSrc);
     setAvatarUrl(imageSrc || avatarUrl);
@@ -112,11 +139,11 @@ const ProfileAvatar: FC = () => {
       setAvatarUrl(croppedImage);
       // add User.id to "capturedImage"
       const imageBlob = dataURLtoBlob(croppedImage);
-      const file = new File([imageBlob], "userAvi.jpg", {
+      const file = new File([imageBlob], `${userId}userAvi.jpg`, {
         type: imageBlob.type,
       });
       updateAviFileData(file);
-
+      void handleFileUpload(file);
       void setCapturedImage(null);
       void setIsCameraOpen(false);
     } else {
@@ -226,33 +253,3 @@ const ProfileAvatar: FC = () => {
 };
 
 export default ProfileAvatar;
-
-// const handleFileUpload = async (file: File) => {
-//   const formDataNew = new FormData();
-//   formDataNew.append("file", file);
-
-//   try {
-//     const response = await fetch("/api/AWS/uploadS3", {
-//       method: "POST",
-//       body: formDataNew,
-//     });
-
-//     if (!response.ok) {
-//       throw new Error(`Failed to upload file: ${response.statusText}`);
-//     }
-
-//     const data = (await response.json()) as { url: string };
-//     const fileUrl = data.url;
-//     setAvatarUrl(fileUrl);
-//     updateFormData({ avatarUrl: fileUrl });
-//     // Update the avatar URL to display the new image
-//   } catch (error) {
-//     console.error("Error uploading file: ", error);
-//   }
-// };
-
-// try {
-//   await handleFileUpload(file);
-// } catch (error) {
-//   console.error("Failed to upload file:", error);
-// }
