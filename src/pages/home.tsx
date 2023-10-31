@@ -55,6 +55,7 @@ const Home: React.FC<HomeProps> = memo(
     useEffect(() => {
       getRandomBooks();
       dispatch({ type: SET_USER, payload: user });
+      localStorage.setItem("user", JSON.stringify(user));
       dispatch({ type: SET_WISHLIST, payload: wishlistData });
       dispatch({ type: SET_WISHLIST_IDS, payload: wishlistIdsData });
       dispatch({
@@ -69,6 +70,7 @@ const Home: React.FC<HomeProps> = memo(
         {books && !isLoading && (
           <>
             <Link href='./register'>Register</Link>
+            <Link href='./development'>Development</Link>
             <ExploreBooksBox books={books} setBooks={setBooks} />
             <WishListBox />
           </>
