@@ -2,6 +2,8 @@ import { GetServerSideProps } from 'next';
 import { parse } from 'cookie';
 import { User, Books } from '@prisma/client';
 import * as signature from 'cookie-signature';
+import Image from 'next/image';
+import { getSignedURL } from '../getSignedURL';
 
 interface StarRating {
     bookID: string;
@@ -19,14 +21,22 @@ interface StarRating {
     Books["id"][] | null,
     StarRating[] | null
   ];
+  interface ImageUrls {
+    [key: string]: string;
+  }
+
+
 
   interface HomeProps {
+    imageUrlsObject: ImageUrls;
     user: User;
     wishlistData: Books[];
     wishlistIdsData: Books['id'][];
     lendingLibraryIdsData: Books['id'][];
     starRatingData: StarRating[];
   }
+
+
   const secretKey = process.env.SECRET_COOKIE_KEY;
 
   export const getServerSideProps: GetServerSideProps<HomeProps> = async (
@@ -54,10 +64,39 @@ interface StarRating {
         },
       };
     }
+
+
+    // need to try to figure out loading of carousels pre render
     const userProp: UserProp = JSON.parse(unsignedValue) as UserProp;
     const baseUrl = req ? `http://${req.headers.host}` : "";
     const userId = userProp.id;
+    const genreNames = [
+      "actionBook", "comedyBook", "dramaBook", "horrorBook", "romanceBook",
+      "thrillerBook", "sciFIBook", "mysteryBook", "fantasyBook", "historyBook",
+      "westernBook", "nonFictionBook", "fictionBook", "childrensBook",
+      "cookingBook", "selfHelpBook", "travelBook", "spiritualityBook",
+    ];
+    const backgroundImageFile = "TopBanner.png";
+    const filePaths = [...genreNames.map(name => `icons/${name}.png`), backgroundImageFile];
 
+    let imageUrlsObject = {};
+    try {
+      const imageUrls = await Promise.all(filePaths.map(async filePath => {
+        const url = await getSignedURL(filePath);
+        return { [filePath]: url };
+      }));
+
+      imageUrlsObject = Object.assign({}, ...imageUrls);
+    } catch (err) {
+      console.error('Error fetching signed URLs: ', err);
+    }
+    let randomBooks: Books[] = [];
+    try {
+      const res = await fetch(`${baseUrl}/api/bookDB/randomBooks`);
+      randomBooks = await res.json();
+    } catch (error) {
+      console.error("Error fetching random books:", error);
+    }
     const urls = {
       user: `${baseUrl}/api/user/id/${userId}`,
       wishlist: `${baseUrl}/api/user/wishList/${userId}`,
@@ -109,6 +148,8 @@ interface StarRating {
 
     return {
       props: {
+        randomBooks,
+        imageUrlsObject,
         user,
         wishlistData,
         wishlistIdsData,

@@ -17,7 +17,7 @@ import Webcam from "react-webcam";
 import Button from "@mui/material/Button";
 import { ReactCropperElement } from "react-cropper";
 import { Typography } from "@mui/material";
-import { useUserState } from "../../../context/context";
+import { useHomeState } from "../../../context/context";
 import { dataURLtoBlob } from "../../../utils/clientUtils/dataURLtoBlob";
 import { useFormData } from "../../../context/regContext";
 import {
@@ -35,7 +35,7 @@ interface CropperInstance {
 }
 
 const ProfileAvatar: FC = () => {
-  const { user } = useUserState();
+  const { user } = useHomeState();
   const { updateAviFileData, updateFormData } = useFormData();
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);

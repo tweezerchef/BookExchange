@@ -1,103 +1,67 @@
 import Grid from "@mui/material/Grid";
-import { FC, useState, useEffect } from "react";
+import { FC } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import { useHomeState } from "../../../context/context";
 
-interface GenreIconState {
-  [key: string]: string;
+const tooltips = {
+  action: "Action",
+  comedy: "Comedy",
+  drama: "Drama",
+  horror: "Horror",
+  romance: "Romance",
+  thriller: "Thriller",
+  sciFI: "Science Fiction",
+  mystery: "Mystery",
+  fantasy: "Fantasy",
+  history: "Historical Fiction",
+  western: "Western",
+  nonFiction: "Non-Fiction",
+  fiction: "Fiction",
+  childrens: "Children's",
+  cooking: "Cooking",
+  selfHelp: "Self-Help",
+  travel: "Travel",
+  spirituality: "Spirituality",
+};
+
+interface UserGenre {
+  genre: string;
 }
 
-const genreNames = [
-  "actionBook",
-  "comedyBook",
-  "dramaBook",
-  "horrorBook",
-  "romanceBook",
-  "thrillerBook",
-  "sciFIBook",
-  "mysteryBook",
-  "fantasyBook",
-  "historyBook",
-  "westernBook",
-  "nonFictionBook",
-  "fictionBook",
-  "childrensBook",
-  "cookingBook",
-  "selfHelpBook",
-  "travelBook",
-  "spiritualityBook",
-];
-const tooltips = {
-  actionBook: "Action",
-  comedyBook: "Comedy",
-  dramaBook: "Drama",
-  horrorBook: "Horror",
-  romanceBook: "Romance",
-  thrillerBook: "Thriller",
-  sciFIBook: "Science Fiction",
-  mysteryBook: "Mystery",
-  fantasyBook: "Fantasy",
-  historyBook: "Historical Fiction",
-  westernBook: "Western",
-  nonFictionBook: "Non-Fiction",
-  fictionBook: "Fiction",
-  childrensBook: "Children's",
-  cookingBook: "Cooking",
-  selfHelpBook: "Self-Help",
-  travelBook: "Travel",
-  spiritualityBook: "Spirituality",
-};
-type Data = {
-  urls: string[];
-  message?: string;
-};
+interface GenreIconsProps {
+  userGenres: UserGenre[];
+}
 
-export const GenreIcons: FC = () => {
-  const [state, setState] = useState<GenreIconState>({});
+export const GenreIcons: FC<GenreIconsProps> = ({ userGenres }) => {
+  const { imageUrlsObj } = useHomeState();
 
-  useEffect(() => {
-    const fileNames = genreNames.map((name) => `icons/${name}.png`).join(",");
-    fetch(`/api/AWS/signedURL?fileNames=${fileNames}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data: Data) => {
-        if (data.urls) {
-          const newState: GenreIconState = {};
-          genreNames.forEach((genre, index) => {
-            newState[genre] = data.urls[index];
-          });
-          setState(newState);
-        } else if (data.message) {
-          console.error("Error:", data.message);
-        } else {
-          console.error("Unexpected response structure:", data);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching signed URL:", error);
-      });
-    console.log(state);
-  }, []);
+  // Create a set of unique genre names
+  const uniqueGenres = new Set(userGenres.map((genreObj) => genreObj.genre));
 
   return (
     <Grid container spacing={1} justifyContent='center' style={{ margin: 0 }}>
-      {Object.entries(state).map(([genre, url]) => (
-        <Grid item key={genre} xs='auto' style={{ padding: 4 }}>
-          <Tooltip title={tooltips[genre] || "Tooltip not available"}>
-            <IconButton>
-              <img
-                src={url}
-                alt={genre}
-                style={{ width: "20px", height: "20px" }}
-              />
-            </IconButton>
-          </Tooltip>
-        </Grid>
-      ))}
+      {Array.from(uniqueGenres).map((genre, index) => {
+        const genreKey = `${genre}Book`;
+        const imageUrl = imageUrlsObj[`icons/${genreKey}.png`];
+
+        // Skip rendering if imageUrl is not found
+        if (!imageUrl) return null;
+
+        return (
+          <Grid item key={index} xs='auto' style={{ padding: 4 }}>
+            <Tooltip title={tooltips[genre] || "Tooltip not available"}>
+              <IconButton>
+                <img
+                  src={imageUrl}
+                  alt={genreKey}
+                  style={{ width: "20px", height: "20px" }}
+                />
+              </IconButton>
+            </Tooltip>
+          </Grid>
+        );
+      })}
     </Grid>
   );
 };

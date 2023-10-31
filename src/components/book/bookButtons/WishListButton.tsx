@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import { useUserState, useUserDispatch } from "../../../context/context";
+import { useHomeState, useHomeDispatch } from "../../../context/context";
 import { SET_WISHLIST, SET_WISHLIST_IDS } from "../../../context/actions";
 
 type CustomColor = "success" | "danger";
@@ -30,8 +30,8 @@ interface WishListButtonProps {
 }
 
 export function WishListButton({ book }: WishListButtonProps) {
-  const state = useUserState();
-  const dispatch = useUserDispatch();
+  const state = useHomeState();
+  const dispatch = useHomeDispatch();
 
   const [color, setColor] = useState<CustomColor>("danger");
   const [toolTip, setToolTip] = useState<NonNullable<React.ReactNode>>(

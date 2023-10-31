@@ -13,7 +13,7 @@ import {
   RightIconButton,
 } from "./styles/exploreBooksStyle";
 
-import { useUserDispatch, useUserState } from "../../context/context";
+import { useHomeDispatch, useHomeState } from "../../context/context";
 
 interface Book {
   id?: string;
@@ -35,8 +35,8 @@ interface Book {
 }
 
 const WishList: React.FC = () => {
-  const state = useUserState();
-  const dispatch = useUserDispatch();
+  const state = useHomeState();
+  const dispatch = useHomeDispatch();
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined

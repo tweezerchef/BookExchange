@@ -3,13 +3,13 @@ import { User } from "@prisma/client";
 import { findUserByIdDetailed } from "../../../../utils/userService";
 import { verifyCookie } from "../../../../utils/verifyCookie";
 // Assuming you have a utility function to verify cookies
+type UserResponse = Omit<User, "email" | "googleId" | "lastName" | "NotificationsCount" | "phoneNumber">;
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<User | { message: string }>
+  res: NextApiResponse<User | UserResponse | { message: string }>
 ) {
   const { method, query: { id } } = req;
-
   // Verify the cookie
   if (!verifyCookie(req)) {
     res.status(401).json({ message: "Unauthorized" });

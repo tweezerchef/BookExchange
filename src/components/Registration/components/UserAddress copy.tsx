@@ -16,7 +16,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import parse from "autosuggest-highlight/parse";
 import { debounce } from "@mui/material/utils";
-import { useUserState } from "../../../context/context";
+import { useHomeState } from "../../../context/context";
 import { useFormData } from "../../../context/regContext";
 
 // eslint-disable-next-line prefer-destructuring
@@ -63,7 +63,7 @@ export function UserAddress() {
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState<readonly PlaceType[]>([]);
   const loaded = useRef(false);
-  const state = useUserState();
+  const state = useHomeState();
   const { user } = state;
 
   if (typeof window !== "undefined" && !loaded.current) {

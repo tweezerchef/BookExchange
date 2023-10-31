@@ -7,17 +7,27 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { GenreIcons } from "./components/GenreIcons";
 
+interface UserGenre {
+  [key: string]: string;
+}
+interface UserWithGenres extends User {
+  UserGenre: UserGenre[];
+}
+
 export const ProfileCard: FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [profilePicture, setProfilePicture] = useState<string>("" || null);
   const [rawUserPicture, setRawUserPicture] = useState<string>("" || null);
+  const [userGenres, setUserGenres] = useState<UserGenre[] | null>(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      const userObj: User = JSON.parse(storedUser) as User;
+      const userObj: UserWithGenres = JSON.parse(storedUser) as UserWithGenres;
       setUser(userObj);
+      setUserGenres(userObj.UserGenre);
       setRawUserPicture(userObj.picture);
+      console.log("userGenres", userGenres);
     }
   }, []);
 
@@ -73,7 +83,7 @@ export const ProfileCard: FC = () => {
             <Typography variant='body2' color='text.secondary' align='center'>
               {user?.city}
             </Typography>
-            <GenreIcons />
+            <GenreIcons userGenres={userGenres} />
           </Box>
         </Card>
       </Box>

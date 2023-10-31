@@ -1,44 +1,40 @@
 import { createContext, useContext, useReducer } from "react";
-import { UserBooks, User } from "@prisma/client";
+import { UserBooks, User, Books } from "@prisma/client";
 import reducer from "./reducer";
-import {
-  SET_WISHLIST,
-  SET_LENDING_LIBRARY,
-  SET_LENDING_LIBRARY_IDS,
-  SET_USER_BOOKS,
-  SET_USER_BOOKS_IDS,
-  SET_WISHLIST_IDS,
-  SET_STAR_RATINGS,
-} from "./actions";
 
-interface UserState {
-  wishList?: Book[];
-  wishListIDs?: Book["id"][];
-  lendingLibrary?: Book[];
-  lendingLibraryIDs?: Book["id"][];
+interface ImageUrls {
+  [key: string]: string;
+}
+
+interface HomeState {
+  imageUrlsObj?: ImageUrls;
+  wishList?: Books[];
+  wishListIDs?: Books["id"][];
+  lendingLibrary?: Books[];
+  lendingLibraryIDs?: Books["id"][];
   userBooks?: UserBooks[];
-  userBooksIDs?: Book["id"][];
+  userBooksIDs?: Books["id"][];
   starRatings?: UserBooks[];
   user?: User;
 }
 
-const UserStateContext = createContext<UserState | undefined>(undefined);
-const UserDispatchContext = createContext<React.Dispatch<unknown> | undefined>(
+const HomeStateContext = createContext<HomeState | undefined>(undefined);
+const HomeDispatchContext = createContext<React.Dispatch<unknown> | undefined>(
   undefined
 );
 
-export const useUserState = () => {
-  const context = useContext(UserStateContext);
+export const useHomeState = () => {
+  const context = useContext(HomeStateContext);
   if (!context) {
-    throw new Error("useUserState must be used within a UserProvider");
+    throw new Error("useHomeState must be used within a UserProvider");
   }
   return context;
 };
 
-export const useUserDispatch = () => {
-  const context = useContext(UserDispatchContext);
+export const useHomeDispatch = () => {
+  const context = useContext(HomeDispatchContext);
   if (!context) {
-    throw new Error("useUserDispatch must be used within a UserProvider");
+    throw new Error("useHomeDispatch must be used within a UserProvider");
   }
   return context;
 };
@@ -46,21 +42,22 @@ export const useUserDispatch = () => {
 export function UserProvider({ children }) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [state, dispatch] = useReducer(reducer, {
-    wishList: [] as Book[],
-    lendingLibrary: [] as Book[],
-    lendingLibraryIDs: [] as Book["id"][],
+    imageUrlsObj: {} as ImageUrls,
+    wishList: [] as Books[],
+    lendingLibrary: [] as Books[],
+    lendingLibraryIDs: [] as Books["id"][],
     userBooks: [] as UserBooks[],
-    userBooksIDs: [] as Book["id"][],
-    wishListIDs: [] as Book["id"][],
+    userBooksIDs: [] as Books["id"][],
+    wishListIDs: [] as Books["id"][],
     starRatings: [] as UserBooks[],
     user: {} as User,
   });
 
   return (
-    <UserStateContext.Provider value={state}>
-      <UserDispatchContext.Provider value={dispatch}>
+    <HomeStateContext.Provider value={state}>
+      <HomeDispatchContext.Provider value={dispatch}>
         {children}
-      </UserDispatchContext.Provider>
-    </UserStateContext.Provider>
+      </HomeDispatchContext.Provider>
+    </HomeStateContext.Provider>
   );
 }

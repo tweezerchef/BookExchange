@@ -5,7 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Tooltip, Avatar, Menu, MenuItem, Typography } from "@mui/material";
-import { useUserState } from "../../context/context";
+import { useHomeState } from "../../context/context";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const menuItems = ["Home", "Explore", "Wishlist", "Lending Library"];
@@ -18,7 +18,7 @@ const Header = () => {
     "" || null
   );
   const [userAvi, setUserAvi] = useState<string>("" || null);
-  const { user } = useUserState();
+  const { user } = useHomeState();
   const rawUserPicture = user?.picture;
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {

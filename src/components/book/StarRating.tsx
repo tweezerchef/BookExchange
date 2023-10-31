@@ -1,5 +1,5 @@
 import Rating from "@mui/material/Rating";
-import { useUserDispatch, useUserState } from "../../context/context";
+import { useHomeDispatch, useHomeState } from "../../context/context";
 import { SET_STAR_RATINGS } from "../../context/actions";
 
 interface Book {
@@ -26,8 +26,8 @@ interface StarRatingProps {
 }
 
 export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
-  const state = useUserState();
-  const dispatch = useUserDispatch();
+  const state = useHomeState();
+  const dispatch = useHomeDispatch();
 
   const { starRatings } = state;
   const { user } = state;

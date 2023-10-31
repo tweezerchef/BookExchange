@@ -4,17 +4,23 @@ import { User, Books } from "@prisma/client";
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import { InferGetServerSidePropsType } from "next";
+import { Image } from "aws-sdk/clients/iotanalytics";
 import { getServerSideProps as exportedGetServerSideProps } from "../utils/homeUtil/getServerSideProps";
 import WishListBox from "../components/Carousels/wistListBox";
 import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
-import { useUserDispatch } from "../context/context";
+import { useHomeDispatch } from "../context/context";
 import {
   SET_USER,
   SET_WISHLIST,
   SET_WISHLIST_IDS,
   SET_LENDING_LIBRARY_IDS,
   SET_STAR_RATINGS,
+  SET_IMAGE_URLS_OBJECT,
 } from "../context/actions";
+
+interface ImageUrls {
+  [key: string]: string;
+}
 
 interface StarRating {
   bookID: string;
@@ -22,6 +28,8 @@ interface StarRating {
 }
 
 interface HomeProps {
+  randomBooks: Books[];
+  imageUrlsObject: ImageUrls;
   user: User;
   wishlistData: Books[];
   wishlistIdsData: Books["id"][];
@@ -31,6 +39,8 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = memo(
   ({
+    randomBooks,
+    imageUrlsObject,
     user,
     wishlistData,
     wishlistIdsData,
@@ -38,22 +48,11 @@ const Home: React.FC<HomeProps> = memo(
     starRatingData,
   }) => {
     const [isLoading, setIsLoading] = useState(true);
-    const dispatch = useUserDispatch();
-    const [books, setBooks] = useState<Books[]>([]);
-    const getRandomBooks = useCallback(() => {
-      fetch("/api/bookDB/randomBooks")
-        .then((res) => res.json())
-        .then((data: Books[]) => {
-          setBooks(data);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          console.error("Error fetching random books:", error);
-          setIsLoading(false);
-        });
-    }, []);
+    const dispatch = useHomeDispatch();
+    const [books, setBooks] = useState<Books[]>(randomBooks);
+
     useEffect(() => {
-      getRandomBooks();
+      dispatch({ type: SET_IMAGE_URLS_OBJECT, payload: imageUrlsObject });
       dispatch({ type: SET_USER, payload: user });
       localStorage.setItem("user", JSON.stringify(user));
       dispatch({ type: SET_WISHLIST, payload: wishlistData });
@@ -63,6 +62,7 @@ const Home: React.FC<HomeProps> = memo(
         payload: lendingLibraryIdsData,
       });
       dispatch({ type: SET_STAR_RATINGS, payload: starRatingData });
+      setIsLoading(false);
     }, []);
 
     return (

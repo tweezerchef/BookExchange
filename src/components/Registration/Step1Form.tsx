@@ -4,7 +4,7 @@ import { UserAddress } from "./components/UserAddress";
 import { UserName } from "./components/UserName";
 import { GenrePicker } from "./components/GenrePicker";
 import AviAdd from "./components/AviAdd";
-import { useUserState } from "../../context/context";
+import { useHomeState } from "../../context/context";
 
 interface Step1FormProps {
   handleNext: () => void;
@@ -13,7 +13,7 @@ interface Step1FormProps {
 export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
   const { formData, aviFileData } = useFormData();
 
-  const state = useUserState();
+  const state = useHomeState();
 
   const { user } = state;
   const userId = user?.id;

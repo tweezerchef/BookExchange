@@ -7,7 +7,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
-import { useUserState } from "../../context/context";
+import { useHomeState } from "../../context/context";
 import { AddReviewModal } from "./bigBookStyles";
 
 type Review = {
@@ -28,7 +28,7 @@ export const UserReview: React.FC<UserReviewProps> = ({
   setReviews,
   book,
 }) => {
-  const state = useUserState();
+  const state = useHomeState();
   const [newReview, setNewReview] = useState<string>("");
 
   const { user } = state;

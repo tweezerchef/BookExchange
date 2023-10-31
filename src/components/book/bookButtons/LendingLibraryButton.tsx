@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import { useUserDispatch, useUserState } from "../../../context/context";
+import { useHomeDispatch, useHomeState } from "../../../context/context";
 import {
   SET_LENDING_LIBRARY,
   SET_LENDING_LIBRARY_IDS,
@@ -17,8 +17,8 @@ interface LendingLibraryButtonProps {
 // need to refactor similar to wishlist button
 
 export function LendingLibraryButton({ book }: LendingLibraryButtonProps) {
-  const state = useUserState();
-  const dispatch = useUserDispatch();
+  const state = useHomeState();
+  const dispatch = useHomeDispatch();
 
   const [color, setColor] = useState<CustomColor>("danger");
   const [toolTip, setToolTip] = useState<NonNullable<React.ReactNode>>(
