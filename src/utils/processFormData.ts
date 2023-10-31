@@ -1,4 +1,5 @@
 import prisma from "./prismaClient";
+import { setUserLocation } from "./setUserLocation";
 
 interface Genres {
     action?: boolean;
@@ -17,24 +18,37 @@ interface Genres {
     aviFileData?: File;
     genres?: Genres;
   }
-  interface Body {
-    formData: FormData;
-    userId: string;
-  }
-
 
 export function processFormData(formData: FormData, userId: string) {
-    // Replace the following line with your actual data processing logic
-    // await new Promise((resolve) =>  setTimeout(resolve, 5000));
+    const {address, userName, genres} = formData;
+    Object.keys(genres).forEach((genre) => {
+        console.log('genre', genre);
+       prisma.userGenre.create({
+        data: {
+          genre,
+          user: {
+            connect: {
+              id: userId,
+            },
+          },
+        }
+        })
+        .catch((error) => {
+          console.error('Error processing data', error);
+        }
+        );
+    });
+
+    const locationData = setUserLocation({userId, address});
     prisma.user.update({
       where: {
         id: userId
       },
       data: {
-        // address: formData.address,
-        userName: formData.userName,
+        userName,
       }
-    }).catch((error) => {
+    }
+    ).catch((error) => {
       console.error('Error processing data', error);
     }
     );

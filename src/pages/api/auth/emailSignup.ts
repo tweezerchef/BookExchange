@@ -29,7 +29,7 @@ export default async function handler(
       value: {
         email: newUser.email,
         id: newUser.id,
-        username: newUser.username,
+        userName: newUser.userName,
       },
     });
     res.setHeader("Set-Cookie", cookie);

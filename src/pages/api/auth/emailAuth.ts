@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { createRouter } from "next-connect";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import bcrypt from "bcrypt";
+
 import { getSecureCookie } from "../../../utils/getSecureCookie";
 import {
   createUserByEmailAndPassword,
@@ -20,6 +21,7 @@ router.post("/signup", async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "Email already registered" });
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await createUserByEmailAndPassword(email, hashedPassword);
 
@@ -29,8 +31,8 @@ router.post("/signup", async (req, res) => {
       value: {
         email: newUser.email,
         id: newUser.id,
-        username: newUser.username,
-      },
+        userName: newUser.userName,
+      }
     });
     res.setHeader("Set-Cookie", cookie);
 
@@ -55,8 +57,8 @@ router.post("/login", async (req, res) => {
       value: {
         email: user.email,
         id: user.id,
-        username: user.username,
-      },
+        userName: user.userName,
+      }
     });
 
     res.writeHead(302, { Location: "/home" });

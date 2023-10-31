@@ -84,15 +84,15 @@ model BookAccess {
 model UserGenre {
   id     String @id @default(uuid())
   genre  String
-  UserId String
-  User   User   @relation(fields: [UserId], references: [id])
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 }
 
 model UserHobbies {
   id      String @id @default(uuid())
   hobbies String
-  UserId  String
-  User    User   @relation(fields: [UserId], references: [id])
+  userId  String
+  User    User   @relation(fields: [userId], references: [id])
 }
 
 model UserPictures {

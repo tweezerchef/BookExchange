@@ -25,7 +25,7 @@ interface Body {
 }
 
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 
   const userFromCookie = verifyCookie(req);
   if (!userFromCookie) {
@@ -33,14 +33,14 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     return;
   }
   if (req.method === "POST" && req.body) {
-    console.log(req.body)
     const { formData, userId } = req.body as Body;
+    processFormData(formData, userId);
+
 
     // Immediately send a response back to the client
     // res.status(200).send('Request received');
 
     // Continue processing in the background
-    processFormData(formData, userId)
   } else {
     // Handle other cases or send an error message
     res.status(400).send('Invalid request');

@@ -6,7 +6,7 @@ const secretKey = process.env.SECRET_COOKIE_KEY ;
 interface Value {
   email: string;
   id: string;
-  username: string;
+  userName: string;
 }
 
 

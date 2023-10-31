@@ -17,13 +17,8 @@ export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
 
   const { user } = state;
   const userId = user?.id;
-  console.log("userId", userId);
 
   const submitForm = async () => {
-    // if (aviFileData) {
-    //   form.append("aviFile", aviFileData);
-    // }
-
     try {
       const data = {
         formData,

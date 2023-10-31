@@ -29,7 +29,7 @@ export const config = {
 interface UserCookie {
   email: string;
   id: string;
-  username: string;
+  userName: string;
 }
 
 const strategyOptions: IOAuth2StrategyOption = {
@@ -93,8 +93,8 @@ router.get((req, res, next) => {
           value: {
             email: user.email,
             id: user.id,
-            username: user.username,
-          },
+            userName: user.userName,
+          }
         });
         res.setHeader("Set-Cookie", cookie);
         res.writeHead(302, { Location: '/home' });
