@@ -3,10 +3,9 @@ import { User } from "@prisma/client";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
+import { GenreIcons } from "./components/GenreIcons";
 
 export const ProfileCard: FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -16,7 +15,7 @@ export const ProfileCard: FC = () => {
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
-      const userObj = JSON.parse(storedUser);
+      const userObj: User = JSON.parse(storedUser) as User;
       setUser(userObj);
       setRawUserPicture(userObj.picture);
     }
@@ -51,7 +50,7 @@ export const ProfileCard: FC = () => {
   return (
     <Container maxWidth='sm'>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Card sx={{ maxWidth: 345, minHeight: 200, minWidth: 150 }}>
+        <Card sx={{ maxWidth: 250, minHeight: 200, minWidth: 150 }}>
           <Box
             sx={{ display: "flex", justifyContent: "center", paddingTop: 2 }}
           >
@@ -74,6 +73,7 @@ export const ProfileCard: FC = () => {
             <Typography variant='body2' color='text.secondary' align='center'>
               {user?.city}
             </Typography>
+            <GenreIcons />
           </Box>
         </Card>
       </Box>
