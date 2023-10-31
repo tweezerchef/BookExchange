@@ -51,23 +51,30 @@ export const ProfileCard: FC = () => {
   return (
     <Container maxWidth='sm'>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Card sx={{ maxWidth: 345 }}>
-          <CardMedia>
+        <Card sx={{ maxWidth: 345, minHeight: 200, minWidth: 150 }}>
+          <Box
+            sx={{ display: "flex", justifyContent: "center", paddingTop: 2 }}
+          >
             <Avatar
               alt='Remy Sharp'
               src={profilePicture}
-              sx={{ width: 56, height: 56 }}
+              sx={{ width: 70, height: 70 }}
             />
-          </CardMedia>
-          <CardContent>
-            <Box sx={{ display: "flex", justifyContent: "center" }} />
-            <Typography gutterBottom variant='h5' component='div'>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant='h6' align='center'>
               {user?.userName}
             </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              {user?.email}
+            <Typography variant='body2' color='text.secondary' align='center'>
+              {user?.city}
             </Typography>
-          </CardContent>
+          </Box>
         </Card>
       </Box>
     </Container>

@@ -23,65 +23,72 @@ interface GenreState {
   travel: boolean;
   spirituality: boolean;
 }
-
-interface Genre1Props {
+interface Genre3Props {
   state: GenreState;
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Genre1: FC<Genre1Props> = ({ state, handleChange }) => (
+export const Genre3: FC<Genre3Props> = ({ state, handleChange }) => (
   <FormGroup>
     <FormControlLabel
       control={
         <Checkbox
-          checked={state.action}
+          checked={state.historicalFiction}
           onChange={handleChange}
-          name='action'
+          name='historicalFiction'
         />
       }
-      label='Action'
+      label='Historical Fiction'
     />
     <FormControlLabel
       control={
         <Checkbox
-          checked={state.comedy}
+          checked={state.western}
           onChange={handleChange}
-          name='comedy'
+          name='western'
         />
       }
-      label='Comedy'
-    />
-    <FormControlLabel
-      control={
-        <Checkbox checked={state.sciFI} onChange={handleChange} name='scgFI' />
-      }
-      label='Science Fiction'
-    />
-    <FormControlLabel
-      control={
-        <Checkbox checked={state.drama} onChange={handleChange} name='drama' />
-      }
-      label='Drama'
+      label='Western'
     />
     <FormControlLabel
       control={
         <Checkbox
-          checked={state.mystery}
+          checked={state.nonFiction}
           onChange={handleChange}
-          name='mystery'
+          name='nonFiction'
         />
       }
-      label='Mystery'
+      label='Non-Fiction'
     />
     <FormControlLabel
       control={
         <Checkbox
-          checked={state.selfHelp}
+          checked={state.cooking}
           onChange={handleChange}
-          name='selfHelp'
+          name='cooking'
         />
       }
-      label='Self-Help'
+      label='Cooking'
+    />
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={state.nonFiction}
+          onChange={handleChange}
+          name='nonFiction'
+        />
+      }
+      label='Non-Fiction'
+    />
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={state.childrens}
+          onChange={handleChange}
+          name='childrens'
+        />
+      }
+      label="Children's"
     />
   </FormGroup>
 );

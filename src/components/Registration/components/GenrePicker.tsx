@@ -7,6 +7,7 @@ import Card from "@mui/material/Card";
 import { FC, useState } from "react";
 import { Genre1 } from "./Genre1";
 import { Genre2 } from "./Genre2";
+import { Genre3 } from "./Genre3";
 import { useFormData } from "../../../context/regContext";
 
 export const GenrePicker: FC = () => {
@@ -18,6 +19,17 @@ export const GenrePicker: FC = () => {
     romance: false,
     thriller: false,
     sciFI: false,
+    mystery: false,
+    fantasy: false,
+    historicalFiction: false,
+    western: false,
+    nonFiction: false,
+    fiction: false,
+    childrens: false,
+    cooking: false,
+    selfHelp: false,
+    travel: false,
+    spirituality: false,
   });
   const { formData, updateFormData } = useFormData();
 
@@ -53,6 +65,7 @@ export const GenrePicker: FC = () => {
           <Stack direction='row' spacing={3}>
             <Genre1 state={state} handleChange={handleChange} />
             <Genre2 state={state} handleChange={handleChange} />
+            <Genre3 state={state} handleChange={handleChange} />
           </Stack>
           <FormHelperText>Select at least one genre</FormHelperText>
         </FormControl>

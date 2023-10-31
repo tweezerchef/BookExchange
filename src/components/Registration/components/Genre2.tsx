@@ -11,6 +11,17 @@ interface GenreState {
   romance: boolean;
   thriller: boolean;
   sciFI: boolean;
+  mystery: boolean;
+  fantasy: boolean;
+  historicalFiction: boolean;
+  western: boolean;
+  nonFiction: boolean;
+  fiction: boolean;
+  childrens: boolean;
+  cooking: boolean;
+  selfHelp: boolean;
+  travel: boolean;
+  spirituality: boolean;
 }
 
 interface Genre1Props {
@@ -49,6 +60,36 @@ export const Genre2: FC<Genre1Props> = ({ state, handleChange }) => (
         />
       }
       label='Thriller'
+    />
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={state.fantasy}
+          onChange={handleChange}
+          name='fantasy'
+        />
+      }
+      label='Fantasy'
+    />
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={state.spirituality}
+          onChange={handleChange}
+          name='spirituality'
+        />
+      }
+      label='Spirituality'
+    />
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={state.travel}
+          onChange={handleChange}
+          name='travel'
+        />
+      }
+      label='Travel'
     />
   </FormGroup>
 );
