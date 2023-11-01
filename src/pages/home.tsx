@@ -6,8 +6,8 @@ import Link from "next/link";
 import { InferGetServerSidePropsType } from "next";
 import { Image } from "aws-sdk/clients/iotanalytics";
 import { getServerSideProps as exportedGetServerSideProps } from "../utils/homeUtil/getServerSideProps";
-import WishListBox from "../components/Carousels/wistListBox";
-import ExploreBooksBox from "../components/Carousels/exploreBooksBox";
+import WishListBox from "../components/Carousels/WistListBox";
+import ExploreBooksBox from "../components/Carousels/ExploreBooksBox";
 import { useHomeDispatch } from "../context/context";
 import {
   SET_USER,

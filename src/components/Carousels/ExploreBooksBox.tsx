@@ -1,5 +1,5 @@
 import { Books } from "@prisma/client";
-import { ExploreBooks } from "./exploreBooks";
+import { ExploreBooks } from "./ExploreBooks";
 
 interface ExploreBooksBoxProps {
   books: Books[];

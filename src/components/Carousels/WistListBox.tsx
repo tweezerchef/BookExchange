@@ -1,7 +1,7 @@
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import WishList from "./wishList";
+import WishList from "./WishList";
 
 const wishListBox: React.FC = () => (
   <>
