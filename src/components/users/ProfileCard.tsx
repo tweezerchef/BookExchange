@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { GenreIcons } from "./components/GenreIcons";
 import { AddFriendButton } from "./components/AddFriendButton";
+import { MessageButton } from "./components/MessageButton";
 
 interface UserGenre {
   genre: string;
@@ -62,7 +63,7 @@ export const ProfileCard: FC = () => {
   return (
     <Container maxWidth='sm'>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Card sx={{ maxWidth: 250, minHeight: 200, minWidth: 150 }}>
+        <Card sx={{ maxWidth: 200, minHeight: 200, minWidth: 150 }}>
           <Box
             sx={{
               position: "relative",
@@ -77,6 +78,7 @@ export const ProfileCard: FC = () => {
               src={profilePicture}
               sx={{ width: 70, height: 70 }}
             />
+            <MessageButton />
           </Box>
           <Box
             sx={{

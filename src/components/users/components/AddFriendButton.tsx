@@ -38,23 +38,25 @@ export const AddFriendButton: FC<AddFriendButtonProps> = ({ friendId }) => {
   };
 
   return (
-    <div>
-      <Tooltip title={isFriend ? "Unfollow" : "Follow"} placement='top-end'>
-        <IconButton
-          aria-label='Lending Library'
-          size='small'
-          color={isFriend ? "secondary" : "primary"}
-          sx={{
-            position: "absolute",
-            borderRadius: "50%",
-            right: "1.7rem", // Set right and top values
-            transform: "translate(50%, -50%)",
-          }}
-          onClick={follow}
-        >
-          {isFriend ? <PersonRemoveIcon /> : <PersonAddIcon />}
-        </IconButton>
+    <IconButton
+      aria-label='Lending Library'
+      size='small'
+      color={isFriend ? "secondary" : "primary"}
+      sx={{
+        position: "absolute",
+        borderRadius: "50%",
+        right: "1.7rem", // Set right and top values
+        transform: "translate(50%, -50%)",
+      }}
+      onClick={follow}
+    >
+      <Tooltip
+        title={isFriend ? "Unfollow" : "Follow"}
+        placement='top-start'
+        arrow
+      >
+        {isFriend ? <PersonRemoveIcon /> : <PersonAddIcon />}
       </Tooltip>
-    </div>
+    </IconButton>
   );
 };

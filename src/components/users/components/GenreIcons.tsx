@@ -52,7 +52,11 @@ export const GenreIcons: FC<GenreIconsProps> = ({ userGenres }) => {
 
         return (
           <Grid item key={index} xs='auto' style={{ padding: 4 }}>
-            <Tooltip title={tooltips[genre] || "Tooltip not available"}>
+            <Tooltip
+              title={tooltips[genre] || "Tooltip not available"}
+              placement='top'
+              arrow
+            >
               <IconButton>
                 <img
                   src={imageUrl}
