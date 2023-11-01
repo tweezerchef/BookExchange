@@ -34,6 +34,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+//this one works best
+
 CREATE OR REPLACE FUNCTION log_user_books_activity()
 RETURNS TRIGGER AS $$
 BEGIN

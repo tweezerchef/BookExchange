@@ -59,7 +59,7 @@ const Header = () => {
         }
       })
       .catch(console.error); // Log errors to the console
-  });
+  }, []);
   return (
     <AppBar
       position='sticky'
