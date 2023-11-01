@@ -4,10 +4,10 @@ import { User, Books } from "@prisma/client";
 import Box from "@mui/material/Box";
 import Link from "next/link";
 import { InferGetServerSidePropsType } from "next";
-import { Image } from "aws-sdk/clients/iotanalytics";
 import { getServerSideProps as exportedGetServerSideProps } from "../utils/homeUtil/getServerSideProps";
 import WishListBox from "../components/Carousels/WistListBox";
 import ExploreBooksBox from "../components/Carousels/ExploreBooksBox";
+import { ExploreFriendsBox } from "../components/Carousels/ExploreFriendsBox";
 import { useHomeDispatch } from "../context/context";
 import {
   SET_USER,
@@ -71,6 +71,7 @@ const Home: React.FC<HomeProps> = memo(
           <>
             <Link href='./register'>Register</Link>
             <Link href='./development'>Development</Link>
+            <ExploreFriendsBox />
             <ExploreBooksBox books={books} setBooks={setBooks} />
             <WishListBox />
           </>

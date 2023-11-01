@@ -1,6 +1,7 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import { findRandomBooks } from "../../../utils/books/findRandomBooks";
 
-export default async function handler(req, res) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
       try {
         const books = await findRandomBooks(15);
         res.status(200).json(books);
