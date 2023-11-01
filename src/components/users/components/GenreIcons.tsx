@@ -1,10 +1,12 @@
+/* eslint-disable react/no-array-index-key */
 import Grid from "@mui/material/Grid";
 import { FC } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { useHomeState } from "../../../context/context";
 
-const tooltips = {
+type ToolTips = { [key: string]: string };
+const tooltips: ToolTips = {
   action: "Action",
   comedy: "Comedy",
   drama: "Drama",

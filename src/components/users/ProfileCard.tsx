@@ -8,8 +8,9 @@ import Avatar from "@mui/material/Avatar";
 import { GenreIcons } from "./components/GenreIcons";
 
 interface UserGenre {
-  [key: string]: string;
+  genre: string;
 }
+
 interface UserWithGenres extends User {
   UserGenre: UserGenre[];
 }
@@ -27,7 +28,6 @@ export const ProfileCard: FC = () => {
       setUser(userObj);
       setUserGenres(userObj.UserGenre);
       setRawUserPicture(userObj.picture);
-      console.log("userGenres", userGenres);
     }
   }, []);
 

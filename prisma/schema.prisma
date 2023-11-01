@@ -69,6 +69,40 @@ model Books {
   UserBooks   UserBooks[]
 }
 
+model UserBooks {
+  id             String          @id @default(uuid())
+  wishlist       Boolean         @default(false)
+  lendingLibrary Boolean         @default(false)
+  booksId        String
+  userId         String
+  starRating     Float?
+  review         String?
+  read           Boolean         @default(false)
+  reading        Boolean         @default(false)
+  LendingTable   LendingTable[]
+  UserBookNotes  UserBookNotes[]
+  Books          Books           @relation(fields: [booksId], references: [id])
+  User           User            @relation(fields: [userId], references: [id])
+  Activity       Activity[]
+
+  @@unique([userId, booksId], name: "userId_bookId")
+}
+
+model Activity {
+  id          String        @id @default(uuid())
+  userId      String
+  type        String
+  bookId      String?
+  userBookId  String? // Add this field
+  createdAt   DateTime      @default(now())
+  placeId     String?
+  description String?
+  book        Books?        @relation(fields: [bookId], references: [id])
+  place       PlacesToRead? @relation(fields: [placeId], references: [id])
+  user        User          @relation(fields: [userId], references: [id])
+  userBook    UserBooks?    @relation(fields: [userBookId], references: [id])
+}
+
 model BookAccess {
   id           String  @id @default(uuid())
   downloadLink String?
@@ -101,24 +135,6 @@ model UserPictures {
   userId String
   type   String?
   User   User    @relation(fields: [userId], references: [id])
-}
-
-model UserBooks {
-  id             String          @id @default(uuid())
-  wishlist       Boolean         @default(false)
-  lendingLibrary Boolean         @default(false)
-  booksId        String
-  userId         String
-  starRating     Float?
-  review         String?
-  read           Boolean         @default(false)
-  reading        Boolean         @default(false)
-  LendingTable   LendingTable[]
-  UserBookNotes  UserBookNotes[]
-  Books          Books           @relation(fields: [booksId], references: [id])
-  User           User            @relation(fields: [userId], references: [id])
-
-  @@unique([userId, booksId], name: "userId_bookId")
 }
 
 model UserBookNotes {
@@ -310,19 +326,6 @@ model PostsUsers {
   thumbsDown Boolean @default(false)
   post       Posts   @relation(fields: [postId], references: [id])
   user       User    @relation(fields: [userId], references: [id])
-}
-
-model Activity {
-  id          String        @id @default(uuid())
-  userId      String
-  type        String
-  bookId      String?
-  createdAt   DateTime      @default(now())
-  placeId     String?
-  description String?
-  book        Books?        @relation(fields: [bookId], references: [id])
-  place       PlacesToRead? @relation(fields: [placeId], references: [id])
-  user        User          @relation(fields: [userId], references: [id])
 }
 
 model Friends {

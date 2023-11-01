@@ -1,28 +1,10 @@
 import Rating from "@mui/material/Rating";
+import { Books } from "@prisma/client";
 import { useHomeDispatch, useHomeState } from "../../context/context";
 import { SET_STAR_RATINGS } from "../../context/actions";
 
-interface Book {
-  id?: string;
-  title?: string;
-  subTitle?: string;
-  pubDate?: string;
-  pageCount?: number;
-  author?: string;
-  selfLink?: string;
-  description?: string;
-  content?: string;
-  image?: string;
-  mainGenre?: string;
-  buyLink?: string;
-  viewAbility?: string;
-  rating?: number;
-  ISBN10?: string;
-  books?: Book[];
-}
-
 interface StarRatingProps {
-  book: Book;
+  book: Books;
 }
 
 export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
@@ -31,6 +13,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
 
   const { starRatings } = state;
   const { user } = state;
+  console.log("StarRating.tsx", starRatings);
 
   const userID = user?.id;
   const bookID = book?.id;
@@ -45,21 +28,16 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
     newValue: number | null
   ) => {
     if (newValue === null) return;
-    dispatch({
-      type: SET_STAR_RATINGS,
-      payload: (prevStarRatings) => {
-        const updatedStarRatings = [...prevStarRatings];
-        const index = updatedStarRatings.findIndex(
-          (ratingObj) => ratingObj.booksId === bookID
-        );
-        if (index !== -1) {
-          updatedStarRatings[index].starRating = newValue;
-        } else if (bookID) {
-          updatedStarRatings.push({ booksId: bookID, starRating: newValue });
-        }
-        return updatedStarRatings;
-      },
-    });
+    const updatedStarRatings = [...starRatings];
+    const index = updatedStarRatings.findIndex(
+      (ratingObj) => ratingObj.booksId === bookID
+    );
+    if (index !== -1) {
+      updatedStarRatings[index].starRating = newValue;
+    } else if (bookID) {
+      updatedStarRatings.push({ booksId: bookID, starRating: newValue });
+    }
+    dispatch({ type: SET_STAR_RATINGS, payload: updatedStarRatings });
 
     fetch(`/api/user/starRating/${bookID}`, {
       method: "POST",

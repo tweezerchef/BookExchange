@@ -104,7 +104,6 @@ interface StarRating {
       lendingLibraryIds: `${baseUrl}/api/user/lendingLibraryIDs/${userId}`,
       starRating: `${baseUrl}/api/user/starRating/${userId}`,
     };
-
     const headers = {
       Cookie: cookies // Attach the cookies to the request
     };
@@ -145,7 +144,6 @@ interface StarRating {
       lendingLibraryIdsData,
       starRatingData,
     ] = data;
-
     return {
       props: {
         randomBooks,
