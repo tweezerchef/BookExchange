@@ -5,6 +5,10 @@ import reducer from "./reducer";
 interface ImageUrls {
   [key: string]: string;
 }
+interface StarRating {
+  booksId: string;
+  starRating: number;
+}
 
 interface HomeState {
   imageUrlsObj?: ImageUrls;
@@ -14,7 +18,7 @@ interface HomeState {
   lendingLibraryIDs?: Books["id"][];
   userBooks?: UserBooks[];
   userBooksIDs?: Books["id"][];
-  starRatings?: UserBooks[];
+  starRatings?: StarRating[];
   user?: User;
 }
 

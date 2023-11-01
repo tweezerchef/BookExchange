@@ -1,11 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { findOrCreateBookISBN } from "../../../../utils/books/findOrCreateBookISBN";
 import prisma from "../../../../utils/prismaClient";
+import { verifyCookie } from "../../../../utils/verifyCookie";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  if (!verifyCookie(req)) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
   if (req.method === "GET") {
     const userId: string = req.query.id as string;
 

@@ -3,16 +3,34 @@ import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import { FC, useState, useEffect } from "react";
+import { useHomeState } from "../../../context/context";
 
 export const AddFriendButton: FC = () => {
   const [isFriend, setIsFriend] = useState(false);
-  const [buttonText, setButtonText] = useState("Follow" || "Unfollow");
+  const {
+    user: { id: userId },
+  } = useHomeState() || {};
+  console.log("userId:", userId);
 
   const follow = () => {
     setIsFriend((prevIsFriend) => !prevIsFriend);
-    setButtonText((prevButtonText) =>
-      prevButtonText === "Follow" ? "Unfollow" : "Follow"
-    );
+    const action = isFriend;
+    fetch(`/api/users/friend`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ action, userId, friendId }),
+    })
+      .then((response) => response.json())
+      .then((data: ApiResponse) => {
+        if ("message" in data) {
+          console.log(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching signed URL:", error);
+      });
   };
 
   return (

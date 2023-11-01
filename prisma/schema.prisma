@@ -332,6 +332,7 @@ model Friends {
   id        String  @id @default(uuid())
   userId    String
   friendId  String
+  isFriend  Boolean @default(false)
   confirmed Boolean @default(true)
   friend    User    @relation("friend", fields: [friendId], references: [id])
   user      User    @relation("user", fields: [userId], references: [id])
