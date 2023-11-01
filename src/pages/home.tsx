@@ -70,7 +70,7 @@ const Home: React.FC<HomeProps> = memo(
         {books && !isLoading && (
           <>
             <Link href='./register'>Register</Link>
-            <Link href='./development'>Development</Link>
+            {/* <Link href='./development'>Development</Link> */}
             <ExploreFriendsBox />
             <ExploreBooksBox books={books} setBooks={setBooks} />
             <WishListBox />

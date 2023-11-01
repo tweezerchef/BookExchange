@@ -42,7 +42,7 @@ export const GenreIcons: FC<GenreIconsProps> = ({ userGenres }) => {
   const uniqueGenres = new Set(userGenres.map((genreObj) => genreObj.genre));
 
   return (
-    <Grid container spacing={1} justifyContent='center' style={{ margin: 0 }}>
+    <Grid container spacing={0} justifyContent='center' style={{ margin: 0 }}>
       {Array.from(uniqueGenres).map((genre, index) => {
         const genreKey = `${genre}Book`;
         const imageUrl = imageUrlsObj[`icons/${genreKey}.png`];
@@ -51,13 +51,13 @@ export const GenreIcons: FC<GenreIconsProps> = ({ userGenres }) => {
         if (!imageUrl) return null;
 
         return (
-          <Grid item key={index} xs='auto' style={{ padding: 4 }}>
+          <Grid item key={index} xs='auto' style={{ padding: 2 }}>
             <Tooltip
               title={tooltips[genre] || "Tooltip not available"}
               placement='top'
               arrow
             >
-              <IconButton>
+              <IconButton style={{ cursor: "default" }}>
                 <img
                   src={imageUrl}
                   alt={genreKey}

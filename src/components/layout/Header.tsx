@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Tooltip, Avatar, Menu, MenuItem, Typography } from "@mui/material";
+import Link from "next/link";
 import { useHomeState } from "../../context/context";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -108,7 +109,15 @@ const Header = () => {
         >
           {menuItems.map((item) => (
             <MenuItem key={item} onClick={handleCloseNavMenu}>
-              <Typography textAlign='center'>{item}</Typography>
+              {item === "Home" ? (
+                <Link href='/home' passHref>
+                  <Typography textAlign='center' component='a'>
+                    {item}
+                  </Typography>
+                </Link>
+              ) : (
+                <Typography textAlign='center'>{item}</Typography>
+              )}
             </MenuItem>
           ))}
         </Menu>
@@ -137,7 +146,15 @@ const Header = () => {
           >
             {settings.map((setting) => (
               <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                <Typography textAlign='center'>{setting}</Typography>
+                {setting === "Logout" ? (
+                  <Link href='/'>
+                    <Typography textAlign='center' component='a'>
+                      {setting}
+                    </Typography>
+                  </Link>
+                ) : (
+                  <Typography textAlign='center'>{setting}</Typography>
+                )}
               </MenuItem>
             ))}
           </Menu>

@@ -24,6 +24,7 @@ interface GoogleBook {
 
 export const transGoogToBKModel = async (googleBook: GoogleBook) => {
   const book = googleBook.items[0];
+  console.log(book);
   const ISBN10 = getISBN(book.volumeInfo.industryIdentifiers);
   const fallbackImageUrl = ISBN10 ? `https://covers.openlibrary.org/b/isbn/${ISBN10}-M.jpg` : '';
 

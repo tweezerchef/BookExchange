@@ -20,7 +20,9 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/utils/dev/bDataTGglTBkDB.js"
+    "src/utils/dev/bDataTGglTBkDB.js",
+    "src/utils/books/amazonToGoogleToDB.js",
+    "src/utils/books/amazonToGoogleToDB.ts"
   ],
   "exclude": ["node_modules", "tsconfig.json"]
 }
