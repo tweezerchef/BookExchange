@@ -5,7 +5,11 @@ import IconButton from "@mui/material/IconButton";
 import { FC, useState, useEffect } from "react";
 import { useHomeState } from "../../../context/context";
 
-export const AddFriendButton: FC = () => {
+interface AddFriendButtonProps {
+  friendId: string;
+}
+
+export const AddFriendButton: FC<AddFriendButtonProps> = ({ friendId }) => {
   const [isFriend, setIsFriend] = useState(false);
   const {
     user: { id: userId },
@@ -15,7 +19,7 @@ export const AddFriendButton: FC = () => {
   const follow = () => {
     setIsFriend((prevIsFriend) => !prevIsFriend);
     const action = isFriend;
-    fetch(`/api/users/friend`, {
+    fetch(`/api/user/friendRoute`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

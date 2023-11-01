@@ -15,6 +15,7 @@ interface UserGenre {
 interface UserWithGenres extends User {
   UserGenre: UserGenre[];
 }
+const friendId = "1";
 
 export const ProfileCard: FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -70,7 +71,7 @@ export const ProfileCard: FC = () => {
               paddingTop: 2,
             }}
           >
-            <AddFriendButton />
+            <AddFriendButton friendId={friendId} />
             <Avatar
               alt='Remy Sharp'
               src={profilePicture}

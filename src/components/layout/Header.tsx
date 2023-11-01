@@ -5,14 +5,13 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Tooltip, Avatar, Menu, MenuItem, Typography } from "@mui/material";
-import { raw } from "@prisma/client/runtime/library";
 import { useHomeState } from "../../context/context";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const menuItems = ["Home", "Explore", "Wishlist", "Lending Library"];
-const backgroundImageFile = "TopBanner.png";
 
 const Header = () => {
+  const backgroundImageFile = "TopBanner.png";
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
@@ -36,26 +35,34 @@ const Header = () => {
     setAnchorElUser(null);
   };
   useEffect(() => {
-    const fileNames = [backgroundImageFile, rawUserPicture].join(",");
-    fetch(`/api/AWS/signedURL?fileNames=${fileNames}`, {
+    const fileNames = [backgroundImageFile, rawUserPicture]
+      .filter(Boolean)
+      .join(",");
+    if (!fileNames) {
+      console.error("No valid file names provided");
+      return;
+    }
+
+    const encodedFileNames = encodeURIComponent(fileNames);
+
+    fetch(`/api/AWS/signedURL?fileNames=${encodedFileNames}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
-      .then((data: ApiResponse) => {
-        if ("urls" in data) {
+      .then((data) => {
+        if (data.urls) {
           if (data.urls.length >= 2) {
             setBackgroundImageUrl(data.urls[0]);
             setUserAvi(data.urls[1]);
           } else {
             console.error("Not enough URLs in response");
           }
-        } else if ("url" in data) {
+        } else if (data.url) {
           console.log("Received a single URL:", data.url);
-        } else if ("message" in data) {
-          // data is of type ErrorMessage
+        } else if (data.message) {
           console.error("Error:", data.message);
         }
       })

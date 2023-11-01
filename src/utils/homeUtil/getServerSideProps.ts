@@ -77,16 +77,17 @@ interface StarRating {
       "cookingBook", "selfHelpBook", "travelBook", "spiritualityBook",
     ];
     const backgroundImageFile = "TopBanner.png";
-    const filePaths = [...genreNames.map(name => `icons/${name}.png`), backgroundImageFile];
+    const filePaths = [...genreNames.map(name => `icons/${name}.png`)];
 
-    let imageUrlsObject = {};
-    try {
-      const imageUrls = await Promise.all(filePaths.map(async filePath => {
-        const url = await getSignedURL(filePath);
-        return { [filePath]: url };
-      }));
+let imageUrlsObject = {};
+try {
+  const validFilePaths = filePaths.filter(filePath => filePath && typeof filePath === 'string' && filePath.length > 0);
+  const imageUrls = await Promise.all(validFilePaths.map(async filePath => {
+    const url = await getSignedURL(filePath);
+    return { [filePath]: url };
+  }));
 
-      imageUrlsObject = Object.assign({}, ...imageUrls);
+  imageUrlsObject = Object.assign({}, ...imageUrls);
     } catch (err) {
       console.error('Error fetching signed URLs: ', err);
     }
