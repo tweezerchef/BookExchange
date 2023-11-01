@@ -6,6 +6,7 @@ import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { GenreIcons } from "./components/GenreIcons";
+import { AddFriendButton } from "./components/AddFriendButton";
 
 interface UserGenre {
   genre: string;
@@ -62,8 +63,14 @@ export const ProfileCard: FC = () => {
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Card sx={{ maxWidth: 250, minHeight: 200, minWidth: 150 }}>
           <Box
-            sx={{ display: "flex", justifyContent: "center", paddingTop: 2 }}
+            sx={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              paddingTop: 2,
+            }}
           >
+            <AddFriendButton />
             <Avatar
               alt='Remy Sharp'
               src={profilePicture}
@@ -83,7 +90,7 @@ export const ProfileCard: FC = () => {
             <Typography variant='body2' color='text.secondary' align='center'>
               {user?.city}
             </Typography>
-            <GenreIcons userGenres={userGenres} />
+            {userGenres && <GenreIcons userGenres={userGenres} />}
           </Box>
         </Card>
       </Box>

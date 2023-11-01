@@ -5,6 +5,7 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Tooltip, Avatar, Menu, MenuItem, Typography } from "@mui/material";
+import { raw } from "@prisma/client/runtime/library";
 import { useHomeState } from "../../context/context";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -59,7 +60,7 @@ const Header = () => {
         }
       })
       .catch(console.error); // Log errors to the console
-  }, []);
+  }, [rawUserPicture, backgroundImageFile]);
   return (
     <AppBar
       position='sticky'

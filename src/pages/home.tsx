@@ -52,7 +52,6 @@ const Home: React.FC<HomeProps> = memo(
     const [books, setBooks] = useState<Books[]>(randomBooks);
 
     useEffect(() => {
-      console.log("Home.tsx", starRatingData);
       dispatch({ type: SET_IMAGE_URLS_OBJECT, payload: imageUrlsObject });
       dispatch({ type: SET_USER, payload: user });
       localStorage.setItem("user", JSON.stringify(user));
