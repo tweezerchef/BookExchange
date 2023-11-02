@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
-import { User, UserBooks } from "@prisma/client";
+import { User, UserBooks, Books } from "@prisma/client";
 import {
   StyledBookCard,
   ImageBox,
@@ -14,22 +14,7 @@ import { StarRating } from "./StarRating";
 import { ButtonStack } from "./bookButtons/ButtonStack";
 import { BigBook } from "./BigBook";
 
-interface Book {
-  id?: string;
-  title?: string;
-  subTitle?: string;
-  pubDate?: string;
-  pageCount?: number;
-  author?: string;
-  selfLink?: string;
-  description?: string;
-  content?: string;
-  image?: string;
-  mainGenre?: string;
-  buyLink?: string;
-  viewAbility?: string;
-  rating?: number;
-  ISBN10?: string;
+interface Book extends Books {
   books?: Book[];
   wishlist?: UserBooks[];
   owned?: UserBooks[];
@@ -58,7 +43,7 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
     if (!book?.id) return;
     try {
       const res = await fetch(`/api/bookDB/reviews/${book.id}`);
-      const data: Review[] = await res.json();
+      const data: Review[] = (await res.json()) as Review[];
       setReviews(data);
     } catch (err) {
       console.error(err);
@@ -85,7 +70,7 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
               src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
               alt='Book Cover'
               fill
-              quality={100}
+              quality={90}
             />
           </ImageBox>
           <SideOfImageBox>

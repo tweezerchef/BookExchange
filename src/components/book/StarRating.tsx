@@ -10,6 +10,11 @@ interface StarRatings {
   booksId: string;
   starRating: number;
 }
+interface StarRatingRequestBody {
+  book: Partial<Books>;
+  userId: string;
+  starRating: number;
+}
 
 export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
   const state = useHomeState();

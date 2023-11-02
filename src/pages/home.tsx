@@ -71,9 +71,9 @@ const Home: React.FC<HomeProps> = memo(
           <>
             <Link href='./register'>Register</Link>
             {/* <Link href='./development'>Development</Link> */}
-            <ExploreFriendsBox />
             <ExploreBooksBox books={books} setBooks={setBooks} />
             <WishListBox />
+            <ExploreFriendsBox />
           </>
         )}
       </Box>

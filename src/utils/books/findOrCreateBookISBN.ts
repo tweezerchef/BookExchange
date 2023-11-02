@@ -2,7 +2,7 @@ import { Books , PrismaClient } from "@prisma/client";
 import prisma from "../prismaClient";
 
 
-export const findOrCreateBookISBN = async (book: Books ) => {
+export const findOrCreateBookISBN = async (book: Partial<Books> ) => {
   const {
     title,
     ISBN10,
@@ -18,6 +18,12 @@ export const findOrCreateBookISBN = async (book: Books ) => {
     content,
     mainGenre,
   } = book;
+
+  if (!ISBN10) {
+    console.error("ISBN10 is required");
+    return null;
+  }
+
 
   try {
     let newBook = await prisma.books.findUnique({

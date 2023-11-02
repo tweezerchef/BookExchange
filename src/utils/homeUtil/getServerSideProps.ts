@@ -79,7 +79,7 @@ interface StarRating {
     const backgroundImageFile = "TopBanner.png";
     const filePaths = [...genreNames.map(name => `icons/${name}.png`)];
 
-let imageUrlsObject = {};
+let imageUrlsObject: ImageUrls = {};
 try {
   const validFilePaths = filePaths.filter(filePath => filePath && typeof filePath === 'string' && filePath.length > 0);
   const imageUrls = await Promise.all(validFilePaths.map(async filePath => {
@@ -87,14 +87,14 @@ try {
     return { [filePath]: url };
   }));
 
-  imageUrlsObject = Object.assign({}, ...imageUrls);
+  imageUrlsObject = Object.assign({}, ...imageUrls) as ImageUrls;
     } catch (err) {
       console.error('Error fetching signed URLs: ', err);
     }
     let randomBooks: Books[] = [];
     try {
       const res = await fetch(`${baseUrl}/api/bookDB/randomBooks`);
-      randomBooks = await res.json();
+      randomBooks = await res.json() as Books[];
     } catch (error) {
       console.error("Error fetching random books:", error);
     }
