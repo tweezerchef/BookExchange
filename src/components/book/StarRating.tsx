@@ -25,6 +25,9 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
   const userID = user?.id;
   const bookID = book?.id;
 
+  if (!Array.isArray(starRatings) || starRatings.length === 0) {
+    return null;
+  }
   const starRatingObj = starRatings.find(
     (ratingObj) => ratingObj.booksId === bookID
   );

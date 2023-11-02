@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { getSignedURL } from '../getSignedURL';
 
 interface StarRating {
-    bookID: string;
+    bookId: string;
     rating: number;
   }
   interface UserProp {

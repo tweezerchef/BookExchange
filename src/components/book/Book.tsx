@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Typography from "@mui/material/Typography";
 import { User, UserBooks, Books } from "@prisma/client";
@@ -39,7 +39,7 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
     setBigBookOpen(false);
   };
 
-  const getBookReviews = async () => {
+  const getBookReviews = useCallback(async () => {
     if (!book?.id) return;
     try {
       const res = await fetch(`/api/bookDB/reviews/${book.id}`);
@@ -48,10 +48,11 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [book]);
+
   useEffect(() => {
     void getBookReviews();
-  }, []);
+  }, [getBookReviews]);
   return (
     <>
       {bigBookOpen && (
@@ -70,6 +71,7 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
               src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
               alt='Book Cover'
               fill
+              sizes='(max-width: 70px) 80%, (max-height:110 px) 100%, 100px'
               quality={90}
             />
           </ImageBox>

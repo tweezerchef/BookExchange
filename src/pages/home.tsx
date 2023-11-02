@@ -52,16 +52,27 @@ const Home: React.FC<HomeProps> = memo(
     const [books, setBooks] = useState<Books[]>(randomBooks);
 
     useEffect(() => {
-      dispatch({ type: SET_IMAGE_URLS_OBJECT, payload: imageUrlsObject });
-      dispatch({ type: SET_USER, payload: user });
-      localStorage.setItem("user", JSON.stringify(user));
-      dispatch({ type: SET_WISHLIST, payload: wishlistData });
-      dispatch({ type: SET_WISHLIST_IDS, payload: wishlistIdsData });
-      dispatch({
-        type: SET_LENDING_LIBRARY_IDS,
-        payload: lendingLibraryIdsData,
-      });
-      dispatch({ type: SET_STAR_RATINGS, payload: starRatingData });
+      if (imageUrlsObject) {
+        dispatch({ type: SET_IMAGE_URLS_OBJECT, payload: imageUrlsObject });
+      }
+      if (user) {
+        dispatch({ type: SET_USER, payload: user });
+      }
+      if (wishlistData) {
+        dispatch({ type: SET_WISHLIST, payload: wishlistData });
+      }
+      if (wishlistIdsData) {
+        dispatch({ type: SET_WISHLIST_IDS, payload: wishlistIdsData });
+      }
+      if (lendingLibraryIdsData) {
+        dispatch({
+          type: SET_LENDING_LIBRARY_IDS,
+          payload: lendingLibraryIdsData,
+        });
+      }
+      if (starRatingData) {
+        dispatch({ type: SET_STAR_RATINGS, payload: starRatingData });
+      }
       setIsLoading(false);
     }, []);
 

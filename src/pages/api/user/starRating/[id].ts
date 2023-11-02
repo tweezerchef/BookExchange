@@ -36,6 +36,7 @@ export default async function handler(
     return;
   }
   if (req.method === "GET") {
+    console.log('1')
     const userId: string = req.query.id as string;
 
     try {
