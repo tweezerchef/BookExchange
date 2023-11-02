@@ -4,7 +4,7 @@ import prisma from "../../../../utils/prismaClient";
 import { findOrCreateBookISBN } from "../../../../utils/books/findOrCreateBookISBN";
 
 interface RequestBody {
-  book: Books;
+  book: Partial<Books>;
   userId: string;
   color: string;
 }
@@ -63,7 +63,7 @@ export default async function handler(
 
     if (color === "error") {
       try {
-        const newBook = await findOrCreateBookISBN({ book });
+        const newBook = await findOrCreateBookISBN( book );
         const newUserBook = await prisma.userBooks.upsert({
           where: {
             userId_bookId: {

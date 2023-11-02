@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import { Books } from "@prisma/client";
 import { useHomeDispatch, useHomeState } from "../../../context/context";
 import {
   SET_LENDING_LIBRARY,
@@ -11,7 +12,7 @@ import {
 type CustomColor = "success" | "danger";
 
 interface LendingLibraryButtonProps {
-  book: Book;
+  book: Books;
 }
 
 // need to refactor similar to wishlist button

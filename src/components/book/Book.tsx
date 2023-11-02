@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
 import { User, UserBooks, Books } from "@prisma/client";
 import {
   StyledBookCard,
@@ -9,6 +9,7 @@ import {
   TopContainer,
   ContentContainer,
   TitleTypography,
+  AuthorTypography,
 } from "./bookStyles";
 import { StarRating } from "./StarRating";
 import { ButtonStack } from "./bookButtons/ButtonStack";
@@ -30,6 +31,14 @@ type Review = {
 export const BookCard: React.FC<BookProps> = ({ book }) => {
   const [bigBookOpen, setBigBookOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
+
+  function truncateTitle(title: string, wordLimit: number) {
+    const words = title.split(" ");
+    if (words.length > wordLimit) {
+      return `${words.slice(0, wordLimit).join(" ")} ...`;
+    }
+    return title;
+  }
 
   const handleBookClick = () => {
     setBigBookOpen(true);
@@ -65,14 +74,22 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
         />
       )}
       <StyledBookCard elevation={3}>
+        <div className='backgroundImage'>
+          <Image
+            src='/mountainBackgound.png' // Update with your image path
+            alt='Background'
+            layout='fill'
+            objectFit='cover' // Adjust as needed
+          />
+        </div>
         <TopContainer>
           <ImageBox onClick={handleBookClick}>
             <Image
               src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
               alt='Book Cover'
               fill
-              sizes='(max-width: 70px) 80%, (max-height:110 px) 100%, 100px'
-              quality={90}
+              sizes='(max-width: 140px) 80%, (max-height:280 px) 100%, 100px'
+              quality={95}
             />
           </ImageBox>
           <SideOfImageBox>
@@ -80,22 +97,17 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
             <ButtonStack book={book} />
 
             {book.author && (
-              <TitleTypography align='center' variant='body1'>
+              <AuthorTypography align='center' variant='body1'>
                 Written By: <br />
                 {book.author}
-              </TitleTypography>
+              </AuthorTypography>
             )}
           </SideOfImageBox>
         </TopContainer>
         <ContentContainer>
-          <Typography
-            align='center'
-            justifySelf='center'
-            variant='body1'
-            margin='1'
-          >
-            {book.title}
-          </Typography>
+          <Tooltip title={book.title} placement='top' arrow>
+            <TitleTypography>{truncateTitle(book.title, 10)}</TitleTypography>
+          </Tooltip>
         </ContentContainer>
       </StyledBookCard>
     </>

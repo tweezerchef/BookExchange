@@ -29,7 +29,7 @@ function isStarRatingRequestBody(obj: unknown): obj is StarRatingRequestBody {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{ starRatings: StarRating[] } | { error: string } | { message: string }>
+  res: NextApiResponse<{ starRatings: StarRating[] } | { error: string } | { message: string } | {newUserBook: Partial<UserBooks>}>
 ) {
   if (!verifyCookie(req)) {
     res.status(401).json({ message: "Unauthorized" });
