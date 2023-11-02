@@ -236,10 +236,11 @@ model bookdata {
   author     String
   image_url  String
   rating     String
-  title      String @unique
+  title      String  @unique
   url        String
   categories String
-  ISBN10     String @id
+  ISBN10     String  @id
+  processed  Boolean @default(false)
 }
 
 model Clubs {

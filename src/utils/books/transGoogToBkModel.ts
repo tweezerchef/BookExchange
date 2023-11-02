@@ -24,7 +24,6 @@ interface GoogleBook {
 
 export const transGoogToBKModel = async (googleBook: GoogleBook) => {
   const book = googleBook.items[0];
-  console.log(book);
   const ISBN10 = getISBN(book.volumeInfo.industryIdentifiers);
   const fallbackImageUrl = ISBN10 ? `https://covers.openlibrary.org/b/isbn/${ISBN10}-M.jpg` : '';
 
@@ -34,7 +33,6 @@ export const transGoogToBKModel = async (googleBook: GoogleBook) => {
   }
 
   const transformedData = {
-    id: Math.random().toString(36).substr(2, 9),
     selfLink: book.selfLink,
     pubDate: book.volumeInfo.publishedDate || '',
     pageCount: book.volumeInfo.pageCount || null,
@@ -42,7 +40,7 @@ export const transGoogToBKModel = async (googleBook: GoogleBook) => {
     title: book.volumeInfo.title,
     author: book.volumeInfo.authors ? book.volumeInfo.authors[0] : '',
     image: book.volumeInfo.imageLinks ? getLargestImage(book.volumeInfo.imageLinks) : fallbackImageUrl,
-    description: book.volumeInfo.description || '',
+    description: book.volumeInfo.description || 'no description available',
     rating: book.volumeInfo.averageRating || null,
     ISBN10,
   };
