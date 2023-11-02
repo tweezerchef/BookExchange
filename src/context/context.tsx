@@ -7,7 +7,7 @@ interface ImageUrls {
 }
 interface StarRating {
   booksId: string;
-  starRating: number;
+  starRating: UserBooks["starRating"];
 }
 
 interface HomeState {

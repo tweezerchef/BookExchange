@@ -7,7 +7,7 @@ import { verifyCookie } from "../../../../utils/verifyCookie";
 
 interface StarRating {
   booksId: string;
-  starRating: number;
+  starRating: UserBooks['starRating'];
 }
 interface StarRatingRequestBody {
   book: Partial<Books>;
@@ -29,18 +29,18 @@ function isStarRatingRequestBody(obj: unknown): obj is StarRatingRequestBody {
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<UserBooks | { error: string } | {message: string} | {starRatings: StarRating[]} | []>
+  res: NextApiResponse<{ starRatings: StarRating[] } | { error: string } | { message: string }>
 ) {
   if (!verifyCookie(req)) {
     res.status(401).json({ message: "Unauthorized" });
     return;
   }
   if (req.method === "GET") {
-    console.log('1')
+
     const userId: string = req.query.id as string;
 
     try {
-      const starRatings = await prisma.userBooks.findMany({
+      const starRatings: StarRating[] = await prisma.userBooks.findMany({
         where: {
           userId,
           NOT: {
@@ -54,11 +54,14 @@ export default async function handler(
           starRating: true,
         },
       });
-      if (!starRatings || starRatings.length === 0) {
-        res.status(200).json([]);
-      } else {
-        res.status(200).json({ starRatings });
+      if (!starRatings) {
+        res.status(404).json({ error: "No wishlist found" });
+        return;
       }
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      res.status(200).json(starRatings)
+
     } catch (error) {
         console.log(error)
       res.status(500).json({ error: "Failed to fetch wishlist" });

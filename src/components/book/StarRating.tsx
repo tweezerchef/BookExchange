@@ -8,7 +8,7 @@ interface StarRatingProps {
 }
 interface StarRatings {
   booksId: string;
-  starRating: number;
+  starRating: UserBooks["starRating"];
 }
 interface StarRatingRequestBody {
   book: Partial<Books>;

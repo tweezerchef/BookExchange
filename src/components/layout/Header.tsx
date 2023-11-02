@@ -108,16 +108,14 @@ const Header = () => {
           onClose={handleCloseNavMenu}
         >
           {menuItems.map((item) => (
-            <MenuItem key={item} onClick={handleCloseNavMenu}>
-              {item === "Home" ? (
-                <Link href='/home' passHref>
-                  <Typography textAlign='center' component='a'>
-                    {item}
-                  </Typography>
-                </Link>
-              ) : (
-                <Typography textAlign='center'>{item}</Typography>
-              )}
+            <MenuItem
+              key={item}
+              onClick={handleCloseNavMenu}
+              component={item === "Home" ? Link : "div"} // Use Link for "Home", otherwise use 'div'
+              href={item === "Home" ? "/home" : undefined} // Set href only for "Home"
+              sx={{ textDecoration: "none" }} // Add this to remove underline from links
+            >
+              <Typography textAlign='center'>{item}</Typography>
             </MenuItem>
           ))}
         </Menu>
@@ -145,16 +143,14 @@ const Header = () => {
             onClose={handleCloseUserMenu}
           >
             {settings.map((setting) => (
-              <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                {setting === "Logout" ? (
-                  <Link href='/'>
-                    <Typography textAlign='center' component='a'>
-                      {setting}
-                    </Typography>
-                  </Link>
-                ) : (
-                  <Typography textAlign='center'>{setting}</Typography>
-                )}
+              <MenuItem
+                key={setting}
+                onClick={handleCloseUserMenu}
+                component={setting === "Logout" ? Link : "div"} // Use Link for "Logout", otherwise use 'div'
+                href={setting === "Logout" ? "/" : undefined} // Set href only for "Logout"
+                sx={{ textDecoration: "none" }} // Add this to remove underline from links
+              >
+                <Typography textAlign='center'>{setting}</Typography>
               </MenuItem>
             ))}
           </Menu>
