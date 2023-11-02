@@ -1,8 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../../utils/prismaClient';
 import { findOrCreateBookISBN } from '../../../../utils/books/findOrCreateBookISBN';
-//try to work on this
-import { ALL_USERBOOK_RELATIONS } from '../../../../utils/allRelations';
+
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'GET') {
@@ -10,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const userBooks = await prisma.userBooks.findMany({
         where: {
-          userId: userId,
+          userId,
           wishlist: true
         },
         include: {
@@ -41,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           },
       }
       });
-      //correct the type of userBooksArray
+      // correct the type of userBooksArray
       const userBooksArray = userBooks.map((userBook) => (userBook.Books))
       res.status(200).json(userBooksArray);
     } catch (error) {
@@ -54,19 +53,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   else if (req.method === 'POST') {
     const { book, userId, color } = req.body;
+    const {ISBN10} = book;
     if (color === 'danger'){
       try {
-        const newBook = await findOrCreateBookISBN({ book });
+        const newBook = await findOrCreateBookISBN({ ISBN10 });
         const newUserBook = await prisma.userBooks.upsert({
             where: {
               userId_bookId: {
                 booksId: newBook.id,
-                userId: userId
+                userId
               }
             },
             create: {
               booksId: newBook.id,
-              userId: userId,
+              userId,
               wishlist: true
             },
             update: {
@@ -88,7 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
               where: {
                 userId_bookId: {
                   booksId: book.id,
-                  userId: userId
+                  userId
                 }
               },
               data: {

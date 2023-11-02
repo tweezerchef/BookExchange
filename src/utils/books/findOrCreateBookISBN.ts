@@ -28,7 +28,7 @@ export const findOrCreateBookISBN = async (book: Books ) => {
       newBook = await prisma.books.create({
         data: {
           title,
-          ISBN10, // Make sure ISBN10 is included here
+          ISBN10,
           author,
           image,
           description,

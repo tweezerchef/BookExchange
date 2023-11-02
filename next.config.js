@@ -12,6 +12,7 @@ const nextConfig = {
       "nobe.s3.us-east-2.amazonaws.com",
       "books.google.com",
       "i.imgur.com",
+      "covers.openlibrary.org",
     ],
   },
 };
