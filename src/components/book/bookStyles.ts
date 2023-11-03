@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 
 export const StyledBookCard = styled(Card)`
   width: 18vw;
-  height: 20vw;
-  min-height: 205px;
+  height: 19vw;
+  min-height: 211px;
   max-height: 220px;
   min-width: 220px;
   max-width: 220px;
@@ -16,6 +16,7 @@ export const StyledBookCard = styled(Card)`
   align-items: center;
   position: relative;
   transition: box-shadow 0.3s, background-color 0.3s;
+  overflow: hidden;
 
 &:hover {
   transform: scale(1.05);
@@ -39,6 +40,7 @@ export const TopContainer = styled(Box)`
   flex-direction: row;
   width: 100%;
   height: 65%;
+  min-height: 145px;
   justify-content: start;
   align-items: start;
   background-color: transparent;
@@ -93,7 +95,6 @@ export const TitleTypography = styled(Typography)`
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    font-weight: 500;
     letter-spacing: 0.4px;
     white-space: pre-line;
     line-height: 1.2em;

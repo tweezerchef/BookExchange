@@ -1,8 +1,11 @@
 import { Books } from "@prisma/client";
 import { useRef } from "react";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
 import { ExploreBooks } from "./ExploreBooks";
 import { useContainerQuery } from "./hooks/useContainerQuery";
+import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
 
 type Breakpoint = {
   width: number;
@@ -25,6 +28,8 @@ export default function ExploreBooksBox({
     { width: 0, itemsPerPage: 1 },
     // Add as many breakpoints as you need
   ];
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { itemsPerPage: booksPerPage } = useContainerQuery(
     containerRef,
@@ -32,7 +37,7 @@ export default function ExploreBooksBox({
   );
 
   return (
-    <Box ref={containerRef} width='100%' minHeight='300px'>
+    <Box ref={containerRef}>
       <ExploreBooks
         books={books}
         setBooks={setBooks}

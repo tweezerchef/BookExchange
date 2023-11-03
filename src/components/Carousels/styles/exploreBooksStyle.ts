@@ -1,7 +1,6 @@
 import { styled } from "@mui/material/styles";
 import Box, { BoxProps } from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
-import { Mobile } from "aws-sdk";
 
 interface OuterWrapperBoxProps extends BoxProps {
   isMobile: boolean;
@@ -9,23 +8,30 @@ interface OuterWrapperBoxProps extends BoxProps {
 
 export const OuterWrapperBox = styled(Box)<OuterWrapperBoxProps>`
   ${({ isMobile }) => ({
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
+    minHeight: isMobile ? "30vw" : "230px",
     height: isMobile ? "80vw" : "20vw",
-    maxHeight: isMobile ? "80vw" : "230px",
+    maxHeight: isMobile ? "30vw" : "260px",
     marginTop: isMobile ? ".2vh" : "1.5vh",
     maxWidth: "100vw",
-    overflowX: "hidden",
+    overflow: "hidden",
+    paddingBottom: 0,
   })}
 `;
 export const MobileBox = styled(Box)`
-display: flex;
-flex-direction: row;
-overflow-x: auto;
-width: 100%;
-height: 30vh;
-&::-webkit-scrollbar: {
-        display: none;
-      },
-      msOverflowStyle: none;
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  width: 100%;
+  height: 30vh;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
 `;
 
 export const OuterBox = styled(Box)`
@@ -34,7 +40,6 @@ export const OuterBox = styled(Box)`
   align-content: center;
   justify-content: center;
   width: 100%;
-  position: relative;
   overflow-x: hidden;
   min-height: 230px;
   height: 100%;
@@ -56,3 +61,21 @@ export const BookBox = styled(Box)`
   width: 100%;
   height: 100%;
 `;
+
+export const ExploreBooksBoxWrapper = styled(Box)<OuterWrapperBoxProps>`
+${({ isMobile }) => ({
+  minHeight: isMobile ? "30vw" : "335px",
+  maxHeight: isMobile ? "80vw" : "350px",
+  marginTop: isMobile ? ".2vh" : "1.5vh",
+  maxWidth: "100vw",
+  overflow: "clip",
+  alightItems: "center",
+  alightContent: "center",
+})}
+`;
+
+// export const ExploreBooksBox = styled(Box)<OuterWrapperBoxProps>`
+// ${({ isMobile }) => ({
+
+// })}
+// `

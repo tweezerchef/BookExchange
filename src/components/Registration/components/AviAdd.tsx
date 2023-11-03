@@ -198,7 +198,13 @@ const ProfileAvatar: FC = () => {
           />
           <label htmlFor='icon-button-file'>
             <ToolTip title='Choose From An Existing File' arrow>
-              <BigIconButton color='primary' aria-label='upload picture'>
+              <BigIconButton
+                color='primary'
+                aria-label='upload picture'
+                onClick={() =>
+                  document.getElementById("icon-button-file").click()
+                }
+              >
                 <UploadFileIcon style={{ fontSize: "3.3rem" }} />
               </BigIconButton>
             </ToolTip>

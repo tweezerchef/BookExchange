@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 import { User } from "@prisma/client";
 import Typography from "@mui/material/Typography";
 import DialogContent from "@mui/material/DialogContent";
@@ -86,11 +87,23 @@ export const BigBook: React.FC<BigBookProps> = ({
         </CloseButton>
       </CloseButtonContainer>
       <DialogContent>
+        <div className='backgroundImage'>
+          <Image
+            // Update with your image path
+            src='/mountainBackgound.png'
+            alt='Background'
+            fill
+            sizes='max-width: 220px, max-height: 220px'
+            priority
+          />
+        </div>
         <TopContainer>
           <ImageBox>
             <BookImage
               src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
               alt='Book Cover'
+              fill
+              sizes='max-width: 300px, min-width:150ps, min-height:300, max-height: 600px'
               quality={100}
             />
           </ImageBox>
@@ -98,7 +111,7 @@ export const BigBook: React.FC<BigBookProps> = ({
             <BigBookButtonStack book={book} />
             <Tooltip title={book.description} arrow>
               <Typography variant='body2' textAlign='center'>
-                {truncateDescription(book.description, 70)}
+                {truncateDescription(book.description, 60)}
               </Typography>
             </Tooltip>
             <Box sx={{ my: 4, display: "flex", justifyContent: "center" }}>

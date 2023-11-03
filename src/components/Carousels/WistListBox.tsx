@@ -8,14 +8,17 @@ import { useContainerQuery } from "./hooks/useContainerQuery";
 export default function WishListBox() {
   const containerRef = useRef(null);
   const breakpoints = [
-    { width: 1000, booksPerPage: 4 },
-    { width: 600, booksPerPage: 3 },
-    { width: 400, booksPerPage: 2 },
-    { width: 0, booksPerPage: 1 },
+    { width: 1000, itemsPerPage: 4 },
+    { width: 600, itemsPerPage: 3 },
+    { width: 400, itemsPerPage: 2 },
+    { width: 0, itemsPerPage: 1 },
     // Add as many breakpoints as you need
   ];
 
-  const booksPerPage: number = useContainerQuery(containerRef, breakpoints);
+  const { itemsPerPage: booksPerPage } = useContainerQuery(
+    containerRef,
+    breakpoints
+  );
 
   return (
     <Box ref={containerRef} width='100%'>

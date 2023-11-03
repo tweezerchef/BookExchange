@@ -115,7 +115,7 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
             </TopContainer>
             <ContentContainer>
               <Tooltip title={book.title} placement='top' arrow>
-                <TitleTypography>
+                <TitleTypography variant='h6'>
                   {truncateTitle(book.title, 10)}
                 </TitleTypography>
               </Tooltip>

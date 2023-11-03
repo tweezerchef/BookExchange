@@ -50,7 +50,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
-    <Box minHeight='240px' width='95%'>
+    <>
       <StyledDivider textAlign='right'>
         <ExploreChip
           setBooks={setBooks}
@@ -65,15 +65,12 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
             <MobileBox>
               {books.map((book: Books) => (
                 <Box key={book.id || book.title}>
-                  <BookCard
-                    book={book}
-                    // nearMeBooks={nearMeBooks}
-                  />
+                  <BookCard book={book} />
                 </Box>
               ))}
             </MobileBox>
           ) : (
-            <OuterBox>
+            <>
               <LeftIconButton
                 onClick={handlePrevPage}
                 disabled={currentPage === 0}
@@ -124,10 +121,10 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
               >
                 <NavigateNextIcon />
               </RightIconButton>
-            </OuterBox>
+            </>
           ))}
       </OuterWrapperBox>
-    </Box>
+    </>
   );
 };
 
