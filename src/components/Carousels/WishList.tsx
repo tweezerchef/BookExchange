@@ -4,48 +4,38 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
-import { BigBook } from "../book/BigBook";
+import { Books } from "@prisma/client";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { BookCard } from "../book/Book";
 import {
   OuterBox,
   BookBox,
   LeftIconButton,
   RightIconButton,
+  OuterWrapperBox,
 } from "./styles/exploreBooksStyle";
 
 import { useHomeDispatch, useHomeState } from "../../context/context";
 
-interface Book {
-  id?: string;
-  title?: string;
-  subTitle?: string;
-  pubDate?: string;
-  pageCount?: number;
-  author?: string;
-  selfLink?: string;
-  description?: string;
-  content?: string;
-  image?: string;
-  mainGenre?: string;
-  buyLink?: string;
-  viewAbility?: string;
-  rating?: number;
-  ISBN10?: string;
-  books?: Book[];
+interface WishListProps {
+  booksPerPage: number;
 }
 
-const WishList: React.FC = () => {
+const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
   const state = useHomeState();
   const dispatch = useHomeDispatch();
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [selectedBook, setSelectedBook] = useState<Books | null>(null);
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { wishList } = state;
   const books = wishList;
-  const booksPerPage = 4;
 
   const handleNextPage = () => {
     setSlideDirection("left");
@@ -56,56 +46,83 @@ const WishList: React.FC = () => {
     setSlideDirection("right");
     setCurrentPage((prevPage) => prevPage - 1);
   };
-  const handleBookClick = (book: Book) => {
+  const handleBookClick = (book: Books) => {
     setSelectedBook(book);
   };
   return (
-    <OuterBox>
-      <LeftIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
-        <NavigateBeforeIcon />
-      </LeftIconButton>
-      {books.map((book, index) => (
-        <BookBox
-          key={book.id || book.title}
+    <OuterWrapperBox isMobile={isMobile}>
+      {isMobile ? (
+        <Box
           sx={{
-            display: currentPage === index ? "block" : "none",
+            display: "flex",
+            flexDirection: "row",
+            overflowX: "scroll",
+            width: "100%",
+            height: "30vh",
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            msOverflowStyle: "none",
           }}
         >
-          <Slide direction={slideDirection} in={currentPage === index}>
-            <Stack
-              spacing={2}
-              direction='row'
-              maxWidth='100%'
-              maxHeight='100%'
-              alignContent='center'
-              justifyContent='center'
+          {books.map((book: Books) => (
+            <Box key={book.id || book.title}>
+              <BookCard
+                book={book}
+                // nearMeBooks={nearMeBooks}
+              />
+            </Box>
+          ))}
+        </Box>
+      ) : (
+        <OuterBox>
+          <LeftIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
+            <NavigateBeforeIcon />
+          </LeftIconButton>
+          {books.map((book, index) => (
+            <BookBox
+              key={book.id || book.title}
+              sx={{
+                display: currentPage === index ? "block" : "none",
+              }}
             >
-              {books
-                .slice(
-                  index * booksPerPage,
-                  index * booksPerPage + booksPerPage
-                )
-                .map((bookItem: Book) => (
-                  <Box key={bookItem.id || bookItem.title}>
-                    <BookCard
-                      book={bookItem}
-                      // nearMeBooks={nearMeBooks}
-                    />
-                  </Box>
-                ))}
-            </Stack>
-          </Slide>
-        </BookBox>
-      ))}
-      <RightIconButton
-        onClick={handleNextPage}
-        disabled={
-          currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
-        }
-      >
-        <NavigateNextIcon />
-      </RightIconButton>
-    </OuterBox>
+              <Slide direction={slideDirection} in={currentPage === index}>
+                <Stack
+                  spacing={2}
+                  direction='row'
+                  maxWidth='100%'
+                  maxHeight='100%'
+                  alignContent='center'
+                  justifyContent='center'
+                >
+                  {books
+                    .slice(
+                      index * booksPerPage,
+                      index * booksPerPage + booksPerPage
+                    )
+                    .map((bookItem: Books) => (
+                      <Box key={bookItem.id || bookItem.title}>
+                        <BookCard
+                          book={bookItem}
+                          // nearMeBooks={nearMeBooks}
+                        />
+                      </Box>
+                    ))}
+                </Stack>
+              </Slide>
+            </BookBox>
+          ))}
+          <RightIconButton
+            onClick={handleNextPage}
+            disabled={
+              currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
+            }
+          >
+            <NavigateNextIcon />
+          </RightIconButton>
+        </OuterBox>
+      )}
+    </OuterWrapperBox>
   );
 };
 
