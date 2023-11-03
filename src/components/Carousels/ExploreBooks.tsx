@@ -5,7 +5,6 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { Books } from "@prisma/client";
-import { UseContainerQuery } from "./hooks/UseContainerQuery";
 import { BookCard } from "../book/Book";
 import { StyledDivider } from "../chips/chipStyle";
 import { ExploreChip } from "../chips/ExploreChip";
@@ -46,7 +45,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
   };
 
   return (
-    <Box minHeight='230px'>
+    <Box minHeight='230px' width='95%'>
       <StyledDivider textAlign='right'>
         <ExploreChip
           setBooks={setBooks}
