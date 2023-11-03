@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Tooltip from "@mui/material/Tooltip";
 import { User, UserBooks, Books } from "@prisma/client";
 import {

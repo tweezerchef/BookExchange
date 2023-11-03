@@ -2,7 +2,7 @@ import { GetServerSideProps } from 'next';
 import { parse } from 'cookie';
 import { User, Books, UserBooks } from '@prisma/client';
 import * as signature from 'cookie-signature';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { getSignedURL } from '../getSignedURL';
 
 interface StarRating {

@@ -22,7 +22,6 @@ export const StyledBookCard = styled(Card)`
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust shadow as needed */
   background-color: #ffffff94;
 }
-//eventually add some sort of animation to the card when it is clicked
 .backgroundImage{
   content: "";
   position: absolute;
@@ -31,7 +30,7 @@ export const StyledBookCard = styled(Card)`
   right: 0;
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.6);
-  z-index: -1; // Ensure this is above the image but below the content
+  z-index: -1;
 }
 `;
 
@@ -88,16 +87,25 @@ export const ContentContainer = styled(Box)`
 `;
 
 export const TitleTypography = styled(Typography)`
-justify-self: center;
-  text-overflow: ellipsis;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  white-space: pre-line;
-  line-height: 1.2em;
-  padding: 0 5px;
+    justify-self: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    font-weight: 500;
+    letter-spacing: 0.4px;
+    white-space: pre-line;
+    line-height: 1.2em;
+    padding: 0 5px;
+    margin-bottom: 5px;
+
+    &:hover {
+        color: #333;
+    }
 `;
 export const AuthorTypography = styled(Typography)`
-  text-overflow: ellipsis;
+  text-overflow: ellipsis " [..]";
   white-space: pre-line;
   line-height: 1.2em; // Or whatever line height you want
 `;

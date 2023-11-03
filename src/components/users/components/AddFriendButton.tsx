@@ -14,7 +14,6 @@ export const AddFriendButton: FC<AddFriendButtonProps> = ({ friendId }) => {
   const {
     user: { id: userId },
   } = useHomeState() || {};
-  console.log("userId:", userId);
 
   const follow = () => {
     setIsFriend((prevIsFriend) => !prevIsFriend);
@@ -45,7 +44,7 @@ export const AddFriendButton: FC<AddFriendButtonProps> = ({ friendId }) => {
       sx={{
         position: "absolute",
         borderRadius: "50%",
-        right: "1.7rem", // Set right and top values
+        right: "1.7rem",
         transform: "translate(50%, -50%)",
       }}
       onClick={follow}

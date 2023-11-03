@@ -1,14 +1,17 @@
 import { FC, useEffect, useState } from "react";
 import { User } from "@prisma/client";
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
 import { GenreIcons } from "./components/GenreIcons";
 import { AddFriendButton } from "./components/AddFriendButton";
 import { MessageButton } from "./components/MessageButton";
-import { StyledProfileCard } from "./profileCardStyle";
+import {
+  GenreBox,
+  StyledProfileCard,
+  StyledAvatar,
+  AvatarBox,
+  NameTypography,
+} from "./profileCardStyle";
 
 type Friend = User;
 
@@ -59,22 +62,11 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <StyledProfileCard>
-        <Box
-          sx={{
-            position: "relative",
-            display: "flex",
-            justifyContent: "center",
-            paddingTop: 2,
-          }}
-        >
+        <AvatarBox>
           <AddFriendButton friendId={friendId} />
-          <Avatar
-            alt='Remy Sharp'
-            src={profilePicture}
-            sx={{ width: 70, height: 70 }}
-          />
+          <StyledAvatar alt='Remy Sharp' src={profilePicture} />
           <MessageButton />
-        </Box>
+        </AvatarBox>
         <Box
           sx={{
             display: "flex",
@@ -82,13 +74,22 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
             alignItems: "center",
           }}
         >
-          <Typography variant='h6' align='center'>
+          <NameTypography variant='h6' align='center'>
             {friend.userName}
-          </Typography>
-          <Typography variant='body2' color='text.secondary' align='center'>
+          </NameTypography>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+            align='center'
+            sx={{ textShadow: "0px 1px 2px rgba(255, 255, 255, 0.5)" }}
+          >
             {friend.city}
+            <br />
+            Favorite Genres
           </Typography>
-          {userGenres && <GenreIcons userGenres={userGenres} />}
+          <GenreBox>
+            {userGenres && <GenreIcons userGenres={userGenres} />}
+          </GenreBox>
         </Box>
       </StyledProfileCard>
     </Box>

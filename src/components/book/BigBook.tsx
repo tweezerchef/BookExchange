@@ -89,9 +89,7 @@ export const BigBook: React.FC<BigBookProps> = ({
         <TopContainer>
           <ImageBox>
             <BookImage
-              // try to find better generic image for books
               src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
-              fill
               alt='Book Cover'
               quality={100}
             />
