@@ -19,7 +19,8 @@ const Layout = ({ children }) => {
 
   return (
     <Box
-      maxWidth='1550px'
+      maxWidth='1350px'
+      minWidth='900'
       display='flex'
       flexDirection='column'
       justifyContent='center'

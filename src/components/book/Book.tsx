@@ -31,6 +31,7 @@ type Review = {
 export const BookCard: React.FC<BookProps> = ({ book }) => {
   const [bigBookOpen, setBigBookOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
 
   function truncateTitle(title: string, wordLimit: number) {
     const words = title.split(" ");
@@ -80,39 +81,47 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
             src='/mountainBackgound.png'
             alt='Background'
             fill
-            sizes='100vw'
-            style={{
-              objectFit: "cover",
-            }}
+            sizes='max-width: 220px, max-height: 220px'
+            priority
+            onLoad={() => setLoading(false)}
           />
         </div>
-        <TopContainer>
-          <ImageBox onClick={handleBookClick}>
-            <Image
-              src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
-              alt='Book Cover'
-              fill
-              priority
-              quality={95}
-            />
-          </ImageBox>
-          <SideOfImageBox>
-            <StarRating book={book} />
-            <ButtonStack book={book} />
+        {!loading && (
+          <>
+            <TopContainer>
+              <ImageBox onClick={handleBookClick}>
+                <Image
+                  src={
+                    book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"
+                  }
+                  alt='Book Cover'
+                  fill
+                  sizes='max-width: 55px, max-height: 110px'
+                  priority
+                  quality={95}
+                />
+              </ImageBox>
+              <SideOfImageBox>
+                <StarRating book={book} />
+                <ButtonStack book={book} />
 
-            {book.author && (
-              <AuthorTypography align='center' variant='body1'>
-                Written By: <br />
-                {book.author}
-              </AuthorTypography>
-            )}
-          </SideOfImageBox>
-        </TopContainer>
-        <ContentContainer>
-          <Tooltip title={book.title} placement='top' arrow>
-            <TitleTypography>{truncateTitle(book.title, 10)}</TitleTypography>
-          </Tooltip>
-        </ContentContainer>
+                {book.author && (
+                  <AuthorTypography align='center' variant='body1'>
+                    Written By: <br />
+                    {book.author}
+                  </AuthorTypography>
+                )}
+              </SideOfImageBox>
+            </TopContainer>
+            <ContentContainer>
+              <Tooltip title={book.title} placement='top' arrow>
+                <TitleTypography>
+                  {truncateTitle(book.title, 10)}
+                </TitleTypography>
+              </Tooltip>
+            </ContentContainer>
+          </>
+        )}
       </StyledBookCard>
     </>
   );

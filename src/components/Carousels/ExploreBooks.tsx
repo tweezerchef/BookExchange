@@ -1,10 +1,11 @@
-import { useState, useEffect, memo } from "react";
+import { useState, memo, useRef } from "react";
 import Box from "@mui/material/Box";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { Books } from "@prisma/client";
+import { UseContainerQuery } from "./hooks/UseContainerQuery";
 import { BookCard } from "../book/Book";
 import { StyledDivider } from "../chips/chipStyle";
 import { ExploreChip } from "../chips/ExploreChip";
@@ -18,19 +19,19 @@ import {
 type ExploreBooksProps = {
   books: Books[];
   setBooks: (books: Books[]) => void;
+  booksPerPage: number;
 };
 
 const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
   setBooks,
   books,
+  booksPerPage,
 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
   const [selectedBook, setSelectedBook] = useState<Books | null>(null);
-  const booksPerPage = 4;
-
   const handleNextPage = () => {
     setSlideDirection("left");
     setCurrentPage((prevPage) => prevPage + 1);

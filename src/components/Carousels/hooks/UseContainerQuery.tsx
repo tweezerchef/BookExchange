@@ -1,0 +1,22 @@
+import { useState, useEffect, useRef } from "react";
+
+export function UseContainerQuery(ref, breakpoints) {
+  const [width, setWidth] = useState(0);
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      if (!Array.isArray(entries)) return;
+
+      const { contentRect } = entries[0];
+      setWidth(contentRect.width);
+    });
+    if (ref.current) resizeObserver.observe(ref.current);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [ref]);
+  const matchedBreakpoint =
+    breakpoints.find((breakpoint) => width >= breakpoint.width) ||
+    breakpoints[0];
+
+  return matchedBreakpoint.booksPerPage;
+}
