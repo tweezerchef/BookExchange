@@ -67,10 +67,7 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
         >
           {books.map((book: Books) => (
             <Box key={book.id || book.title}>
-              <BookCard
-                book={book}
-                // nearMeBooks={nearMeBooks}
-              />
+              <BookCard book={book} />
             </Box>
           ))}
         </Box>

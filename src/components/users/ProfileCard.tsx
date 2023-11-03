@@ -42,7 +42,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
         },
       })
         .then((response) => response.json())
-        .then((data: ApiResponse) => {
+        .then((data: Response) => {
           if ("url" in data) {
             setProfilePicture(data.url);
           } else {
@@ -60,7 +60,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
   }, [rawUserPicture]);
 
   return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
+    <Box sx={{ display: "flex", justifyContent: "center", height: "100%" }}>
       <StyledProfileCard>
         <AvatarBox>
           <AddFriendButton friendId={friendId} />
@@ -87,9 +87,6 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
             <br />
             Favorite Genres
           </Typography>
-          <GenreBox>
-            {userGenres && <GenreIcons userGenres={userGenres} />}
-          </GenreBox>
         </Box>
       </StyledProfileCard>
     </Box>

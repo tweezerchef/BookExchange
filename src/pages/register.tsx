@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Box from "@mui/material/Box";
 import { Books } from "@prisma/client";
 import { Step1Form } from "../components/Registration/Step1Form";
 import Step2Form from "../components/Registration/Step2Form";
@@ -87,7 +86,7 @@ const Registration = (props) => {
 
   return (
     <FormProvider>
-      <CenteredContainer maxWidth='sm'>
+      <CenteredContainer>
         <RegisterBox>
           {backgroundImageUrl && (
             <BackgroundImageContainer>
@@ -101,31 +100,6 @@ const Registration = (props) => {
               />
             </BackgroundImageContainer>
           )}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignContent: "start",
-              mt: "0",
-              width: "400px",
-              filter: "brightness(1.2) contrast(1.2)",
-            }}
-          >
-            {libraryCardImageUrl && (
-              <Image
-                src={libraryCardImageUrl}
-                alt='logo'
-                width={400}
-                height={220}
-                quality={100}
-                style={{
-                  maxWidth: "100%",
-                  height: "auto",
-                }}
-              />
-            )}
-          </Box>
-
           {forms[activeStep]}
         </RegisterBox>
       </CenteredContainer>

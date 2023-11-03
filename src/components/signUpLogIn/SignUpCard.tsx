@@ -69,7 +69,7 @@ export const SignUpCard: React.FC = () => {
   };
   const logInHandler = () => {
     console.log("log in");
-    void router.push("/login");
+    void router.push("/register");
   };
   useEffect(() => {
     fetch(`/api/AWS/signedURL?fileNames=${fileName}`, {
@@ -79,7 +79,7 @@ export const SignUpCard: React.FC = () => {
       },
     })
       .then((response) => response.json())
-      .then((data: ApiResponse) => {
+      .then((data: Response) => {
         if ("url" in data) {
           const { url } = data;
           console.log("data", data);

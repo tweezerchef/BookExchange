@@ -4,6 +4,11 @@ import Box from "@mui/material/Box";
 import { ExploreBooks } from "./ExploreBooks";
 import { useContainerQuery } from "./hooks/useContainerQuery";
 
+type Breakpoint = {
+  width: number;
+  itemsPerPage: number;
+}[];
+
 interface ExploreBooksBoxProps {
   books: Books[];
   setBooks: React.Dispatch<React.SetStateAction<Books[]>>;
@@ -13,18 +18,21 @@ export default function ExploreBooksBox({
   setBooks,
 }: ExploreBooksBoxProps) {
   const containerRef = useRef(null);
-  const breakpoints = [
-    { width: 1000, booksPerPage: 4 },
-    { width: 600, booksPerPage: 3 },
-    { width: 400, booksPerPage: 2 },
-    { width: 0, booksPerPage: 1 },
+  const breakpoints: Breakpoint = [
+    { width: 1000, itemsPerPage: 4 },
+    { width: 600, itemsPerPage: 3 },
+    { width: 300, itemsPerPage: 2 },
+    { width: 0, itemsPerPage: 1 },
     // Add as many breakpoints as you need
   ];
 
-  const booksPerPage: number = useContainerQuery(containerRef, breakpoints);
+  const { itemsPerPage: booksPerPage } = useContainerQuery(
+    containerRef,
+    breakpoints
+  );
 
   return (
-    <Box ref={containerRef} width='100%'>
+    <Box ref={containerRef} width='100%' minHeight='300px'>
       <ExploreBooks
         books={books}
         setBooks={setBooks}

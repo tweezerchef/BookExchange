@@ -10,8 +10,8 @@ export const StyledProfileCard = styled(Card)`
     height: 18vw;
     min-width: 170px;
     max-width: 190px;
-    min-height: 238px;
-    max-height: 250px;
+    min-height: 170px;
+    max-height: 180px;
     overflow: clip;
     display: flex;
     flex-direction: column;
@@ -28,8 +28,8 @@ export const StyledProfileCard = styled(Card)`
 `;
 
 export const StyledAvatar = styled(Avatar)`
-width: 85px;
-height: 85px;
+width: 70px;
+height: 70px;
 border: 1.5px solid #e0e0e0;
 boxShadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
 `;

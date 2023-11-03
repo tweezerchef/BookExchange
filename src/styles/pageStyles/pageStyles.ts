@@ -8,6 +8,7 @@ export const CenteredContainer = styled(Container)`
   align-items: center;
   height: 100vh;
 `;
+
 export const BackgroundImageContainer = styled("div")`
   position: absolute;
   top: 0;
@@ -16,10 +17,21 @@ export const BackgroundImageContainer = styled("div")`
   bottom: 0;
   z-index: -1;
 `;
+
+export const LibraryCardBox = styled(Box)`
+display: flex;
+justify-content: center;
+align-content: center;
+mt: 0
+width: auto;
+height: auto;
+`;
+
 export const RegisterBox = styled(Box)`
   position : relative;
-  min-height: 750px;
-  min-width: 800px;
+  min-height: 600px;
+  min-width: 600px;
+  max-width: 1000px;
   display: flex;
   flex-direction: column;
   justify-content: center;

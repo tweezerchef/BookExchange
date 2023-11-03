@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
 import { Books } from "@prisma/client";
+import Box from "@mui/material/Box";
 import ExploreBooksBox from "../Carousels/ExploreBooksBox";
-import { ExploreFriends } from "../Carousels/ExploreFriends";
+import { ExploreFriendsBox } from "../Carousels/ExploreFriendsBox";
 
 interface Step2FormProps {
   handleNext: () => void;
@@ -23,16 +24,16 @@ const Step2Form: React.FC<Step2FormProps> = ({
   };
 
   return (
-    <>
+    <Box>
       <ExploreBooksBox books={books} setBooks={setBooks} />
-      <ExploreFriends />
+      <ExploreFriendsBox />
       <Button onClick={handleBack} variant='contained'>
         Back
       </Button>
       <Button onClick={handleSubmit} variant='contained' color='primary'>
         Let's Go!
       </Button>
-    </>
+    </Box>
   );
 };
 

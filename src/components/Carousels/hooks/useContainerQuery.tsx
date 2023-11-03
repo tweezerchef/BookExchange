@@ -2,7 +2,7 @@ import { useState, useEffect, RefObject } from "react";
 
 interface Breakpoint {
   width: number;
-  booksPerPage: number;
+  itemsPerPage: number;
 }
 
 export function useContainerQuery(
@@ -13,9 +13,7 @@ export function useContainerQuery(
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       if (!Array.isArray(entries)) return;
-
       const { contentRect } = entries[0];
-      console.log("Current width:", contentRect.width); // Debug log
       setWidth(contentRect.width);
     });
     if (ref.current) resizeObserver.observe(ref.current);
@@ -26,7 +24,6 @@ export function useContainerQuery(
   const matchedBreakpoint =
     breakpoints.find((breakpoint) => width >= breakpoint.width) ||
     breakpoints[0];
-  console.log("Matched breakpoint:", matchedBreakpoint); // Debug log
 
-  return matchedBreakpoint.booksPerPage;
+  return matchedBreakpoint;
 }

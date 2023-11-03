@@ -35,6 +35,9 @@ export const OuterBox = styled(Box)`
   justify-content: center;
   width: 100%;
   position: relative;
+  overflow-x: hidden;
+  min-height: 230px;
+  height: 100%;
   //   marginTop: 1.5vh;
   //   paddingBottom: 0;
 `;

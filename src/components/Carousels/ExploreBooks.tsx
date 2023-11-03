@@ -50,7 +50,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   return (
-    <Box minHeight='230px' width='95%'>
+    <Box minHeight='240px' width='95%'>
       <StyledDivider textAlign='right'>
         <ExploreChip
           setBooks={setBooks}
