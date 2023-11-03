@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Box from "@mui/material/Box";
 import { Step1Form } from "../components/Registration/Step1Form";
 import Step2Form from "../components/Registration/Step2Form";
@@ -7,11 +7,11 @@ import Step3Form from "../components/Registration/Step3Form";
 import {
   RegisterBox,
   CenteredContainer,
+  BackgroundImageContainer,
 } from "../styles/pageStyles/pageStyles";
 import { FormProvider } from "../context/regContext";
 
-const fileName =
-  "DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png";
+const fileName = "loginBackground.png";
 const libraryCardFile = "NOBELibraryCard.png";
 
 const Registration = (props) => {
@@ -65,15 +65,16 @@ const Registration = (props) => {
       <CenteredContainer maxWidth='sm'>
         <RegisterBox>
           {backgroundImageUrl && (
-            <Image
-              src={backgroundImageUrl}
-              alt='Background'
-              fill
-              sizes='(max-width: 600px) 100vw, (max-width: 800px) 50vw, 750px'
-              quality={100}
-              priority
-              style={{ zIndex: -1 }}
-            />
+            <BackgroundImageContainer>
+              <Image
+                src={backgroundImageUrl}
+                alt='Background'
+                fill
+                quality={90}
+                priority
+                sizes='(max-width: 600px) 100vw, (max-width: 800px) 50vw, 750px'
+              />
+            </BackgroundImageContainer>
           )}
           <Box
             sx={{
@@ -89,9 +90,15 @@ const Registration = (props) => {
               <Image
                 src={libraryCardImageUrl}
                 alt='logo'
-                width={400} // You need to provide a width
-                height={220} // You need to provide a height, adjust this based on your image's aspect ratio
+                // You need to provide a width
+                width={400}
+                // You need to provide a height, adjust this based on your image's aspect ratio
+                height={220}
                 quality={100}
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                }}
               />
             )}
           </Box>

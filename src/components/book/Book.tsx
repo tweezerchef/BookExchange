@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Tooltip from "@mui/material/Tooltip";
 import { User, UserBooks, Books } from "@prisma/client";
 import {
@@ -76,10 +76,14 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
       <StyledBookCard elevation={3}>
         <div className='backgroundImage'>
           <Image
-            src='/mountainBackgound.png' // Update with your image path
+            // Update with your image path
+            src='/mountainBackgound.png'
             alt='Background'
-            layout='fill'
-            objectFit='cover' // Adjust as needed
+            fill
+            sizes='100vw'
+            style={{
+              objectFit: "cover",
+            }}
           />
         </div>
         <TopContainer>
@@ -88,7 +92,7 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
               src={book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"}
               alt='Book Cover'
               fill
-              sizes='(max-width: 140px) 80%, (max-height:280 px) 100%, 100px'
+              priority
               quality={95}
             />
           </ImageBox>

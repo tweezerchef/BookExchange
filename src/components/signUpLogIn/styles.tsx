@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 export const InputGroup = styled(Box)`
   margin-bottom: 24px;
   text-align: left;
-  z-index: 1;
 
   label {
     display: inline-block;
@@ -19,8 +18,7 @@ export const Input = styled("input")`
   border: 1px solid #e0e6e8;
   border-radius: 4px;
   transition: box-shadow 0.2s;
-  z-index: 1;
-
+  z-index: 2;
   &::placeholder {
     color: #dedede;
   }
@@ -36,42 +34,23 @@ export const BackgroundImageContainer = styled("div")`
   left: 0;
   right: 0;
   bottom: 0;
-  // z-index: -1; // This ensures the image stays below other content
+  z-index: -1;
 `;
 
 export const LoginBox = styled(Box)`
   position: relative;
-  min-height: 700px;
-  min-width: 500px;
+  height: 600px;
+  width: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  z-index: 2;
+  background-color: transparent;
   box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.2),
     0 6px 20px rgba(0, 0, 0, 0.1);
 
   text-align: center;
-`;
-
-export const BackgroundBox = styled(Box)`
-  width: 100%;
-  max-width: 350px;
-  max-height: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  padding: 50px;
-  margin: -20px auto 60px;
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.2),
-    0 6px 20px rgba(0, 0, 0, 0.1);
-
-  text-align: center;
-  background-size: cover;
-  background-image: url(https://nobe.s3.us-east-2.amazonaws.com/DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png);
-  background-repeat: no-repeat;
 `;

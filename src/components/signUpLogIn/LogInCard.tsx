@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Image from "next/legacy/image";
+import Image from "next/image";
+import { sign } from "crypto";
 import {
   InputGroup,
   Input,
@@ -13,15 +14,16 @@ import {
 } from "./styles";
 import GoogleButton from "./googleButton";
 
-const fileName =
-  "DALL%C2%B7E+2023-05-21+11.31.24+-+create+a+backround+for+the+bottom+of+a+website+that+is+a+social+media+app+for+books.png";
+const backgroundImageFile = "loginBackground.png";
+const logoImageFile = "Nobe_Logo.png";
 
 function EntryCard() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
-    "" || null
-  );
+  const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>("");
+  const [logoImageURL, setLogoImageUrl] = useState<string>("");
+  const [isBgImageLoaded, setIsBgImageLoaded] = useState(false);
+
   const router = useRouter();
   const loginHandler = async () => {
     try {
@@ -36,8 +38,6 @@ function EntryCard() {
         }),
       });
       if (response.ok) {
-        // Redirect to the home page (client-side) after successful login
-        // window.location.href = "/home";
         void router.push("/home");
       } else {
         console.error("Login failed");
@@ -46,20 +46,40 @@ function EntryCard() {
       console.error(error);
     }
   };
+  const signUpHandler = () => {
+    console.log("sign up");
+    void router.push("/signUp");
+  };
 
   useEffect(() => {
-    fetch(`/api/AWS/signedURL?fileNames=${fileName}`, {
+    const fileNames = [backgroundImageFile, logoImageFile]
+      .filter(Boolean)
+      .join(",");
+    if (!fileNames) {
+      console.error("No valid file names provided");
+      return;
+    }
+
+    const encodedFileNames = encodeURIComponent(fileNames);
+    fetch(`/api/AWS/signedURL?fileNames=${encodedFileNames}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((response) => response.json())
-      .then((data: ApiResponse) => {
-        if ("url" in data) {
-          const { url } = data;
-          console.log("data", data);
-          setBackgroundImageUrl(url);
+      .then((data) => {
+        if (data.urls) {
+          if (data.urls.length >= 2) {
+            setBackgroundImageUrl(data.urls[0]);
+            setLogoImageUrl(data.urls[1]);
+          } else {
+            console.error("Not enough URLs in response");
+          }
+        } else if (data.url) {
+          console.log("Received a single URL:", data.url);
+        } else if (data.message) {
+          console.error("Error:", data.message);
         }
       })
       .catch(console.error); // Log errors to the console
@@ -73,84 +93,83 @@ function EntryCard() {
             src={backgroundImageUrl}
             alt='Background'
             fill
+            sizes='600px 500px'
             quality={100}
             priority
+            onLoad={() => setIsBgImageLoaded(true)}
           />
         </BackgroundImageContainer>
       )}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignContent: "start",
-          mt: "0",
-          width: "280px",
-          height: "auto",
-          marginTop: "-30px",
-          marginBottom: "10px",
-          filter: "brightness(1.2) contrast(1.2)",
-        }}
-      >
-        <Image
-          src='https://nobe.s3.us-east-2.amazonaws.com/Nobe_Logo.png'
-          alt='logo'
-          width={220} // You need to provide a width
-          height={220} // You need to provide a height, adjust this based on your image's aspect ratio
-          quality={100}
-        />
-      </Box>
-      <InputGroup>
-        <Typography component='label' htmlFor='login-email' variant='body1'>
-          Email Address
-        </Typography>
-        <Input
-          type='text'
-          placeholder='name@email.com'
-          id='login-email'
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
-        />
-      </InputGroup>
-      <InputGroup>
-        <Typography component='label' htmlFor='login-password' variant='body1'>
-          Password
-        </Typography>
-        <Input
-          type='password'
-          placeholder='Password'
-          id='login-password'
-          value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
-        />
-      </InputGroup>
-      <Button onClick={loginHandler} style={{ marginBottom: "40px" }}>
-        Log in
-      </Button>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div id='loginDiv' />
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <div id='loginDiv' />
-      </div>
-      <GoogleButton />
+      {isBgImageLoaded ? (
+        <>
+          <Box
+            sx={{
+              width: "auto",
+              height: "auto",
+              marginTop: "-30px",
+              marginBottom: "10px",
+              filter: "brightness(1.2) contrast(1.2)",
+            }}
+          >
+            <Image
+              src={logoImageURL}
+              alt='logo'
+              width={185}
+              height={165}
+              quality={80}
+            />
+          </Box>
+          <InputGroup>
+            <Typography component='label' htmlFor='login-email' variant='body1'>
+              Email Address
+            </Typography>
+            <Input
+              type='text'
+              placeholder='name@email.com'
+              id='login-email'
+              value={email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
+            />
+          </InputGroup>
+          <InputGroup>
+            <Typography
+              component='label'
+              htmlFor='login-password'
+              variant='body1'
+            >
+              Password
+            </Typography>
+            <Input
+              type='password'
+              placeholder='Password'
+              id='login-password'
+              value={password}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
+            />
+          </InputGroup>
+          <Button
+            onClick={loginHandler}
+            variant='contained'
+            color='primary'
+            style={{ marginBottom: "10px" }}
+          >
+            Log in
+          </Button>
+          <Button
+            onClick={signUpHandler}
+            variant='contained'
+            color='primary'
+            style={{ marginBottom: "10px" }}
+          >
+            Not Registered Yet? Sign Up
+          </Button>
+          <GoogleButton />
+        </>
+      ) : null}
     </LoginBox>
   );
 }

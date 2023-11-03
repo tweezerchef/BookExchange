@@ -17,8 +17,8 @@ export const StyledProfileCard = styled(Card)`
     flex-direction: column;
     border-radius: 10px;
     background: linear-gradient(135deg, #e1e8ed, #8bc0f5d2);
-    border: .5px solid #e0e0e0;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+    border: .5px solid #acace6a1;
+    transition: box-shadow 0.3s, background-color 0.3s;
     &:hover {
         transform: scale(1.05);
         box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);

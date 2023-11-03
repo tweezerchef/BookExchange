@@ -27,7 +27,14 @@ export const CenteredContainer = styled(Container)`
   align-items: center;
   height: 100vh;
 `;
-
+export const BackgroundImageContainer = styled("div")`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+`;
 export const RegisterBox = styled(Box)`
   position : relative;
   min-height: 750px;
@@ -37,6 +44,7 @@ export const RegisterBox = styled(Box)`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
+  background-color: transparent;
   box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.2),
     0 6px 20px rgba(0, 0, 0, 0.1);
