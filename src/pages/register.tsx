@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Box from "@mui/material/Box";
+import { Books } from "@prisma/client";
 import { Step1Form } from "../components/Registration/Step1Form";
 import Step2Form from "../components/Registration/Step2Form";
 import Step3Form from "../components/Registration/Step3Form";
@@ -10,12 +11,14 @@ import {
   BackgroundImageContainer,
 } from "../styles/pageStyles/pageStyles";
 import { FormProvider } from "../context/regContext";
+import { ApiResponse } from "../types/global";
 
 const fileName = "loginBackground.png";
 const libraryCardFile = "NOBELibraryCard.png";
 
 const Registration = (props) => {
   const [activeStep, setActiveStep] = useState(0);
+  const [books, setBooks] = useState<Books[]>([]);
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
     "" || null
   );
@@ -32,8 +35,12 @@ const Registration = (props) => {
       },
     })
       .then((response) => response.json())
-      .then((data: ApiResponse) => {
-        if ("urls" in data) {
+      .then((data: Response | ApiResponse) => {
+        if (
+          "urls" in data &&
+          Array.isArray(data.urls) &&
+          data.urls.length === 2
+        ) {
           if (data.urls.length >= 2) {
             setBackgroundImageUrl(data.urls[0]);
             setLibraryCardImageUrl(data.urls[1]);
@@ -42,7 +49,23 @@ const Registration = (props) => {
           }
         } else if ("url" in data) {
           console.log("Received a single URL:", data.url);
-        } else if ("message" in data) {
+        } else if ("message" in data && data.message) {
+          // data is of type ErrorMessage
+          console.error("Error:", data.message);
+        }
+      })
+      .catch(console.error);
+    fetch(`/api/bookDB/randomBooks`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data: Books[] | Response) => {
+        if (Array.isArray(data)) {
+          setBooks(data);
+        } else if ("message" in data && data.message) {
           // data is of type ErrorMessage
           console.error("Error:", data.message);
         }
@@ -54,6 +77,8 @@ const Registration = (props) => {
     <Step1Form key='step1' handleNext={() => setActiveStep(1)} />,
     <Step2Form
       key='step2'
+      books={books}
+      setBooks={setBooks}
       handleNext={() => setActiveStep(2)}
       handleBack={() => setActiveStep(0)}
     />,
@@ -70,9 +95,9 @@ const Registration = (props) => {
                 src={backgroundImageUrl}
                 alt='Background'
                 fill
-                quality={90}
+                quality={80}
                 priority
-                sizes='(max-width: 600px) 100vw, (max-width: 800px) 50vw, 750px'
+                sizes='(max-width: 600px), (max-width: 300px)'
               />
             </BackgroundImageContainer>
           )}
@@ -90,9 +115,7 @@ const Registration = (props) => {
               <Image
                 src={libraryCardImageUrl}
                 alt='logo'
-                // You need to provide a width
                 width={400}
-                // You need to provide a height, adjust this based on your image's aspect ratio
                 height={220}
                 quality={100}
                 style={{

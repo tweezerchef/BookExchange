@@ -35,11 +35,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST" && req.body) {
     const { formData, userId } = req.body as Body;
     processFormData(formData, userId);
-
-
-    // Immediately send a response back to the client
-    // res.status(200).send('Request received');
-
+    res.status(200).json({ message: "Request received" });
     // Continue processing in the background
   } else {
     // Handle other cases or send an error message

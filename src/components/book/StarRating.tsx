@@ -25,9 +25,6 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
   const userID = user?.id;
   const bookID = book?.id;
 
-  if (!Array.isArray(starRatings) || starRatings.length === 0) {
-    return null;
-  }
   const starRatingObj = starRatings.find(
     (ratingObj) => ratingObj.booksId === bookID
   );
@@ -80,7 +77,7 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
       precision={0.5}
       onChange={handleStarRatingChange} // Attach the onChange handler
       style={{
-        marginTop: 5,
+        paddingTop: 10,
       }}
     />
   );

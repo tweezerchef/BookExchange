@@ -1,54 +1,38 @@
-import { useState } from "react";
-import TextField from "@mui/material/TextField";
+import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
+import { Books } from "@prisma/client";
+import ExploreBooksBox from "../Carousels/ExploreBooksBox";
+import { ExploreFriends } from "../Carousels/ExploreFriends";
 
 interface Step2FormProps {
   handleNext: () => void;
   handleBack: () => void;
+  books: Books[];
+  setBooks: React.Dispatch<React.SetStateAction<Books[]>>;
 }
 
-const Step2Form: React.FC<Step2FormProps> = ({ handleNext, handleBack }) => {
-  const [formData, setFormData] = useState({
-    adGroupName: "",
-    keywords: "",
-  });
+const Step2Form: React.FC<Step2FormProps> = ({
+  handleBack,
+  books,
+  setBooks,
+}) => {
+  const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add your form submission logic here
-    handleNext(); // Move to the next step
+  const handleSubmit = () => {
+    void router.push("/home");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
-        label='Ad Group Name'
-        name='adGroupName'
-        value={formData.adGroupName}
-        onChange={handleChange}
-        fullWidth
-        required
-      />
-      <TextField
-        label='Keywords'
-        name='keywords'
-        value={formData.keywords}
-        onChange={handleChange}
-        fullWidth
-        required
-      />
+    <>
+      <ExploreBooksBox books={books} setBooks={setBooks} />
+      <ExploreFriends />
       <Button onClick={handleBack} variant='contained'>
         Back
       </Button>
-      <Button type='submit' variant='contained' color='primary'>
-        Next
+      <Button onClick={handleSubmit} variant='contained' color='primary'>
+        Let's Go!
       </Button>
-    </form>
+    </>
   );
 };
 

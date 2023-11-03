@@ -1,4 +1,4 @@
-
+import { Books, Book, UserBooks, User } from '@prisma/client';
 
 // interface Book {
 //   books: {
@@ -34,4 +34,4 @@ interface UrlsResponse {
   urls: string[];
 }
 
-type ApiResponse = ErrorMessage | UrlResponse | UrlsResponse;
+type ApiResponse = ErrorMessage | UrlResponse | UrlsResponse | Books[] | Books | Book[] | UserBooks | UserBooks[] | User | User[] | null;
