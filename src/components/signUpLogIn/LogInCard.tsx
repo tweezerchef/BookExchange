@@ -47,7 +47,6 @@ function EntryCard() {
     }
   };
   const signUpHandler = () => {
-    console.log("sign up");
     void router.push("/signUp");
   };
 

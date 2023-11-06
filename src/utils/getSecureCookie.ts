@@ -15,8 +15,8 @@ export const getSecureCookie =  ({ name, value }: { name: string, value: Value }
 
   return serialize(name, signedValue, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "strict",
+    secure: process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_SITE_URL.startsWith('https'),
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
     maxAge: 36000000,
     path: "/",
   });

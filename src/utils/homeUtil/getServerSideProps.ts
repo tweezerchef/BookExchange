@@ -47,6 +47,7 @@ interface StarRating {
     const userCookie = cookies && parse(cookies).user;
 
     if (!userCookie) {
+      console.error('No cookie found');
       return {
         redirect: {
           destination: "/login",
@@ -56,6 +57,7 @@ interface StarRating {
     }
     const unsignedValue = signature.unsign(userCookie, secretKey)
     if (unsignedValue === false) {
+      console.error('Cookie signature validation failed');
       // Signature validation failed, cookie has been tampered with
       return {
         redirect: {
