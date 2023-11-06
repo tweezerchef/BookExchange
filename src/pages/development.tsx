@@ -4,7 +4,8 @@ import { ProfileCard } from "../components/users/ProfileCard";
 
 const CardDevelopmentPage = (props) => (
   <div>
-    <ProfileCard />
+    {/* <ProfileCard /> */}
+    Hello
   </div>
 );
 

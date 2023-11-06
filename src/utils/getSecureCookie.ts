@@ -10,14 +10,17 @@ interface Value {
 }
 
 
-export const getSecureCookie =  ({ name, value }: { name: string, value: Value })=> {
+export const getSecureCookie = ({ name, value }: { name: string, value: Value }) => {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost'; // Provide a default value
   const signedValue = signature.sign(JSON.stringify(value), secretKey);
 
   return serialize(name, signedValue, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_SITE_URL.startsWith('https'),
+    // Check that siteUrl starts with 'https' if in production
+    secure: process.env.NODE_ENV === "production" && siteUrl.startsWith('https'),
     sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
     maxAge: 36000000,
     path: "/",
   });
 };
+

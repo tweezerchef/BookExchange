@@ -30,7 +30,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
   const [user, setUser] = useState<User | null>(null);
   const [profilePicture, setProfilePicture] = useState<string>("" || null);
 
-  const userGenres = (friend as UserWithGenres).UserGenre;
+  // const userGenres = (friend as UserWithGenres).UserGenre;
   const rawUserPicture = friend.picture;
   const friendId = friend.id;
   useEffect(() => {
