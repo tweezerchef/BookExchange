@@ -82,11 +82,14 @@ router.get((req, res, next) => {
         let user: User = await findUserByEmailDetailed({
           email: profile.emails[0].value,
         });
+        let newUser = false;
         if (!user) {
           user = await createUserFromGoogle({
             profile,
           });
+          newUser = true;
         }
+
         const cookie = getSecureCookie({
           name: "user",
           value: {
@@ -95,9 +98,15 @@ router.get((req, res, next) => {
             userName: user.userName,
           }
         });
+        if (newUser) {
+          res.setHeader("Set-Cookie", cookie);
+          res.redirect('/register');
+          res.end();
+        } else {
         res.setHeader("Set-Cookie", cookie);
         res.redirect('/home');
         res.end();
+        }
       }
     )(req, res, next);
   }
