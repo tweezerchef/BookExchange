@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
     >
       <Header />
       <Box width='100%' display='flex'>
-        <Box maxWidth='1500px' width='100%' display='flex'>
+        <Box maxWidth='1300px' width='100%' display='flex'>
           <Sidebar />
           <main style={{ flexGrow: 1 }}>{children}</main>
         </Box>

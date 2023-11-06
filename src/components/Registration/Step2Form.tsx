@@ -20,7 +20,7 @@ const Step2Form: React.FC<Step2FormProps> = ({
   const router = useRouter();
 
   const handleSubmit = () => {
-    void router.push("/home");
+    void router.push("/login");
   };
 
   return (

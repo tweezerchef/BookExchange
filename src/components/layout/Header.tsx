@@ -70,6 +70,7 @@ const Header = () => {
       .catch(console.error); // Log errors to the console
   }, [rawUserPicture, backgroundImageFile]);
   return (
+    // <Container sx={{position='sticky'}}>
     <AppBar
       position='sticky'
       sx={{
@@ -157,6 +158,7 @@ const Header = () => {
         </Box>
       </Toolbar>
     </AppBar>
+    // </Container>
   );
 };
 

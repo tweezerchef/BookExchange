@@ -1,8 +1,7 @@
 
 import { styled } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
-import { Box, Icon, IconButton } from "@mui/material";
-import SideBar from '../../layout/SideBar';
+import { Box, IconButton } from "@mui/material";
 
 export const Wrapper = styled(Box)({
     alignSelf: "center",
