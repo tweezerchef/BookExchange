@@ -7,6 +7,7 @@ export const CenteredContainer = styled(Container)`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  width: 100%;
 `;
 
 export const BackgroundImageContainer = styled("div")`
@@ -30,8 +31,7 @@ height: auto;
 export const RegisterBox = styled(Box)`
   position : relative;
   min-height: 600px;
-  min-width: 600px;
-  max-width: 1000px;
+width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

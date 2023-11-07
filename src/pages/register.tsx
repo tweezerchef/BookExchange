@@ -16,12 +16,9 @@ const fileName = "loginBackground.png";
 const libraryCardFile = "NOBELibraryCard.png";
 
 const Registration = (props) => {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
   const [books, setBooks] = useState<Books[]>([]);
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
-    "" || null
-  );
-  const [libraryCardImageUrl, setLibraryCardImageUrl] = useState<string>(
     "" || null
   );
 
@@ -42,7 +39,6 @@ const Registration = (props) => {
         ) {
           if (data.urls.length >= 2) {
             setBackgroundImageUrl(data.urls[0]);
-            setLibraryCardImageUrl(data.urls[1]);
           } else {
             console.error("Not enough URLs in response");
           }
@@ -94,7 +90,7 @@ const Registration = (props) => {
                 fill
                 quality={80}
                 priority
-                sizes='(max-width: 600px), (max-width: 300px)'
+                sizes='(max-width: 1200px)'
               />
             </BackgroundImageContainer>
           )}

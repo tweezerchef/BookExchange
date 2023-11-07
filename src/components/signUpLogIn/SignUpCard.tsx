@@ -2,21 +2,12 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import Typography from "@mui/material/Typography";
-import FormHelperText from "@mui/material/FormHelperText";
-import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Image from "next/image";
 import { EmailSignUp } from "./components/EmailSignUp";
 import { PasswordSignUp } from "./components/PasswordSignUp";
-import {
-  InputGroup,
-  Input,
-  LoginBox,
-  BackgroundImageContainer,
-  ErrorBox,
-} from "./styles";
+import { LoginBox, BackgroundImageContainer } from "./styles";
 import GoogleButton from "./googleButton";
 
 const fileName = "loginBackground.png";
@@ -54,6 +45,7 @@ export const SignUpCard: React.FC = () => {
   };
   const signUpHandler = async () => {
     try {
+      console.log(email, password);
       const response = await fetch("/api/auth/emailSignup", {
         method: "POST",
         headers: {
@@ -75,7 +67,7 @@ export const SignUpCard: React.FC = () => {
   };
   const logInHandler = () => {
     console.log("log in");
-    void router.push("/register");
+    void router.push("/login");
   };
   useEffect(() => {
     fetch(`/api/AWS/signedURL?fileNames=${fileName}`, {

@@ -155,7 +155,7 @@ const ProfileAvatar: FC = () => {
   };
 
   return (
-    <Box>
+    <Box marginTop='2rem'>
       <Typography variant='h6'>Create Your Avatar</Typography>
       <Wrapper>
         <>
@@ -187,7 +187,7 @@ const ProfileAvatar: FC = () => {
               )}
             </>
           )}
-          <ToolTip title='AVI Preview' arrow>
+          <ToolTip title='AVI Preview' arrow placement='top-end'>
             <LargeAvatar src={avatarUrl} />
           </ToolTip>
           <HiddenFileInput
@@ -197,7 +197,11 @@ const ProfileAvatar: FC = () => {
             onChange={handleFileChange}
           />
           <label htmlFor='icon-button-file'>
-            <ToolTip title='Choose From An Existing File' arrow>
+            <ToolTip
+              title='Choose From An Existing File'
+              arrow
+              placement='top-end'
+            >
               <BigIconButton
                 color='primary'
                 aria-label='upload picture'
@@ -209,7 +213,11 @@ const ProfileAvatar: FC = () => {
               </BigIconButton>
             </ToolTip>
           </label>
-          <ToolTip title='Take a photo with your webcam' arrow>
+          <ToolTip
+            title='Take a photo with your webcam'
+            arrow
+            placement='top-end'
+          >
             <BigIconButton color='primary' onClick={handleOpen}>
               <CameraAltIcon style={{ fontSize: "3.3rem" }} />
             </BigIconButton>

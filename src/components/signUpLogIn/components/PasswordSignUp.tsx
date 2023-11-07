@@ -1,17 +1,8 @@
-import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
 import FormHelperText from "@mui/material/FormHelperText";
 import Fade from "@mui/material/Fade";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Image from "next/image";
-import {
-  InputGroup,
-  Input,
-  LoginBox,
-  BackgroundImageContainer,
-  ErrorBox,
-} from "../styles";
+import { InputGroup, Input, ErrorBox } from "../styles";
 
 interface PasswordSignUpProps {
   setPassword: React.Dispatch<React.SetStateAction<string>>;

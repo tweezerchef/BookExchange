@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import { useFormData } from "../../context/regContext";
 import { UserAddress } from "./components/UserAddress";
 import { UserName } from "./components/UserName";
@@ -53,19 +54,21 @@ export const Step1Form: React.FC<Step1FormProps> = ({ handleNext }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <AviAdd />
-      <UserName />
-      <UserAddress />
-      <GenrePicker />
-      <Button
-        type='submit'
-        variant='contained'
-        color='primary'
-        sx={{ margin: 3 }}
-      >
-        Next
-      </Button>
-    </form>
+    <Box>
+      <form onSubmit={handleSubmit}>
+        <AviAdd />
+        <UserName />
+        <UserAddress />
+        <GenrePicker />
+        <Button
+          type='submit'
+          variant='contained'
+          color='primary'
+          sx={{ margin: 3 }}
+        >
+          Next
+        </Button>
+      </form>
+    </Box>
   );
 };

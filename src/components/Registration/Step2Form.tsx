@@ -23,7 +23,7 @@ const Step2Form: React.FC<Step2FormProps> = ({
   };
 
   return (
-    <Box>
+    <Box width='100%'>
       <ExploreBooksBox books={books} setBooks={setBooks} />
       <ExploreFriendsBox />
       <Button onClick={handleBack} variant='contained'>

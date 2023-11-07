@@ -15,7 +15,6 @@ export const UserName: React.FC = () => {
       name='userName'
       value={formData.userName || ""} // fallback to an empty string if formData.userName is undefined
       onChange={handleChange}
-      fullWidth
       required
     />
   );

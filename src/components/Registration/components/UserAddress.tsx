@@ -7,6 +7,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import parse from "autosuggest-highlight/parse";
+import Box from "@mui/material/Box";
 import { useFormData } from "../../../context/regContext";
 import { loadScript, autocompleteService } from "./googleMapsService";
 
@@ -93,16 +94,11 @@ export function UserAddress() {
   }, [value, inputValue, fetch]);
 
   return (
-    <div>
-      <Typography
-        variant='body1'
-        // sx={{
-        //   textShadow: "1px 1px 2px rgba(0,0,0,0.4)",
-        // }}
-      >
+    <Box alignContent='center' alignItems='center' justifyItems='center'>
+      <Typography variant='body1'>
         Please Add Your Address
         <br />
-        So we can match you with books and users in your area
+        To match with books and users in your area
       </Typography>
       <Autocomplete
         id='UserAddress'
@@ -127,9 +123,7 @@ export function UserAddress() {
         onInputChange={(event, newInputValue) => {
           setInputValue(newInputValue);
         }}
-        renderInput={(params) => (
-          <TextField {...params} label='Address' fullWidth />
-        )}
+        renderInput={(params) => <TextField {...params} label='Address' />}
         renderOption={(props, option) => {
           const matches =
             option.structured_formatting.main_text_matched_substrings || [];
@@ -171,6 +165,6 @@ export function UserAddress() {
           );
         }}
       />
-    </div>
+    </Box>
   );
 }

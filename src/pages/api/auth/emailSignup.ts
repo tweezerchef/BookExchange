@@ -16,8 +16,10 @@ export default async function handler(
     const { email, password } = req.body as { email: string; password: string };
 
   try {
+    console.log(email, password)
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
+      console.error("Email already registered")
       return res.status(400).json({ message: "Email already registered" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -33,7 +35,7 @@ export default async function handler(
       },
     });
     res.setHeader("Set-Cookie", cookie);
-    res.writeHead(302, { Location: '/home' });
+    res.writeHead(302, { Location: "/" });
     res.end();
   } catch (error) {
     console.error(error);
