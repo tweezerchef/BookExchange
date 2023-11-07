@@ -1,29 +1,20 @@
 import Rating from "@mui/material/Rating";
-import { Books, UserBooks } from "@prisma/client";
+import { Books, UserBooks, User } from "@prisma/client";
 import { useHomeDispatch, useHomeState } from "../../context/context";
 import { SET_STAR_RATINGS } from "../../context/actions";
 
 interface StarRatingProps {
   book: Books;
-}
-interface StarRatings {
-  booksId: string;
-  starRating: UserBooks["starRating"];
-  ISBN10: string;
-}
-interface StarRatingRequestBody {
-  book: Partial<Books>;
-  userId: string;
-  starRating: number;
+  user?: Partial<User>;
 }
 
-export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
+export const StarRating: React.FC<StarRatingProps> = ({ book, user }) => {
   const state = useHomeState();
   const dispatch = useHomeDispatch();
 
   const { starRatings } = state;
-  const { user } = state;
-  const userID = user?.id;
+  const regUser = user ?? state.user;
+  const userID = regUser?.id;
   const bookID = book?.id;
   const ISBN10 = book?.ISBN10;
 

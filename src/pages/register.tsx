@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { Books } from "@prisma/client";
 import { Step1Form } from "../components/Registration/Step1Form";
 import Step2Form from "../components/Registration/Step2Form";
-import Step3Form from "../components/Registration/Step3Form";
 import {
   RegisterBox,
   CenteredContainer,
@@ -13,18 +13,43 @@ import { FormProvider } from "../context/regContext";
 import { ApiResponse } from "../types/global";
 
 const fileName = "loginBackground.png";
-const libraryCardFile = "NOBELibraryCard.png";
+
+interface UserCookie {
+  id: string;
+  email: string;
+  username: string;
+}
+interface ValidateResponse {
+  user: UserCookie;
+}
 
 const Registration = (props) => {
+  const router = useRouter();
   const [activeStep, setActiveStep] = useState(1);
   const [books, setBooks] = useState<Books[]>([]);
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
     "" || null
   );
-
+  const [user, setUser] = useState<UserCookie | null>(null);
   useEffect(() => {
-    const fileNames = [fileName, libraryCardFile].join(",");
-    fetch(`/api/AWS/signedURL?fileNames=${fileNames}`, {
+    const fetchUserInfo = async () => {
+      const response = await fetch("/api/auth/validateCookie");
+      if (!response.ok) {
+        // Handle the case where the user is not authenticated
+        void router.push("/login");
+        return;
+      }
+
+      const data: ValidateResponse =
+        (await response.json()) as ValidateResponse;
+      // Now you have the user info and can handle it as needed
+      setUser(data.user);
+    };
+
+    void fetchUserInfo();
+  }, [router]);
+  useEffect(() => {
+    fetch(`/api/AWS/signedURL?fileNames=${fileName}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -43,6 +68,7 @@ const Registration = (props) => {
             console.error("Not enough URLs in response");
           }
         } else if ("url" in data) {
+          setBackgroundImageUrl(data.url);
           console.log("Received a single URL:", data.url);
         } else if ("message" in data && data.message) {
           // data is of type ErrorMessage
@@ -71,6 +97,7 @@ const Registration = (props) => {
   const forms = [
     <Step1Form key='step1' handleNext={() => setActiveStep(1)} />,
     <Step2Form
+      user={user}
       key='step2'
       books={books}
       setBooks={setBooks}

@@ -99,6 +99,7 @@ module.exports = {
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "off",
     "no-console": "off",
+    "react/jsx-props-no-spreading": "off",
     "jsx-a11y/label-has-associated-control": [
       "error",
       {

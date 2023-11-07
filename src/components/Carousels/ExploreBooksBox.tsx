@@ -15,10 +15,22 @@ type Breakpoint = {
 interface ExploreBooksBoxProps {
   books: Books[];
   setBooks: React.Dispatch<React.SetStateAction<Books[]>>;
+  user?: {
+    id: string;
+    email: string;
+    username: string;
+  };
 }
+
+// eslint-disable-next-line @typescript-eslint/no-use-before-define
+ExploreBooksBox.defaultProps = {
+  user: null,
+};
+
 export default function ExploreBooksBox({
   books,
   setBooks,
+  user,
 }: ExploreBooksBoxProps) {
   const containerRef = useRef(null);
   const breakpoints: Breakpoint = [
@@ -39,6 +51,7 @@ export default function ExploreBooksBox({
   return (
     <Box ref={containerRef}>
       <ExploreBooks
+        {...(user && { user })}
         books={books}
         setBooks={setBooks}
         booksPerPage={booksPerPage}

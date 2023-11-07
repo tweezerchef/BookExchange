@@ -5,16 +5,24 @@ import Box from "@mui/material/Box";
 import ExploreBooksBox from "../Carousels/ExploreBooksBox";
 import { ExploreFriendsBox } from "../Carousels/ExploreFriendsBox";
 
+interface UserCookie {
+  id: string;
+  email: string;
+  username: string;
+}
+
 interface Step2FormProps {
   handleBack: () => void;
   books: Books[];
   setBooks: React.Dispatch<React.SetStateAction<Books[]>>;
+  user: UserCookie;
 }
 
 const Step2Form: React.FC<Step2FormProps> = ({
   handleBack,
   books,
   setBooks,
+  user,
 }) => {
   const router = useRouter();
 
@@ -24,8 +32,8 @@ const Step2Form: React.FC<Step2FormProps> = ({
 
   return (
     <Box width='100%'>
-      <ExploreBooksBox books={books} setBooks={setBooks} />
-      <ExploreFriendsBox />
+      <ExploreBooksBox books={books} setBooks={setBooks} user={user} />
+      <ExploreFriendsBox user={user} />
       <Button onClick={handleBack} variant='contained'>
         Back
       </Button>

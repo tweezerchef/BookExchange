@@ -23,12 +23,18 @@ type ExploreBooksProps = {
   books: Books[];
   setBooks: (books: Books[]) => void;
   booksPerPage: number;
+  user?: {
+    id: string;
+    email: string;
+    username: string;
+  };
 };
 
 const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
   setBooks,
   books,
   booksPerPage,
+  user,
 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
@@ -103,7 +109,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
                           <Box key={book.id || book.title}>
                             <BookCard
                               book={book}
-
+                              {...(user && { user })}
                               // nearMeBooks={nearMeBooks}
                             />
                           </Box>

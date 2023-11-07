@@ -22,13 +22,14 @@ interface Book extends Books {
 }
 interface BookProps {
   book: Book;
+  user?: Partial<User>;
 }
 type Review = {
   User: User;
   review: string;
 };
 
-export const BookCard: React.FC<BookProps> = ({ book }) => {
+export const BookCard: React.FC<BookProps> = ({ book, user }) => {
   const [bigBookOpen, setBigBookOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
@@ -102,7 +103,7 @@ export const BookCard: React.FC<BookProps> = ({ book }) => {
                 />
               </ImageBox>
               <SideOfImageBox>
-                <StarRating book={book} />
+                <StarRating book={book} {...(user && { user })} />
                 <ButtonStack book={book} />
 
                 {book.author && (
