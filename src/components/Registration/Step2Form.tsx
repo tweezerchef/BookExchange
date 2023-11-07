@@ -6,7 +6,6 @@ import ExploreBooksBox from "../Carousels/ExploreBooksBox";
 import { ExploreFriendsBox } from "../Carousels/ExploreFriendsBox";
 
 interface Step2FormProps {
-  handleNext: () => void;
   handleBack: () => void;
   books: Books[];
   setBooks: React.Dispatch<React.SetStateAction<Books[]>>;

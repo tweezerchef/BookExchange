@@ -8,6 +8,7 @@ interface ImageUrls {
 interface StarRating {
   booksId: string;
   starRating: UserBooks["starRating"];
+  ISBN10: Books["ISBN10"];
 }
 
 interface HomeState {
@@ -53,7 +54,7 @@ export function UserProvider({ children }) {
     userBooks: [] as UserBooks[],
     userBooksIDs: [] as Books["id"][],
     wishListIDs: [] as Books["id"][],
-    starRatings: [] as UserBooks[],
+    starRatings: [] as StarRating[],
     user: {} as User,
   });
 

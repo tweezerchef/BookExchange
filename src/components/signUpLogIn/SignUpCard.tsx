@@ -3,13 +3,19 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
+import FormHelperText from "@mui/material/FormHelperText";
+import Fade from "@mui/material/Fade";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Image from "next/image";
+import { EmailSignUp } from "./components/EmailSignUp";
+import { PasswordSignUp } from "./components/PasswordSignUp";
 import {
   InputGroup,
   Input,
   LoginBox,
   BackgroundImageContainer,
+  ErrorBox,
 } from "./styles";
 import GoogleButton from "./googleButton";
 
@@ -82,7 +88,6 @@ export const SignUpCard: React.FC = () => {
       .then((data: Response) => {
         if ("url" in data) {
           const { url } = data;
-          console.log("data", data);
           setBackgroundImageUrl(url);
         }
       })
@@ -106,113 +111,42 @@ export const SignUpCard: React.FC = () => {
       )}
       {isBgImageLoaded ? (
         <>
-          <InputGroup>
-            <Typography component='label' htmlFor='login-email' variant='body1'>
-              Email Address
-            </Typography>
-            <Input
-              type='text'
-              placeholder='name@email.com'
-              id='login-email'
-              value={email}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setEmail(e.target.value);
-                validateEmail(e.target.value);
-              }}
-            />
-          </InputGroup>
-          <InputGroup>
-            <Typography
-              component='label'
-              htmlFor='login-email-confirm'
-              variant='body1'
-            >
-              Confirm Email Address{" "}
-              {emailError && (
-                <span style={{ color: "red" }}>{emailErrorMSG}</span>
-              )}
-            </Typography>
-            <Input
-              type='text'
-              placeholder='Confirm Email Address'
-              id='login-email-confirm'
-              value={confirmedEmail}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setConfirmedEmail(e.target.value);
-                if (e.target.value !== email) {
-                  setEmailError(true);
-                  setEmailErrorMSG("Emails Do Not Match");
-                } else {
-                  setEmailError(false);
-                  setEmailErrorMSG("");
-                }
-              }}
-            />
-          </InputGroup>
-          <InputGroup>
-            <Typography
-              component='label'
-              htmlFor='login-password'
-              variant='body1'
-            >
-              Password
-            </Typography>
-            <Input
-              type='password'
-              placeholder='Password'
-              id='login-password'
-              value={password}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setPassword(e.target.value);
-                validatePassword(e.target.value);
-              }}
-            />
-          </InputGroup>
-          <InputGroup>
-            <Typography
-              component='label'
-              htmlFor='login-password-confirm'
-              variant='body1'
-            >
-              Confirm Password{" "}
-              {passwordError && (
-                <span style={{ color: "red" }}>{passwordErrorMSG}</span>
-              )}
-            </Typography>
-            <Input
-              type='password'
-              placeholder='Confirm Password'
-              id='login-password-confirm'
-              value={confirmedPassword}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setConfirmedPassword(e.target.value);
-                if (e.target.value !== password) {
-                  setPasswordError(true);
-                  setPasswordErrorMSG("Passwords Do Not Match");
-                } else {
-                  setPasswordError(false);
-                  setPasswordErrorMSG("");
-                }
-              }}
-            />
-            {passwordError && <p className='error'>{passwordErrorMSG}</p>}
-          </InputGroup>
+          <EmailSignUp
+            setEmail={setEmail}
+            validateEmail={validateEmail}
+            setConfirmedEmail={setConfirmedEmail}
+            setEmailError={setEmailError}
+            setEmailErrorMSG={setEmailErrorMSG}
+            email={email}
+            emailError={emailError}
+            emailErrorMSG={emailErrorMSG}
+            confirmedEmail={confirmedEmail}
+          />
+          <Box marginTop='1rem' />
+          <PasswordSignUp
+            setPassword={setPassword}
+            validatePassword={validatePassword}
+            setConfirmedPassword={setConfirmedPassword}
+            setPasswordError={setPasswordError}
+            setPasswordErrorMSG={setPasswordErrorMSG}
+            password={password}
+            passwordError={passwordError}
+            passwordErrorMSG={passwordErrorMSG}
+            confirmedPassword={confirmedPassword}
+          />
+          <Box marginTop='1rem' />
           <Button
             onClick={signUpHandler}
-            style={{ marginBottom: "40px" }}
+            variant='contained'
             disabled={emailError || passwordError}
           >
             Sign Up
           </Button>
-          <Button
-            onClick={logInHandler}
-            variant='contained'
-            color='primary'
-            style={{ marginBottom: "10px" }}
-          >
+          <Box marginTop='.5rem' />
+          <Button onClick={logInHandler} variant='contained' color='primary'>
             Already Registered? Log In
           </Button>
-
+          <Box marginTop='.5rem' />
           <GoogleButton />
         </>
       ) : null}

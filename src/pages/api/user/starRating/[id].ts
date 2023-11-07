@@ -8,6 +8,14 @@ import { verifyCookie } from "../../../../utils/verifyCookie";
 interface StarRating {
   booksId: string;
   starRating: UserBooks['starRating'];
+  Books: {
+    ISBN10: string;
+  };
+}
+interface StarRatingsArray {
+  booksId: string;
+  starRating: UserBooks['starRating'];
+  ISBN10: string;
 }
 interface StarRatingRequestBody {
   book: Partial<Books>;
@@ -23,13 +31,14 @@ function isStarRatingRequestBody(obj: unknown): obj is StarRatingRequestBody {
     isObject(obj) &&
     'userId' in obj && typeof obj.userId === 'string' &&
     'starRating' in obj && typeof obj.starRating === 'number' &&
-    'book' in obj && isObject(obj.book)
+    'book' in obj && isObject(obj.book) &&
+    'ISBN10' in obj.book && typeof obj.book.ISBN10 === 'string'
   );
 }
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<{ starRatings: StarRating[] } | { error: string } | { message: string } | {newUserBook: Partial<UserBooks>}>
+  res: NextApiResponse<{ starRatings: StarRating[] } | { error: string } | { message: string } | {newUserBook: Partial<UserBooks>} | {starRatingsArray: StarRatingsArray[]}>
 ) {
   if (!verifyCookie(req)) {
     res.status(401).json({ message: "Unauthorized" });
@@ -52,15 +61,24 @@ export default async function handler(
         select: {
           booksId: true,
           starRating: true,
+          Books: {
+            select: {
+              ISBN10: true,
         },
-      });
+      }}});
       if (!starRatings) {
         res.status(404).json({ error: "No wishlist found" });
         return;
       }
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      res.status(200).json(starRatings)
+
+     const starRatingsArray: StarRatingsArray[] = starRatings.map((starRating) => ({
+          booksId: starRating.booksId,
+          starRating: starRating.starRating,
+          ISBN10: starRating.Books.ISBN10,
+        }))
+      res.status(200).json({starRatingsArray})
 
     } catch (error) {
         console.log(error)
@@ -91,7 +109,7 @@ try {
           starRating,
         },
       });
-      res.status(200).json(newUserBook);
+      res.status(200)
     } catch (error) {
         console.log('2', error)
       res.status(500).json({ error: "Failed to add book to wishlist" });

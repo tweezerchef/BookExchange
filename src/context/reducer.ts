@@ -4,6 +4,11 @@ import { SET_WISHLIST, SET_LENDING_LIBRARY, SET_LENDING_LIBRARY_IDS, SET_USER_BO
 interface ImageUrls {
   [key: string]: string;
 }
+interface StarRating {
+  booksId: string;
+  starRating: UserBooks["starRating"];
+  ISBN10: Books["ISBN10"];
+}
 // Define the state type
 interface HomeState {
   imageUrlsObj?: ImageUrls;
@@ -14,7 +19,7 @@ interface HomeState {
   userBooks: UserBooks[];
   userBooksIDs: string[];
   wishListIDs: string[];
-  starRatings: UserBooks[];
+  starRatings: StarRating[];
 }
 
 // Define the action type
@@ -27,7 +32,7 @@ type UserAction =
   | { type: typeof SET_USER_BOOKS; payload: UserBooks[] }
   | { type: typeof SET_USER_BOOKS_IDS; payload: string[] }
   | { type: typeof SET_WISHLIST_IDS; payload: string[] }
-  | { type: typeof SET_STAR_RATINGS; payload: UserBooks[] };
+  | { type: typeof SET_STAR_RATINGS; payload: StarRating[] };
 
 function userReducer(state: HomeState, action: UserAction): HomeState {
   switch (action.type) {

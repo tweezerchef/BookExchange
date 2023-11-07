@@ -9,6 +9,7 @@ interface StarRatingProps {
 interface StarRatings {
   booksId: string;
   starRating: UserBooks["starRating"];
+  ISBN10: string;
 }
 interface StarRatingRequestBody {
   book: Partial<Books>;
@@ -24,9 +25,10 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
   const { user } = state;
   const userID = user?.id;
   const bookID = book?.id;
+  const ISBN10 = book?.ISBN10;
 
   const starRatingObj = starRatings.find(
-    (ratingObj) => ratingObj.booksId === bookID
+    (ratingObj) => ratingObj.ISBN10 === ISBN10
   );
   const starRatingValue = starRatingObj ? starRatingObj.starRating : 0;
 
@@ -37,12 +39,16 @@ export const StarRating: React.FC<StarRatingProps> = ({ book }) => {
     if (newValue === null) return;
     const updatedStarRatings = [...starRatings];
     const index = updatedStarRatings.findIndex(
-      (ratingObj) => ratingObj.booksId === bookID
+      (ratingObj) => ratingObj.ISBN10 === ISBN10
     );
     if (index !== -1) {
       updatedStarRatings[index].starRating = newValue;
     } else if (bookID) {
-      updatedStarRatings.push({ booksId: bookID, starRating: newValue });
+      updatedStarRatings.push({
+        booksId: bookID,
+        starRating: newValue,
+        ISBN10,
+      });
     }
     dispatch({ type: SET_STAR_RATINGS, payload: updatedStarRatings });
 

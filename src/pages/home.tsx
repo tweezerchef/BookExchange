@@ -26,6 +26,7 @@ interface ImageUrls {
 interface StarRating {
   bookID: string;
   rating: number;
+  ISBN10: string;
 }
 
 interface HomeProps {
@@ -86,7 +87,7 @@ const Home: React.FC<HomeProps> = memo(
             <ExploreBooksBox books={books} setBooks={setBooks} />
             <WishListBox />
             <ExploreFriendsBox />
-            <SuggestedBooksBox />
+            {/* <SuggestedBooksBox /> */}
           </>
         )}
       </Box>

@@ -2,7 +2,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
 export const InputGroup = styled(Box)`
-  margin-bottom: 24px;
+  width: 210px;
   text-align: left;
 
   label {
@@ -12,7 +12,7 @@ export const InputGroup = styled(Box)`
 `;
 
 export const Input = styled("input")`
-  width: 100%;
+  width: 200px;
   outline: none;
   padding: 8px 16px;
   border: 1px solid #e0e6e8;
@@ -26,6 +26,10 @@ export const Input = styled("input")`
   &:focus {
     box-shadow: 0 0 0 2px rgba(169, 172, 255, 0.5);
   }
+`;
+export const ErrorBox = styled(Box)`
+  height: 20px;
+  margin: "0 10px";
 `;
 
 export const BackgroundImageContainer = styled("div")`

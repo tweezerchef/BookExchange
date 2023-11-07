@@ -78,10 +78,8 @@ const Registration = (props) => {
       key='step2'
       books={books}
       setBooks={setBooks}
-      handleNext={() => setActiveStep(2)}
       handleBack={() => setActiveStep(0)}
     />,
-    <Step3Form key='step3' handleBack={() => setActiveStep(1)} />,
   ];
 
   return (
