@@ -16,6 +16,7 @@ interface VolumeInfo {
 interface Book {
   selfLink: string;
   volumeInfo: VolumeInfo;
+  image: string;
 }
 
 interface GoogleBook {
