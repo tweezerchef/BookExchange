@@ -8,6 +8,7 @@ import { getServerSideProps as exportedGetServerSideProps } from "../utils/homeU
 import WishListBox from "../components/Carousels/WistListBox";
 import ExploreBooksBox from "../components/Carousels/ExploreBooksBox";
 import { ExploreFriendsBox } from "../components/Carousels/ExploreFriendsBox";
+import { SuggestedBooksBox } from "../components/Carousels/SuggestedBooksBox";
 import { useHomeDispatch } from "../context/context";
 import {
   SET_USER,
@@ -85,6 +86,7 @@ const Home: React.FC<HomeProps> = memo(
             <ExploreBooksBox books={books} setBooks={setBooks} />
             <WishListBox />
             <ExploreFriendsBox />
+            <SuggestedBooksBox />
           </>
         )}
       </Box>
