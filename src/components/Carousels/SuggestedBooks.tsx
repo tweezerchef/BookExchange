@@ -102,10 +102,7 @@ export const SuggestedBooks: FC<SuggestedBooksProps> = ({ booksPerPage }) => {
                     )
                     .map((bookItem: Books) => (
                       <Box key={bookItem.id || bookItem.title}>
-                        <BookCard
-                          book={bookItem}
-                          // nearMeBooks={nearMeBooks}
-                        />
+                        <BookCard book={bookItem} />
                       </Box>
                     ))}
                 </Stack>
