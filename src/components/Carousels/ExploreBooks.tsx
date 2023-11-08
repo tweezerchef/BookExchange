@@ -11,7 +11,6 @@ import { BookCard } from "../book/Book";
 import { StyledDivider } from "../chips/chipStyle";
 import { ExploreChip } from "../chips/ExploreChip";
 import {
-  OuterBox,
   BookBox,
   LeftIconButton,
   RightIconButton,
