@@ -8,3 +8,4 @@ coverage
 .eslintrc.js
 passport-config.js
 ```
+**/*.js
