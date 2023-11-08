@@ -75,6 +75,7 @@ const ProfileAvatar: FC = () => {
     cropperInstance.current = instance;
   };
   const handleFileUpload = async (file: File) => {
+    // NOTE  this does not seem to be putting file in folder
     const fileName = `userAVI/${userId}userAvi.jpg`;
     const formDataNew = new FormData();
     formDataNew.append("file", file);
