@@ -59,6 +59,7 @@ model Books {
   buyLink     String?
   viewAbility String?
   rating      Float?
+  nyTimesReq  Boolean       @default(false)
   ISBN10      String        @unique
   BookAccess  BookAccess[]
   Activity    Activity[]

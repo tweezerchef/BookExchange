@@ -20,7 +20,6 @@ interface Genres {
 
 export function processFormData(formData: FormData, userId: string) {
     const {address, userName, genres, avatarUrl} = formData;
-    console.log(avatarUrl);
     if (avatarUrl) {
       prisma.user.update({
         where: {
@@ -53,7 +52,8 @@ export function processFormData(formData: FormData, userId: string) {
         );
     });
 
-    const locationData = setUserLocation({userId, address});
+    void setUserLocation({userId, address});
+
     prisma.user.update({
       where: {
         id: userId

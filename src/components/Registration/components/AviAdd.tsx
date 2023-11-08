@@ -75,7 +75,7 @@ const ProfileAvatar: FC = () => {
     cropperInstance.current = instance;
   };
   const handleFileUpload = async (file: File) => {
-    const fileName = `${userId}userAvi.jpg`;
+    const fileName = `userAVI/${userId}userAvi.jpg`;
     const formDataNew = new FormData();
     formDataNew.append("file", file);
     try {
