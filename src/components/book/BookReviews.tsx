@@ -33,8 +33,8 @@ export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => (
           <ListItemText>
             {/* <MiniStar value={userBook.rating} /> */}
             <Typography variant='body1'>
-              {review.User.username
-                ? review.User.username
+              {review.User.userName
+                ? review.User.userName
                 : review.User.firstName}
               's Review:
               {review.review}

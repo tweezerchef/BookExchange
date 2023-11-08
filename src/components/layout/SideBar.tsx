@@ -1,6 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export default function SideBar() {
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.down("md")); // or 'sm', 'lg', etc.
+  if (matches) {
+    return null;
+  }
+
   return (
     <Box
       sx={{

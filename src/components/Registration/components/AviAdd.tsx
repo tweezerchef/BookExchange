@@ -97,7 +97,7 @@ const ProfileAvatar: FC = () => {
     const file = event.target.files ? event.target.files[0] : null;
     if (!file) return;
     const blob = file.slice(0, file.size, file.type);
-    const newFileName = `${userId}userAvi.jpg`;
+    const newFileName = `userAVI/${userId}userAvi.jpg`;
     const newFile = new File([blob], newFileName, { type: file.type });
     updateAviFileData(newFile);
     void handleFileUpload(newFile);
@@ -112,7 +112,7 @@ const ProfileAvatar: FC = () => {
   const handleCameraCapture = () => {
     const imageSrc = webcamRef.current?.getScreenshot();
     const imageBlob = dataURLtoBlob(imageSrc);
-    const file = new File([imageBlob], `${userId}userAvi.jpg`, {
+    const file = new File([imageBlob], `userAVI/${userId}userAvi.jpg`, {
       type: imageBlob.type,
     });
 
@@ -140,7 +140,7 @@ const ProfileAvatar: FC = () => {
       setAvatarUrl(croppedImage);
       // add User.id to "capturedImage"
       const imageBlob = dataURLtoBlob(croppedImage);
-      const file = new File([imageBlob], `${userId}userAvi.jpg`, {
+      const file = new File([imageBlob], `userAVI/${userId}userAvi.jpg`, {
         type: imageBlob.type,
       });
       updateAviFileData(file);
