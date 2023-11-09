@@ -16,7 +16,7 @@ export default async function handler(
   if (req.method === "POST") {
     const { review, userId, book }: RequestBody = req.body as RequestBody;
     try {
-      const newBook = await findOrCreateBookISBN({ book });
+      const newBook = await findOrCreateBookISBN( book );
       const newReview = await prisma.userBooks.upsert({
         where: {
           userId_bookId: {

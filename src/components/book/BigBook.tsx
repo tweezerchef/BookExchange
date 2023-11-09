@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Image from "next/image";
-import { User } from "@prisma/client";
+import { User, Books } from "@prisma/client";
 import Typography from "@mui/material/Typography";
 import DialogContent from "@mui/material/DialogContent";
 import Tooltip from "@mui/material/Tooltip";
@@ -21,32 +21,13 @@ import { BigBookButtonStack } from "./bookButtons/BigBookButtonStack";
 import { UserReview } from "./UserReview";
 import { BookReviews } from "./BookReviews";
 
-interface Book {
-  id?: string;
-  title?: string;
-  subTitle?: string;
-  pubDate?: string;
-  pageCount?: number;
-  author?: string;
-  selfLink?: string;
-  description?: string;
-  content?: string;
-  image?: string;
-  mainGenre?: string;
-  buyLink?: string;
-  viewAbility?: string;
-  rating?: number;
-  ISBN10?: string;
-  books?: Book[];
-}
-
 type BigBookReview = {
-  User?: User;
-  review?: string;
+  User: User;
+  review: string;
 };
 
 interface BigBookProps {
-  book: Book | null;
+  book: Books | null;
   bigBookOpen: boolean;
   handleCloseBigBook: () => void;
   reviews: BigBookReview[];
@@ -111,10 +92,10 @@ export const BigBook: React.FC<BigBookProps> = ({
             <BigBookButtonStack book={book} />
             <Tooltip title={book.description} arrow>
               <Typography variant='body2' textAlign='center'>
-                {truncateDescription(book.description, 60)}
+                {truncateDescription(book.description, 50)}
               </Typography>
             </Tooltip>
-            <Box sx={{ my: 4, display: "flex", justifyContent: "center" }}>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
               <Button variant='outlined' onClick={addReviewOpen}>
                 Add Written Review
               </Button>

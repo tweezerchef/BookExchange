@@ -22,7 +22,7 @@ interface Book extends Books {
 }
 interface BookProps {
   book: Book;
-  user?: Partial<User>;
+  user: Partial<User>;
 }
 type Review = {
   User: User;

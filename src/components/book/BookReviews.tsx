@@ -10,14 +10,17 @@ import Typography from "@mui/material/Typography";
 // import MiniStar from "./MiniStar";
 
 type BookReview = {
-  User?: User;
-  review?: string;
+  User: User;
+  review: string;
 };
 
 interface BookReviewsProps {
   reviews: BookReview[];
 }
 
+interface Data {
+  url: string;
+}
 //
 
 export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => {
@@ -25,7 +28,6 @@ export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => {
   const [expandedReviews, setExpandedReviews] = useState<{
     [key: string]: boolean;
   }>({});
-
   const handleClickToToggleView = (id: string) => {
     setExpandedReviews((prevExpanded) => ({
       ...prevExpanded,
@@ -43,8 +45,7 @@ export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => {
                 review.User.picture
               )}`
             );
-            const data = await response.json();
-            console.log("data", data);
+            const data: Data = (await response.json()) as Data;
             return {
               ...review,
               User: { ...review.User, picture: data.url },
@@ -53,7 +54,6 @@ export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => {
           return review;
         })
       );
-      console.log("updated", updated);
       setUpdatedReviews(updated);
     };
 
