@@ -98,7 +98,7 @@ model Activity {
   createdAt   DateTime      @default(now())
   placeId     String?
   description String?
-  book        Books?        @relation(fields: [bookId], references: [id])
+  Books       Books?        @relation(fields: [bookId], references: [id])
   place       PlacesToRead? @relation(fields: [placeId], references: [id])
   user        User          @relation(fields: [userId], references: [id])
   userBook    UserBooks?    @relation(fields: [userBookId], references: [id])
@@ -113,7 +113,7 @@ model BookAccess {
   infoLink     String?
   canVolLink   String?
   bookId       String
-  Book         Books   @relation(fields: [bookId], references: [id])
+  Books        Books   @relation(fields: [bookId], references: [id])
 }
 
 model UserGenre {
