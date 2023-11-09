@@ -32,6 +32,7 @@ AFTER UPDATE ON "UserBooks"
 FOR EACH ROW
 EXECUTE FUNCTION log_user_books_activity_star();
 
+// works
 CREATE OR REPLACE FUNCTION log_user_books_activity_review()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -40,12 +41,10 @@ BEGIN
     VALUES (
       gen_random_uuid(),
       NEW."userId",
-      'UserBooks Update',
+      'Review',
       NEW."booksId",
       NEW."id",
-      CONCAT(
-        'Review', COALESCE(NEW."review", 'NULL')
-      )
+      COALESCE(NEW."review", '')
     );
   END IF;
   RETURN NEW;
@@ -56,6 +55,34 @@ CREATE TRIGGER user_books_activity_trigger_review
 AFTER UPDATE ON "UserBooks"
 FOR EACH ROW
 EXECUTE FUNCTION log_user_books_activity_review();
+
+// works
+CREATE OR REPLACE FUNCTION log_user_books_activity_star()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF OLD."starRating" IS DISTINCT FROM NEW."starRating" THEN
+    INSERT INTO "Activity"("id", "userId", "type", "bookId", "userBookId", "description")
+    VALUES (
+      gen_random_uuid(),
+      NEW."userId",
+      'StarRating',
+      NEW."booksId",
+      NEW."id",
+     CONCAT(
+        'Gave a rating of ', COALESCE(NEW."starRating"::text, '0'), ' stars'
+      )
+    );
+  END IF;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER user_books_activity_trigger_star
+AFTER UPDATE ON "UserBooks"
+FOR EACH ROW
+WHEN (OLD."starRating" IS DISTINCT FROM NEW."starRating")
+EXECUTE FUNCTION log_user_books_activity_star();
+
 
 CREATE OR REPLACE FUNCTION log_user_books_activity_review()
 RETURNS TRIGGER AS $$
