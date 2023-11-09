@@ -21,10 +21,18 @@ interface BookReviewsProps {
 //
 
 export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => {
-  const [signedUrls, setSignedUrls] = useState<{ [key: string]: string }>({});
-
   const [updatedReviews, setUpdatedReviews] = useState<BookReview[]>([]);
+  const [expandedReviews, setExpandedReviews] = useState<{
+    [key: string]: boolean;
+  }>({});
 
+  const handleClickToToggleView = (id: string) => {
+    setExpandedReviews((prevExpanded) => ({
+      ...prevExpanded,
+      [id]: !prevExpanded[id],
+    }));
+  };
+  // NOTE: this needs to be refactored in the review expansion logic
   useEffect(() => {
     const fetchSignedUrlsAndUpdateReviews = async () => {
       const updated = await Promise.all(
@@ -53,20 +61,31 @@ export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => {
   }, [reviews]);
 
   return (
-    <Box sx={{ width: 320 }}>
-      <Typography>Reviews</Typography>
+    <Box sx={{ width: "100%" }}>
+      <Typography variant='h6'>Reviews</Typography>
       <List
         aria-labelledby='ellipsis-list-demo'
         sx={{ "--ListItemDecorator-size": "56px" }}
       >
         {updatedReviews?.map((review, index) => (
-          // <Link to={`/profile/${userBook.User.id}`}>
-          <ListItem key={review.User.id}>
+          <ListItem
+            key={review.User.id}
+            onClick={() => handleClickToToggleView(review.User.id)}
+          >
             <ListItemAvatar sx={{ alignSelf: "flex-start" }}>
               <Avatar src={review.User.picture} />
             </ListItemAvatar>
-            <ListItemText>
-              {/* <MiniStar value={userBook.rating} /> */}
+            <ListItemText
+              sx={{
+                backgroundColor: "rgba(250, 250, 250, 0.8)",
+                display: expandedReviews[review.User.id]
+                  ? "block"
+                  : "-webkit-box",
+                WebkitLineClamp: expandedReviews[review.User.id] ? "none" : 5,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+              }}
+            >
               <Typography variant='body1'>
                 {review.User.userName
                   ? review.User.userName
@@ -76,7 +95,6 @@ export const BookReviews: React.FC<BookReviewsProps> = ({ reviews }) => {
               </Typography>
             </ListItemText>
           </ListItem>
-          // </Link>
         ))}
       </List>
     </Box>
