@@ -9,3 +9,4 @@ coverage
 passport-config.js
 ```
 **/*.js
+**/*.mjs
