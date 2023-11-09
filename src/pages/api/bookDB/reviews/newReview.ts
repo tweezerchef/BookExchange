@@ -35,6 +35,7 @@ export default async function handler(
       });
       res.status(200).json(newReview);
     } catch (error) {
+      console.error("Error in newReview.ts:", error);
       res.status(500).json({ error: "Failed to create review" });
     }
   } else {
