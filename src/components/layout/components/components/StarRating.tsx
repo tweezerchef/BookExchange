@@ -27,10 +27,7 @@ export const StarRating: FC<StarRatingProps> = ({ activity }) => {
         precision={0.5}
         size='small'
       />
-      <Typography variant='body2'>
-        {activity.Books.title}
-        {activity.description} Stars
-      </Typography>
+      <Typography variant='body2'>{activity.description} Stars</Typography>
     </div>
   );
 };
