@@ -43,11 +43,10 @@ export default function SideBar() {
     <Box
       sx={{
         position: "sticky",
-        width: "15%",
+        width: "220px",
         backgroundColor: "#fffaf0", // Set the background color
-        padding: "16px", // Add some padding
-        overflowY: "auto", // Enable scrolling for the feed
-        flexShrink: 0,
+        padding: "0", // Add some padding
+        overflowX: "clip",
       }}
     >
       {activities

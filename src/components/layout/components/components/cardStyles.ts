@@ -4,9 +4,10 @@ import Box from '@mui/material/Box';
 
 
 export const SideBarCard = styled(Card)({
-    width: 250,
-    height: 150,
-    margin: 2,
+    width: 220,
+    height: 125,
+    padding:0,
+    margin:0,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",

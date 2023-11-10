@@ -62,7 +62,6 @@ export default async function handler(
 
     const { url } = parsedResult.results[0] as { url: string };
     const review = await nyTimesReviewParser(url);
-    console.log("review", review);
     if (!review) {
       void setTrue(title)
       throw new Error("No review found");
