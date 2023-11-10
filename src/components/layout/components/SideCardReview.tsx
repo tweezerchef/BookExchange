@@ -1,6 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
+import Grid from "@mui/material/Grid";
 import { Activity, Books, User } from "@prisma/client";
-import { StarRating } from "./components/StarRating";
+import { Review } from "./components/Review";
 import { SideBarCard } from "./components/cardStyles";
 import { SideCarBook } from "./components/SideCarBook";
 import { SideCarAVI } from "./components/SideCarAVI";
@@ -15,14 +16,15 @@ interface SideCardProps {
   activities: ExtendedActivity[];
 }
 
-export const SideCardStar: FC<SideCardProps> = ({ activities }) => {
-  const activity = activities[0];
+export const SideCardReview: FC<SideCardProps> = ({ activities }) => {
+  const activity = activities[1];
   const { picture, userName } = activity.user;
+  const { description } = activity;
 
   return (
     <SideBarCard>
       <SideCarAVI picture={picture} userName={userName} />
-      <StarRating activity={activity} />
+      <Review description={description} />
       <SideCarBook activity={activity} />
     </SideBarCard>
   );

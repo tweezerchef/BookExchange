@@ -38,7 +38,7 @@ export const SideCarAVI: FC<SideCarAviProps> = ({ picture, userName }) => {
     <Stack
       direction='column'
       spacing={2}
-      sx={{ marginLeft: 0.5, marginTop: 0.5 }}
+      sx={{ marginLeft: 1, marginTop: 0.5, marginRight: 1 }}
     >
       <Typography variant='body2'>{userName}</Typography>
       <Avatar src={aviURL} sx={{ margin: 2 }} />

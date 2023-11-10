@@ -17,7 +17,6 @@ export const StarRating: FC<StarRatingProps> = ({ activity }) => {
   const rating = parseFloat(activity.description.split(" ")[4]);
   console.log(activity.description.split(" "));
   console.log(rating);
-  const { user } = activity;
   return (
     <div>
       <Rating
