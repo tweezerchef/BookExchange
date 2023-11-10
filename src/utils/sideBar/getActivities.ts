@@ -6,6 +6,11 @@ export async function getActivities() {
         orderBy: {
             createdAt: "desc",
         },
+        include: {
+            Books: true,
+            user: true,
+        }
+
     });
     return activities;
 }

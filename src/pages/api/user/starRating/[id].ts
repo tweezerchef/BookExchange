@@ -109,7 +109,7 @@ try {
           starRating,
         },
       });
-      res.status(200)
+      res.status(200).json({ newUserBook });
     } catch (error) {
         console.log('2', error)
       res.status(500).json({ error: "Failed to add book to wishlist" });

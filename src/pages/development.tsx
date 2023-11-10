@@ -1,10 +1,9 @@
-// pages/card-development.js
-import React from "react";
-import { ProfileCard } from "../components/users/ProfileCard";
+import { SideCard } from "../components/layout/components/sideCard";
+import { fakeData } from "../components/layout/components/fakeData";
 
 const CardDevelopmentPage = (props) => (
   <div>
-    {/* <ProfileCard /> */}
+    <SideCard activities={fakeData} />
     Hello
   </div>
 );
