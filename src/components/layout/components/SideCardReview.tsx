@@ -1,5 +1,4 @@
 import { FC } from "react";
-import Grid from "@mui/material/Grid";
 import { Activity, Books, User } from "@prisma/client";
 import { Review } from "./components/Review";
 import { SideBarCard } from "./components/cardStyles";
@@ -13,11 +12,10 @@ interface ExtendedActivity extends Omit<Activity, "createdAt"> {
 }
 
 interface SideCardProps {
-  activities: ExtendedActivity[];
+  activity: ExtendedActivity;
 }
 
-export const SideCardReview: FC<SideCardProps> = ({ activities }) => {
-  const activity = activities[1];
+export const SideCardReview: FC<SideCardProps> = ({ activity }) => {
   const { picture, userName } = activity.user;
   const { description } = activity;
 

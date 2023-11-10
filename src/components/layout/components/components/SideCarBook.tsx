@@ -1,7 +1,5 @@
-import Stack from "@mui/material/Stack";
 import Image from "next/image";
 import { FC } from "react";
-import Typography from "@mui/material/Typography";
 import { Activity, User, Books } from "@prisma/client";
 import Box from "@mui/material/Box";
 

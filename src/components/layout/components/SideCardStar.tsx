@@ -12,17 +12,17 @@ interface ExtendedActivity extends Omit<Activity, "createdAt"> {
 }
 
 interface SideCardProps {
-  activities: ExtendedActivity[];
+  activity: ExtendedActivity;
 }
 
-export const SideCardStar: FC<SideCardProps> = ({ activities }) => {
-  const activity = activities[0];
+export const SideCardStar: FC<SideCardProps> = ({ activity }) => {
   const { picture, userName } = activity.user;
+  const { description } = activity;
 
   return (
     <SideBarCard>
       <SideCarAVI picture={picture} userName={userName} />
-      <StarRating activity={activity} />
+      <StarRating description={description} />
       <SideCarBook activity={activity} />
     </SideBarCard>
   );

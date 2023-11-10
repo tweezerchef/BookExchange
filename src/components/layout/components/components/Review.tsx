@@ -1,6 +1,4 @@
 import Typography from "@mui/material/Typography";
-import Rating from "@mui/material/Rating";
-import { Activity, Books, User } from "@prisma/client";
 import { FC } from "react";
 import { ReviewBox } from "./cardStyles";
 
