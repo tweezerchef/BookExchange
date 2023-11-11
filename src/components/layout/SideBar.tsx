@@ -43,7 +43,7 @@ export default function SideBar() {
     <Box
       sx={{
         position: "sticky",
-        width: "220px",
+        width: "280px",
         backgroundColor: "#fffaf0", // Set the background color
         padding: "0", // Add some padding
         overflowX: "clip",

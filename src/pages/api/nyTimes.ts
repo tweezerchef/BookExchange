@@ -47,7 +47,7 @@ export default async function handler(
     if (!result.ok) {
 
       res.status(429).json({ message: "Error fetching review" });
-      throw new Error(`HTTP error! status: ${result.status}`);
+      console.error(`HTTP error! status: ${result.status}`);
 
     }
     const parsedResult = (await result.json()) as NYTimesReviewResponse;

@@ -10,7 +10,7 @@ const callApiMultipleTimes = async (times) => {
       if (!response.ok) {
         // If a rate limit error is received, wait longer.
         console.error(`Rate limit hit, waiting longer...`);
-        await sleep(12000); // Wait for 12 seconds
+        await sleep(14000); // Wait for 12 seconds
 
         // throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -19,7 +19,7 @@ const callApiMultipleTimes = async (times) => {
       console.log("Response data:", data);
 
       // Wait for 12 seconds before making the next call
-      await sleep(12000);
+      await sleep(14000);
     } catch (error) {
       console.error("Error calling API:", error);
     }

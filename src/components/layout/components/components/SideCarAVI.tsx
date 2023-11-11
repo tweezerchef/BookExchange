@@ -2,6 +2,8 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import { useEffect, FC, useState } from "react";
+import { Toolbar } from "@mui/material";
+import ToolTip from "@mui/material/Tooltip";
 
 interface SideCarAviProps {
   picture: string;
@@ -35,13 +37,15 @@ export const SideCarAVI: FC<SideCarAviProps> = ({ picture, userName }) => {
   });
 
   return (
-    <Stack
-      direction='column'
-      spacing={2}
-      sx={{ marginLeft: 1, marginTop: 0.5, marginRight: 1 }}
-    >
-      <Typography variant='body2'>{userName}</Typography>
-      <Avatar src={aviURL} sx={{ margin: 2 }} />
-    </Stack>
+    <ToolTip title={userName} arrow placement='top-end'>
+      <Avatar
+        src={aviURL}
+        sx={{
+          width: 50,
+          height: 50,
+          margin: 1,
+        }}
+      />
+    </ToolTip>
   );
 };
