@@ -14,39 +14,40 @@ export default function handler(
     res: NextApiResponse
 ) {
     if (!verifyCookie(req)) {
+        console.error("Unauthorized");
         res.status(401).json({ message: "Unauthorized" });
         return;
       }
     if (req.method !== "POST") {
+        console.error("Method not allowed");
         res.status(405).json({ message: "Method not allowed" });
         return;
     }
     const { body } = req as { body: Body };
     const { userId, friendId, action } = body;
-    console.log("friend route" , userId, friendId, action)
-    // prisma.friends.upsert({
-    //     where: {
-    //         userId_friendId: {
-    //             userId,
-    //             friendId,
-    //         },
-    //     },
-    //     create: {
-    //         userId,
-    //         friendId,
-    //         isFriend: action,
-    //     },
-    //     update: {
-    //         isFriend: action,
-    //     },
-    // })
-    //     .then(() => {
-    //         res.status(200).json({ message: "Friend request sent" });
-    //     })
-    //     .catch((error) => {
-    //         console.log(error);
-    //         res.status(500).json({ message: "Failed to send friend request" });
-    //     });
+
+    prisma.friends.upsert({
+        where: {
+            userId_friendId: {
+                userId,
+                friendId,
+            },
+        },
+        create: {
+            userId,
+            friendId,
+            isFriend: action,
+        },
+        update: {
+            isFriend: action,
+        },
+    }).then(() => {
+            res.status(200).json({ message: "Friend request sent" });
+        })
+        .catch((error) => {
+            console.log(error);
+            res.status(500).json({ message: "Failed to send friend request" });
+        });
 
     // rest of the code
 }

@@ -70,7 +70,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
             <MobileBox>
               {books.map((book: Books) => (
                 <Box key={book.id || book.title}>
-                  <BookCard book={book} />
+                  <BookCard book={book} user={user} />
                 </Box>
               ))}
             </MobileBox>
