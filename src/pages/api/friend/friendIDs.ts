@@ -14,8 +14,8 @@ const handler: NextApiHandler=(
         res.status(405).json({ message: "Method not allowed" });
     }
     else{
-        getFriendList(userId).then((friendIds) => {
-            res.status(200).json(friendIds);
+        getFriendList(userId).then((friendIdArray) => {
+            res.status(200).send(friendIdArray);
         })
         .catch((error) => {
             console.log(error);

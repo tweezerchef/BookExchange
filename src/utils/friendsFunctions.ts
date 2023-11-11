@@ -25,7 +25,7 @@ export const getRandomFriends = async (): Promise<Friend[]> =>{
 };
 
 export const getFriendList = async (userId: string) => {
-    console.log('utility',userId);
+    try{
     const friendIds = await prisma.friends.findMany({
         where: {
             userId,
@@ -35,8 +35,14 @@ export const getFriendList = async (userId: string) => {
             friendId: true,
         },
     });
-    return friendIds;
+    const friendIdArray = friendIds.map(friend => friend.friendId);
+    return friendIdArray
+} catch (error) {
+    console.error(error);
+    // eslint-disable-next-line consistent-return
+    return
 };
+}
 
 
 // const randomFriends = await prisma.user.findMany({
