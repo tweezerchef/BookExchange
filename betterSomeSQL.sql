@@ -36,7 +36,7 @@ EXECUTE FUNCTION log_user_books_activity_star();
 CREATE OR REPLACE FUNCTION log_user_books_activity_review()
 RETURNS TRIGGER AS $$
 BEGIN
-  IF OLD."review" IS DISTINCT FROM NEW."review" THEN
+    IF NEW."review" IS NOT NULL THEN
     INSERT INTO "Activity"("id", "userId", "type", "bookId", "userBookId", "description")
     VALUES (
       gen_random_uuid(),
