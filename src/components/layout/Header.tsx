@@ -12,7 +12,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const menuItems = ["Home", "Explore", "Wishlist", "Lending Library"];
 
 const Header = () => {
-  const backgroundImageFile = "TopBanner.png";
+  const backgroundImageFile = "TopBanner.webp";
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
@@ -75,7 +75,7 @@ const Header = () => {
       position='sticky'
       sx={{
         width: "100%",
-        height: "150px",
+        height: "100px",
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",

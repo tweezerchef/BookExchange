@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import Typography from "@mui/material/Typography";
-import Popover from "@mui/material/Popover";
 import { ReviewBox, ReviewPopOver, ReviewTypography } from "./cardStyles";
 
 type ReviewProps = {
@@ -26,14 +25,14 @@ export const Review: FC<ReviewProps> = ({ description }) => {
       <Typography
         variant='body2'
         onClick={handleClick}
-        sx={{ cursor: "pointer", overflow: "hidden" }}
+        sx={{ cursor: "zoom-in", overflow: "hidden" }}
       >
         {description.substring(0, 100)}... {/* Adjust length as needed */}
       </Typography>
       <ReviewPopOver
         id={id}
         open={open}
-        onClose={handleClose}
+        onClick={handleClose}
         anchorEl={anchorEl}
         anchorOrigin={{
           vertical: "top",

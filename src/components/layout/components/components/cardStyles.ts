@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 export const SideBarCard = styled(Card)({
     width: 275,
-    height: 150,
+    height: 140,
     padding:0,
     margin:0,
     display: "flex",
@@ -15,14 +15,14 @@ export const SideBarCard = styled(Card)({
     alignItems: "center",
     justifyContent: "center",
 
+
 });
 
 export const ReviewBox = styled(Box)({
     display:'flex',
     justifyContent:'center',
     alignItems:'center',
-    height: 240,
-    width:'100%',
+    width:'98%',
 })
 
 export const ReviewPopOver = styled(Popover)({
@@ -46,6 +46,7 @@ export const ReviewPopOver = styled(Popover)({
 export const ReviewTypography = styled(Typography)({
     backgroundColor: '#ffffe0ce',
     p: 4,
-    margin: 4,
+    margin: 8,
+    cursor: 'pointer',
 })
 

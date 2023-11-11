@@ -78,7 +78,6 @@ export const BookCard: React.FC<BookProps> = ({ book, user }) => {
       <StyledBookCard elevation={3}>
         <div className='backgroundImage'>
           <Image
-            // Update with your image path
             src='/mountainBackgound.png'
             alt='Background'
             fill
@@ -97,9 +96,9 @@ export const BookCard: React.FC<BookProps> = ({ book, user }) => {
                   }
                   alt='Book Cover'
                   fill
-                  sizes='max-width: 55px, max-height: 110px'
+                  sizes='max-width: 100px, max-height: 180px'
                   priority
-                  quality={95}
+                  quality={100}
                 />
               </ImageBox>
               <SideOfImageBox>
@@ -116,7 +115,7 @@ export const BookCard: React.FC<BookProps> = ({ book, user }) => {
             </TopContainer>
             <ContentContainer>
               <Tooltip title={book.title} placement='top' arrow>
-                <TitleTypography variant='h6'>
+                <TitleTypography variant='body1'>
                   {truncateTitle(book.title, 10)}
                 </TitleTypography>
               </Tooltip>

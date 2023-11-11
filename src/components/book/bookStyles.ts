@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 
 export const StyledBookCard = styled(Card)`
   width: 18vw;
-  height: 19vw;
-  min-height: 211px;
+  height: 17.5vw;
+  min-height: 200px;
   max-height: 220px;
   min-width: 220px;
   max-width: 220px;
@@ -39,8 +39,8 @@ export const TopContainer = styled(Box)`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 65%;
-  min-height: 145px;
+  min-height: 120px;
+  max-height: 140px;
   justify-content: start;
   align-items: start;
   background-color: transparent;
@@ -66,7 +66,7 @@ export const SideOfImageBox = styled(Box)`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  overflow: show;
   justify-content: flex-start;
   align-items: center;
   gap: 0.5em;
@@ -75,17 +75,19 @@ export const SideOfImageBox = styled(Box)`
 `;
 
 export const ContentContainer = styled(Box)`
-  padding: 0.5em;
+  padding: 0em;
   margin-top: 0.5em;
+  margin-bottom: 0em;
   display: flex;
   flex-direction: column;
   justify-content: center; // Vertically center the content
   align-items: center; // Horizontally center the content
   justify-items: center;
   width: 100%;
-  height: auto; // Take up the remaining space
+  height: 100%; // Take up the remaining space
   text-align: center; // Center the text
   text-justify: center;
+  background-color: transparent;
 `;
 
 export const TitleTypography = styled(Typography)`
@@ -97,7 +99,7 @@ export const TitleTypography = styled(Typography)`
     -webkit-box-orient: vertical;
     letter-spacing: 0.4px;
     white-space: pre-line;
-    line-height: 1.2em;
+    line-height: 1.1em;
     padding: 0 5px;
     margin-bottom: 5px;
 
@@ -108,5 +110,5 @@ export const TitleTypography = styled(Typography)`
 export const AuthorTypography = styled(Typography)`
   text-overflow: ellipsis " [..]";
   white-space: pre-line;
-  line-height: 1.2em; // Or whatever line height you want
+  line-height: 1.1em; // Or whatever line height you want
 `;

@@ -34,10 +34,11 @@ export default function ExploreBooksBox({
 }: ExploreBooksBoxProps) {
   const containerRef = useRef(null);
   const breakpoints: Breakpoint = [
-    { width: 1000, itemsPerPage: 4 },
-    { width: 600, itemsPerPage: 3 },
-    { width: 300, itemsPerPage: 2 },
-    { width: 0, itemsPerPage: 1 },
+    { width: 800, itemsPerPage: 4 },
+    { width: 700, itemsPerPage: 3 },
+    { width: 500, itemsPerPage: 2 },
+    { width: 300, itemsPerPage: 1 },
+    { width: 0, itemsPerPage: 0 },
     // Add as many breakpoints as you need
   ];
   const theme = useTheme();
