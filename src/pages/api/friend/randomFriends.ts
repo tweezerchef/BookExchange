@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { User } from "@prisma/client";
-import { getRandomFriends } from "../../../utils/getRandomFriends";
+import { getRandomFriends } from "../../../utils/friendsFunctions";
 
 
 type Friend = User
@@ -8,7 +8,7 @@ type ErrorResponse = { message: string };
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Friend[] | ErrorResponse>
+    res: NextApiResponse
   ) {
     try {
       const randomFriends = await getRandomFriends();

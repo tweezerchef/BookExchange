@@ -27,7 +27,6 @@ interface UserWithGenres extends Friend {
 }
 
 export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
-  const [user, setUser] = useState<User | null>(null);
   const [profilePicture, setProfilePicture] = useState<string>("" || null);
 
   // const userGenres = (friend as UserWithGenres).UserGenre;
@@ -49,7 +48,6 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
             console.error("Not enough URLs in response");
           }
           if ("message" in data) {
-            // data is of type ErrorMessage
             console.error("Error:", data.message);
           }
         })
