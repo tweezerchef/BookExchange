@@ -17,6 +17,7 @@ type Friend = User;
 
 interface ProfileCardProps {
   friend: Friend;
+  friendIds: string[];
 }
 interface UserGenre {
   genre: string;
@@ -26,12 +27,15 @@ interface UserWithGenres extends Friend {
   UserGenre: UserGenre[];
 }
 
-export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
+export const ProfileCard: FC<ProfileCardProps> = ({ friend, friendIds }) => {
   const [profilePicture, setProfilePicture] = useState<string>("" || null);
-
+  let isFriend = false;
   // const userGenres = (friend as UserWithGenres).UserGenre;
   const rawUserPicture = friend.picture;
   const friendId = friend.id;
+  if (friendIds.includes(friendId)) {
+    isFriend = true;
+  }
   useEffect(() => {
     if (rawUserPicture) {
       fetch(`/api/AWS/signedURL?fileNames=${rawUserPicture}`, {
@@ -61,7 +65,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend }) => {
     <Box sx={{ display: "flex", justifyContent: "center", height: "100%" }}>
       <StyledProfileCard>
         <AvatarBox>
-          <AddFriendButton friendId={friendId} />
+          <AddFriendButton friendId={friendId} isFriend={isFriend} />
           <StyledAvatar alt='Remy Sharp' src={profilePicture} />
           <MessageButton />
         </AvatarBox>

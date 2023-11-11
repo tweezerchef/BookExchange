@@ -17,15 +17,21 @@ import {
 } from "./styles/exploreBooksStyle";
 import { ProfileCard } from "../users/ProfileCard";
 
-interface ExploreFriendsProps {
-  friendsPerPage: number;
-}
-
 type Friend = User;
 
-export const ExploreFriends: FC<ExploreFriendsProps> = ({ friendsPerPage }) => {
+interface ExploreFriendsProps {
+  friendsPerPage: number;
+  randomFriends: Friend[];
+  friendIds: string[];
+}
+
+export const ExploreFriends: FC<ExploreFriendsProps> = ({
+  friendsPerPage,
+  randomFriends,
+  friendIds,
+}) => {
   const [currentPage, setCurrentPage] = useState(0);
-  const [randomFriends, setRandomFriends] = useState<Friend[]>([]);
+  // const [randomFriends, setRandomFriends] = useState<Friend[]>([]);
   const [slideDirection, setSlideDirection] = useState<"right" | "left">(
     "left"
   );
@@ -39,21 +45,6 @@ export const ExploreFriends: FC<ExploreFriendsProps> = ({ friendsPerPage }) => {
     setSlideDirection("right");
     setCurrentPage((prevPage) => prevPage - 1);
   };
-
-  useEffect(() => {
-    fetch("/api/friend/randomFriends", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res: Response) => res.json())
-      .then((data: Friend[]) => {
-        setRandomFriends(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
-
   return (
     <OuterWrapperBox isMobile={isMobile}>
       <Box minHeight='230px' width='95%'>
@@ -61,7 +52,7 @@ export const ExploreFriends: FC<ExploreFriendsProps> = ({ friendsPerPage }) => {
           <MobileBox>
             {randomFriends.map((friend) => (
               <Box key={friend.id}>
-                <ProfileCard friend={friend} />
+                <ProfileCard friend={friend} friendIds={friendIds} />
               </Box>
             ))}
           </MobileBox>
@@ -96,7 +87,10 @@ export const ExploreFriends: FC<ExploreFriendsProps> = ({ friendsPerPage }) => {
                       )
                       .map((friendItem: Friend) => (
                         <Box key={friendItem.id}>
-                          <ProfileCard friend={friendItem} />
+                          <ProfileCard
+                            friend={friendItem}
+                            friendIds={friendIds}
+                          />
                         </Box>
                       ))}
                   </Stack>

@@ -12,6 +12,10 @@ type Breakpoint = {
 }[];
 
 type Friend = User;
+type CombinedDataResponse = {
+  randomFriendsRes: Friend[];
+  friendIdsRes: string[];
+};
 
 export const ExploreFriendsBox: React.FC = () => {
   const [randomFriends, setRandomFriends] = useState<Friend[]>([]);
@@ -27,41 +31,26 @@ export const ExploreFriendsBox: React.FC = () => {
     containerRef,
     breakpoints
   );
-  const fetchRandomFriends = () =>
-    fetch("/api/friend/randomFriends", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json());
-
-  const fetchFriendIds = () =>
-    fetch("/api/friend/friendIds", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => res.json());
-
   useEffect(() => {
-    fetch("/api/friend/randomFriends", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res: Response) => res.json())
-      .then((data: Friend[]) => {
-        setRandomFriends(data);
+    fetch("/api/friend/combinedData")
+      .then((res) => res.json() as Promise<CombinedDataResponse>)
+      .then(({ randomFriendsRes, friendIdsRes }) => {
+        setRandomFriends(randomFriendsRes);
+        setFriendIds(friendIdsRes);
       })
       .catch((err) => console.error(err));
   }, []);
+
   return (
     <Box ref={containerRef} width='100%'>
       <Divider textAlign='left'>
         <Chip label='Make Some Friends' />
       </Divider>
-      <ExploreFriends friendsPerPage={friendsPerPage} />
+      <ExploreFriends
+        friendsPerPage={friendsPerPage}
+        randomFriends={randomFriends}
+        friendIds={friendIds}
+      />
     </Box>
   );
 };

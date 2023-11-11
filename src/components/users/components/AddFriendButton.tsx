@@ -7,14 +7,17 @@ import { useHomeState } from "../../../context/context";
 
 interface AddFriendButtonProps {
   friendId: string;
+  isFriend: boolean;
 }
 
-export const AddFriendButton: FC<AddFriendButtonProps> = ({ friendId }) => {
-  const [isFriend, setIsFriend] = useState(false);
+export const AddFriendButton: FC<AddFriendButtonProps> = ({
+  friendId,
+  isFriend: initialIsFriend,
+}) => {
   const {
     user: { id: userId },
   } = useHomeState() || {};
-
+  const [isFriend, setIsFriend] = useState(initialIsFriend);
   const follow = () => {
     setIsFriend((prevIsFriend) => !prevIsFriend);
     const action = isFriend;
