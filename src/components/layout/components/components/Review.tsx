@@ -20,31 +20,32 @@ export const Review: FC<ReviewProps> = ({ description }) => {
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  return (
-    <ReviewBox>
-      <Typography
-        variant='body2'
-        onClick={handleClick}
-        sx={{ cursor: "zoom-in", overflow: "hidden" }}
-      >
-        {description.substring(0, 100)}... {/* Adjust length as needed */}
-      </Typography>
-      <ReviewPopOver
-        id={id}
-        open={open}
-        onClick={handleClose}
-        anchorEl={anchorEl}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-      >
-        <ReviewTypography variant='body2'>{description}</ReviewTypography>
-      </ReviewPopOver>
-    </ReviewBox>
-  );
+  return <Typography variant='body2'>Reviewed</Typography>;
 };
+// return (
+//   <ReviewBox>
+//     <Typography
+//       variant='body2'
+//       onClick={handleClick}
+//       sx={{ cursor: "zoom-in", overflow: "hidden" }}
+//     >
+//       {description.substring(0, 100)}... {/* Adjust length as needed */}
+//     </Typography>
+//     <ReviewPopOver
+//       id={id}
+//       open={open}
+//       onClick={handleClose}
+//       anchorEl={anchorEl}
+//       anchorOrigin={{
+//         vertical: "top",
+//         horizontal: "left",
+//       }}
+//       transformOrigin={{
+//         vertical: "top",
+//         horizontal: "center",
+//       }}
+//     >
+//       <ReviewTypography variant='body2'>{description}</ReviewTypography>
+//     </ReviewPopOver>
+//   </ReviewBox>
+// );

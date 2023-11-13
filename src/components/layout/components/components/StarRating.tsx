@@ -2,6 +2,7 @@ import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
 import { Activity, Books, User } from "@prisma/client";
 import { FC } from "react";
+import ToolTip from "@mui/material/Tooltip";
 
 interface StarRatingProps {
   description: string;
@@ -10,7 +11,7 @@ interface StarRatingProps {
 export const StarRating: FC<StarRatingProps> = ({ description }) => {
   const rating = parseFloat(description.split(" ")[4]);
   return (
-    <div>
+    <ToolTip title={`${description}`} placement='right-start' arrow>
       <Rating
         name='read-only'
         value={rating}
@@ -18,7 +19,6 @@ export const StarRating: FC<StarRatingProps> = ({ description }) => {
         precision={0.5}
         size='small'
       />
-      <Typography variant='body2'>{description} Stars</Typography>
-    </div>
+    </ToolTip>
   );
 };

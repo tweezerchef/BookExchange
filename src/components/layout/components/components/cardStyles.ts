@@ -6,14 +6,15 @@ import Typography from '@mui/material/Typography';
 
 
 export const SideBarCard = styled(Card)({
-    width: 275,
+    width: 180,
     height: 140,
-    padding:0,
-    margin:0,
+    padding:1,
+    margin:1,
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    background: "linear-gradient(0deg, rgba(195, 34, 74, 0.205) 0%, rgba(248, 226, 153, 0.315) 100%)"
 
 
 });

@@ -1,11 +1,10 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import { useTheme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Activity, Books, User } from "@prisma/client";
 import { SideCardStar } from "./components/SideCardStar";
 import { SideCardReview } from "./components/SideCardReview";
+import { SideBarBox } from "./layoutStyles";
 
 interface ExtendedActivity extends Omit<Activity, "createdAt"> {
   createdAt: string;
@@ -40,16 +39,7 @@ export default function SideBar() {
     return null;
   }
   return (
-    <Box
-      sx={{
-        position: "sticky",
-        height: "100vh",
-        width: "280px",
-        backgroundColor: "#fffaf0", // Set the background color
-        padding: "0", // Add some padding
-        overflowX: "clip",
-      }}
-    >
+    <SideBarBox>
       {activities
         ? activities.map((activity) => {
             switch (activity.type) {
@@ -62,6 +52,6 @@ export default function SideBar() {
             }
           })
         : null}
-    </Box>
+    </SideBarBox>
   );
 }

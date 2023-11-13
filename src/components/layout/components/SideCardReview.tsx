@@ -1,10 +1,10 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Activity, Books, User } from "@prisma/client";
+import { Stack } from "@mui/material";
 import { Review } from "./components/Review";
 import { SideBarCard } from "./components/cardStyles";
 import { SideCarBook } from "./components/SideCarBook";
 import { SideCarAVI } from "./components/SideCarAVI";
-import { BigBook } from "../../book/BigBook";
 
 interface ExtendedActivity extends Omit<Activity, "createdAt"> {
   createdAt: string;
@@ -22,8 +22,10 @@ export const SideCardReview: FC<SideCardProps> = ({ activity }) => {
 
   return (
     <SideBarCard>
-      <SideCarAVI picture={picture} userName={userName} />
-      <Review description={description} />
+      <Stack direction='column' spacing={2} alignItems='center'>
+        <SideCarAVI picture={picture} userName={userName} />
+        <Review description={description} />
+      </Stack>
       <SideCarBook activity={activity} />
     </SideBarCard>
   );
