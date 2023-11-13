@@ -2,6 +2,7 @@ import Image from "next/image";
 import { FC, useCallback, useEffect, useState } from "react";
 import { Activity, User, Books } from "@prisma/client";
 import Box from "@mui/material/Box";
+import { Tooltip } from "@mui/material";
 import { BigBook } from "../../../book/BigBook";
 
 type Review = {
@@ -46,13 +47,27 @@ export const SideCarBook: FC<SideCarBookProps> = ({ activity }) => {
   }, [getBookReviews]);
 
   return (
-    <Box margin={1}>
-      <Image
-        src={activity.Books.image}
-        alt={activity.Books.title}
-        width={80}
-        height={110}
-      />
-    </Box>
+    <>
+      {bigBookOpen && (
+        <BigBook
+          book={book}
+          bigBookOpen={bigBookOpen}
+          handleCloseBigBook={handleCloseBigBook}
+          reviews={reviews}
+          setReviews={setReviews}
+        />
+      )}
+      <Tooltip title='See Review' placement='right-start' arrow>
+        <Box margin={1} sx={{ cursor: "pointer" }}>
+          <Image
+            src={book.image}
+            alt={book.title}
+            width={80}
+            height={110}
+            onClick={handleBookClick}
+          />
+        </Box>
+      </Tooltip>
+    </>
   );
 };

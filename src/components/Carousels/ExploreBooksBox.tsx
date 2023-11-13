@@ -1,7 +1,5 @@
 import { Books } from "@prisma/client";
 import { useRef } from "react";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
 import { ExploreBooks } from "./ExploreBooks";
 import { useContainerQuery } from "./hooks/useContainerQuery";
@@ -47,7 +45,7 @@ export default function ExploreBooksBox({
   );
 
   return (
-    <Box ref={containerRef}>
+    <Box ref={containerRef} width='100%'>
       <ExploreBooks
         {...(user && { user })}
         books={books}

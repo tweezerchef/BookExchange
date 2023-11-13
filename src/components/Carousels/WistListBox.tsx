@@ -12,7 +12,7 @@ type Breakpoint = {
 
 export default function WishListBox() {
   const containerRef = useRef(null);
-  const breakpoints = [
+  const breakpoints: Breakpoint = [
     { width: 900, itemsPerPage: 4 },
     { width: 800, itemsPerPage: 3 },
     { width: 400, itemsPerPage: 2 },
