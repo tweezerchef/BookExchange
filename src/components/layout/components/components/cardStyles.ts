@@ -14,8 +14,13 @@ export const SideBarCard = styled(Card)({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    background: "linear-gradient(0deg, rgba(195, 34, 74, 0.205) 0%, rgba(248, 226, 153, 0.315) 100%)"
-
+    background: "linear-gradient(0deg, rgba(195, 34, 74, 0.205) 0%, rgba(248, 226, 153, 0.315) 100%)" ,
+    '&:hover': {
+        background: "linear-gradient(0deg, rgba(215, 54, 94, 0.3) 0%, rgba(253, 236, 163, 0.35) 100%)",
+        transform: 'translateY(-5px)',
+        // Optionally add a box-shadow for more depth
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1)',
+      }
 
 });
 
