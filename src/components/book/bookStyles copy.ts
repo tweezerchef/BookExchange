@@ -14,29 +14,24 @@ const breakpoints = {
 };
 
 export const StyledBookCard = styled(Card)`
-width: 220px;
-height: 200px;
-border-radius: 10px;
-display: flex;
-flex-direction: column;
-align-items: center;
-position: relative;
-transition: box-shadow 0.3s, background-color 0.3s;
-overflow: hidden;
+  width: 18vw;
+  height: 17.5vw;
+  min-height: 200px;
+  max-height: 220px;
+  min-width: 220px;
+  max-width: 220px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  transition: box-shadow 0.3s, background-color 0.3s;
+  overflow: hidden;
 
 &:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust shadow as needed */
   background-color: #ffffff94;
-}
-@media (max-width: ${breakpoints.values.sm}px) {
-  width: 160px;
-  height: 144px;
-}
-
-@media (max-width: ${breakpoints.values.xs}px) {
-  width: 140px;
-  height: 126px;
 }
 .backgroundImage{
   content: "";
@@ -77,6 +72,7 @@ export const ImageBox = styled(Box)`
 
 export const SideOfImageBox = styled(Box)`
   display: flex;
+  /* position: relative; */
   flex-direction: column;
   width: 100%;
   height: 100%;
@@ -105,7 +101,6 @@ export const ContentContainer = styled(Box)`
 `;
 
 export const TitleTypography = styled(Typography)`
-    font-size: 1.1rem;
     justify-self: center;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -117,34 +112,13 @@ export const TitleTypography = styled(Typography)`
     line-height: 1.1em;
     padding: 0 5px;
     margin-bottom: 5px;
-    @media (max-width: ${breakpoints.values.md}px) {
-      font-size: 1rem; // Smaller font size on medium screens
-    }
-    @media (max-width: ${breakpoints.values.sm}px) {
-      font-size: 0.8rem; // Smaller font size on small screens
-    }
-
-    @media (max-width: ${breakpoints.values.xs}px) {
-      font-size: 0.7rem; // Even smaller font size on extra small screens
-    }
 
     &:hover {
         color: #333;
     }
 `;
 export const AuthorTypography = styled(Typography)`
-  font-size: 1rem;
   text-overflow: ellipsis " [..]";
   white-space: pre-line;
-  line-height: 1.1em;
-  @media (max-width: ${breakpoints.values.md}px) {
-    font-size: .9rem; // Smaller font size on medium screens
-  }
-  @media (max-width: ${breakpoints.values.sm}px) {
-    font-size: 0.8rem; // Smaller font size on small screens
-  }
-
-  @media (max-width: ${breakpoints.values.xs}px) {
-    font-size: 0.7rem; // Even smaller font size on extra small screens
-  }
+  line-height: 1.1em; // Or whatever line height you want
 `;

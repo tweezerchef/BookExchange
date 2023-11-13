@@ -106,7 +106,7 @@ export const BookCard: React.FC<BookProps> = ({ book, user }) => {
                 <ButtonStack book={book} />
 
                 {book.author && (
-                  <AuthorTypography align='center'>
+                  <AuthorTypography align='center' variant='body1'>
                     Written By: <br />
                     {book.author}
                   </AuthorTypography>
