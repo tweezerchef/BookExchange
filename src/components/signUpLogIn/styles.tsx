@@ -1,6 +1,7 @@
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
 
 export const InputGroup = styled(Box)`
   width: 210px;
@@ -69,19 +70,28 @@ export const CredentialModalBox = styled(Box)({
   alignItems: "center",
   height: "100%",
   width: "100%",
+  padding: "20px",
   borderRadius: "10px",
+  boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1)",
+  border: ".5px solid #FFFFFF",
 });
 
 export const CredentialModal = styled(Modal)({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  height: "100px",
-  width: "300px",
+  height: "75px",
+  width: "250px",
   zIndex: "2",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  borderRadius: "10px",
   backgroundColor: "transparent",
+  transition: "all 0.2s ease-in-out",
+});
+
+export const ModalTypography = styled(Typography)({
+  color: "#CA2C2C",
+  fontSize: "16px",
+  fontWeight: "bold",
 });

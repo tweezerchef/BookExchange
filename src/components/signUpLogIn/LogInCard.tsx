@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Box from "@mui/material/Box";
@@ -12,6 +13,7 @@ import {
   BackgroundImageContainer,
   CredentialModal,
   CredentialModalBox,
+  ModalTypography,
 } from "./styles";
 import GoogleButton from "./googleButton";
 
@@ -179,9 +181,14 @@ function EntryCard() {
           <GoogleButton />
           <CredentialModal open={open} onClose={handleClose}>
             <CredentialModalBox onClick={handleClose}>
-              <Typography variant='h6' color='red'>
-                Invalid Email or Password
-              </Typography>
+              <ErrorOutlineIcon
+                sx={{
+                  color: "#FF0000",
+                  fontSize: 40,
+                  marginBottom: "10px",
+                }}
+              />
+              <ModalTypography>Invalid Email or Password</ModalTypography>
             </CredentialModalBox>
           </CredentialModal>
         </>
