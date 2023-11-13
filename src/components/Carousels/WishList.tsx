@@ -34,7 +34,8 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const { wishList } = state;
+  const { wishList, user } = state;
+
   const books = wishList;
 
   const handleNextPage = () => {
@@ -67,7 +68,7 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
         >
           {books.map((book: Books) => (
             <Box key={book.id || book.title}>
-              <BookCard book={book} />
+              <BookCard book={book} user={user} />
             </Box>
           ))}
         </Box>
@@ -99,10 +100,7 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
                     )
                     .map((bookItem: Books) => (
                       <Box key={bookItem.id || bookItem.title}>
-                        <BookCard
-                          book={bookItem}
-                          // nearMeBooks={nearMeBooks}
-                        />
+                        <BookCard book={bookItem} user={user} />
                       </Box>
                     ))}
                 </Stack>

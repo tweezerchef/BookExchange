@@ -5,14 +5,19 @@ import { useRef } from "react";
 import WishList from "./WishList";
 import { useContainerQuery } from "./hooks/useContainerQuery";
 
+type Breakpoint = {
+  width: number;
+  itemsPerPage: number;
+}[];
+
 export default function WishListBox() {
   const containerRef = useRef(null);
   const breakpoints = [
-    { width: 1000, itemsPerPage: 4 },
-    { width: 600, itemsPerPage: 3 },
+    { width: 900, itemsPerPage: 4 },
+    { width: 800, itemsPerPage: 3 },
     { width: 400, itemsPerPage: 2 },
+    { width: 300, itemsPerPage: 1 },
     { width: 0, itemsPerPage: 1 },
-    // Add as many breakpoints as you need
   ];
 
   const { itemsPerPage: booksPerPage } = useContainerQuery(

@@ -39,9 +39,7 @@ export default function ExploreBooksBox({
     { width: 400, itemsPerPage: 2 },
     { width: 300, itemsPerPage: 1 },
     { width: 0, itemsPerPage: 1 },
-    // Add as many breakpoints as you need
   ];
-  const theme = useTheme();
 
   const { itemsPerPage: booksPerPage } = useContainerQuery(
     containerRef,

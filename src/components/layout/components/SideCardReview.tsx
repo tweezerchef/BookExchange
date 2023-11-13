@@ -1,9 +1,10 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Activity, Books, User } from "@prisma/client";
 import { Review } from "./components/Review";
 import { SideBarCard } from "./components/cardStyles";
 import { SideCarBook } from "./components/SideCarBook";
 import { SideCarAVI } from "./components/SideCarAVI";
+import { BigBook } from "../../book/BigBook";
 
 interface ExtendedActivity extends Omit<Activity, "createdAt"> {
   createdAt: string;
