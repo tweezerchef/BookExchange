@@ -5,12 +5,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Image from "next/image";
-
 import {
   InputGroup,
   Input,
   LoginBox,
   BackgroundImageContainer,
+  CredentialModal,
+  CredentialModalBox,
 } from "./styles";
 import GoogleButton from "./googleButton";
 
@@ -22,9 +23,14 @@ function EntryCard() {
   const [password, setPassword] = useState("");
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>("");
   const [logoImageURL, setLogoImageUrl] = useState<string>("");
+  // clean up state
   const [isBgImageLoaded, setIsBgImageLoaded] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const router = useRouter();
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const loginHandler = async () => {
     try {
       const response = await fetch("/api/auth/emailLogin", {
@@ -37,6 +43,10 @@ function EntryCard() {
           password,
         }),
       });
+      if (response.status === 401) {
+        handleOpen();
+        console.error("Invalid credentials");
+      }
       if (response.ok) {
         void router.push("/home");
       } else {
@@ -167,6 +177,13 @@ function EntryCard() {
             Not Registered Yet? Sign Up
           </Button>
           <GoogleButton />
+          <CredentialModal open={open} onClose={handleClose}>
+            <CredentialModalBox onClick={handleClose}>
+              <Typography variant='h6' color='red'>
+                Invalid Email or Password
+              </Typography>
+            </CredentialModalBox>
+          </CredentialModal>
         </>
       ) : null}
     </LoginBox>

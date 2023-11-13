@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
 
 export const InputGroup = styled(Box)`
   width: 210px;
@@ -58,3 +59,29 @@ export const LoginBox = styled(Box)`
 
   text-align: center;
 `;
+
+export const CredentialModalBox = styled(Box)({
+  backgroundColor: "#FFFF00 !important",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignContent: "center",
+  alignItems: "center",
+  height: "100%",
+  width: "100%",
+  borderRadius: "10px",
+});
+
+export const CredentialModal = styled(Modal)({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100px",
+  width: "300px",
+  zIndex: "2",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  borderRadius: "10px",
+  backgroundColor: "transparent",
+});

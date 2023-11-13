@@ -94,20 +94,6 @@ export const themeOptions: ThemeOptions = {
     },
   },
     },
-  typography: {
-    h6: {
-      fontFamily: 'Lato',
-    },
-    subtitle1: {
-      fontFamily: 'Lato',
-    },
-    subtitle2: {
-      fontFamily: 'Lato',
-    },
-    body1: {
-      fontFamily: 'Lato',
-    },
-  },
 };
 const theme = createTheme(themeOptions);
 export default theme;
