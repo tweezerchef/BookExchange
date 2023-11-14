@@ -1,6 +1,7 @@
 import { Books } from "@prisma/client";
 import { useRef } from "react";
-import Box from "@mui/material/Box";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import { ExploreBooks } from "./ExploreBooks";
 import { useContainerQuery } from "./hooks/useContainerQuery";
 import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
@@ -31,27 +32,42 @@ export default function ExploreBooksBox({
   user,
 }: ExploreBooksBoxProps) {
   const containerRef = useRef(null);
-  const breakpoints: Breakpoint = [
+  const theme = useTheme();
+
+  const breakpoints = [
     { width: 900, itemsPerPage: 4 },
-    { width: 800, itemsPerPage: 3 },
-    { width: 400, itemsPerPage: 2 },
-    { width: 300, itemsPerPage: 1 },
+    { width: 700, itemsPerPage: 3 },
+    { width: 500, itemsPerPage: 2 },
+    { width: 320, itemsPerPage: 1 },
     { width: 0, itemsPerPage: 1 },
   ];
 
-  const { itemsPerPage: booksPerPage } = useContainerQuery(
+  const isViewportUnder700 = useMediaQuery("(max-width:700px)");
+  const isViewportUnder500 = useMediaQuery("(max-width:500px)");
+
+  const { itemsPerPage: containerItemsPerPage } = useContainerQuery(
     containerRef,
     breakpoints
   );
 
+  let booksPerPage: number;
+  if (isViewportUnder500) {
+    booksPerPage = 1; // 1 book per page under 500px
+  } else if (isViewportUnder700) {
+    booksPerPage = 2; // 2 books per page under 700px
+  } else {
+    booksPerPage = containerItemsPerPage; // Use container query result otherwise
+  }
+
+  const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (
-    <Box ref={containerRef} width='100%'>
+    <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
       <ExploreBooks
         {...(user && { user })}
         books={books}
         setBooks={setBooks}
         booksPerPage={booksPerPage}
       />
-    </Box>
+    </ExploreBooksBoxWrapper>
   );
 }

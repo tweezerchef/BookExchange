@@ -1,6 +1,9 @@
 import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
 import { memo } from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import { Container } from "@mui/material";
 import Header from "./Header";
 import Sidebar from "./SideBar";
 
@@ -11,6 +14,8 @@ const Layout = ({ children }) => {
   const isIndexPage = router.pathname === "/";
   const isSignUpPage = router.pathname === "/signUp";
   const isRegistrationPage = router.pathname === "/register";
+  const theme = useTheme();
+  const matches = useMediaQuery("(max-width:450px)");
 
   // Don't render Header and Sidebar on the Login and Index pages
   if (isLoginPage || isIndexPage || isSignUpPage || isRegistrationPage) {
@@ -18,21 +23,14 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <Box
-      maxWidth='1350px'
-      display='flex'
-      flexDirection='column'
-      justifyContent='center'
-      margin='0 auto'
-    >
+    <Container>
       <Header />
-      <Box width='100%' display='flex'>
-        <Box maxWidth='1300px' width='100%' display='flex'>
-          <Sidebar />
-          <main style={{ flexGrow: 1 }}>{children}</main>
-        </Box>
+
+      <Box maxWidth='1350px' width='100%' display='flex'>
+        {!matches && <Sidebar />}
+        <main style={{ flexGrow: 1 }}>{children}</main>
       </Box>
-    </Box>
+    </Container>
   );
 };
 

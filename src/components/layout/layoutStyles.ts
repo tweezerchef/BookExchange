@@ -9,14 +9,10 @@ export const BackgroundImageBox = styled(Box)`
   bottom: 0;
   z-index: -1;
 `;
-export const SideBarBox = styled(Box)({
+export const SideBarBox = styled('div')({
+  width: 180,
+  height: "100vh",
   position: "sticky",
-        height: "100vh",
-        width: "180px",
-        backgroundColor:"transparent", // Set the background color
-        padding: "0", // Add some padding
-        overflowX: "clip",
-        overflowY: 'auto',
         '::-webkit-scrollbar': {
           display: 'none',
         },

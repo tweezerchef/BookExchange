@@ -20,7 +20,6 @@ export default function SideBar() {
   const [activities, setActivities] = useState<ExtendedActivity[]>([]);
 
   useEffect(() => {
-    console.log("fetching activities");
     const fetchActivities = async () => {
       try {
         const response = await fetch("/api/activities");
@@ -33,11 +32,6 @@ export default function SideBar() {
     };
     void fetchActivities();
   }, []);
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down("md")); // or 'sm', 'lg', etc.
-  if (matches) {
-    return null;
-  }
   return (
     <SideBarBox>
       {activities

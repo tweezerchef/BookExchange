@@ -53,7 +53,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
     setSelectedBook(book);
   };
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (
     <>
       <StyledDivider textAlign='right'>
@@ -67,9 +67,9 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
         {books &&
           books.length >= 1 &&
           (isMobile ? (
-            <MobileBox>
-              {books.map((book: Books) => (
-                <Box key={book.id || book.title}>
+            <MobileBox booksPerPage={booksPerPage}>
+              {books.map((book) => (
+                <Box key={book.id || book.title} sx={{ width: "100%" }}>
                   <BookCard book={book} user={user} />
                 </Box>
               ))}
@@ -92,6 +92,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
                   <Slide direction={slideDirection} in={currentPage === index}>
                     <Stack
                       spacing={2}
+                      padding='0 0 0 0'
                       direction='row'
                       maxWidth='100%'
                       maxHeight='100%'

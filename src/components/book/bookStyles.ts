@@ -14,8 +14,8 @@ const breakpoints = {
 };
 
 export const StyledBookCard = styled(Card)`
-width: 220px;
-height: 200px;
+width: 200px;
+height: 190px;
 border-radius: 10px;
 display: flex;
 flex-direction: column;
@@ -105,7 +105,7 @@ export const ContentContainer = styled(Box)`
 `;
 
 export const TitleTypography = styled(Typography)`
-    font-size: 1.1rem;
+    font-size: 1rem;
     justify-self: center;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -118,7 +118,7 @@ export const TitleTypography = styled(Typography)`
     padding: 0 5px;
     margin-bottom: 5px;
     @media (max-width: ${breakpoints.values.md}px) {
-      font-size: 1rem; // Smaller font size on medium screens
+      font-size: .9rem; // Smaller font size on medium screens
     }
     @media (max-width: ${breakpoints.values.sm}px) {
       font-size: 0.8rem; // Smaller font size on small screens
@@ -133,7 +133,7 @@ export const TitleTypography = styled(Typography)`
     }
 `;
 export const AuthorTypography = styled(Typography)`
-  font-size: 1rem;
+  font-size: .9rem;
   text-overflow: ellipsis " [..]";
   white-space: pre-line;
   line-height: 1.1em;
