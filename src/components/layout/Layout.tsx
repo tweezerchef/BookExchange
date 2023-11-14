@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
 import { memo } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import { Container } from "@mui/material";
 import Header from "./Header";
 import Sidebar from "./SideBar";
@@ -14,7 +13,6 @@ const Layout = ({ children }) => {
   const isIndexPage = router.pathname === "/";
   const isSignUpPage = router.pathname === "/signUp";
   const isRegistrationPage = router.pathname === "/register";
-  const theme = useTheme();
   const matches = useMediaQuery("(max-width:450px)");
 
   // Don't render Header and Sidebar on the Login and Index pages
