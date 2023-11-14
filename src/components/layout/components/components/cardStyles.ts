@@ -3,6 +3,7 @@ import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
+import Rating from '@mui/material/Rating';
 
 
 export const SideBarCard = styled(Card)({
@@ -13,6 +14,7 @@ export const SideBarCard = styled(Card)({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    alignContent: "center",
     justifyContent: "center",
     background: "linear-gradient(0deg, rgba(195, 34, 74, 0.205) 0%, rgba(248, 226, 153, 0.315) 100%)" ,
     '&:hover': {
@@ -23,6 +25,16 @@ export const SideBarCard = styled(Card)({
       }
 
 });
+export const StyledRating = styled(Rating)({
+    '& .MuiRating-icon': {
+      width: '14px', // Adjust the size as needed
+      height: '14px', // Adjust the size as needed
+    },
+    '& .MuiRating-iconFilled': {
+      color: 'gold', // Optional: custom color for filled stars
+    },
+  });
+
 
 export const ReviewBox = styled(Box)({
     display:'flex',

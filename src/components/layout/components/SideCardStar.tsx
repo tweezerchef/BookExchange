@@ -22,7 +22,13 @@ export const SideCardStar: FC<SideCardProps> = ({ activity }) => {
 
   return (
     <SideBarCard>
-      <Stack direction='column' spacing={1} alignItems='center'>
+      <Stack
+        direction='column'
+        spacing={1}
+        alignItems='center'
+        alignContent='center'
+        padding={1}
+      >
         <SideCarAVI picture={picture} userName={userName} />
         <StarRating description={description} />
       </Stack>
