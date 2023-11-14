@@ -53,7 +53,7 @@ export default function ExploreBooksBox({
   if (isViewportUnder500) {
     booksPerPage = 1; // 1 book per page under 500px
   } else if (isViewportUnder700) {
-    booksPerPage = 2; // 2 books per page under 700px
+    booksPerPage = 1; // 2 books per page under 700px
   } else {
     booksPerPage = containerItemsPerPage; // Use container query result otherwise
   }

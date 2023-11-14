@@ -61,12 +61,31 @@ export const OuterBox = styled(Box)`
 `;
 export const LeftIconButton = styled(IconButton)<{ booksPerPage: number }>`
   position: absolute;
-  left: ${({ booksPerPage }) => (booksPerPage === 2 ? 'calc(50% - 250px)' : '0px')};
+  left: ${({ booksPerPage }) => {
+    const halfCardWidth = '225px'; // Half the width of the book card
+    if (booksPerPage === 2) {
+      // Position the left button for 2 books per page
+      return `calc(50% - ${halfCardWidth})`;
+    } if (booksPerPage === 1) {
+      // Position the left button for 1 book per page
+      return `calc(50% - ${halfCardWidth})`;
+    }
+    return '0px'; // Default position when more than two books
+  }};
   z-index: 1;
 `;
-export const RightIconButton = styled(IconButton)<{ booksPerPage: number }>`
+export const RightIconButton = styled(IconButton)<{ booksPerPage: number}>`
   position: absolute;
-  right: ${({ booksPerPage }) => (booksPerPage === 2 ? 'calc(50% - 250px)' : '0px')};
+  right: ${({ booksPerPage}) => {
+    // Assuming bookCardWidth is the full width of a single book card
+    const halfCardWidth = `${225}px`; // Calculate half the width of the book card
+    if (booksPerPage === 2) {
+      return `calc(50% - ${halfCardWidth})`; // Position for 2 books per page
+    } if (booksPerPage === 1) {
+      return `calc(50% - ${halfCardWidth})`; // Position for 1 book per page
+    }
+    return `0px`; // Default position for more than two books
+  }};
   z-index: 1;
 `;
 
