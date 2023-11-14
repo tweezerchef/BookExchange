@@ -12,13 +12,15 @@ interface MobileBoxProps extends BoxProps {
 
 export const OuterWrapperBox = styled(Box)<OuterWrapperBoxProps>`
   ${({ isMobile }) => ({
+    position: "relative",
     display: "flex",
+    alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",
     width: "100%",
-    minHeight: isMobile ? "30vw" : "230px",
+    minHeight: isMobile ? "30vw" : "200px",
     height: isMobile ? "80vw" : "20vw",
-    maxHeight: isMobile ? "30vw" : "260px",
+    maxHeight: isMobile ? "30vw" : "220px",
     marginTop: isMobile ? ".2vh" : "1.5vh",
     overflow: "hidden",
     paddingBottom: 0,
@@ -58,17 +60,20 @@ export const OuterBox = styled(Box)`
   //   paddingBottom: 0;
 `;
 export const LeftIconButton = styled(IconButton)`
-  padding: 0;
+  position: absolute;
   left: 0;
+  z-index: 1;
 `;
 export const RightIconButton = styled(IconButton)`
-  padding: 0;
+  position: absolute;
   right: 0;
+  z-index: 1;
 `;
 
 export const BookBox = styled(Box)`
   top: 0;
-  left: 0;
+  marginLeft: 3px;
+  marginRight: 3px;
   width: 100%;
   height: 100%;
 `;
@@ -76,7 +81,7 @@ export const BookBox = styled(Box)`
 export const ExploreBooksBoxWrapper = styled(Box)<OuterWrapperBoxProps>`
 ${({ isMobile }) => ({
   minHeight: isMobile ? "30vw" : "150px",
-  maxHeight: isMobile ? "80vw" : "350px",
+  maxHeight: isMobile ? "80vw" : "300px",
   marginTop: isMobile ? ".2vh" : "1.5vh",
   width: "100%",
   overflow: "clip",
