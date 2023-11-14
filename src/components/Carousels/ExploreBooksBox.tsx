@@ -36,8 +36,8 @@ export default function ExploreBooksBox({
 
   const breakpoints = [
     { width: 900, itemsPerPage: 4 },
-    { width: 700, itemsPerPage: 3 },
-    { width: 500, itemsPerPage: 2 },
+    { width: 650, itemsPerPage: 3 },
+    { width: 300, itemsPerPage: 2 },
     { width: 320, itemsPerPage: 1 },
   ];
 

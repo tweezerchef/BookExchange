@@ -79,6 +79,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
               <LeftIconButton
                 onClick={handlePrevPage}
                 disabled={currentPage === 0}
+                booksPerPage={booksPerPage}
               >
                 <NavigateBeforeIcon />
               </LeftIconButton>
@@ -124,6 +125,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
                   currentPage >=
                   Math.ceil((books.length || 0) / booksPerPage) - 1
                 }
+                booksPerPage={booksPerPage}
               >
                 <NavigateNextIcon />
               </RightIconButton>

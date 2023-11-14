@@ -27,24 +27,24 @@ export const OuterWrapperBox = styled(Box)<OuterWrapperBoxProps>`
   })}
 `;
 export const MobileBox = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'booksPerPage', // This prevents the custom prop from being forwarded to the DOM element
+  shouldForwardProp: (prop) => prop !== 'booksPerPage',
 })<MobileBoxProps>(({ booksPerPage, theme }) => ({
   display: 'flex',
   flexDirection: 'row',
-  overflowX: 'auto', // Make sure to use camelCase for the overflowX property
+  overflowX: 'auto',
   scrollSnapType: 'x mandatory',
 
   '& > div': {
     flex: 'none',
     scrollSnapAlign: 'start',
-    width: `calc((100% / ${booksPerPage}) - 10px)`, // Use the booksPerPage variable directly
-    marginRight: '10px', // Add some space between the items
+    width: `calc((100% / ${booksPerPage}) - 10px)`,
+    marginRight: '10px',
   },
 
   '&::-webkit-scrollbar': {
     display: 'none',
   },
-  scrollbarWidth: 'none', // Use camelCase for the scrollbarWidth property
+  scrollbarWidth: 'none',
 }));
 
 export const OuterBox = styled(Box)`
@@ -59,14 +59,14 @@ export const OuterBox = styled(Box)`
   //   marginTop: 1.5vh;
   //   paddingBottom: 0;
 `;
-export const LeftIconButton = styled(IconButton)`
+export const LeftIconButton = styled(IconButton)<{ booksPerPage: number }>`
   position: absolute;
-  left: 0;
+  left: ${({ booksPerPage }) => (booksPerPage === 2 ? 'calc(50% - 250px)' : '0px')};
   z-index: 1;
 `;
-export const RightIconButton = styled(IconButton)`
+export const RightIconButton = styled(IconButton)<{ booksPerPage: number }>`
   position: absolute;
-  right: 0;
+  right: ${({ booksPerPage }) => (booksPerPage === 2 ? 'calc(50% - 250px)' : '0px')};
   z-index: 1;
 `;
 

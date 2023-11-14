@@ -29,6 +29,10 @@ overflow: hidden;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust shadow as needed */
   background-color: #ffffff94;
 }
+@media (max-width: ${breakpoints.values.md}px) {
+  width: 180px;
+  height: 162px;
+}
 @media (max-width: ${breakpoints.values.sm}px) {
   width: 160px;
   height: 144px;
