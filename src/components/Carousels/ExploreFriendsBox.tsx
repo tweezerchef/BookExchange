@@ -7,6 +7,7 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ExploreFriends } from "./ExploreFriends";
 import { useContainerQuery } from "./hooks/useContainerQuery";
+import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
 
 type Breakpoint = {
   width: number;
@@ -28,26 +29,23 @@ export const ExploreFriendsBox: React.FC = () => {
     { width: 900, itemsPerPage: 4 },
     { width: 650, itemsPerPage: 3 },
     { width: 300, itemsPerPage: 2 },
-    { width: 320, itemsPerPage: 1 },
-    { width: 0, itemsPerPage: 1 },
+    { width: 320, itemsPerPage: 2 },
+    { width: 0, itemsPerPage: 2 },
   ];
   const { itemsPerPage: containerItemsPerPage } = useContainerQuery(
     containerRef,
     breakpoints
   );
 
-  const isViewportUnder700 = useMediaQuery("(max-width:700px)");
-  const isViewportUnder500 = useMediaQuery("(max-width:500px)");
+  const isViewportUnder450 = useMediaQuery("(max-width:450px)");
 
   let friendsPerPage: number;
-  if (isViewportUnder500) {
-    friendsPerPage = 1;
-  } else if (isViewportUnder700) {
-    friendsPerPage = 1;
+  if (isViewportUnder450) {
+    friendsPerPage = 5;
   } else {
     friendsPerPage = containerItemsPerPage;
   }
-
+  const isMobile = useMediaQuery(theme.breakpoints.down(450));
   useEffect(() => {
     fetch("/api/friend/combinedData")
       .then((res) => res.json() as Promise<CombinedDataResponse>)
@@ -59,7 +57,7 @@ export const ExploreFriendsBox: React.FC = () => {
   }, []);
 
   return (
-    <Box ref={containerRef} width='100%'>
+    <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
       <Divider textAlign='left'>
         <Chip label='Make Some Friends' />
       </Divider>
@@ -68,6 +66,6 @@ export const ExploreFriendsBox: React.FC = () => {
         randomFriends={randomFriends}
         friendIds={friendIds}
       />
-    </Box>
+    </ExploreBooksBoxWrapper>
   );
 };

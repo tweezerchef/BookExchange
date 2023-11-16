@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <Container>
+    <Container sx={{ overflowX: "clip" }}>
       <Box minWidth='630px'>
         <Header />
 

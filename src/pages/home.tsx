@@ -82,8 +82,8 @@ const Home: React.FC<HomeProps> = memo(
       <Box sx={{ flexGrow: 1, p: 2 }}>
         {books && !isLoading && (
           <>
-            <Link href='./register'>Register</Link>
-            <Link href='./development'>Development</Link>
+            {/* <Link href='./register'>Register</Link>
+            <Link href='./development'>Development</Link> */}
             <ExploreBooksBox books={books} setBooks={setBooks} />
             <ExploreFriendsBox />
             <WishListBox />

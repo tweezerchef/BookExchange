@@ -8,7 +8,6 @@ import { useEffect, useState, FC } from "react";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import {
-  OuterBox,
   LeftIconButton,
   BookBox,
   RightIconButton,

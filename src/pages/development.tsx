@@ -4,8 +4,8 @@ import { fakeData } from "../components/layout/components/fakeData";
 
 const CardDevelopmentPage = (props) => (
   <div>
-    <SideCardReview activities={fakeData} />
-    <SideCardStar activities={fakeData} />
+    {/* <SideCardReview activities={fakeData} />
+    <SideCardStar activities={fakeData} /> */}
   </div>
 );
 

@@ -11,6 +11,7 @@ import {
   StyledAvatar,
   AvatarBox,
   NameTypography,
+  CityTypography,
 } from "./profileCardStyle";
 
 type Friend = User;
@@ -79,16 +80,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend, friendIds }) => {
           <NameTypography variant='h6' align='center'>
             {friend.userName}
           </NameTypography>
-          <Typography
-            variant='body2'
-            color='text.secondary'
-            align='center'
-            sx={{ textShadow: "0px 1px 2px rgba(255, 255, 255, 0.5)" }}
-          >
-            {friend.city}
-            <br />
-            Favorite Genres
-          </Typography>
+          <CityTypography>{friend.city}</CityTypography>
         </Box>
       </StyledProfileCard>
     </Box>

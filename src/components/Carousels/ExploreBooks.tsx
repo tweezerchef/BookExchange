@@ -39,7 +39,6 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
-  const [selectedBook, setSelectedBook] = useState<Books | null>(null);
   const handleNextPage = () => {
     setSlideDirection("left");
     setCurrentPage((prevPage) => prevPage + 1);

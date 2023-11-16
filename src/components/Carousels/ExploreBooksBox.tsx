@@ -37,13 +37,11 @@ export default function ExploreBooksBox({
   const breakpoints = [
     { width: 900, itemsPerPage: 4 },
     { width: 650, itemsPerPage: 3 },
-    { width: 300, itemsPerPage: 2 },
-    { width: 320, itemsPerPage: 1 },
-    { width: 0, itemsPerPage: 1 },
+    { width: 460, itemsPerPage: 2 },
+    { width: 0, itemsPerPage: 2 },
   ];
 
-  const isViewportUnder700 = useMediaQuery("(max-width:700px)");
-  const isViewportUnder500 = useMediaQuery("(max-width:500px)");
+  const isViewportUnder450 = useMediaQuery("(max-width:450px)");
 
   const { itemsPerPage: containerItemsPerPage } = useContainerQuery(
     containerRef,
@@ -51,10 +49,8 @@ export default function ExploreBooksBox({
   );
 
   let booksPerPage: number;
-  if (isViewportUnder500) {
-    booksPerPage = 1; // 1 book per page under 500px
-  } else if (isViewportUnder700) {
-    booksPerPage = 1; // 2 books per page under 700px
+  if (isViewportUnder450) {
+    booksPerPage = 5; // 1 book per page under 500px
   } else {
     booksPerPage = containerItemsPerPage; // Use container query result otherwise
   }

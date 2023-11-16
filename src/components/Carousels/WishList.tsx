@@ -14,6 +14,7 @@ import {
   LeftIconButton,
   RightIconButton,
   OuterWrapperBox,
+  MobileBox,
 } from "./styles/exploreBooksStyle";
 
 import { useHomeDispatch, useHomeState } from "../../context/context";
@@ -47,76 +48,75 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
     setSlideDirection("right");
     setCurrentPage((prevPage) => prevPage - 1);
   };
-  const handleBookClick = (book: Books) => {
-    setSelectedBook(book);
-  };
+
   return (
     <OuterWrapperBox isMobile={isMobile}>
-      {isMobile ? (
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            overflowX: "scroll",
-            width: "100%",
-            height: "30vh",
-            "&::-webkit-scrollbar": {
-              display: "none",
-            },
-            msOverflowStyle: "none",
-          }}
-        >
-          {books.map((book: Books) => (
-            <Box key={book.id || book.title}>
-              <BookCard book={book} user={user} />
-            </Box>
-          ))}
-        </Box>
-      ) : (
-        <OuterBox>
-          <LeftIconButton onClick={handlePrevPage} disabled={currentPage === 0}>
-            <NavigateBeforeIcon />
-          </LeftIconButton>
-          {books.map((book, index) => (
-            <BookBox
-              key={book.id || book.title}
-              sx={{
-                display: currentPage === index ? "block" : "none",
-              }}
+      {books &&
+        books.length >= 1 &&
+        (isMobile ? (
+          <MobileBox booksPerPage={booksPerPage}>
+            {books.map((book) => (
+              <Box key={book.id || book.title} sx={{ width: "100%" }}>
+                <BookCard book={book} user={user} />
+              </Box>
+            ))}
+          </MobileBox>
+        ) : (
+          <>
+            <LeftIconButton
+              onClick={handlePrevPage}
+              disabled={currentPage === 0}
+              booksPerPage={booksPerPage}
             >
-              <Slide direction={slideDirection} in={currentPage === index}>
-                <Stack
-                  spacing={2}
-                  direction='row'
-                  maxWidth='100%'
-                  maxHeight='100%'
-                  alignContent='center'
-                  justifyContent='center'
-                >
-                  {books
-                    .slice(
-                      index * booksPerPage,
-                      index * booksPerPage + booksPerPage
-                    )
-                    .map((bookItem: Books) => (
-                      <Box key={bookItem.id || bookItem.title}>
-                        <BookCard book={bookItem} user={user} />
-                      </Box>
-                    ))}
-                </Stack>
-              </Slide>
-            </BookBox>
-          ))}
-          <RightIconButton
-            onClick={handleNextPage}
-            disabled={
-              currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
-            }
-          >
-            <NavigateNextIcon />
-          </RightIconButton>
-        </OuterBox>
-      )}
+              <NavigateBeforeIcon />
+            </LeftIconButton>
+            {books.map((book, index) => (
+              <BookBox
+                key={book.id || book.title}
+                sx={{
+                  display: currentPage === index ? "block" : "none",
+                }}
+              >
+                <Slide direction={slideDirection} in={currentPage === index}>
+                  <Stack
+                    spacing={2}
+                    padding='0 0 0 0'
+                    direction='row'
+                    maxWidth='100%'
+                    maxHeight='100%'
+                    alignContent='center'
+                    justifyContent='center'
+                  >
+                    {books
+                      .slice(
+                        index * booksPerPage,
+                        index * booksPerPage + booksPerPage
+                      )
+                      // eslint-disable-next-line @typescript-eslint/no-shadow
+                      .map((book: Books) => (
+                        <Box key={book.id || book.title}>
+                          <BookCard
+                            book={book}
+                            {...(user && { user })}
+                            // nearMeBooks={nearMeBooks}
+                          />
+                        </Box>
+                      ))}
+                  </Stack>
+                </Slide>
+              </BookBox>
+            ))}
+            <RightIconButton
+              onClick={handleNextPage}
+              disabled={
+                currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
+              }
+              booksPerPage={booksPerPage}
+            >
+              <NavigateNextIcon />
+            </RightIconButton>
+          </>
+        ))}
     </OuterWrapperBox>
   );
 };
