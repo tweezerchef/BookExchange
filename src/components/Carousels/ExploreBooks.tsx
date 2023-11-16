@@ -49,9 +49,6 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
     setSlideDirection("right");
     setCurrentPage((prevPage) => prevPage - 1);
   };
-  const handleBookClick = (book: Books) => {
-    setSelectedBook(book);
-  };
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (

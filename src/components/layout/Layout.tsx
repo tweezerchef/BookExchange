@@ -22,11 +22,13 @@ const Layout = ({ children }) => {
 
   return (
     <Container>
-      <Header />
+      <Box minWidth='630px'>
+        <Header />
 
-      <Box maxWidth='1350px' width='100%' display='flex'>
-        {!matches && <Sidebar />}
-        <main style={{ flexGrow: 1 }}>{children}</main>
+        <Box maxWidth='1350px' width='100%' display='flex' minWidth='620px'>
+          {!matches && <Sidebar />}
+          <main style={{ flexGrow: 1 }}>{children}</main>
+        </Box>
       </Box>
     </Container>
   );

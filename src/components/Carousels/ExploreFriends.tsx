@@ -47,68 +47,69 @@ export const ExploreFriends: FC<ExploreFriendsProps> = ({
   };
   return (
     <OuterWrapperBox isMobile={isMobile}>
-      <Box minHeight='230px' width='95%'>
-        {isMobile ? (
-          <MobileBox>
-            {randomFriends.map((friend) => (
-              <Box key={friend.id}>
-                <ProfileCard friend={friend} friendIds={friendIds} />
-              </Box>
-            ))}
-          </MobileBox>
-        ) : (
-          <OuterBox>
-            <LeftIconButton
-              onClick={handlePrevPage}
-              disabled={currentPage === 0}
+      {isMobile ? ( // Use curly braces to start the JavaScript expression
+        <MobileBox booksPerPage={friendsPerPage}>
+          {randomFriends.map((friend) => (
+            <Box key={friend.id} sx={{ width: "100%" }}>
+              <ProfileCard friend={friend} friendIds={friendIds} />
+            </Box>
+          ))}
+        </MobileBox>
+      ) : (
+        <>
+          <LeftIconButton
+            booksPerPage={friendsPerPage}
+            onClick={handlePrevPage}
+            disabled={currentPage === 0}
+          >
+            <NavigateBeforeIcon />
+          </LeftIconButton>
+          {randomFriends.map((friend, index) => (
+            <BookBox
+              key={friend.id}
+              sx={{
+                display: currentPage === index ? "block" : "none",
+              }}
             >
-              <NavigateBeforeIcon />
-            </LeftIconButton>
-            {randomFriends.map((friend, index) => (
-              <BookBox
-                key={friend.id}
-                sx={{
-                  display: currentPage === index ? "block" : "none",
-                }}
-              >
-                <Slide direction={slideDirection} in={currentPage === index}>
-                  <Stack
-                    spacing={2}
-                    direction='row'
-                    maxWidth='100%'
-                    maxHeight='100%'
-                    alignContent='center'
-                    justifyContent='center'
-                  >
-                    {randomFriends
-                      .slice(
-                        index * friendsPerPage,
-                        index * friendsPerPage + friendsPerPage
-                      )
-                      .map((friendItem: Friend) => (
-                        <Box key={friendItem.id}>
-                          <ProfileCard
-                            friend={friendItem}
-                            friendIds={friendIds}
-                          />
-                        </Box>
-                      ))}
-                  </Stack>
-                </Slide>
-              </BookBox>
-            ))}
-            <RightIconButton
-              onClick={handleNextPage}
-              disabled={
-                currentPage >=
-                Math.ceil((randomFriends.length || 0) / friendsPerPage) - 1
-              }
-            >
-              <NavigateNextIcon />
-            </RightIconButton>
-          </OuterBox>
-        )}
-      </Box>
+              <Slide direction={slideDirection} in={currentPage === index}>
+                <Stack
+                  spacing={2}
+                  padding='0 0 0 0'
+                  direction='row'
+                  maxWidth='100%'
+                  maxHeight='100%'
+                  alignContent='center'
+                  justifyContent='center'
+                >
+                  {randomFriends
+                    .slice(
+                      index * friendsPerPage,
+                      index * friendsPerPage + friendsPerPage
+                    )
+                    .map((friendItem: Friend) => (
+                      <Box key={friendItem.id}>
+                        <ProfileCard
+                          friend={friendItem}
+                          friendIds={friendIds}
+                        />
+                      </Box>
+                    ))}
+                </Stack>
+              </Slide>
+            </BookBox>
+          ))}
+          <RightIconButton
+            booksPerPage={friendsPerPage}
+            onClick={handleNextPage}
+            disabled={
+              currentPage >=
+              Math.ceil((randomFriends.length || 0) / friendsPerPage) - 1
+            }
+          >
+            <NavigateNextIcon />
+          </RightIconButton>
+        </>
+      )}
     </OuterWrapperBox>
   );
 };

@@ -1,6 +1,4 @@
-import { useTheme } from "@mui/material/styles";
 import { useEffect, useState } from "react";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { Activity, Books, User } from "@prisma/client";
 import { SideCardStar } from "./components/SideCardStar";
 import { SideCardReview } from "./components/SideCardReview";
@@ -10,10 +8,6 @@ interface ExtendedActivity extends Omit<Activity, "createdAt"> {
   createdAt: string;
   Books: Books;
   user: User;
-}
-
-interface SideCardProps {
-  activities: ExtendedActivity[];
 }
 
 export default function SideBar() {

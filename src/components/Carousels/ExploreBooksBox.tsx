@@ -39,6 +39,7 @@ export default function ExploreBooksBox({
     { width: 650, itemsPerPage: 3 },
     { width: 300, itemsPerPage: 2 },
     { width: 320, itemsPerPage: 1 },
+    { width: 0, itemsPerPage: 1 },
   ];
 
   const isViewportUnder700 = useMediaQuery("(max-width:700px)");
