@@ -1,6 +1,6 @@
 /* eslint-disable react/require-default-props */
 import { Books } from "@prisma/client";
-import { useRef } from "react";
+import { FC, useRef } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { ExploreBooks } from "./ExploreBooks";
@@ -24,18 +24,13 @@ interface ExploreBooksBoxProps {
   onRatingChange?: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-use-before-define
-ExploreBooksBox.defaultProps = {
-  user: null,
-};
-
-export default function ExploreBooksBox({
+export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
   books,
   setBooks,
-  user,
+  user = null,
   isRegistration,
   onRatingChange,
-}: ExploreBooksBoxProps) {
+}) => {
   const containerRef = useRef(null);
   const theme = useTheme();
 
@@ -74,4 +69,4 @@ export default function ExploreBooksBox({
       />
     </ExploreBooksBoxWrapper>
   );
-}
+};

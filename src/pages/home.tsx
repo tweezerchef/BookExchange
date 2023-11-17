@@ -6,7 +6,7 @@ import Link from "next/link";
 import { InferGetServerSidePropsType } from "next";
 import { getServerSideProps as exportedGetServerSideProps } from "../utils/homeUtil/getServerSideProps";
 import WishListBox from "../components/Carousels/WistListBox";
-import ExploreBooksBox from "../components/Carousels/ExploreBooksBox";
+import { ExploreBooksBox } from "../components/Carousels/ExploreBooksBox";
 import { ExploreFriendsBox } from "../components/Carousels/ExploreFriendsBox";
 import { SuggestedBooksBox } from "../components/Carousels/SuggestedBooksBox";
 import { useHomeDispatch } from "../context/context";

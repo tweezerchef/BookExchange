@@ -4,6 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import Box from '@mui/material/Box';
 import IconButton from "@mui/material/IconButton";
 import Dialog from "@mui/material/Dialog";
+import { Popover } from "@mui/material";
 
 export const Wrapper = styled(Box)({
     alignSelf: "center",
@@ -68,3 +69,9 @@ export const  BigIconButton = styled(IconButton)({
     justifyContent: "space-around",
   },
 }));
+export const StarRatingPopover = styled(Popover)({
+  "& .MuiPopover-paper": {
+    backgroundColor: "#ffd700", // Or any other color from your palette
+    borderRadius: 10,
+  },
+})

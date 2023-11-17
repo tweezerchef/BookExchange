@@ -10,14 +10,14 @@ import { Icon, IconButton } from "@mui/material";
 import { Step2Dialog } from "./regCompStyles";
 
 interface IntroStep2Props {
-  setStep2: React.Dispatch<React.SetStateAction<boolean>>;
+  setStep: React.Dispatch<React.SetStateAction<boolean>>;
 }
 type CustomColor = "success";
-export const IntroStep2: FC<IntroStep2Props> = ({ setStep2 }) => {
+export const IntroStep2: FC<IntroStep2Props> = ({ setStep }) => {
   const [open, setOpen] = useState(true);
 
   const next = () => {
-    setStep2(true);
+    setStep(true);
   };
 
   const handleClose = () => {
