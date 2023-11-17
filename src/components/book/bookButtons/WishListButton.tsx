@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
@@ -27,9 +28,14 @@ interface Book {
 
 interface WishListButtonProps {
   book: Book;
+  user?: {
+    id: string;
+    email: string;
+    username: string;
+  };
 }
 
-export function WishListButton({ book }: WishListButtonProps) {
+export function WishListButton({ book, user = null }: WishListButtonProps) {
   const state = useHomeState();
   const dispatch = useHomeDispatch();
 
@@ -38,8 +44,8 @@ export function WishListButton({ book }: WishListButtonProps) {
     "Add to Lending Library"
   );
 
-  const { wishListIDs, user } = state;
-  const userID = user?.id;
+  const { wishListIDs } = state;
+  const userID = user?.id ?? state?.user?.id;
   const bookID = book?.id;
   // console.log("bookID:", user);
   const isInWishList = wishListIDs?.includes(bookID);

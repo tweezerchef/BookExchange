@@ -5,7 +5,6 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { Books } from "@prisma/client";
 import { BookCard } from "../book/Book";
 import { StyledDivider } from "../chips/chipStyle";
@@ -34,7 +33,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
   setBooks,
   books,
   booksPerPage,
-  user,
+  user = null,
   isMobile,
 }) => {
   const [currentPage, setCurrentPage] = useState(0);

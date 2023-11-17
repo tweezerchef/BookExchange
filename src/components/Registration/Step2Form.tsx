@@ -34,8 +34,12 @@ const Step2Form: React.FC<Step2FormProps> = ({
 
   return (
     <Box width='100%'>
-      <ExploreBooksBox books={books} setBooks={setBooks} user={user} />
-      <ExploreFriendsBox user={user} />
+      <ExploreBooksBox
+        books={books}
+        setBooks={setBooks}
+        {...(user ? { user } : {})}
+      />
+      <ExploreFriendsBox {...(user ? { user } : {})} />
       <Button onClick={handleBack} variant='contained'>
         Back
       </Button>

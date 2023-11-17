@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { useEffect, useState } from "react";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import IconButton from "@mui/material/IconButton";
@@ -13,11 +14,19 @@ type CustomColor = "success" | "danger";
 
 interface LendingLibraryButtonProps {
   book: Books;
+  user?: {
+    id: string;
+    email: string;
+    username: string;
+  };
 }
 
 // need to refactor similar to wishlist button
 
-export function LendingLibraryButton({ book }: LendingLibraryButtonProps) {
+export function LendingLibraryButton({
+  book,
+  user = null,
+}: LendingLibraryButtonProps) {
   const state = useHomeState();
   const dispatch = useHomeDispatch();
 
@@ -26,8 +35,7 @@ export function LendingLibraryButton({ book }: LendingLibraryButtonProps) {
     "Add to Lending Library"
   );
   const { lendingLibraryIDs } = state;
-  const { user } = state;
-  const userID = user?.id;
+  const userID = user?.id ?? state?.user?.id;
   const bookID = book?.id;
 
   const isInLendingLibrary = lendingLibraryIDs?.includes(bookID);
@@ -110,7 +118,7 @@ export function LendingLibraryButton({ book }: LendingLibraryButtonProps) {
         aria-label='Lending Library'
         size='small'
         color={color === "danger" ? "error" : color}
-        onClick={lendingLibraryAction}
+        onClick={void lendingLibraryAction}
       >
         <LibraryBooksIcon />
       </IconButton>
