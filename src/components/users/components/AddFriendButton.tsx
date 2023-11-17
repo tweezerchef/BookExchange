@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import Tooltip from "@mui/material/Tooltip";
@@ -8,16 +9,22 @@ import { useHomeState } from "../../../context/context";
 interface AddFriendButtonProps {
   friendId: string;
   isFriend: boolean;
+  user?: {
+    id: string;
+    email: string;
+    username: string;
+  };
 }
 
 export const AddFriendButton: FC<AddFriendButtonProps> = ({
   friendId,
   isFriend: initialIsFriend,
+  user = null,
 }) => {
-  const {
-    user: { id: userId },
-  } = useHomeState() || {};
   const [isFriend, setIsFriend] = useState(initialIsFriend);
+  const homeState = useHomeState();
+  const userId = user?.id ?? homeState?.user?.id;
+
   const follow = () => {
     setIsFriend((prevIsFriend) => !prevIsFriend);
     const action = isFriend;

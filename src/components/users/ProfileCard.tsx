@@ -1,8 +1,7 @@
+/* eslint-disable react/require-default-props */
 import { FC, useEffect, useState } from "react";
 import { User } from "@prisma/client";
-import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { GenreIcons } from "./components/GenreIcons";
 import { AddFriendButton } from "./components/AddFriendButton";
 import { MessageButton } from "./components/MessageButton";
 import {
@@ -19,6 +18,11 @@ type Friend = User;
 interface ProfileCardProps {
   friend: Friend;
   friendIds: string[];
+  user?: {
+    id: string;
+    email: string;
+    username: string;
+  };
 }
 interface UserGenre {
   genre: string;
@@ -28,7 +32,11 @@ interface UserWithGenres extends Friend {
   UserGenre: UserGenre[];
 }
 
-export const ProfileCard: FC<ProfileCardProps> = ({ friend, friendIds }) => {
+export const ProfileCard: FC<ProfileCardProps> = ({
+  friend,
+  friendIds,
+  user = null,
+}) => {
   const [profilePicture, setProfilePicture] = useState<string>("" || null);
   let isFriend = false;
   // const userGenres = (friend as UserWithGenres).UserGenre;
@@ -66,7 +74,11 @@ export const ProfileCard: FC<ProfileCardProps> = ({ friend, friendIds }) => {
     <Box sx={{ display: "flex", justifyContent: "center", height: "100%" }}>
       <StyledProfileCard>
         <AvatarBox>
-          <AddFriendButton friendId={friendId} isFriend={isFriend} />
+          <AddFriendButton
+            friendId={friendId}
+            isFriend={isFriend}
+            {...(user ? { user } : {})}
+          />
           <StyledAvatar alt='Remy Sharp' src={profilePicture} />
           <MessageButton />
         </AvatarBox>
