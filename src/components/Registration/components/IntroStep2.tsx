@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { Icon, IconButton } from "@mui/material";
-import { CustomDialog } from "./regCompStyles";
+import { Step2Dialog } from "./regCompStyles";
 
 interface IntroStep2Props {
   setStep2: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +26,7 @@ export const IntroStep2: FC<IntroStep2Props> = ({ setStep2 }) => {
   };
 
   return (
-    <CustomDialog
+    <Step2Dialog
       open={open}
       onClose={handleClose}
       aria-labelledby='tutorial-dialog-title'
@@ -55,6 +55,6 @@ export const IntroStep2: FC<IntroStep2Props> = ({ setStep2 }) => {
           Next
         </Button>
       </DialogActions>
-    </CustomDialog>
+    </Step2Dialog>
   );
 };

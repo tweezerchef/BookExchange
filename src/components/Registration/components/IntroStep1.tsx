@@ -4,7 +4,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
-import { CustomDialog } from "./regCompStyles";
+import { Step1Dialog } from "./regCompStyles";
 
 interface IntroStep1Props {
   setStep2: React.Dispatch<React.SetStateAction<boolean>>;
@@ -22,7 +22,7 @@ export const IntroStep1: FC<IntroStep1Props> = ({ setStep2 }) => {
   };
 
   return (
-    <CustomDialog
+    <Step1Dialog
       open={open}
       onClose={handleClose}
       aria-labelledby='tutorial-dialog-title'
@@ -43,6 +43,6 @@ export const IntroStep1: FC<IntroStep1Props> = ({ setStep2 }) => {
           Next
         </Button>
       </DialogActions>
-    </CustomDialog>
+    </Step1Dialog>
   );
 };

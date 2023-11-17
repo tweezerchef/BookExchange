@@ -32,14 +32,10 @@ export const  BigIconButton = styled(IconButton)({
 
   })
 
- export const CustomDialog = styled(Dialog)(({ theme }) => ({
+ export const Step1Dialog = styled(Dialog)(({ theme }) => ({
     "& .MuiDialog-paper": {
       backgroundColor: "#ffd700", // Or any other color from your palette
       borderRadius: theme.shape.borderRadius,
-      position: 'fixed', // Ensures the dialog is positioned in relation to the viewport
-    top: '10%', // Adjust the vertical position
-    right: '10%', // Adjust the horizontal position
-    transform: 'translate(-10%, -10%)', // Adjust these v
     },
     "& .MuiDialogTitle-root": {
       textAlign: "center",
@@ -52,3 +48,23 @@ export const  BigIconButton = styled(IconButton)({
       justifyContent: "space-around",
     },
   }));
+
+ export const Step2Dialog = styled(Dialog)(({ theme }) => ({
+  "& .MuiDialog-paper": {
+    backgroundColor: "#ffd700", // Or any other color from your palette
+    borderRadius: theme.shape.borderRadius,
+    position: 'fixed', // Ensures the dialog is positioned in relation to the viewport
+    top: '1%', // Adjust the vertical position
+    left: '40%', // Adjust the horizontal position
+  },
+  "& .MuiDialogTitle-root": {
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  "& .MuiDialogContentText-root": {
+    color: theme.palette.common.black, // Adjust text color as needed
+  },
+  "& .MuiDialogActions-root": {
+    justifyContent: "space-around",
+  },
+}));
