@@ -3,7 +3,7 @@ import { FC, useCallback, useEffect, useState } from "react";
 import { Activity, User, Books } from "@prisma/client";
 import Box from "@mui/material/Box";
 import { Tooltip } from "@mui/material";
-import { BigBook } from "../../../book/BigBook";
+import { BigBook } from "../../../components/book/BigBook";
 
 type Review = {
   User: User;

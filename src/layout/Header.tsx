@@ -6,7 +6,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Tooltip, Avatar, Menu, MenuItem, Typography } from "@mui/material";
 import Link from "next/link";
-import { useHomeState } from "../../context/context";
+import { useHomeState } from "../context/context";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const menuItems = ["Home", "Explore", "Wishlist", "Lending Library"];

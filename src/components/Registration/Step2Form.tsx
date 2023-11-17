@@ -5,13 +5,11 @@ import Box from "@mui/material/Box";
 import { useEffect, useRef, useState } from "react";
 import Typography from "@mui/material/Typography";
 import LinearProgress from "@mui/material/LinearProgress";
-import Popover from "@mui/material/Popover";
-import { Star } from "@mui/icons-material";
 import { ExploreBooksBox } from "../Carousels/ExploreBooksBox";
 import { ExploreFriendsBox } from "../Carousels/ExploreFriendsBox";
 import { IntroStep1 } from "./components/IntroStep1";
 import { IntroStep2 } from "./components/IntroStep2";
-import { StarRatingPopover } from "./components/regCompStyles";
+
 import { StarRatingPop } from "./components/StarRatingPop";
 
 interface UserCookie {
