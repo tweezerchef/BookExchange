@@ -34,6 +34,7 @@ export const IntroStep1: FC<IntroStep1Props> = ({ setStep2 }) => {
         <DialogContentText>
           Let's take a quick tour to get you started. Follow these steps to
           complete your registration and start exploring the world of books.
+          This will also help us personalize your experience.
         </DialogContentText>
         {/* Add more content or steps here */}
       </DialogContent>

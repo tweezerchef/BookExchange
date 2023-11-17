@@ -36,6 +36,10 @@ export const  BigIconButton = styled(IconButton)({
     "& .MuiDialog-paper": {
       backgroundColor: "#ffd700", // Or any other color from your palette
       borderRadius: theme.shape.borderRadius,
+      position: 'fixed', // Ensures the dialog is positioned in relation to the viewport
+    top: '10%', // Adjust the vertical position
+    right: '10%', // Adjust the horizontal position
+    transform: 'translate(-10%, -10%)', // Adjust these v
     },
     "& .MuiDialogTitle-root": {
       textAlign: "center",
