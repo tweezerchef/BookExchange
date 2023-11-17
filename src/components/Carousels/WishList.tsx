@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Books } from "@prisma/client";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { BookCard } from "../book/Book";
+import { BookCard } from "../book/BookCard";
 import {
   OuterBox,
   BookBox,

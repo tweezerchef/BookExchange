@@ -6,7 +6,7 @@ import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import { Books } from "@prisma/client";
-import { BookCard } from "../book/Book";
+import { BookCard } from "../book/BookCard";
 import { StyledDivider } from "../chips/chipStyle";
 import { ExploreChip } from "../chips/ExploreChip";
 import {
@@ -27,6 +27,8 @@ type ExploreBooksProps = {
     username: string;
   };
   isMobile: boolean;
+  isRegistration?: boolean;
+  onRatingChange?: () => void;
 };
 
 const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
@@ -35,6 +37,8 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
   booksPerPage,
   user = null,
   isMobile,
+  isRegistration,
+  onRatingChange,
 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
@@ -66,7 +70,12 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
             <MobileBox booksPerPage={booksPerPage}>
               {books.map((book) => (
                 <Box key={book.id || book.title} sx={{ width: "100%" }}>
-                  <BookCard book={book} user={user} />
+                  <BookCard
+                    book={book}
+                    user={user}
+                    isRegistration={isRegistration}
+                    onRatingChange={onRatingChange}
+                  />
                 </Box>
               ))}
             </MobileBox>
@@ -107,6 +116,8 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
                             <BookCard
                               book={book}
                               {...(user && { user })}
+                              isRegistration={isRegistration}
+                              onRatingChange={onRatingChange}
                               // nearMeBooks={nearMeBooks}
                             />
                           </Box>

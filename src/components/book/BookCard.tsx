@@ -27,13 +27,20 @@ interface BookProps {
     email: string;
     username: string;
   };
+  isRegistration?: boolean;
+  onRatingChange?: () => void;
 }
 type Review = {
   User: User;
   review: string;
 };
 
-export const BookCard: React.FC<BookProps> = ({ book, user = null }) => {
+export const BookCard: React.FC<BookProps> = ({
+  book,
+  user = null,
+  isRegistration,
+  onRatingChange,
+}) => {
   const [bigBookOpen, setBigBookOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
@@ -106,7 +113,12 @@ export const BookCard: React.FC<BookProps> = ({ book, user = null }) => {
                 />
               </ImageBox>
               <SideOfImageBox>
-                <StarRating book={book} {...(user && { user })} />
+                <StarRating
+                  book={book}
+                  {...(user && { user })}
+                  isRegistration={isRegistration}
+                  onRatingChange={onRatingChange}
+                />
                 <ButtonStack book={book} {...(user && { user })} />
 
                 {book.author && (

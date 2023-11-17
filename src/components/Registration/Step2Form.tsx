@@ -3,6 +3,8 @@ import Button from "@mui/material/Button";
 import { Books } from "@prisma/client";
 import Box from "@mui/material/Box";
 import { useState } from "react";
+import Typography from "@mui/material/Typography";
+import LinearProgress from "@mui/material/LinearProgress";
 import ExploreBooksBox from "../Carousels/ExploreBooksBox";
 import { ExploreFriendsBox } from "../Carousels/ExploreFriendsBox";
 import { IntroStep1 } from "./components/IntroStep1";
@@ -27,9 +29,14 @@ const Step2Form: React.FC<Step2FormProps> = ({
   setBooks,
   user,
 }) => {
-  const [step2, setStep2] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1); // Start with step 1
+  const [currentStep, setCurrentStep] = useState(1);
+  const [ratedBookCount, setRatedBookCount] = useState(0);
   const router = useRouter();
+
+  const handleRatingChange = () => {
+    setRatedBookCount((prevCount) => prevCount + 1);
+    console.log("poop", ratedBookCount);
+  };
 
   const handleNext = () => {
     setCurrentStep(currentStep + 1); // Go to next step
@@ -46,22 +53,41 @@ const Step2Form: React.FC<Step2FormProps> = ({
   const handleSubmit = () => {
     void router.push("/login");
   };
+  const isRegistration = true;
 
   return (
     <>
       {currentStep === 1 && <IntroStep1 setStep2={() => setCurrentStep(2)} />}
-      {currentStep === 2 && <IntroStep2 setStep2={() => setCurrentStep(1)} />}
+      {currentStep === 2 && <IntroStep2 setStep2={() => setCurrentStep(3)} />}
       {/* Add more steps here as needed */}
       <Box width='100%'>
-        {currentStep === 2 && (
-          <ExploreBooksBox
-            books={books}
-            setBooks={setBooks}
-            {...(user ? { user } : {})}
-          />
-        )}
+        {currentStep === 2 ||
+          (3 && (
+            <>
+              <Box>
+                <Typography variant='body1'>
+                  {`Books rated: ${ratedBookCount}/10`}
+                </Typography>
+                <LinearProgress
+                  variant='determinate'
+                  value={(ratedBookCount / 10) * 100}
+                />
+              </Box>
+              <ExploreBooksBox
+                books={books}
+                setBooks={setBooks}
+                {...(user ? { user } : {})}
+                isRegistration={isRegistration}
+                onRatingChange={handleRatingChange}
+              />
+            </>
+          ))}
         {currentStep === 4 && <ExploreFriendsBox {...(user ? { user } : {})} />}
-        <Button onClick={handlePrev} variant='contained'>
+        <Button
+          onClick={handlePrev}
+          variant='contained'
+          disabled={ratedBookCount < 10}
+        >
           Back
         </Button>
         {currentStep < 4 ? (

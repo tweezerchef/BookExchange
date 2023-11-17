@@ -6,9 +6,16 @@ import { SET_STAR_RATINGS } from "../../context/actions";
 interface StarRatingProps {
   book: Books;
   user?: Partial<User>;
+  isRegistration?: boolean;
+  onRatingChange?: () => void;
 }
 
-export const StarRating: React.FC<StarRatingProps> = ({ book, user }) => {
+export const StarRating: React.FC<StarRatingProps> = ({
+  book,
+  user,
+  onRatingChange,
+  isRegistration,
+}) => {
   const state = useHomeState();
   const dispatch = useHomeDispatch();
 
@@ -28,6 +35,10 @@ export const StarRating: React.FC<StarRatingProps> = ({ book, user }) => {
     newValue: number | null
   ) => {
     if (newValue === null) return;
+    if (isRegistration && onRatingChange) {
+      onRatingChange();
+    }
+
     const updatedStarRatings = [...starRatings];
     const index = updatedStarRatings.findIndex(
       (ratingObj) => ratingObj.ISBN10 === ISBN10
