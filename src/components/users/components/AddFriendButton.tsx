@@ -2,7 +2,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
-import { FC, useState, useEffect } from "react";
+import { FC, useState } from "react";
 import { useHomeState } from "../../../context/context";
 
 interface AddFriendButtonProps {
@@ -40,7 +40,7 @@ export const AddFriendButton: FC<AddFriendButtonProps> = ({
       sx={{
         position: "absolute",
         borderRadius: "50%",
-        right: "1.7rem",
+        right: -20,
         transform: "translate(50%, -50%)",
       }}
       onClick={follow}

@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import Button from "@mui/material/Button";
 import { Books } from "@prisma/client";
 import Box from "@mui/material/Box";
+import { useState } from "react";
 import ExploreBooksBox from "../Carousels/ExploreBooksBox";
 import { ExploreFriendsBox } from "../Carousels/ExploreFriendsBox";
 
@@ -24,6 +25,7 @@ const Step2Form: React.FC<Step2FormProps> = ({
   setBooks,
   user,
 }) => {
+  const [step2, setStep2] = useState(false);
   const router = useRouter();
 
   const handleSubmit = () => {

@@ -27,6 +27,7 @@ type ExploreBooksProps = {
     email: string;
     username: string;
   };
+  isMobile: boolean;
 };
 
 const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
@@ -34,6 +35,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
   books,
   booksPerPage,
   user,
+  isMobile,
 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
@@ -49,7 +51,6 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
     setCurrentPage((prevPage) => prevPage - 1);
   };
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (
     <>
       <StyledDivider textAlign='right'>

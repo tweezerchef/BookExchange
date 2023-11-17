@@ -1,7 +1,9 @@
 
 import { styled } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
-import { Box, IconButton } from "@mui/material";
+import Box from '@mui/material/Box';
+import IconButton from "@mui/material/IconButton";
+import Dialog from "@mui/material/Dialog";
 
 export const Wrapper = styled(Box)({
     alignSelf: "center",
@@ -29,3 +31,20 @@ export const  BigIconButton = styled(IconButton)({
   },
 
   })
+
+ export const CustomDialog = styled(Dialog)(({ theme }) => ({
+    "& .MuiDialog-paper": {
+      backgroundColor: "#ffd700", // Or any other color from your palette
+      borderRadius: theme.shape.borderRadius,
+    },
+    "& .MuiDialogTitle-root": {
+      textAlign: "center",
+      fontWeight: "bold",
+    },
+    "& .MuiDialogContentText-root": {
+      color: theme.palette.common.black, // Adjust text color as needed
+    },
+    "& .MuiDialogActions-root": {
+      justifyContent: "space-around",
+    },
+  }));

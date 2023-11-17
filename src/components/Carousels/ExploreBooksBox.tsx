@@ -63,6 +63,7 @@ export default function ExploreBooksBox({
         books={books}
         setBooks={setBooks}
         booksPerPage={booksPerPage}
+        isMobile={isMobile}
       />
     </ExploreBooksBoxWrapper>
   );

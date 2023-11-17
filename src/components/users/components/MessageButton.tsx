@@ -16,7 +16,7 @@ export const MessageButton: FC = () => {
       sx={{
         position: "absolute",
         borderRadius: "50%",
-        left: "-.7rem", // Set right and top values // Set right and top values
+        right: 85, // Set right and top values // Set right and top values
         transform: "translate(50%, -50%)",
       }}
     >

@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import Box from "@mui/material/Box";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
@@ -22,12 +23,20 @@ interface ExploreFriendsProps {
   friendsPerPage: number;
   randomFriends: Friend[];
   friendIds: string[];
+  isMobile: boolean;
+  user?: {
+    id: string;
+    email: string;
+    username: string;
+  };
 }
 
 export const ExploreFriends: FC<ExploreFriendsProps> = ({
   friendsPerPage,
   randomFriends,
   friendIds,
+  isMobile,
+  user = null,
 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   // const [randomFriends, setRandomFriends] = useState<Friend[]>([]);
@@ -35,7 +44,6 @@ export const ExploreFriends: FC<ExploreFriendsProps> = ({
     "left"
   );
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const handleNextPage = () => {
     setSlideDirection("left");
     setCurrentPage((prevPage) => prevPage + 1);
@@ -50,7 +58,11 @@ export const ExploreFriends: FC<ExploreFriendsProps> = ({
         <MobileBox booksPerPage={friendsPerPage}>
           {randomFriends.map((friend) => (
             <Box key={friend.id} sx={{ width: "100%" }}>
-              <ProfileCard friend={friend} friendIds={friendIds} />
+              <ProfileCard
+                friend={friend}
+                friendIds={friendIds}
+                {...(user ? { user } : {})}
+              />
             </Box>
           ))}
         </MobileBox>
@@ -90,6 +102,7 @@ export const ExploreFriends: FC<ExploreFriendsProps> = ({
                         <ProfileCard
                           friend={friendItem}
                           friendIds={friendIds}
+                          {...(user ? { user } : {})}
                         />
                       </Box>
                     ))}

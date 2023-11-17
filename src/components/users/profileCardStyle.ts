@@ -15,8 +15,8 @@ const breakpoints = {
 };
 
 export const StyledProfileCard = styled(Card)`
-width: 180px;
-height: 162px;
+width: 160px;
+height: 144px;
 border-radius: 10px;
 display: flex;
 flex-direction: column;
@@ -34,8 +34,8 @@ overflow: hidden;
       }
       padding: 1em;
       @media (max-width: ${breakpoints.values.md}px) {
-        width: 180px;
-        height: 162px;
+        width: 160px;
+        height: 144px;
       }
       @media (max-width: ${breakpoints.values.sm}px) {
         width: 160px;

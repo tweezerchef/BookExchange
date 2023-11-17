@@ -1,18 +1,28 @@
+/* eslint-disable react/require-default-props */
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, FC } from "react";
 import { User } from "@prisma/client";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ExploreFriends } from "./ExploreFriends";
 import { useContainerQuery } from "./hooks/useContainerQuery";
 import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
+import { FriendsBoxWrapper } from "./styles/friendsStyle";
 
 type Breakpoint = {
   width: number;
   itemsPerPage: number;
 }[];
+
+interface ExploreFriendsBoxProps {
+  user?: {
+    id: string;
+    email: string;
+    username: string;
+  };
+}
 
 type Friend = User;
 type CombinedDataResponse = {
@@ -20,7 +30,9 @@ type CombinedDataResponse = {
   friendIdsRes: string[];
 };
 
-export const ExploreFriendsBox: React.FC = () => {
+export const ExploreFriendsBox: FC<ExploreFriendsBoxProps> = ({
+  user = null,
+}) => {
   const [randomFriends, setRandomFriends] = useState<Friend[]>([]);
   const [friendIds, setFriendIds] = useState<string[]>([]);
   const containerRef = useRef(null);
@@ -57,15 +69,27 @@ export const ExploreFriendsBox: React.FC = () => {
   }, []);
 
   return (
-    <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
+    <FriendsBoxWrapper isMobile={isMobile} ref={containerRef}>
       <Divider textAlign='left'>
         <Chip label='Make Some Friends' />
       </Divider>
-      <ExploreFriends
-        friendsPerPage={friendsPerPage}
-        randomFriends={randomFriends}
-        friendIds={friendIds}
-      />
-    </ExploreBooksBoxWrapper>
+      {user ? ( // Use curly braces for condition and JSX expression
+        <ExploreFriends
+          friendsPerPage={friendsPerPage}
+          randomFriends={randomFriends}
+          friendIds={friendIds}
+          isMobile={isMobile}
+          user={user}
+        />
+      ) : (
+        // Corrected the use of the NOT operator and the JSX expression
+        <ExploreFriends
+          friendsPerPage={friendsPerPage}
+          randomFriends={randomFriends}
+          friendIds={friendIds}
+          isMobile={isMobile}
+        />
+      )}
+    </FriendsBoxWrapper>
   );
 };
