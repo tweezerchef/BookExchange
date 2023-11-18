@@ -67,10 +67,7 @@ export function MessagesDrawerComponent() {
         </List>
       </StyledDrawer>
       {!isOpen && (
-        <DrawerButton
-          onClick={toggleDrawer(true)}
-          sx={{ right: `${drawerButtonRight}px` }}
-        >
+        <DrawerButton onClick={toggleDrawer(true)}>
           <MessagesIcon />
           <Typography variant='subtitle1' sx={{ ml: 1 }}>
             Messages

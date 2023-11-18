@@ -22,6 +22,7 @@ export const DrawerButton = styled(Box)(({ theme }) => ({
   bottom: 0,
   width: `calc(350px - ${theme.spacing(2)})`,
   zIndex: theme.zIndex.drawer + 2,
+  right: theme.spacing(2),
   }));
 
   export const OpenDrawerButton = styled(Box)(({ theme }) => ({
