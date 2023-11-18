@@ -42,10 +42,6 @@ const Step2Form: React.FC<Step2FormProps> = ({
   const handleRatingChange = () => {
     setRatedBookCount((prevCount) => prevCount + 1);
   };
-  const handleClose = () => {
-    setRatingAnchorEl(null);
-  };
-
   const popoverAnchorRef = useRef<HTMLDivElement>(null);
 
   const handleNext = () => {
