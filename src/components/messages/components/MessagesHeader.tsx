@@ -1,35 +1,37 @@
 import { FC, useEffect, useState } from "react";
 import MessagesIcon from "@mui/icons-material/Message";
-import Typography from "@mui/material/Typography";
-import { use } from "passport";
-import Autocomplete from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
+import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { OpenDrawerBox } from "../messageStyle";
+import { SearchField } from "./components/SearchField";
 
+type AutoCompleteData = string;
 interface MessagesHeaderProps {
   toggleDrawer: (open: boolean) => () => void;
+  autoCompleteData: AutoCompleteData[];
 }
-type AutoCompleteData = string;
 
-export const MessagesHeader: FC<MessagesHeaderProps> = ({ toggleDrawer }) => {
-  const [autoCompleteData, setAutoCompleteData] = useState<AutoCompleteData[]>(
-    []
-  );
+type UserNames = string;
+
+export const MessagesHeader: FC<MessagesHeaderProps> = ({
+  toggleDrawer,
+  autoCompleteData,
+}) => {
   const [search, setSearch] = useState<string>("");
+  const [userNames, setUserNames] = useState<UserNames[]>([]);
+  const isValidUser = autoCompleteData.includes(search);
 
-  useEffect(() => {
-    fetch("/api/user/getUserNames")
-      .then((response) => response.json())
-      .then((data) => {
-        setAutoCompleteData(data as AutoCompleteData[]);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  const handleAdd = () => {
+    if (autoCompleteData.includes(search)) {
+      console.log(search);
+      setUserNames([...userNames, search]);
+      setSearch("");
+    } else {
+      // Handle invalid username (e.g., show an error message)
+      console.log("Invalid username");
+    }
+  };
 
   return (
     <OpenDrawerBox>
@@ -37,28 +39,12 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({ toggleDrawer }) => {
         <KeyboardArrowDownIcon onClick={toggleDrawer(false)} />
       </Box>
 
-      <Box width='200px'>
-        <Autocomplete
-          id='auto-complete'
-          options={autoCompleteData}
-          getOptionLabel={(option) =>
-            typeof option === "string" ? option : option
-          }
-          onInputChange={(event, value) => {
-            setSearch(value);
-          }}
-          fullWidth
-          freeSolo
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              id='outlined-basic'
-              label='Search'
-              variant='outlined'
-            />
-          )}
-        />
-      </Box>
+      <SearchField setSearch={setSearch} autoCompleteData={autoCompleteData} />
+
+      <AddIcon
+        onClick={handleAdd}
+        style={{ color: isValidUser ? "inherit" : "red" }}
+      />
       <MessagesIcon />
     </OpenDrawerBox>
   );

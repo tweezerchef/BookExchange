@@ -1,4 +1,4 @@
-import { useRef, useState, useLayoutEffect } from "react";
+import { useRef, useState, useLayoutEffect, useEffect } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -6,24 +6,55 @@ import MessagesIcon from "@mui/icons-material/Message";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Box from "@mui/material/Box";
+import { Conversations, User } from "@prisma/client";
 import { useScrollbarWidth } from "./hooks/useScrollbarWidth";
 import { DrawerButton, StyledDrawer } from "./messageStyle";
 import { MessagesHeader } from "./components/MessagesHeader";
+import { useHomeState } from "../../context/context";
 
-type KnownEvent = KeyboardEvent | MouseEvent;
+type AutoCompleteData = string;
+interface Conversation extends User {
+  Conversations: Conversations[];
+}
+interface ReplyObject {
+  namesArray: AutoCompleteData[];
+  userWithConversations: Conversation[];
+}
 
 export function MessagesDrawerComponent() {
   const [isOpen, setIsOpen] = useState(false);
   const [newMessages, setNewMessages] = useState(true);
+  const [autoCompleteData, setAutoCompleteData] = useState<AutoCompleteData[]>(
+    []
+  );
+  const [conversation, setConversation] = useState<unknown[]>([]); // [
+  const { user } = useHomeState();
+  const userId = user?.id;
+
   const drawerRef = useRef();
   const scrollbarWidth = useScrollbarWidth();
   const drawerButtonRight = isOpen ? 0 : scrollbarWidth;
   const toggleDrawer = (open: boolean) => () => {
     setIsOpen(open);
   };
+  const [conversations, setConversations] = useState<unknown[]>([]);
 
   // Placeholder for messages
   const messages = ["Message 1", "Message 2", "Message 3"];
+  useEffect(() => {
+    if (userId) {
+      fetch(`/api/user/getUserNamesConvos?userId=${userId}`)
+        .then((response) => response.json())
+        .then((replyObject: ReplyObject) => {
+          const { namesArray, userWithConversations } = replyObject;
+          setAutoCompleteData(namesArray);
+          setConversation(userWithConversations);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [userId]);
 
   return (
     <>
@@ -40,7 +71,7 @@ export function MessagesDrawerComponent() {
           {newMessages ? (
             <MessagesIcon sx={{ color: "green" }} />
           ) : (
-            <Box sx={{ width: 48, height: 48 }} /> // Adjust width and height to match the size of MessagesIcon
+            <Box sx={{ width: 48, height: 48 }} />
           )}
         </DrawerButton>
       )}
@@ -51,7 +82,10 @@ export function MessagesDrawerComponent() {
         ref={drawerRef}
         scrollbarWidth={isOpen ? scrollbarWidth : 0}
       >
-        <MessagesHeader toggleDrawer={toggleDrawer} />
+        <MessagesHeader
+          toggleDrawer={toggleDrawer}
+          autoCompleteData={autoCompleteData}
+        />
         <List sx={{ width: "100%" }}>
           {messages.map((text, index) => (
             <ListItem button key={text}>
