@@ -25,6 +25,7 @@ model User {
   radius             Int?
   NotificationsCount Int                @default(0)
   phoneNumber        String?
+  isOnline           Boolean            @default(false)
   Activity           Activity[]
   ClubMembers        ClubMembers[]
   DirectMessages     DirectMessages[]
@@ -223,6 +224,8 @@ model DirectMessages {
   isRead         Boolean       @default(false)
   conversation   Conversations @relation("conversation", fields: [conversationId], references: [id])
   sender         User          @relation(fields: [senderId], references: [id])
+
+  @@index([createdAt])
 }
 
 model Genre {
