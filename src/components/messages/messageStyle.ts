@@ -15,7 +15,7 @@ export const DrawerButton = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1),
   borderTopLeftRadius: 8,
   borderTopRightRadius: 8,
-  backgroundColor: 'yellow',
+  backgroundColor: '#ffea9b',
   cursor: 'pointer',
   boxShadow: theme.shadows[1],
   position: 'fixed',
