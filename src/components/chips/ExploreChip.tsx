@@ -5,6 +5,7 @@ import { Books } from "@prisma/client";
 import Autocomplete, {
   AutocompleteRenderInputParams,
 } from "@mui/material/Autocomplete";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { ChipContainer, RoundedTextField } from "./chipStyle";
 import { getAutoComplete, handleAutoCompleteChange } from "./api";
 

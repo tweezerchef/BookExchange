@@ -11,11 +11,11 @@ interface StyledDrawerProps extends DrawerProps {
 export const DrawerButton = styled(Box)(({ theme }) => ({
     display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'space-between',
   padding: theme.spacing(1),
   borderTopLeftRadius: 8,
   borderTopRightRadius: 8,
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: 'yellow',
   cursor: 'pointer',
   boxShadow: theme.shadows[1],
   position: 'fixed',
@@ -25,15 +25,14 @@ export const DrawerButton = styled(Box)(({ theme }) => ({
   right: theme.spacing(2),
   }));
 
-  export const OpenDrawerButton = styled(Box)(({ theme }) => ({
+  export const OpenDrawerBox = styled(Box)(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     padding: theme.spacing(1),
     borderTopLeftRadius: 8, // Only round the top corners
     borderTopRightRadius: 8,
-    backgroundColor: theme.palette.background.paper,
-    cursor: 'pointer',
+    backgroundColor: 'yellow',
     boxShadow: theme.shadows[1],
     bottom: 0,
     right: theme.spacing(2),

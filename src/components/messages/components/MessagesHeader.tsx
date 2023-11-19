@@ -5,7 +5,8 @@ import { use } from "passport";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
-import { OpenDrawerButton } from "../messageStyle";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { OpenDrawerBox } from "../messageStyle";
 
 interface MessagesHeaderProps {
   toggleDrawer: (open: boolean) => () => void;
@@ -31,9 +32,12 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({ toggleDrawer }) => {
   }, []);
 
   return (
-    <OpenDrawerButton>
+    <OpenDrawerBox>
+      <Box justifyContent='left'>
+        <KeyboardArrowDownIcon onClick={toggleDrawer(false)} />
+      </Box>
+
       <Box width='200px'>
-        '
         <Autocomplete
           id='auto-complete'
           options={autoCompleteData}
@@ -55,7 +59,7 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({ toggleDrawer }) => {
           )}
         />
       </Box>
-      <MessagesIcon onClick={toggleDrawer(false)} />
-    </OpenDrawerButton>
+      <MessagesIcon />
+    </OpenDrawerBox>
   );
 };
