@@ -11,14 +11,13 @@ import { useScrollbarWidth } from "./hooks/useScrollbarWidth";
 import { DrawerButton, StyledDrawer } from "./messageStyle";
 import { MessagesHeader } from "./components/MessagesHeader";
 import { useHomeState } from "../../context/context";
+import { MessageDisplay } from "./components/MessageDisplay";
 
 type AutoCompleteData = string;
-interface Conversation extends User {
-  Conversations: Conversations[];
-}
+
 interface ReplyObject {
   namesArray: AutoCompleteData[];
-  userWithConversations: Conversation[];
+  userWithConversations: Conversations[];
 }
 
 export function MessagesDrawerComponent() {
@@ -27,7 +26,8 @@ export function MessagesDrawerComponent() {
   const [autoCompleteData, setAutoCompleteData] = useState<AutoCompleteData[]>(
     []
   );
-  const [conversation, setConversation] = useState<unknown[]>([]); // [
+  const [conversations, setConversations] = useState<Conversations[]>([]);
+  const [activeConversation, setActiveConversation] = useState<Conversations>();
   const { user } = useHomeState();
   const userId = user?.id;
 
@@ -37,7 +37,6 @@ export function MessagesDrawerComponent() {
   const toggleDrawer = (open: boolean) => () => {
     setIsOpen(open);
   };
-  const [conversations, setConversations] = useState<unknown[]>([]);
 
   // Placeholder for messages
   const messages = ["Message 1", "Message 2", "Message 3"];
@@ -48,7 +47,7 @@ export function MessagesDrawerComponent() {
         .then((replyObject: ReplyObject) => {
           const { namesArray, userWithConversations } = replyObject;
           setAutoCompleteData(namesArray);
-          setConversation(userWithConversations);
+          setConversations(userWithConversations);
         })
         .catch((error) => {
           console.error(error);
@@ -85,14 +84,19 @@ export function MessagesDrawerComponent() {
         <MessagesHeader
           toggleDrawer={toggleDrawer}
           autoCompleteData={autoCompleteData}
+          setActiveConversation={setActiveConversation}
         />
-        <List sx={{ width: "100%" }}>
-          {messages.map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        {activeConversation ? (
+          <MessageDisplay conversation={activeConversation} />
+        ) : (
+          <List sx={{ width: "100%" }}>
+            {messages.map((text, index) => (
+              <ListItem button key={text}>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        )}
       </StyledDrawer>
     </>
   );
