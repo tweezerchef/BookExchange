@@ -1,11 +1,11 @@
-import { MessagesDrawerComponent } from "../components/messages/MessageDrawer";
+import { Messages } from "../components/messages/Messages";
 
 const CardDevelopmentPage = (props) => (
   <div>
     {/* <SideCardReview activities={fakeData} />
     <SideCardStar activities={fakeData} /> */}
     {/* <CustomDialog /> */}
-    <MessagesDrawerComponent />
+    <Messages />
   </div>
 );
 

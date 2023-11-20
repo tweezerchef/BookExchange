@@ -9,11 +9,13 @@ import Box from "@mui/material/Box";
 import { Conversations, DirectMessages, User } from "@prisma/client";
 import { useScrollbarWidth } from "./hooks/useScrollbarWidth";
 import { DrawerButton, StyledDrawer } from "./messageStyle";
-import { MessagesHeader } from "./components/MessagesHeader";
+import { MessagesDrawer } from "./components/components/MessagesDrawer";
 import { useHomeState } from "../../context/context";
-import { MessageDisplay } from "./components/MessageDisplay";
 
-type AutoCompleteData = string;
+type AutoCompleteData = {
+  userName: string;
+  id: string;
+};
 
 interface DirectMessage extends DirectMessages {
   user: User;
@@ -28,15 +30,13 @@ interface ReplyObject {
   userWithConversations: Conversation[];
 }
 
-export function MessagesDrawerComponent() {
+export function Messages() {
   const [isOpen, setIsOpen] = useState(false);
   const [newMessages, setNewMessages] = useState(true);
   const [autoCompleteData, setAutoCompleteData] = useState<AutoCompleteData[]>(
     []
   );
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const [activeConversation, setActiveConversation] =
-    useState<Conversation>(null);
   const { user } = useHomeState();
   const userId = user?.id;
 
@@ -48,7 +48,6 @@ export function MessagesDrawerComponent() {
   };
 
   // Placeholder for messages
-  const messages = ["Message 1", "Message 2", "Message 3"];
   useEffect(() => {
     if (userId) {
       fetch(`/api/messages/getUserNamesConvos?userId=${userId}`)
@@ -83,24 +82,14 @@ export function MessagesDrawerComponent() {
           )}
         </DrawerButton>
       )}
-      <StyledDrawer
-        anchor='bottom'
-        open={isOpen}
-        onClose={toggleDrawer(false)}
-        ref={drawerRef}
-        scrollbarWidth={isOpen ? scrollbarWidth : 0}
-      >
-        <MessagesHeader
-          toggleDrawer={toggleDrawer}
-          autoCompleteData={autoCompleteData}
-          setActiveConversation={setActiveConversation}
-        />
-        {activeConversation ? (
-          <MessageDisplay conversation={activeConversation} />
-        ) : (
-          <MessageDisplay conversations={conversations} />
-        )}
-      </StyledDrawer>
+      <MessagesDrawer
+        autoCompleteData={autoCompleteData}
+        isOpen={isOpen}
+        toggleDrawer={toggleDrawer}
+        drawerRef={drawerRef}
+        scrollbarWidth={scrollbarWidth}
+        conversations={conversations}
+      />
     </>
   );
 }

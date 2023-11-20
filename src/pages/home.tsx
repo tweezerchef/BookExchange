@@ -18,7 +18,7 @@ import {
   SET_STAR_RATINGS,
   SET_IMAGE_URLS_OBJECT,
 } from "../context/actions";
-import { MessagesDrawerComponent } from "../components/messages/MessageDrawer";
+import { Messages } from "../components/messages/Messages";
 
 interface ImageUrls {
   [key: string]: string;
@@ -92,7 +92,7 @@ const Home: React.FC<HomeProps> = memo(
             {/* <SuggestedBooksBox /> */}
           </>
         )}
-        <MessagesDrawerComponent />
+        <Messages />
       </Box>
     );
   }

@@ -27,6 +27,7 @@ interface MessageDisplayProps {
 
 export const MessageDisplay: FC<MessageDisplayProps> = ({ conversation }) => {
   const [message, setMessage] = useState("");
+  const [title, setTitle] = useState<string>(conversation?.title || "");
 
   const handleSendMessage = () => {
     // Send message logic here
@@ -36,22 +37,31 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({ conversation }) => {
   };
 
   return (
-    <Box>
-      {conversation &&
-      Array.isArray(conversation) &&
-      conversation.length > 0 ? (
-        <List>
-          {conversation.messages.map((msg, index) => (
-            <ListItem key={index}>
-              <Avatar src={msg.user.picture} />
-              <ListItemText primary={msg.text} />
-            </ListItem>
-          ))}
-        </List>
-      ) : (
-        <p>Start a conversation</p>
-      )}
-      <Box>
+    <Box height='100%' display='flex' flexDirection='column'>
+      <Box
+        flexGrow={1}
+        overflow='auto'
+        sx={{ borderTopLeftRadius: 8, borderTopRightRadius: 8 }}
+      >
+        {conversation ? (
+          <List>
+            {conversation.messages.map((msg, index) => (
+              <ListItem key={index}>
+                <Avatar src={msg.user.picture} />
+                <ListItemText primary={msg.text} />
+              </ListItem>
+            ))}
+          </List>
+        ) : (
+          <TextField
+            fullWidth
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder='Create A Conversation Title'
+          />
+        )}
+      </Box>
+      <Box display='flex' alignItems='center' gap={2} padding={1}>
         <TextField
           fullWidth
           value={message}

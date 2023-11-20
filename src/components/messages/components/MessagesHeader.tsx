@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import MessagesIcon from "@mui/icons-material/Message";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
@@ -7,7 +7,10 @@ import { Conversations, DirectMessages, User } from "@prisma/client";
 import { OpenDrawerBox } from "../messageStyle";
 import { SearchField } from "./components/SearchField";
 
-type AutoCompleteData = string;
+type AutoCompleteData = {
+  username: string;
+  id: string;
+};
 
 interface DirectMessage extends DirectMessages {
   user: User;
@@ -22,14 +25,14 @@ interface MessagesHeaderProps {
   setActiveConversation: (value: Conversation) => void;
 }
 
-type UserNames = string;
+type UserNames = AutoCompleteData[];
 
 export const MessagesHeader: FC<MessagesHeaderProps> = ({
   toggleDrawer,
   autoCompleteData,
   setActiveConversation,
 }) => {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<AutoCompleteData>();
   const [userNames, setUserNames] = useState<UserNames[]>([]);
   const isValidUser = autoCompleteData.includes(search);
 

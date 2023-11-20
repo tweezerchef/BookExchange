@@ -11,6 +11,7 @@ export default async function handler(
   try {
     const namesPromise = prisma.user.findMany({
       select: {
+        id: true,
         userName: true,
       },
     });

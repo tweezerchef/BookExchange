@@ -48,6 +48,7 @@ export const DrawerButton = styled(Box)(({ theme }) => ({
       width: 350,
       height: 400,
       maxWidth: '100%',
+      backgroundColor: '#adacacff',
       right: `calc(${theme.spacing(2)} + ${scrollbarWidth}px)`, // Adjust for scrollbar
       left: 'auto',
       boxSizing: 'border-box',

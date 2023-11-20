@@ -3,8 +3,12 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { FC } from "react";
 
+type AutoCompleteData = {
+  userName: string;
+  id: string;
+};
 type SearchFieldProps = {
-  autoCompleteData: string[];
+  autoCompleteData: AutoCompleteData[];
   setSearch: (value: string) => void;
 };
 
