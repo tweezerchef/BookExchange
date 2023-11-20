@@ -3,15 +3,23 @@ import MessagesIcon from "@mui/icons-material/Message";
 import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Conversations } from "@prisma/client";
+import { Conversations, DirectMessages, User } from "@prisma/client";
 import { OpenDrawerBox } from "../messageStyle";
 import { SearchField } from "./components/SearchField";
 
 type AutoCompleteData = string;
+
+interface DirectMessage extends DirectMessages {
+  user: User;
+}
+
+interface Conversation extends Conversations {
+  messages: DirectMessage[];
+}
 interface MessagesHeaderProps {
   toggleDrawer: (open: boolean) => () => void;
   autoCompleteData: AutoCompleteData[];
-  setActiveConversation: (value: Conversations) => void;
+  setActiveConversation: (value: Conversation) => void;
 }
 
 type UserNames = string;

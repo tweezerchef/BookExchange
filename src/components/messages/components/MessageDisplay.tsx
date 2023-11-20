@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/no-array-index-key */
 // components/messages/MessageDisplay.js
 import { FC, useState } from "react";
@@ -7,10 +8,21 @@ import ListItemText from "@mui/material/ListItemText";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { Conversations } from "@prisma/client";
+import { Conversations, DirectMessages, User } from "@prisma/client";
+import { Avatar } from "@mui/material";
+
+interface DirectMessage extends DirectMessages {
+  user: User;
+}
+
+interface Conversation extends Conversations {
+  messages: DirectMessage[];
+}
 
 interface MessageDisplayProps {
-  conversation: Conversations;
+  conversation?: Conversation;
+  // eslint-disable-next-line react/no-unused-prop-types
+  conversations?: Conversation[];
 }
 
 export const MessageDisplay: FC<MessageDisplayProps> = ({ conversation }) => {
@@ -29,9 +41,10 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({ conversation }) => {
       Array.isArray(conversation) &&
       conversation.length > 0 ? (
         <List>
-          {conversation.map((msg, index) => (
+          {conversation.messages.map((msg, index) => (
             <ListItem key={index}>
-              <ListItemText primary={msg} />
+              <Avatar src={msg.user.picture} />
+              <ListItemText primary={msg.text} />
             </ListItem>
           ))}
         </List>

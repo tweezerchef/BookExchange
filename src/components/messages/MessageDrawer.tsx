@@ -1,4 +1,4 @@
-import { useRef, useState, useLayoutEffect, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -6,7 +6,7 @@ import MessagesIcon from "@mui/icons-material/Message";
 import Typography from "@mui/material/Typography";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Box from "@mui/material/Box";
-import { Conversations, User } from "@prisma/client";
+import { Conversations, DirectMessages, User } from "@prisma/client";
 import { useScrollbarWidth } from "./hooks/useScrollbarWidth";
 import { DrawerButton, StyledDrawer } from "./messageStyle";
 import { MessagesHeader } from "./components/MessagesHeader";
@@ -15,9 +15,17 @@ import { MessageDisplay } from "./components/MessageDisplay";
 
 type AutoCompleteData = string;
 
+interface DirectMessage extends DirectMessages {
+  user: User;
+}
+
+interface Conversation extends Conversations {
+  messages: DirectMessage[];
+}
+
 interface ReplyObject {
   namesArray: AutoCompleteData[];
-  userWithConversations: Conversations[];
+  userWithConversations: Conversation[];
 }
 
 export function MessagesDrawerComponent() {
@@ -26,8 +34,9 @@ export function MessagesDrawerComponent() {
   const [autoCompleteData, setAutoCompleteData] = useState<AutoCompleteData[]>(
     []
   );
-  const [conversations, setConversations] = useState<Conversations[]>([]);
-  const [activeConversation, setActiveConversation] = useState<Conversations>();
+  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [activeConversation, setActiveConversation] =
+    useState<Conversation>(null);
   const { user } = useHomeState();
   const userId = user?.id;
 
@@ -89,13 +98,7 @@ export function MessagesDrawerComponent() {
         {activeConversation ? (
           <MessageDisplay conversation={activeConversation} />
         ) : (
-          <List sx={{ width: "100%" }}>
-            {messages.map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+          <MessageDisplay conversations={conversations} />
         )}
       </StyledDrawer>
     </>
