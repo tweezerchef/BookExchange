@@ -7,9 +7,10 @@ type AutoCompleteData = {
   userName: string;
   id: string;
 };
+
 type SearchFieldProps = {
   autoCompleteData: AutoCompleteData[];
-  setSearch: (value: string) => void;
+  setSearch: (value: AutoCompleteData) => void;
 };
 
 export const SearchField: FC<SearchFieldProps> = ({
@@ -20,21 +21,15 @@ export const SearchField: FC<SearchFieldProps> = ({
     <Autocomplete
       id='auto-complete'
       options={autoCompleteData}
-      getOptionLabel={(option) =>
-        typeof option === "string" ? option : option
-      }
-      onInputChange={(event, value) => {
-        setSearch(value);
+      getOptionLabel={(option) => option.userName}
+      onChange={(event, value) => {
+        if (value && typeof value === "object") {
+          setSearch(value);
+        }
       }}
       fullWidth
-      freeSolo
       renderInput={(params) => (
-        <TextField
-          {...params}
-          id='outlined-basic'
-          label='Search'
-          variant='outlined'
-        />
+        <TextField {...params} label='Search' variant='outlined' />
       )}
     />
   </Box>

@@ -8,7 +8,7 @@ import { OpenDrawerBox } from "../messageStyle";
 import { SearchField } from "./components/SearchField";
 
 type AutoCompleteData = {
-  username: string;
+  userName: string;
   id: string;
 };
 
@@ -33,8 +33,10 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
   setActiveConversation,
 }) => {
   const [search, setSearch] = useState<AutoCompleteData>();
-  const [userNames, setUserNames] = useState<UserNames[]>([]);
-  const isValidUser = autoCompleteData.includes(search);
+  const [userNames, setUserNames] = useState<AutoCompleteData[]>([]);
+  const isValidUser = autoCompleteData.some(
+    (user) => user.userName === search?.userName
+  );
 
   const findOrCreateConversationWithUser = (userName) =>
     // Fetch or create a conversation with this user
@@ -53,7 +55,7 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
       const conversation = findOrCreateConversationWithUser(search);
       // setActiveConversation(conversation);
 
-      setSearch("");
+      setSearch(undefined);
     } else {
       // Handle invalid username (e.g., show an error message)
       console.log("Invalid username");

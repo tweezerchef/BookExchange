@@ -26,7 +26,7 @@ interface Conversation extends Conversations {
 }
 
 interface ReplyObject {
-  namesArray: AutoCompleteData[];
+  names: AutoCompleteData[];
   userWithConversations: Conversation[];
 }
 
@@ -53,8 +53,9 @@ export function Messages() {
       fetch(`/api/messages/getUserNamesConvos?userId=${userId}`)
         .then((response) => response.json())
         .then((replyObject: ReplyObject) => {
-          const { namesArray, userWithConversations } = replyObject;
-          setAutoCompleteData(namesArray);
+          const { names, userWithConversations } = replyObject;
+          console.log("namesArray", names);
+          setAutoCompleteData(names);
           setConversations(userWithConversations);
         })
         .catch((error) => {

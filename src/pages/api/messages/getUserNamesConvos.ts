@@ -37,8 +37,7 @@ export default async function handler(
       namesPromise,
       userWithConversationsPromise,
     ]);
-    const namesArray = names.map((name) => name.userName);
-    res.status(200).json({ namesArray, userWithConversations });
+    res.status(200).json({ names, userWithConversations });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to get user names" });
