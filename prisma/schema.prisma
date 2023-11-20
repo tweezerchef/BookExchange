@@ -211,6 +211,7 @@ model Notifications {
 model Conversations {
   id        String           @id @default(uuid())
   updatedAt DateTime         @default(now())
+  title     String           @default("Conversation")
   messages  DirectMessages[] @relation("conversation")
   members   User[]           @relation("conversationMembers")
 }

@@ -40,7 +40,7 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
 
       // Find the conversation with this user or create a new one
       const conversation = findOrCreateConversationWithUser(search);
-      setActiveConversation(conversation);
+      // setActiveConversation(conversation);
 
       setSearch("");
     } else {

@@ -42,7 +42,7 @@ export function MessagesDrawerComponent() {
   const messages = ["Message 1", "Message 2", "Message 3"];
   useEffect(() => {
     if (userId) {
-      fetch(`/api/user/getUserNamesConvos?userId=${userId}`)
+      fetch(`/api/messages/getUserNamesConvos?userId=${userId}`)
         .then((response) => response.json())
         .then((replyObject: ReplyObject) => {
           const { namesArray, userWithConversations } = replyObject;
