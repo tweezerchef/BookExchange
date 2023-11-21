@@ -3,6 +3,7 @@
   "eslint.enable": true,
   "prettier.jsxSingleQuote": true,
   "WillLuke.nextjs.addTypesOnSave": true,
-  "WillLuke.nextjs.hasPrompted": true
+  "WillLuke.nextjs.hasPrompted": true,
+  "cSpell.words": ["convo"]
   // Extend ESLint configuration for TypeScript files (Add this block
 }

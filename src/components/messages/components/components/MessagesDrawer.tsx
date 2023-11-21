@@ -35,7 +35,7 @@ export const MessagesDrawer: FC<MessagesDrawerProps> = ({
   conversations,
 }) => {
   const userId = useHomeState().user.id;
-
+  const [userNames, setUserNames] = useState<AutoCompleteData[]>();
   const [search, setSearch] = useState<AutoCompleteData>();
   const [activeConversation, setActiveConversation] =
     useState<Conversation>(null);
@@ -66,13 +66,18 @@ export const MessagesDrawer: FC<MessagesDrawerProps> = ({
         setActiveConversation={void handleActiveConversation}
         search={search}
         setSearch={setSearch}
+        setUserNames={setUserNames}
+        userNames={userNames}
       />
       {activeConversation ? (
-        <MessageDisplay conversation={activeConversation} search={search} />
+        <MessageDisplay
+          conversation={activeConversation}
+          userNames={userNames}
+        />
       ) : (
         <MessageDisplay
           conversations={conversations}
-          search={search}
+          userNames={userNames}
           setActiveConversation={setActiveConversation}
         />
       )}

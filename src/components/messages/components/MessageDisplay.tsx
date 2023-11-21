@@ -28,31 +28,38 @@ interface MessageDisplayProps {
   conversation?: Conversation;
   // eslint-disable-next-line react/no-unused-prop-types
   conversations?: Conversation[];
-  search: AutoCompleteData;
+  userNames: AutoCompleteData;
   setActiveConversation?: (value: Conversation) => void;
 }
 
 export const MessageDisplay: FC<MessageDisplayProps> = ({
   conversation,
   conversations,
-  search,
+  userNames,
   setActiveConversation,
 }) => {
   const [message, setMessage] = useState("");
   const [title, setTitle] = useState<string>(conversation?.title || "");
   const userId = useHomeState().user.id;
-  const handleSendMessage = () => {
-    console.log("Sending message:", message);
-    setMessage("");
-    const newMessage = fetch("/api/messages/sendMessage", {
+
+  const handleSendMessage = async () => {
+    console.log(
+      "Sending message:",
+      message,
+      conversation?.id,
+      userId,
+      userNames
+    );
+    const newMessage = await fetch("/api/messages/sendMessage", {
       method: "POST",
       body: JSON.stringify({
         message,
         conversationId: conversation?.id || null,
         userId,
-        memberIds: search,
+        memberIds: userNames,
       }),
     });
+    console.log("newMessage", newMessage);
   };
 
   return (
@@ -64,7 +71,7 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
       >
         {conversation ? (
           <List>
-            {conversation.messages.map((msg) => (
+            {conversation.messages.map((msg: DirectMessage) => (
               <ListItem key={msg.id}>
                 <Avatar src={msg.sender.picture} />
                 <ListItemText primary={msg.message} />
@@ -78,7 +85,6 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
                 onClick={() => setActiveConversation(convo)}
                 key={convo.id}
               >
-                {/* Access the first (and only) message directly */}
                 <Avatar src={convo.messages[0].sender.picture} />
                 <ListItemText primary={convo.messages[0].message} />
               </ListItem>

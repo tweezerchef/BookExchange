@@ -25,9 +25,9 @@ interface MessagesHeaderProps {
   setActiveConversation: (value: Conversation) => void;
   search: AutoCompleteData;
   setSearch: (value: AutoCompleteData) => void;
+  setUserNames: (value: AutoCompleteData[]) => void;
+  userNames: AutoCompleteData[];
 }
-
-type UserNames = AutoCompleteData[];
 
 export const MessagesHeader: FC<MessagesHeaderProps> = ({
   toggleDrawer,
@@ -35,8 +35,9 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
   setActiveConversation,
   search,
   setSearch,
+  setUserNames,
+  userNames,
 }) => {
-  const [userNames, setUserNames] = useState<AutoCompleteData[]>([]);
   const isValidUser = autoCompleteData.some(
     (user) => user.userName === search?.userName
   );
@@ -60,8 +61,6 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
       // Find the conversation with this user or create a new one
       // const conversation = findOrCreateConversationWithUser(userNames);
       // setActiveConversation(conversation);
-
-      setSearch(undefined);
     } else {
       // Handle invalid username (e.g., show an error message)
       console.log("Invalid username");

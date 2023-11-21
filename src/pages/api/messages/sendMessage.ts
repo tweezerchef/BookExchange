@@ -16,7 +16,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { body } = req as { body: Body };
-  const { userId, conversationId,memberIds, message, title } = body;
+  const { userId, conversationId, memberIds, message, title } = body;
   const { method } = req;
   // if(!verifyCookie(req)){
   //     console.error("Unauthorized");
@@ -28,8 +28,9 @@ export default async function handler(
   }
   try {
     let conversation: Conversations;
+    console.log('server', conversationId, memberIds);
 
-    if (conversationId) {
+    if (conversationId && memberIds.length > 0) {
       // Update existing conversation
       conversation = await prisma.conversations.update({
         where: { id: conversationId },
