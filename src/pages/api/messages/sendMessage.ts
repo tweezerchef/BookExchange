@@ -15,31 +15,27 @@ export default async function handler(
   req: NextApiRequest & { method: string; body: Body },
   res: NextApiResponse
 ) {
-  const { body } = req as { body: Body };
-  const { userId, conversationId, memberIds, message, title } = body;
-  const { method } = req;
-  // if(!verifyCookie(req)){
-  //     console.error("Unauthorized");
-  //     res.status(401).json({ message: "Unauthorized" });
-  // }
-  if (method !== "POST") {
+  if (req.method !== "POST") {
     console.error("Method not allowed");
-    res.status(405).json({ message: "Method not allowed" });
+    return res.status(405).json({ message: "Method not allowed" });
   }
-  try {
-    let conversation: Conversations;
-    console.log('server', conversationId, memberIds);
+console.log( 'server log 1', req.body );
+  const { userId, conversationId, memberIds, message, title } = req.body as Body;
+  console.log( 'server log2', userId, conversationId, memberIds, message, title );
 
-    if (conversationId && memberIds.length > 0) {
+  try {
+    let conversation;
+
+    if (conversationId && Array.isArray(memberIds) && memberIds.length > 0) {
       // Update existing conversation
       conversation = await prisma.conversations.update({
         where: { id: conversationId },
         data: {
           updatedAt: new Date(),
           members: {
-            connect: memberIds.map(id => ({ id })),
-          },
-        },
+            connect: memberIds.map(id => ({ id }))
+          }
+        }
       });
     } else {
       // Create new conversation
@@ -47,9 +43,12 @@ export default async function handler(
         data: {
           title: title || "Conversation",
           members: {
-            connect: [{ id: userId }, ...memberIds.map(id => ({ id }))]
-          },
-        },
+            connect: [
+              { id: userId },
+              ...memberIds.map(member => ({ id: member.id }))
+            ]
+          }
+        }
       });
     }
 
@@ -58,8 +57,8 @@ export default async function handler(
       data: {
         message,
         senderId: userId,
-        conversationId: conversation.id,
-      },
+        conversationId: conversation.id
+      }
     });
 
     return res.status(200).json({ message: "Message sent successfully", conversation, newMessage });

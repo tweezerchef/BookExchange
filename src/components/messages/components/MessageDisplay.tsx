@@ -53,6 +53,9 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
     );
     const newMessage = await fetch("/api/messages/sendMessage", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         message,
         conversationId: conversation?.id || null,
@@ -60,7 +63,8 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
         memberIds: userNames,
       }),
     });
-    console.log("newMessage", newMessage);
+    const parsedNewMessage = await newMessage.json();
+    console.log("newMessage", parsedNewMessage);
   };
 
   return (
