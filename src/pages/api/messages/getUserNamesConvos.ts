@@ -1,6 +1,7 @@
 import { NextApiResponse, NextApiRequest } from "next";
 import { verifyCookie } from "../../../utils/verifyCookie";
 import prisma from "../../../utils/prismaClient";
+import { getUserConversationsWithSignedUrls } from "../../../utils/AWS/getUserConversationsWithSignedUrls";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,28 +16,13 @@ export default async function handler(
         userName: true,
       },
     });
-    const userWithConversationsPromise = prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        Conversations: {
-          include: {
-            messages: {
-              take: 1,
-              orderBy: {
-                createdAt: "desc",
-              },
-            },
-            members: true,
-          },
-        },
-      },
-    });
+    const userWithConversationsPromise = getUserConversationsWithSignedUrls(userId);
+
     const [names, userWithConversations] = await Promise.all([
       namesPromise,
       userWithConversationsPromise,
     ]);
+    console.log("convos", userWithConversations);
     res.status(200).json({ names, userWithConversations });
   } catch (error) {
     console.error(error);

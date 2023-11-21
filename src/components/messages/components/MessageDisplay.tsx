@@ -14,6 +14,7 @@ import { Conversations, DirectMessages, User } from "@prisma/client";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import { useHomeState } from "../../../context/context";
+import { clientGetS3URL } from "../../../utils/clientUtils/clientGetS3URL";
 
 interface DirectMessage extends DirectMessages {
   sender: User;
@@ -96,7 +97,7 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
                   onClick={() => setActiveConversation(convo)}
                   key={convo.id}
                 >
-                  {/* <Avatar src={convo.messages[0].sender.picture} /> */}
+                  <Avatar src={convo.messages[0].sender.picture} />
                   <ListItemText primary={convo.messages[0].message} />
                 </ListItem>
                 <Divider />
