@@ -219,7 +219,7 @@ model Conversations {
 model DirectMessages {
   id             String        @id @default(uuid())
   createdAt      DateTime      @default(now())
-  text           String
+  message        String
   senderId       String
   conversationId String
   isRead         Boolean       @default(false)

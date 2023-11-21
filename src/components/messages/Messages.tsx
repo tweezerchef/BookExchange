@@ -18,7 +18,7 @@ type AutoCompleteData = {
 };
 
 interface DirectMessage extends DirectMessages {
-  user: User;
+  sender: User;
 }
 
 interface Conversation extends Conversations {
@@ -47,7 +47,6 @@ export function Messages() {
     setIsOpen(open);
   };
 
-  // Placeholder for messages
   useEffect(() => {
     if (userId) {
       fetch(`/api/messages/getUserNamesConvos?userId=${userId}`)

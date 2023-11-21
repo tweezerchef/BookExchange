@@ -23,6 +23,8 @@ interface MessagesHeaderProps {
   toggleDrawer: (open: boolean) => () => void;
   autoCompleteData: AutoCompleteData[];
   setActiveConversation: (value: Conversation) => void;
+  search: AutoCompleteData;
+  setSearch: (value: AutoCompleteData) => void;
 }
 
 type UserNames = AutoCompleteData[];
@@ -31,28 +33,32 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
   toggleDrawer,
   autoCompleteData,
   setActiveConversation,
+  search,
+  setSearch,
 }) => {
-  const [search, setSearch] = useState<AutoCompleteData>();
   const [userNames, setUserNames] = useState<AutoCompleteData[]>([]);
   const isValidUser = autoCompleteData.some(
     (user) => user.userName === search?.userName
   );
 
-  const findOrCreateConversationWithUser = (userName) =>
-    // Fetch or create a conversation with this user
-    // This can be an API call or a local state query depending on your application logic
-    // For now, returning a placeholder
-    ({
-      id: "new-conversation-id", // This would be the actual conversation ID
-      messages: [], // This would be the actual conversation messages
-    });
+  // const findOrCreateConversationWithUser = (
+  //   userNames,
+  //   title,
+  //   conversationId = null
+  // ) =>
+  //   // Fetch or create a conversation with this user
+  //   // This can be an API call or a local state query depending on your application logic
+  //   // For now, returning a placeholder
+  //   ({
+  //     id: "new-conversation-id", // This would be the actual conversation ID
+  //     messages: [], // This would be the actual conversation messages
+  //   });
   const handleAdd = () => {
     if (isValidUser) {
-      console.log(search);
       setUserNames([...userNames, search]);
 
       // Find the conversation with this user or create a new one
-      const conversation = findOrCreateConversationWithUser(search);
+      // const conversation = findOrCreateConversationWithUser(userNames);
       // setActiveConversation(conversation);
 
       setSearch(undefined);

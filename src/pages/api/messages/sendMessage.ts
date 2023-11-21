@@ -55,7 +55,7 @@ export default async function handler(
     // Create a new message
     const newMessage = await prisma.directMessages.create({
       data: {
-        text: message,
+        message,
         senderId: userId,
         conversationId: conversation.id,
       },

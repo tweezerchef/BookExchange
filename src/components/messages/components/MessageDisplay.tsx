@@ -1,6 +1,6 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/require-default-props */
-/* eslint-disable react/no-array-index-key */
-// components/messages/MessageDisplay.js
+
 import { FC, useState } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -10,30 +10,49 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { Conversations, DirectMessages, User } from "@prisma/client";
 import { Avatar } from "@mui/material";
+import { useHomeState } from "../../../context/context";
 
 interface DirectMessage extends DirectMessages {
-  user: User;
+  sender: User;
 }
 
 interface Conversation extends Conversations {
   messages: DirectMessage[];
 }
+type AutoCompleteData = {
+  userName: string;
+  id: string;
+};
 
 interface MessageDisplayProps {
   conversation?: Conversation;
   // eslint-disable-next-line react/no-unused-prop-types
   conversations?: Conversation[];
+  search: AutoCompleteData;
+  setActiveConversation?: (value: Conversation) => void;
 }
 
-export const MessageDisplay: FC<MessageDisplayProps> = ({ conversation }) => {
+export const MessageDisplay: FC<MessageDisplayProps> = ({
+  conversation,
+  conversations,
+  search,
+  setActiveConversation,
+}) => {
   const [message, setMessage] = useState("");
   const [title, setTitle] = useState<string>(conversation?.title || "");
-
+  const userId = useHomeState().user.id;
   const handleSendMessage = () => {
-    // Send message logic here
     console.log("Sending message:", message);
-    // Reset the message field
     setMessage("");
+    const newMessage = fetch("/api/messages/sendMessage", {
+      method: "POST",
+      body: JSON.stringify({
+        message,
+        conversationId: conversation?.id || null,
+        userId,
+        memberIds: search,
+      }),
+    });
   };
 
   return (
@@ -45,10 +64,23 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({ conversation }) => {
       >
         {conversation ? (
           <List>
-            {conversation.messages.map((msg, index) => (
-              <ListItem key={index}>
-                <Avatar src={msg.user.picture} />
-                <ListItemText primary={msg.text} />
+            {conversation.messages.map((msg) => (
+              <ListItem key={msg.id}>
+                <Avatar src={msg.sender.picture} />
+                <ListItemText primary={msg.message} />
+              </ListItem>
+            ))}
+          </List>
+        ) : Array.isArray(conversations) && conversations.length > 0 ? (
+          <List>
+            {conversations.map((convo: Conversation) => (
+              <ListItem
+                onClick={() => setActiveConversation(convo)}
+                key={convo.id}
+              >
+                {/* Access the first (and only) message directly */}
+                <Avatar src={convo.messages[0].sender.picture} />
+                <ListItemText primary={convo.messages[0].message} />
               </ListItem>
             ))}
           </List>

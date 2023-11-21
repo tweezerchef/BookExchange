@@ -11,7 +11,7 @@ type AutoCompleteData = {
   id: string;
 };
 interface DirectMessage extends DirectMessages {
-  user: User;
+  sender: User;
 }
 
 interface Conversation extends Conversations {
@@ -35,8 +35,23 @@ export const MessagesDrawer: FC<MessagesDrawerProps> = ({
   conversations,
 }) => {
   const userId = useHomeState().user.id;
+
+  const [search, setSearch] = useState<AutoCompleteData>();
   const [activeConversation, setActiveConversation] =
     useState<Conversation>(null);
+
+  const handleActiveConversation = async (conversation: Conversation) => {
+    try {
+      const response = await fetch(
+        `/api/messages/getConversation?conversationId=${conversation.id}`
+      );
+      const newActiveConversation: Conversation = await response.json();
+      setActiveConversation(newActiveConversation);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <StyledDrawer
       anchor='bottom'
@@ -48,12 +63,18 @@ export const MessagesDrawer: FC<MessagesDrawerProps> = ({
       <MessagesHeader
         toggleDrawer={toggleDrawer}
         autoCompleteData={autoCompleteData}
-        setActiveConversation={setActiveConversation}
+        setActiveConversation={void handleActiveConversation}
+        search={search}
+        setSearch={setSearch}
       />
       {activeConversation ? (
-        <MessageDisplay conversation={activeConversation} />
+        <MessageDisplay conversation={activeConversation} search={search} />
       ) : (
-        <MessageDisplay conversations={conversations} />
+        <MessageDisplay
+          conversations={conversations}
+          search={search}
+          setActiveConversation={setActiveConversation}
+        />
       )}
     </StyledDrawer>
   );
