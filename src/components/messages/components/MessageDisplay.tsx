@@ -10,7 +10,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { Conversations, DirectMessages, User } from "@prisma/client";
-import { Avatar } from "@mui/material";
+
+import Divider from "@mui/material/Divider";
+import Avatar from "@mui/material/Avatar";
 import { useHomeState } from "../../../context/context";
 
 interface DirectMessage extends DirectMessages {
@@ -42,7 +44,7 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
   const [message, setMessage] = useState("");
   const [title, setTitle] = useState<string>(conversation?.title || "");
   const userId = useHomeState().user.id;
-
+  console.log("conversations", conversations);
   const handleSendMessage = async () => {
     console.log(
       "Sending message:",
@@ -77,22 +79,28 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
         {conversation ? (
           <List>
             {conversation.messages.map((msg: DirectMessage) => (
-              <ListItem key={msg.id}>
-                <Avatar src={msg.sender.picture} />
-                <ListItemText primary={msg.message} />
-              </ListItem>
+              <>
+                <ListItem key={msg.id}>
+                  {/* <Avatar src={msg.sender.picture} /> */}
+                  <ListItemText primary={msg.message} />
+                </ListItem>
+                <Divider />
+              </>
             ))}
           </List>
         ) : Array.isArray(conversations) && conversations.length > 0 ? (
           <List>
             {conversations.map((convo: Conversation) => (
-              <ListItem
-                onClick={() => setActiveConversation(convo)}
-                key={convo.id}
-              >
-                <Avatar src={convo.messages[0].sender.picture} />
-                <ListItemText primary={convo.messages[0].message} />
-              </ListItem>
+              <>
+                <ListItem
+                  onClick={() => setActiveConversation(convo)}
+                  key={convo.id}
+                >
+                  {/* <Avatar src={convo.messages[0].sender.picture} /> */}
+                  <ListItemText primary={convo.messages[0].message} />
+                </ListItem>
+                <Divider />
+              </>
             ))}
           </List>
         ) : (

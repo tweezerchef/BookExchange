@@ -25,6 +25,7 @@ export const SearchField: FC<SearchFieldProps> = ({
       onChange={(event, value) => {
         if (value) setSearch(value);
       }}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
       fullWidth
       renderInput={(params) => (
         <TextField {...params} label='Search' variant='outlined' />

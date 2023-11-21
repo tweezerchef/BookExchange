@@ -4,7 +4,6 @@ import { useHomeState } from "../../../../context/context";
 import { StyledDrawer } from "../../messageStyle";
 import { MessageDisplay } from "../MessageDisplay";
 import { MessagesHeader } from "../MessagesHeader";
-import { useScrollbarWidth } from "../../hooks/useScrollbarWidth";
 
 type AutoCompleteData = {
   userName: string;
@@ -45,7 +44,8 @@ export const MessagesDrawer: FC<MessagesDrawerProps> = ({
       const response = await fetch(
         `/api/messages/getConversation?conversationId=${conversation.id}`
       );
-      const newActiveConversation: Conversation = await response.json();
+      const newActiveConversation: Conversation =
+        (await response.json()) as Conversation;
       setActiveConversation(newActiveConversation);
     } catch (error) {
       console.error(error);

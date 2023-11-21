@@ -3,13 +3,18 @@ import { Conversations } from "@prisma/client";
 import { verifyCookie } from "../../../utils/verifyCookie";
 import prisma from "../../../utils/prismaClient";
 
+type MemberIds = {
+  name: string;
+  id: string;
+};
 interface Body {
   userId: string;
   conversationId?: string;
-  memberIds: string[];
+  memberIds: MemberIds[];
   message: string;
   title?: string;
 }
+
 
 export default async function handler(
   req: NextApiRequest & { method: string; body: Body },
@@ -19,12 +24,11 @@ export default async function handler(
     console.error("Method not allowed");
     return res.status(405).json({ message: "Method not allowed" });
   }
-console.log( 'server log 1', req.body );
+
   const { userId, conversationId, memberIds, message, title } = req.body as Body;
-  console.log( 'server log2', userId, conversationId, memberIds, message, title );
 
   try {
-    let conversation;
+    let conversation: Conversations;
 
     if (conversationId && Array.isArray(memberIds) && memberIds.length > 0) {
       // Update existing conversation
@@ -33,7 +37,7 @@ console.log( 'server log 1', req.body );
         data: {
           updatedAt: new Date(),
           members: {
-            connect: memberIds.map(id => ({ id }))
+            connect: memberIds.map(member => ({ id: member.id }))
           }
         }
       });

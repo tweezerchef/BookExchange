@@ -24,10 +24,12 @@ interface DirectMessage extends DirectMessages {
 interface Conversation extends Conversations {
   messages: DirectMessage[];
 }
-
+type UserWithConversations = {
+  Conversations: Conversation[];
+};
 interface ReplyObject {
   names: AutoCompleteData[];
-  userWithConversations: Conversation[];
+  userWithConversations: UserWithConversations;
 }
 
 export function Messages() {
@@ -53,9 +55,9 @@ export function Messages() {
         .then((response) => response.json())
         .then((replyObject: ReplyObject) => {
           const { names, userWithConversations } = replyObject;
-          console.log("namesArray", names);
+          console.log("namesArray", names, userWithConversations);
           setAutoCompleteData(names);
-          setConversations(userWithConversations);
+          setConversations(userWithConversations.Conversations);
         })
         .catch((error) => {
           console.error(error);
