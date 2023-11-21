@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/require-default-props */
 
@@ -28,7 +29,7 @@ interface MessageDisplayProps {
   conversation?: Conversation;
   // eslint-disable-next-line react/no-unused-prop-types
   conversations?: Conversation[];
-  userNames: AutoCompleteData;
+  userNames: AutoCompleteData[];
   setActiveConversation?: (value: Conversation) => void;
 }
 

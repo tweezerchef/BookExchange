@@ -38,10 +38,8 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
   setUserNames,
   userNames,
 }) => {
-  const isValidUser = autoCompleteData.some(
-    (user) => user.userName === search?.userName
-  );
-
+  const isValidUser =
+    search && autoCompleteData.some((user) => user.id === search.id);
   // const findOrCreateConversationWithUser = (
   //   userNames,
   //   title,
@@ -55,16 +53,16 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
   //     messages: [], // This would be the actual conversation messages
   //   });
   const handleAdd = () => {
-    if (isValidUser) {
+    if (isValidUser && !userNames.some((u) => u.id === search.id)) {
+      console.log("Adding user", userNames, search);
       setUserNames([...userNames, search]);
-
-      // Find the conversation with this user or create a new one
-      // const conversation = findOrCreateConversationWithUser(userNames);
-      // setActiveConversation(conversation);
+      setSearch(null); // Reset search after adding
     } else {
-      // Handle invalid username (e.g., show an error message)
       console.log("Invalid username");
     }
+    // Find the conversation with this user or create a new one
+    // const conversation = findOrCreateConversationWithUser(userNames);
+    // setActiveConversation(conversation);
   };
 
   return (

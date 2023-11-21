@@ -25,7 +25,7 @@ interface ValidateResponse {
 
 const Registration = (props) => {
   const router = useRouter();
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(0);
   const [books, setBooks] = useState<Books[]>([]);
   const [backgroundImageUrl, setBackgroundImageUrl] = useState<string>(
     "" || null

@@ -21,12 +21,9 @@ export const SearchField: FC<SearchFieldProps> = ({
     <Autocomplete
       id='auto-complete'
       options={autoCompleteData}
-      getOptionLabel={(option) => option.userName}
-      onChange={(event, value: AutoCompleteData | null) => {
-        if (value && typeof value === "object") {
-          setSearch(value);
-          console.log("value", value);
-        }
+      getOptionLabel={(option) => option.userName || "unknown user"}
+      onChange={(event, value) => {
+        if (value) setSearch(value);
       }}
       fullWidth
       renderInput={(params) => (
