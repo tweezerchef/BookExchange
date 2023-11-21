@@ -30,15 +30,12 @@ export default async function handler(
   try {
     let conversation: Conversations;
 
-    if (conversationId && Array.isArray(memberIds) && memberIds.length > 0) {
+    if (conversationId ) {
       // Update existing conversation
       conversation = await prisma.conversations.update({
         where: { id: conversationId },
         data: {
           updatedAt: new Date(),
-          members: {
-            connect: memberIds.map(member => ({ id: member.id }))
-          }
         }
       });
     } else {

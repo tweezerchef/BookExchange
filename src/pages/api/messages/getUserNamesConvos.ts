@@ -22,7 +22,6 @@ export default async function handler(
       namesPromise,
       userWithConversationsPromise,
     ]);
-    console.log("convos", userWithConversations);
     res.status(200).json({ names, userWithConversations });
   } catch (error) {
     console.error(error);

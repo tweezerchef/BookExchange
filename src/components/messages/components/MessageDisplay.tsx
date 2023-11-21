@@ -10,11 +10,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { Conversations, DirectMessages, User } from "@prisma/client";
-
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import { useHomeState } from "../../../context/context";
-import { clientGetS3URL } from "../../../utils/clientUtils/clientGetS3URL";
 
 interface DirectMessage extends DirectMessages {
   sender: User;
@@ -29,7 +27,7 @@ type AutoCompleteData = {
 };
 
 interface MessageDisplayProps {
-  conversation?: Conversation;
+  conversation?: DirectMessage[];
   // eslint-disable-next-line react/no-unused-prop-types
   conversations?: Conversation[];
   userNames: AutoCompleteData[];
@@ -45,15 +43,7 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
   const [message, setMessage] = useState("");
   const [title, setTitle] = useState<string>(conversation?.title || "");
   const userId = useHomeState().user.id;
-  console.log("conversations", conversations);
   const handleSendMessage = async () => {
-    console.log(
-      "Sending message:",
-      message,
-      conversation?.id,
-      userId,
-      userNames
-    );
     const newMessage = await fetch("/api/messages/sendMessage", {
       method: "POST",
       headers: {
@@ -66,7 +56,7 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
         memberIds: userNames,
       }),
     });
-    const parsedNewMessage = await newMessage.json();
+    const parsedNewMessage = (await newMessage.json()) as DirectMessage;
     console.log("newMessage", parsedNewMessage);
   };
 
@@ -79,7 +69,7 @@ export const MessageDisplay: FC<MessageDisplayProps> = ({
       >
         {conversation ? (
           <List>
-            {conversation.messages.map((msg: DirectMessage) => (
+            {conversation.map((msg: DirectMessage) => (
               <>
                 <ListItem key={msg.id}>
                   {/* <Avatar src={msg.sender.picture} /> */}

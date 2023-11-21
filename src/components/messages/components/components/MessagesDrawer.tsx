@@ -1,5 +1,6 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { Conversations, DirectMessages, User } from "@prisma/client";
+import { use } from "passport";
 import { useHomeState } from "../../../../context/context";
 import { StyledDrawer } from "../../messageStyle";
 import { MessageDisplay } from "../MessageDisplay";
@@ -38,6 +39,7 @@ export const MessagesDrawer: FC<MessagesDrawerProps> = ({
   const [search, setSearch] = useState<AutoCompleteData>();
   const [activeConversation, setActiveConversation] =
     useState<Conversation>(null);
+  const [oneConversation, setOneConversation] = useState<DirectMessage[]>(null);
 
   const handleActiveConversation = async (conversation: Conversation) => {
     try {
@@ -46,11 +48,16 @@ export const MessagesDrawer: FC<MessagesDrawerProps> = ({
       );
       const newActiveConversation: Conversation =
         (await response.json()) as Conversation;
-      setActiveConversation(newActiveConversation);
+      console.log("newActiveConversation", newActiveConversation);
+      const newConversation = newActiveConversation.messages;
+      setOneConversation(newConversation);
     } catch (error) {
       console.error(error);
     }
   };
+  useEffect(() => {
+    void handleActiveConversation(activeConversation);
+  }, [activeConversation]);
 
   return (
     <StyledDrawer
@@ -70,10 +77,7 @@ export const MessagesDrawer: FC<MessagesDrawerProps> = ({
         userNames={userNames}
       />
       {activeConversation ? (
-        <MessageDisplay
-          conversation={activeConversation}
-          userNames={userNames}
-        />
+        <MessageDisplay conversation={oneConversation} userNames={userNames} />
       ) : (
         <MessageDisplay
           conversations={conversations}
