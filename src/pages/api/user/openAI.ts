@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
-
 import { Books } from "@prisma/client";
+import prisma from "../../../utils/prismaClient"
 import { getSuggestionsOpenAI } from "../../../utils/openAI";
 import {getBookByTitle} from "../../../utils/books/getBookByTitle";
 import {getGoogleBookByTitle} from "../../../utils/books/getGoogleByTitle";
@@ -19,8 +19,31 @@ interface GoogleBook{
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const suggestions: string[] = JSON.parse(await getSuggestionsOpenAI());
+    if (req.method !== 'GET') {
+      res.status(405).json({message: 'Method not allowed'});
+      return;
+    }
+    const userId = req.query.userId as string;
+    // create a prisma querry that gets the top 3 books and the bottom 3 books of the UserBooks from the User by userId
+const top = prisma.userBooks.findMany({
+    where: {
+        userId
+    },
+    take: 3,
+    orderBy: {
+        starRating: 'desc'
+    }
+})
+const bottom = prisma.userBooks.findMany({
+    where: {
+        userId
+    },
+    take: 3,
+    orderBy: {
+        starRating: 'asc'
+    }
+})
+    const suggestions: string[] = JSON.parse(await getSuggestionsOpenAI(top, bottom)) as string[];
     const booksPromises = suggestions.map(async (suggestion): Promise<Books | GoogleBook> => {
         let book: Books | GoogleBook | null = await getBookByTitle(suggestion);
         if (!book) {
