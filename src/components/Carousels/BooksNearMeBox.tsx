@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/require-default-props */
-import { Books } from "@prisma/client";
+import { Books, UserBooks } from "@prisma/client";
 import { FC, useEffect, useRef, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -9,14 +9,17 @@ import { BooksNearMe } from "./BooksNearMe";
 import { useContainerQuery } from "./hooks/useContainerQuery";
 import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
 
-type Breakpoint = {
-  width: number;
-  itemsPerPage: number;
-}[];
+interface UserBooksWithBooks extends UserBooks {
+  Books: Books;
+}
 
-export const BooksNearMeBox: FC = async () => {
-  const { user } = useHomeState();
-  const userId = user.id;
+interface ApiResponseItem {
+  UserBooks: UserBooksWithBooks[];
+}
+export const BooksNearMeBox: FC = () => {
+  const state = useHomeState();
+  const { user } = state;
+  const userId = user?.id || "0";
 
   const [books, setBooks] = useState<Books[] | null>(null);
 
@@ -29,7 +32,11 @@ export const BooksNearMeBox: FC = async () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        const booksData = (await response.json()) as Books[];
+        const responseArray: ApiResponseItem[] =
+          (await response.json()) as ApiResponseItem[];
+        const booksData: Books[] = responseArray.flatMap((item) =>
+          item.UserBooks.map((ub) => ub.Books)
+        );
         setBooks(booksData);
       } catch (error) {
         console.error("There was a problem with the fetch operation:", error);
