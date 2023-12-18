@@ -24,25 +24,42 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       return;
     }
     const userId = req.query.userId as string;
-    // create a prisma querry that gets the top 3 books and the bottom 3 books of the UserBooks from the User by userId
-const top = prisma.userBooks.findMany({
+
+const topBooks = await prisma.userBooks.findMany({
     where: {
         userId
     },
     take: 3,
     orderBy: {
         starRating: 'desc'
+    },
+    select : {
+      Books: {
+        select: {
+          title: true
+        }
+      }
     }
 })
-const bottom = prisma.userBooks.findMany({
+const top = topBooks.map((book) => book.Books.title).join(", ")
+
+const bottomBooks = await prisma.userBooks.findMany({
     where: {
         userId
     },
     take: 3,
     orderBy: {
         starRating: 'asc'
+    },
+    select : {
+      Books: {
+        select: {
+          title: true
+        }
+      }
     }
 })
+const bottom = bottomBooks.map((book) => book.Books.title).join(", ")
     const suggestions: string[] = JSON.parse(await getSuggestionsOpenAI(top, bottom)) as string[];
     const booksPromises = suggestions.map(async (suggestion): Promise<Books | GoogleBook> => {
         let book: Books | GoogleBook | null = await getBookByTitle(suggestion);
