@@ -1,6 +1,5 @@
 import { FC, useState, useEffect } from "react";
 import { Conversations, DirectMessages, User } from "@prisma/client";
-import { use } from "passport";
 import { useHomeState } from "../../../../context/context";
 import { StyledDrawer } from "../../messageStyle";
 import { MessageDisplay } from "../MessageDisplay";
