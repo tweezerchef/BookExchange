@@ -70,7 +70,6 @@ export const BigBook: React.FC<BigBookProps> = ({
       <DialogContent>
         <div className='backgroundImage'>
           <Image
-            // Update with your image path
             src='/mountainBackgound.png'
             alt='Background'
             fill
