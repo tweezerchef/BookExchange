@@ -118,7 +118,7 @@ export function LendingLibraryButton({
         aria-label='Lending Library'
         size='small'
         color={color === "danger" ? "error" : color}
-        onClick={void lendingLibraryAction}
+        onClick={lendingLibraryAction}
       >
         <LibraryBooksIcon />
       </IconButton>

@@ -68,6 +68,7 @@ module.exports = {
     "@typescript-eslint/no-unsafe-argument": "warn",
     "@typescript-eslint/no-unsafe-return": "warn",
     "@typescript-eslint/restrict-template-expressions": "warn",
+    "@typescript-eslint/no-misused-promises": "off",
     "no-empty": "off",
     "@typescript-eslint/require-await": "off",
     "react/jsx-one-expression-per-line": "off",
