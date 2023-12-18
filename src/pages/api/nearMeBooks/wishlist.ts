@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { use } from 'passport';
+import { verifyCookie } from "../../../utils/verifyCookie";
 import prisma from "../../../utils/prismaClient";
 
 export default async function handler(
@@ -13,20 +13,30 @@ export default async function handler(
     }
     try{
     const {userId} = req.query as {userId: string}
-    const userInfo = prisma.user.findUnique({
+    const userInfo = await prisma.user.findUnique({
         where: {
-            id: userId
+          id: userId,
         },
         select: {
-            UserBooks: {
-                where: {
-                    wishlist: true
-            }
+          UserBooks: {
+            where: {
+              wishlist: true,
+            },
+            select: {
+              Books: {
+                select: {
+                  id: true,
+                },
+              },
+            },
+          },
+          latitude: true,
+          longitude: true,
         },
-        latitude: true,
-        longitude: true,
-    }
-})
+      });
+      const wishListIds= userInfo.UserBooks.map((book) => book.Books.id);
+
+ res.status(200).json(wishListIds)
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "Failed to get user" });
