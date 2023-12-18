@@ -90,7 +90,6 @@ const Home: React.FC<HomeProps> = memo(
             <ExploreFriendsBox />
             <WishListBox />
             <BooksNearMeBox />
-
             {/* <SuggestedBooksBox /> */}
           </>
         )}
