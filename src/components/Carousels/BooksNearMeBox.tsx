@@ -4,6 +4,8 @@ import { Books, UserBooks } from "@prisma/client";
 import { FC, useEffect, useRef, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import Divider from "@mui/material/Divider";
+import Chip from "@mui/material/Chip";
 import { useHomeState } from "../../context/context";
 import { BooksNearMe } from "./BooksNearMe";
 import { useContainerQuery } from "./hooks/useContainerQuery";
@@ -72,6 +74,9 @@ export const BooksNearMeBox: FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (
     <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
+      <Divider textAlign='left'>
+        <Chip label='Books Available Near You!' />
+      </Divider>
       {books && <BooksNearMe booksPerPage={booksPerPage} books={books} />}
     </ExploreBooksBoxWrapper>
   );

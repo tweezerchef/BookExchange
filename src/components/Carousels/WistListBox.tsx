@@ -1,6 +1,5 @@
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
-import Box from "@mui/material/Box";
 import { useRef } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
