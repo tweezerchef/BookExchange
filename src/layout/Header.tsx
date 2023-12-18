@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import AppBar from "@mui/material/AppBar";
@@ -147,8 +148,16 @@ const Header = () => {
               <MenuItem
                 key={setting}
                 onClick={handleCloseUserMenu}
-                component={setting === "Logout" ? Link : "div"} // Use Link for "Logout", otherwise use 'div'
-                href={setting === "Logout" ? "/" : undefined} // Set href only for "Logout"
+                component={
+                  setting === "Logout" || setting === "Account" ? Link : "div"
+                }
+                href={
+                  setting === "Logout"
+                    ? "/"
+                    : setting === "Account"
+                    ? "/profileInfo"
+                    : undefined
+                }
                 sx={{ textDecoration: "none" }} // Add this to remove underline from links
               >
                 <Typography textAlign='center'>{setting}</Typography>
