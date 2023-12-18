@@ -6,6 +6,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
     ) {
+        console.log('req')
     const { method } = req;
     if (method !== "GET") {
         console.error("Method not allowed");
@@ -13,6 +14,7 @@ export default async function handler(
     }
     try{
     const {userId} = req.query as {userId: string}
+    console.log('userId',userId)
     const userInfo = await prisma.user.findUnique({
         where: {
           id: userId,
@@ -75,11 +77,11 @@ export default async function handler(
         },
     });
 
-
+    console.log(booksInLendingLibrary);
  res.status(200).json(booksInLendingLibrary)
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Failed to get user" });
+        res.status(500).json({ message: "Failed to get books near user" });
     }
 }
 

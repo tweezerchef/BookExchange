@@ -25,7 +25,7 @@ interface BookProps {
   user?: {
     id: string;
     email: string;
-    username: string;
+    userName: string;
   };
   isRegistration?: boolean;
   onRatingChange?: () => void;

@@ -64,6 +64,7 @@ module.exports = {
     "react/function-component-definition": "off",
     "@typescript-eslint/restrict-plus-operands": "off",
     "mdx/no-unused-expressions": "off",
+    "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-unsafe-argument": "warn",
     "@typescript-eslint/no-unsafe-return": "warn",
     "@typescript-eslint/restrict-template-expressions": "warn",

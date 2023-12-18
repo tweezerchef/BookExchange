@@ -31,7 +31,7 @@ interface WishListButtonProps {
   user?: {
     id: string;
     email: string;
-    username: string;
+    userName: string;
   };
 }
 

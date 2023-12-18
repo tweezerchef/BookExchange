@@ -1,11 +1,11 @@
 /* eslint-disable consistent-return */
 /* eslint-disable react/require-default-props */
 import { Books } from "@prisma/client";
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { useHomeState } from "../../context/context";
-import { ExploreBooks } from "./ExploreBooks";
+import { BooksNearMe } from "./BooksNearMe";
 import { useContainerQuery } from "./hooks/useContainerQuery";
 import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
 
@@ -14,31 +14,30 @@ type Breakpoint = {
   itemsPerPage: number;
 }[];
 
-interface BooksNearMeBoxProps {
-  isRegistration?: boolean;
-  onRatingChange?: () => void;
-}
-
-export const BooksNearMeBox: FC<BooksNearMeBoxProps> = ({
-  isRegistration,
-  onRatingChange,
-}) => {
+export const BooksNearMeBox: FC = async () => {
   const { user } = useHomeState();
   const userId = user.id;
 
-  const fetchBooks = async () => {
-    try {
-      const response = await fetch(`/api/books/nearMe?userId=${userId}`);
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return (await response.json()) as Books[];
-    } catch (error) {
-      console.error("There was a problem with the fetch operation:", error);
-    }
-  };
+  const [books, setBooks] = useState<Books[] | null>(null);
 
-  const books = fetchBooks();
+  useEffect(() => {
+    const fetchBooks = async () => {
+      try {
+        const response = await fetch(
+          `/api/nearMeBooks/wishlist?userId=${userId}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const booksData = (await response.json()) as Books[];
+        setBooks(booksData);
+      } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+      }
+    };
+
+    fetchBooks();
+  }, [userId]);
 
   const containerRef = useRef(null);
   const theme = useTheme();
@@ -63,18 +62,10 @@ export const BooksNearMeBox: FC<BooksNearMeBoxProps> = ({
   } else {
     booksPerPage = containerItemsPerPage; // Use container query result otherwise
   }
-  console.log("books", books);
   const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (
     <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
-      {/* <ExploreBooks
-        {...(user && { user })}
-        books={books}
-        booksPerPage={booksPerPage}
-        isMobile={isMobile}
-        isRegistration={isRegistration}
-        onRatingChange={onRatingChange}
-      /> */}
+      {books && <BooksNearMe booksPerPage={booksPerPage} books={books} />}
     </ExploreBooksBoxWrapper>
   );
 };

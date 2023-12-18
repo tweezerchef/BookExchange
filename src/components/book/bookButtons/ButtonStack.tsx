@@ -8,7 +8,7 @@ interface ButtonStackProps {
   user?: {
     id: string;
     email: string;
-    username: string;
+    userName: string;
   };
 }
 export const ButtonStack: React.FC<ButtonStackProps> = ({
