@@ -84,7 +84,7 @@ model UserBooks {
   LendingTable   LendingTable[]
   UserBookNotes  UserBookNotes[]
   Books          Books           @relation(fields: [booksId], references: [id])
-  User           User            @relation(fields: [userId], references: [id])
+  User           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   Activity       Activity[]
 
   @@unique([userId, booksId], name: "userId_bookId")
@@ -101,7 +101,7 @@ model Activity {
   description String?
   Books       Books?        @relation(fields: [bookId], references: [id])
   place       PlacesToRead? @relation(fields: [placeId], references: [id])
-  user        User          @relation(fields: [userId], references: [id])
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   userBook    UserBooks?    @relation(fields: [userBookId], references: [id])
 }
 
@@ -128,7 +128,7 @@ model UserHobbies {
   id      String @id @default(uuid())
   hobbies String
   userId  String
-  User    User   @relation(fields: [userId], references: [id])
+  User    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserPictures {
@@ -136,7 +136,7 @@ model UserPictures {
   url    String
   userId String
   type   String?
-  User   User    @relation(fields: [userId], references: [id])
+  User   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UserBookNotes {
@@ -160,7 +160,7 @@ model UserPlaces {
   private       Boolean      @default(false)
   text          String?
   place         PlacesToRead @relation(fields: [placeId], references: [id])
-  user          User?        @relation(fields: [userId], references: [id])
+  user          User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, placeId], name: "userId_placeId")
 }
