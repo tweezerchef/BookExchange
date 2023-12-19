@@ -14,13 +14,44 @@ export default async function handler(
     }
     try{
     const {IdString} = req.query as {IdString: string}
-    console.log('IdString',IdString)
-    const pQuery = await prisma.user.findUnique({
+    const userPromise = prisma.user.findUnique({
         where: {
             id: IdString,
-            },
+        },
+        select: {
+            id: true,
+            userName: true,
+            firstName: true,
+            lastName: true,
+            picture: true,
+            city: true,
+        },
+    });
+    const wishlistBooksPromise = prisma.userBooks.findMany({
+        where: {
+            userId: IdString,
+            wishlist: true,
+        },
+        select: {
+            Books: true,
+        },
+    });
+    const lendingLibraryBooksPromise = prisma.userBooks.findMany({
+        where: {
+            userId: IdString,
+            lendingLibrary: true,
+        },
+        select: {
+            Books: true,
+        },
+    });
+    const [user, wishlistBooks, lendingLibraryBooks] = await Promise.all([
+        userPromise,
+        wishlistBooksPromise,
+        lendingLibraryBooksPromise
+    ]);
 
-    })
+    res.status(200).json({ user, wishlistBooks, lendingLibraryBooks });
 }
     catch(err){
         console.log(err)
