@@ -19,7 +19,6 @@ export default function FriendPage(props) {
 
   useEffect(() => {
     if (friendId && typeof friendId === "string") {
-      console.log("passed");
       fetch(`/api/friend/getFriend?IdString=${friendId}`)
         .then((response) => response.json())
         .then((data: Data) => {
@@ -37,7 +36,7 @@ export default function FriendPage(props) {
   return (
     <Container>
       <h1>Friend Page</h1>
-      <Profile friend={friend} />
+      {friend && <Profile friend={friend} />}
     </Container>
   );
 }

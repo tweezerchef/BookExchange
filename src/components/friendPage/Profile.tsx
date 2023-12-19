@@ -29,14 +29,14 @@ export const Profile: FC<ProfileProps> = ({ friend }) => {
         setAvi(url);
       }
     };
-    if (friend.picture) {
-      getS3();
-    }
+
+    getS3();
   }, [friend]);
   return (
     <ProfileBox>
       <Stack>
         <Avatar src={avi} />
+        {friend.userName}
       </Stack>
     </ProfileBox>
   );
