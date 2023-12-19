@@ -17,7 +17,7 @@ model User {
   email              String             @unique
   googleId           String?            @unique
   lastName           String?
-  picture            String?
+  picture            String?            @default("userAVI/npc.jpeg")
   password           String?
   latitude           Float?
   longitude          Float?
