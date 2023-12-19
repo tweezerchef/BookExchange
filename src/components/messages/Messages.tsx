@@ -51,7 +51,6 @@ export function Messages() {
         .then((response) => response.json())
         .then((replyObject: ReplyObject) => {
           const { names, userWithConversations } = replyObject;
-          console.log("namesArray", names, userWithConversations);
           setAutoCompleteData(names);
           setConversations(userWithConversations);
         })

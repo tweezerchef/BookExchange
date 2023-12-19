@@ -100,7 +100,7 @@ const ProfileAvatar: FC = () => {
     const newFileName = `userAVI/${userId}userAvi.jpg`;
     const newFile = new File([blob], newFileName, { type: file.type });
     updateAviFileData(newFile);
-    void handleFileUpload(newFile);
+    handleFileUpload(newFile);
     const reader = new FileReader();
     reader.onload = () => {
       setOriginalImage(reader.result as string);
@@ -117,7 +117,7 @@ const ProfileAvatar: FC = () => {
     });
 
     updateAviFileData(file);
-    void handleFileUpload(file);
+    handleFileUpload(file);
     setOriginalImage(imageSrc); // Set original image
     setCapturedImage(imageSrc);
     setAvatarUrl(imageSrc || avatarUrl);
@@ -144,9 +144,9 @@ const ProfileAvatar: FC = () => {
         type: imageBlob.type,
       });
       updateAviFileData(file);
-      void handleFileUpload(file);
-      void setCapturedImage(null);
-      void setIsCameraOpen(false);
+      handleFileUpload(file);
+      setCapturedImage(null);
+      setIsCameraOpen(false);
     } else {
       console.error(
         "Unexpected type for cropperRef.current:",

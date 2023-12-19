@@ -46,14 +46,14 @@ export default async function handler(
                 },
                 {
                     latitude: {
-                        gte: latitude - 20 / 69.0,
-                        lte: latitude + 20 / 69.0,
+                        gte: latitude - 30 / 69.0,
+                        lte: latitude + 30 / 69.0,
                     },
                 },
                 {
                     longitude: {
-                        gte: longitude - 20 / (69.0 * Math.cos(latitude * Math.PI / 180.0)),
-                        lte: longitude + 20 / (69.0 * Math.cos(latitude * Math.PI / 180.0)),
+                        gte: longitude - 30 / (69.0 * Math.cos(latitude * Math.PI / 180.0)),
+                        lte: longitude + 30 / (69.0 * Math.cos(latitude * Math.PI / 180.0)),
                     },
                 },
                 {
