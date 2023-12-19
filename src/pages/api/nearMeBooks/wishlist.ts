@@ -14,7 +14,6 @@ export default async function handler(
     }
     try{
     const {userId} = req.query as {userId: string}
-    console.log('userId',userId)
     const userInfo = await prisma.user.findUnique({
         where: {
           id: userId,
@@ -77,7 +76,6 @@ export default async function handler(
         },
     });
 
-    console.log(booksInLendingLibrary);
  res.status(200).json(booksInLendingLibrary)
     } catch (error) {
         console.error(error);
