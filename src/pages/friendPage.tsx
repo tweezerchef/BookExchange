@@ -9,7 +9,7 @@ export default function FriendPage(props) {
 
   useEffect(() => {
     if (IdString && typeof IdString === "string") {
-      fetch(`/api/friends/getFriend?friendId=${IdString as string}`)
+      fetch(`/api/friend/getFriend?friendId=${IdString as string}`)
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
