@@ -37,7 +37,7 @@ export default function FriendPage(props) {
   return (
     <Container>
       <h1>Friend Page</h1>
-      {/* <Profile friend={friend} /> */}
+      <Profile friend={friend} />
     </Container>
   );
 }
