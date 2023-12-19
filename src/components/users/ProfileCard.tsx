@@ -2,10 +2,10 @@
 import { FC, useEffect, useState } from "react";
 import { User } from "@prisma/client";
 import Box from "@mui/material/Box";
+import Link from "next/link";
 import { AddFriendButton } from "./components/AddFriendButton";
 import { MessageButton } from "./components/MessageButton";
 import {
-  GenreBox,
   StyledProfileCard,
   StyledAvatar,
   AvatarBox,
@@ -45,6 +45,7 @@ export const ProfileCard: FC<ProfileCardProps> = ({
   if (friendIds.includes(friendId)) {
     isFriend = true;
   }
+
   useEffect(() => {
     if (rawUserPicture) {
       fetch(`/api/AWS/signedURL?fileNames=${rawUserPicture}`, {
@@ -73,13 +74,15 @@ export const ProfileCard: FC<ProfileCardProps> = ({
   return (
     <Box sx={{ display: "flex", justifyContent: "center", height: "100%" }}>
       <StyledProfileCard>
-        <AvatarBox>
+        <AvatarBox style={{ cursor: "pointer" }}>
           <AddFriendButton
             friendId={friendId}
             isFriend={isFriend}
             {...(user ? { user } : {})}
           />
-          <StyledAvatar alt='Remy Sharp' src={profilePicture} />
+          <Link href={`/friendPage?friendId=${friendId}`}>
+            <StyledAvatar alt='Remy Sharp' src={profilePicture} />
+          </Link>
           <MessageButton />
         </AvatarBox>
         <Box

@@ -1,23 +1,34 @@
+import { Container } from "@mui/material";
+import { Books, User } from "@prisma/client";
 import { useRouter } from "next/router";
-import { use } from "passport";
-import { useEffect } from "react";
+
+import { useEffect, useState } from "react";
 
 export default function FriendPage(props) {
+  const [wishlist, setWishlist] = useState<Books[]>([]);
+  const [lendingLibrary, setLendingLibrary] = useState<Books[]>([]);
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
   const { friendId } = router.query;
-  const IdString = friendId.toString;
+  console.log("friendIdtype", typeof friendId);
 
   useEffect(() => {
-    if (IdString && typeof IdString === "string") {
-      fetch(`/api/friend/getFriend?friendId=${IdString as string}`)
+    console.log("friendIdString", friendId);
+    if (friendId && typeof friendId === "string") {
+      console.log("passed");
+      fetch(`/api/friend/getFriend?IdString=${friendId}`)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          console.log("friendData", data);
         })
         .catch((error) => {
           console.error(error);
         });
     }
-  });
-  return <div>Friend Page</div>;
+  }, [friendId]);
+  return (
+    <Container>
+      <h1>Friend Page</h1>
+    </Container>
+  );
 }

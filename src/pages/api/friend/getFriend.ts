@@ -33,8 +33,17 @@ export default async function handler(
             wishlist: true,
         },
         select: {
-            Books: true,
+            Books: {
+                select: {
+                    id: true,
+                    title: true,
+                    author: true,
+                    description: true,
+                    image: true,
+                    ISBN10: true,
+            },
         },
+    },
     });
     const lendingLibraryBooksPromise = prisma.userBooks.findMany({
         where: {
@@ -42,14 +51,25 @@ export default async function handler(
             lendingLibrary: true,
         },
         select: {
-            Books: true,
+            Books: {
+                select: {
+                    id: true,
+                    title: true,
+                    author: true,
+                    description: true,
+                    image: true,
+                    ISBN10: true,
+            },
+        },
         },
     });
-    const [user, wishlistBooks, lendingLibraryBooks] = await Promise.all([
+    const [user, wishlistBooks0, lendingLibraryBooks0] = await Promise.all([
         userPromise,
         wishlistBooksPromise,
         lendingLibraryBooksPromise
     ]);
+    const wishlistBooks = wishlistBooks0.map((book) => book.Books);
+    const lendingLibraryBooks = lendingLibraryBooks0.map((book) => book.Books);
 
     res.status(200).json({ user, wishlistBooks, lendingLibraryBooks });
 }
