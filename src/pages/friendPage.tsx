@@ -35,7 +35,7 @@ export default function FriendPage(props) {
   }, [friendId]);
   return (
     <Container>
-      <h1>Friend Page</h1>
+      <div style={{ height: "3vh" }} />
       {friend && <Profile friend={friend} />}
       {lendingLibrary.length > 0 && (
         <LendingLibraryBox lendingLibrary={lendingLibrary} />

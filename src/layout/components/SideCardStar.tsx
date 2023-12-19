@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Activity, Books, User } from "@prisma/client";
 import { Stack } from "@mui/material";
+import Link from "next/link";
 import { StarRating } from "./components/StarRating";
 import { SideBarCard } from "./components/cardStyles";
 import { SideCarBook } from "./components/SideCarBook";
@@ -17,7 +18,7 @@ interface SideCardProps {
 }
 
 export const SideCardStar: FC<SideCardProps> = ({ activity }) => {
-  const { picture, userName } = activity.user;
+  const { picture, userName, id } = activity.user;
   const { description } = activity;
 
   return (
@@ -29,7 +30,9 @@ export const SideCardStar: FC<SideCardProps> = ({ activity }) => {
         alignContent='center'
         padding={1}
       >
-        <SideCarAVI picture={picture} userName={userName} />
+        <Link href={`/friendPage?friendId=${id}`}>
+          <SideCarAVI picture={picture} userName={userName} />
+        </Link>
         <StarRating description={description} />
       </Stack>
       <SideCarBook activity={activity} />
