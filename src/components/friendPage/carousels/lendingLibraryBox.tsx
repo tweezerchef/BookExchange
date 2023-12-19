@@ -14,10 +14,10 @@ type Breakpoint = {
 }[];
 
 type LendingLibraryProps = {
-  lendingLibraryBooks: Books[];
+  lendingLibrary: Books[];
 };
 export const LendingLibraryBox: FC<LendingLibraryProps> = ({
-  lendingLibraryBooks,
+  lendingLibrary,
 }) => {
   const containerRef = useRef(null);
   const theme = useTheme();
@@ -47,11 +47,11 @@ export const LendingLibraryBox: FC<LendingLibraryProps> = ({
   return (
     <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
       <Divider textAlign='right'>
-        <Chip label='Your Wish List' />
+        <Chip label='Their Lending Library' />
       </Divider>
       <LendingLibrary
         booksPerPage={booksPerPage}
-        lendingLibraryBooks={lendingLibraryBooks}
+        lendingLibrary={lendingLibrary}
       />
     </ExploreBooksBoxWrapper>
   );

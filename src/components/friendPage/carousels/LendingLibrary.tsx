@@ -20,12 +20,12 @@ import { useHomeDispatch, useHomeState } from "../../../context/context";
 
 interface LendingLibraryProps {
   booksPerPage: number;
-  lendingLibraryBooks: Books[];
+  lendingLibrary: Books[];
 }
 
 export const LendingLibrary: React.FC<LendingLibraryProps> = ({
   booksPerPage,
-  lendingLibraryBooks,
+  lendingLibrary,
 }) => {
   const state = useHomeState();
   const dispatch = useHomeDispatch();
@@ -40,7 +40,7 @@ export const LendingLibrary: React.FC<LendingLibraryProps> = ({
 
   const { user } = state;
 
-  const books = lendingLibraryBooks;
+  const books = lendingLibrary;
 
   const handleNextPage = () => {
     setSlideDirection("left");

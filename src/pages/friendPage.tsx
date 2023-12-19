@@ -3,6 +3,7 @@ import { Books, User } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Profile } from "../components/friendPage/Profile";
+import { LendingLibraryBox } from "../components/friendPage/carousels/lendingLibraryBox";
 
 type Data = {
   user: User;
@@ -23,7 +24,6 @@ export default function FriendPage(props) {
         .then((response) => response.json())
         .then((data: Data) => {
           const { user, wishlistBooks, lendingLibraryBooks } = data;
-          console.log(user);
           setFriend(user);
           setWishlist(wishlistBooks);
           setLendingLibrary(lendingLibraryBooks);
@@ -37,6 +37,9 @@ export default function FriendPage(props) {
     <Container>
       <h1>Friend Page</h1>
       {friend && <Profile friend={friend} />}
+      {lendingLibrary.length > 0 && (
+        <LendingLibraryBox lendingLibrary={lendingLibrary} />
+      )}
     </Container>
   );
 }
