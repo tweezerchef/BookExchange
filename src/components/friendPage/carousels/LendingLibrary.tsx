@@ -7,22 +7,26 @@ import { useState } from "react";
 import { Books } from "@prisma/client";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { BookCard } from "../book/BookCard";
+import { BookCard } from "../../book/BookCard";
 import {
   BookBox,
   LeftIconButton,
   RightIconButton,
   OuterWrapperBox,
   MobileBox,
-} from "./styles/exploreBooksStyle";
+} from "../../Carousels/styles/exploreBooksStyle";
 
-import { useHomeDispatch, useHomeState } from "../../context/context";
+import { useHomeDispatch, useHomeState } from "../../../context/context";
 
-interface WishListProps {
+interface LendingLibraryProps {
   booksPerPage: number;
+  lendingLibraryBooks: Books[];
 }
 
-const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
+export const LendingLibrary: React.FC<LendingLibraryProps> = ({
+  booksPerPage,
+  lendingLibraryBooks,
+}) => {
   const state = useHomeState();
   const dispatch = useHomeDispatch();
   const [currentPage, setCurrentPage] = useState(0);
@@ -34,9 +38,9 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const { wishList, user } = state;
+  const { user } = state;
 
-  const books = wishList;
+  const books = lendingLibraryBooks;
 
   const handleNextPage = () => {
     setSlideDirection("left");
@@ -119,5 +123,3 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
     </OuterWrapperBox>
   );
 };
-
-export default WishList;
