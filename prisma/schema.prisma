@@ -205,7 +205,7 @@ model Notifications {
   type       String?
   offline    Boolean?
   read       Boolean?
-  User       User     @relation(fields: [userId], references: [id])
+  User       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Conversations {
@@ -331,7 +331,7 @@ model PostsUsers {
   thumbsUp   Boolean @default(false)
   thumbsDown Boolean @default(false)
   post       Posts   @relation(fields: [postId], references: [id])
-  user       User    @relation(fields: [userId], references: [id])
+  user       User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Friends {
@@ -340,8 +340,8 @@ model Friends {
   friendId  String
   isFriend  Boolean @default(false)
   confirmed Boolean @default(true)
-  friend    User    @relation("friend", fields: [friendId], references: [id])
-  user      User    @relation("user", fields: [userId], references: [id])
+  friend    User    @relation("friend", fields: [friendId], references: [id], onDelete: Cascade)
+  user      User    @relation("user", fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, friendId], name: "userId_friendId")
 }
