@@ -19,7 +19,7 @@ width: 300px;
 height: 144px;
 border-radius: 10px;
 display: flex;
-flex-direction: column;
+flex-direction: row;
 align-items: center;
 position: relative;
 transition: box-shadow 0.3s, background-color 0.3s;
@@ -51,16 +51,23 @@ overflow: hidden;
 export const StyledClubBox = styled(Box)`
 position: relative;
 display: grid;
+grid-template-rows: 2fr 1fr;
 width: 50%;
 height: 100%;
 flex-direction: row;
-padding-top: 1em;
-gap: 1em;
 `;
 
 export const ClubImageBox = styled(Box)`
 position: relative;
-height: 75%;
+height: 100%;
+width: 100%;
+padding-top: 1em;
+`;
+export const LowerClubBox = styled(Box)`
+position: relative;
+display: grid;
+height: 100%;
+flex-direction: row;
 padding-top: 1em;
 gap: 1em;
 `;
@@ -93,11 +100,4 @@ padding-top: 15px;
 }
 `;
 
-export const LowerClubBox = styled(Box)`
-position: relative;
-display: grid;
-height: 25%;
-flex-direction: row;
-padding-top: 1em;
-gap: 1em;
-`;
+
