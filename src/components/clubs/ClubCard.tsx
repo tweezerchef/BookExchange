@@ -1,7 +1,18 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import { Clubs } from "@prisma/client";
+import { CloseButton } from "../book/bigBookStyles";
 
-export const ClubCard: FC = () => (
-  <div>
-    <h1>ClubCard</h1>
-  </div>
-);
+interface ClubProps {
+  club: Clubs;
+}
+
+export const ClubCard: FC<ClubProps> = ({ club }) => {
+  const [clubImage, setClubImage] = useState<string>("");
+  useEffect(() => {}, [club]);
+
+  return (
+    <div>
+      <h1>ClubCard</h1>
+    </div>
+  );
+};
