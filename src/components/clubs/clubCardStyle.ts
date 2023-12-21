@@ -15,8 +15,8 @@ const breakpoints = {
 };
 
 export const StyledClubCard = styled(Card)`
-width: 300px;
-height: 144px;
+width: 280px;
+height: 140px;
 border-radius: 10px;
 display: flex;
 flex-direction: row;
@@ -34,17 +34,17 @@ overflow: hidden;
       }
       padding: 1em;
       @media (max-width: ${breakpoints.values.md}px) {
-        width: 300px;
-        height: 144px;
+        width: 280px;
+        height: 140px;
       }
       @media (max-width: ${breakpoints.values.sm}px) {
-        width: 160px;
-        height: 144px;
+        width: 150px;
+        height: 72px;
       }
 
       @media (max-width: ${breakpoints.values.xs}px) {
-        width: 140px;
-        height: 126px;
+        width: 150px;
+        height: 73px;
       }
 `;
 
@@ -60,8 +60,9 @@ flex-direction: row;
 export const ClubImageBox = styled(Box)`
 position: relative;
 height: 100%;
-width: 100%;
+width: 50%;
 padding-top: 1em;
+justify-self: center;
 `;
 export const LowerClubBox = styled(Box)`
 position: relative;
