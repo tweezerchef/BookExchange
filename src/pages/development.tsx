@@ -1,28 +1,20 @@
 import Container from "@mui/material/Container";
+import { Books, Clubs } from "@prisma/client";
 import { ClubCard } from "../components/clubs/ClubCard";
 
+interface ClubType extends Clubs {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Clubs_Books: any;
+}
+
 const CardDevelopmentPage = (props) => {
-  const club = {
+  const club: ClubType = {
     id: "123415gdasdi",
     name: "The Book Club",
     description: "We read books",
     image: "blackBook.jpg",
     memberCount: 3,
     discussionCount: 5,
-    ClubAdmins: [
-      {
-        id: "123415gdasdi",
-        userId: "123415gdasdi",
-        clubId: "123415gdasdi",
-      },
-    ],
-    clubMembers: [
-      {
-        id: "123415gdasdi",
-        userId: "123415gdasdi",
-        clubId: "123415gdasdi",
-      },
-    ],
     Clubs_Books: [
       {
         id: "007fb8bf-3aa1-44a6-a681-dfcecafca9df",
@@ -35,15 +27,9 @@ const CardDevelopmentPage = (props) => {
         ISBN10: "0062024078",
       },
     ],
-    Discussions: [
-      {
-        id: "123415gdasdi",
-        clubId: "123415gdasdi",
-        bookId: "123415gdasdi",
-        discussion: "This book was great",
-      },
-    ],
   };
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   return (
     <Container>
       <ClubCard club={club} />
