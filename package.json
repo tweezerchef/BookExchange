@@ -15,7 +15,7 @@
     "@googlemaps/google-maps-services-js": "^3.3.41",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.16",
-    "@prisma/client": "^5.5.2",
+    "@prisma/client": "^5.7.1",
     "@types/bcrypt": "^5.0.1",
     "@types/got": "^9.6.12",
     "@types/js-cookie": "^3.0.5",
@@ -67,7 +67,7 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prisma": "^5.5.2",
+    "prisma": "^5.7.1",
     "typescript": "^5"
   }
 }

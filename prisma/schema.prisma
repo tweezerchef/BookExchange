@@ -28,6 +28,7 @@ model User {
   isOnline           Boolean            @default(false)
   Activity           Activity[]
   ClubMembers        ClubMembers[]
+  ClubsAdmins        ClubsAdmins[]
   DirectMessages     DirectMessages[]
   Discussions        Discussions[]
   DiscussionsUsers   DiscussionsUsers[]
@@ -253,16 +254,27 @@ model Clubs {
   name        String        @unique
   description String?
   image       String?
-  admin       String?
+  ClubAdmins  ClubsAdmins[]
   clubMembers ClubMembers[]
   Clubs_Books ClubsBooks[]
   Discussions Discussions[]
+}
+
+model ClubsAdmins {
+  id     String @id @default(uuid())
+  userId String
+  clubId String
+  Club   Clubs  @relation(fields: [clubId], references: [id])
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, clubId], name: "userId_clubId")
 }
 
 model ClubsBooks {
   id          String  @id @default(uuid())
   booksId     String
   clubId      String
+  currentBook Boolean @default(false)
   description String?
   startDate   String?
   endDate     String?
@@ -275,7 +287,7 @@ model ClubMembers {
   userId String
   clubId String
   club   Clubs  @relation(fields: [clubId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, clubId], name: "userId_clubId")
 }
