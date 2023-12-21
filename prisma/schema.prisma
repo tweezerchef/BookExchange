@@ -250,14 +250,16 @@ model bookdata {
 }
 
 model Clubs {
-  id          String        @id @default(uuid())
-  name        String        @unique
-  description String?
-  image       String?
-  ClubAdmins  ClubsAdmins[]
-  clubMembers ClubMembers[]
-  Clubs_Books ClubsBooks[]
-  Discussions Discussions[]
+  id              String        @id @default(uuid())
+  name            String        @unique
+  description     String?
+  image           String?
+  memberCount     Int           @default(1)
+  discussionCount Int           @default(1)
+  ClubAdmins      ClubsAdmins[]
+  clubMembers     ClubMembers[]
+  Clubs_Books     ClubsBooks[]
+  Discussions     Discussions[]
 }
 
 model ClubsAdmins {
