@@ -12,6 +12,7 @@ interface StarRating {
 }
 
 interface HomeState {
+  randomBooks: Books[];
   imageUrlsObj?: ImageUrls;
   wishList?: Books[];
   wishListIDs?: Books["id"][];
@@ -48,6 +49,7 @@ export function UserProvider({ children }) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [state, dispatch] = useReducer(reducer, {
     imageUrlsObj: {} as ImageUrls,
+    randomBooks: [] as Books[],
     wishList: [] as Books[],
     lendingLibrary: [] as Books[],
     lendingLibraryIDs: [] as Books["id"][],

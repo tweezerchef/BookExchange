@@ -32,6 +32,7 @@ interface HomeProps {
   wishlistIdsData: Books["id"][];
   lendingLibraryIdsData: Books["id"][];
   starRatingData: StarRating[];
+  randomBooks: Books[];
 }
 
 const secretKey = process.env.SECRET_COOKIE_KEY;

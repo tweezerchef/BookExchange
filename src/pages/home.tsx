@@ -18,6 +18,7 @@ import {
   SET_LENDING_LIBRARY_IDS,
   SET_STAR_RATINGS,
   SET_IMAGE_URLS_OBJECT,
+  SET_RANDOM_BOOKS,
 } from "../context/actions";
 import { Messages } from "../components/messages/Messages";
 
@@ -61,6 +62,9 @@ const Home: React.FC<HomeProps> = memo(
       }
       if (user) {
         dispatch({ type: SET_USER, payload: user });
+      }
+      if (randomBooks) {
+        dispatch({ type: SET_RANDOM_BOOKS, payload: randomBooks });
       }
       if (wishlistData) {
         dispatch({ type: SET_WISHLIST, payload: wishlistData });

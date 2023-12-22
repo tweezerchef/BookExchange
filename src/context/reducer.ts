@@ -1,5 +1,5 @@
 import { UserBooks, User, Books } from '@prisma/client';
-import { SET_WISHLIST, SET_LENDING_LIBRARY, SET_LENDING_LIBRARY_IDS, SET_USER_BOOKS, SET_USER_BOOKS_IDS, SET_USER, SET_WISHLIST_IDS, SET_STAR_RATINGS, SET_IMAGE_URLS_OBJECT } from './actions';
+import { SET_WISHLIST, SET_LENDING_LIBRARY, SET_LENDING_LIBRARY_IDS, SET_USER_BOOKS, SET_USER_BOOKS_IDS, SET_USER, SET_WISHLIST_IDS, SET_STAR_RATINGS, SET_IMAGE_URLS_OBJECT, SET_RANDOM_BOOKS } from './actions';
 
 interface ImageUrls {
   [key: string]: string;
@@ -13,6 +13,7 @@ interface StarRating {
 interface HomeState {
   imageUrlsObj?: ImageUrls;
   user: User;
+  randomBooks: Books[];
   wishList: Books[];
   lendingLibrary: Books[];
   lendingLibraryIDs: string[];
@@ -32,7 +33,8 @@ type UserAction =
   | { type: typeof SET_USER_BOOKS; payload: UserBooks[] }
   | { type: typeof SET_USER_BOOKS_IDS; payload: string[] }
   | { type: typeof SET_WISHLIST_IDS; payload: string[] }
-  | { type: typeof SET_STAR_RATINGS; payload: StarRating[] };
+  | { type: typeof SET_STAR_RATINGS; payload: StarRating[] }
+  | { type: typeof SET_RANDOM_BOOKS; payload: Books[] };
 
 function userReducer(state: HomeState, action: UserAction): HomeState {
   switch (action.type) {
@@ -54,6 +56,8 @@ function userReducer(state: HomeState, action: UserAction): HomeState {
       return { ...state, wishListIDs: action.payload };
     case SET_STAR_RATINGS:
       return { ...state, starRatings: action.payload };
+      case SET_RANDOM_BOOKS:
+        return { ...state, randomBooks: action.payload };
     default:
       return state;
   }
