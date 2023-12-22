@@ -64,6 +64,7 @@ const Home: React.FC<HomeProps> = memo(
         dispatch({ type: SET_USER, payload: user });
       }
       if (randomBooks) {
+        console.log("randomBooks", randomBooks);
         dispatch({ type: SET_RANDOM_BOOKS, payload: randomBooks });
       }
       if (wishlistData) {
@@ -88,8 +89,7 @@ const Home: React.FC<HomeProps> = memo(
       <Box sx={{ flexGrow: 1, p: 2 }}>
         {books && !isLoading && (
           <>
-            {/* <Link href='./register'>Register</Link>
-            <Link href='./development'>Development</Link> */}
+            <Link href='/createClub'>Create Club</Link>
             <ExploreBooksBox books={books} setBooks={setBooks} />
             <ExploreFriendsBox />
             <WishListBox />

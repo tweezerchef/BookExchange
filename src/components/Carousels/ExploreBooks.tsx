@@ -24,7 +24,7 @@ type ExploreBooksProps = {
   user?: {
     id: string;
     email: string;
-    username: string;
+    userName: string;
   };
   isMobile: boolean;
   isRegistration?: boolean;
