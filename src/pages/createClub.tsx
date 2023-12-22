@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Books } from "@prisma/client";
 import { useHomeState } from "../context/context";
+import { ExploreBooksBox } from "../components/Carousels/ExploreBooksBox";
 
 export default function CreateClub() {
   const { user, randomBooks } = useHomeState();

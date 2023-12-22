@@ -4,8 +4,8 @@ import { FC, useRef } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { ExploreBooks } from "./ExploreBooks";
-import { useContainerQuery } from "./hooks/useContainerQuery";
-import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
+import { useContainerQuery } from "../Carousels/hooks/useContainerQuery";
+import { ExploreBooksBoxWrapper } from "../Carousels/styles/exploreBooksStyle";
 
 type Breakpoint = {
   width: number;
