@@ -2,6 +2,7 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
 
 const breakpoints = {
   values: {
@@ -23,6 +24,7 @@ align-items: center;
 position: relative;
 transition: box-shadow 0.3s, background-color 0.3s;
 overflow: hidden;
+padding: 0.5em;
 
 &:hover {
   transform: scale(1.05);
@@ -152,3 +154,21 @@ export const AuthorTypography = styled(Typography)`
     font-size: 0.7rem; // Even smaller font size on extra small screens
   }
 `;
+export const PickBookButton = styled(Button)(({ theme }) => ({
+  backgroundColor: '#749cc3', // A blue color that should match your design
+  color: '#ffffff',
+  margin: theme.spacing(1),
+  borderRadius: theme.shape.borderRadius,
+  cursor: 'pointer',
+  fontWeight: 'bold',
+  textTransform: 'uppercase',
+  transition: theme.transitions.create(['background-color'], {
+    duration: theme.transitions.duration.short,
+  }),
+  '&:hover': {
+    backgroundColor: '#7ab8cd', // A lighter blue for hover effect
+  },
+  '&:focus': {
+    outline: 'none',
+  },
+}));

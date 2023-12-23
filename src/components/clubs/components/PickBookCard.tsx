@@ -12,6 +12,7 @@ import {
   ContentContainer,
   TitleTypography,
   AuthorTypography,
+  PickBookButton,
 } from "./bookStyles";
 
 interface Book extends Books {
@@ -38,8 +39,6 @@ export const PickBookCard: React.FC<PickBookProps> = ({
   user = null,
   setClubBook,
 }) => {
-  const [bigBookOpen, setBigBookOpen] = useState(false);
-  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
 
   function truncateTitle(title: string, wordLimit: number) {
@@ -50,93 +49,64 @@ export const PickBookCard: React.FC<PickBookProps> = ({
     return title;
   }
 
-  const handleBookClick = () => {
-    setBigBookOpen(true);
-  };
-
-  const handleCloseBigBook = () => {
-    setBigBookOpen(false);
-  };
-
-  const getBookReviews = useCallback(async () => {
-    if (!book?.id) return;
-    try {
-      const res = await fetch(`/api/bookDB/reviews/${book.id}`);
-      const data: Review[] = (await res.json()) as Review[];
-      setReviews(data);
-    } catch (err) {
-      console.error(err);
-    }
-  }, [book]);
-
-  useEffect(() => {
-    void getBookReviews();
-  }, [getBookReviews]);
+  const handleBookClick = useCallback(() => {
+    setClubBook(book);
+    console.log("book", book);
+  }, [book, setClubBook]);
   return (
-    <>
-      {/* {bigBookOpen && (
-        <BigBook
-          book={book}
-          bigBookOpen={bigBookOpen}
-          handleCloseBigBook={handleCloseBigBook}
-          reviews={reviews}
-          setReviews={setReviews}
+    <StyledBookCard elevation={3}>
+      <div className='backgroundImage'>
+        <Image
+          src='/mountainBackgound.png'
+          alt='Background'
+          fill
+          sizes='max-width: 220px, max-height: 220px'
+          priority
+          onLoad={() => setLoading(false)}
         />
-      )} */}
-      <StyledBookCard elevation={3}>
-        <div className='backgroundImage'>
-          <Image
-            src='/mountainBackgound.png'
-            alt='Background'
-            fill
-            sizes='max-width: 220px, max-height: 220px'
-            priority
-            onLoad={() => setLoading(false)}
-          />
-        </div>
-        {!loading && (
-          <>
-            <TopContainer>
-              <ImageBox onClick={handleBookClick}>
-                <Image
-                  src={
-                    book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"
-                  }
-                  alt='Book Cover'
-                  fill
-                  sizes='max-width: 100px, max-height: 180px'
-                  priority
-                  quality={100}
-                />
-              </ImageBox>
-              <SideOfImageBox>
-                {book.author && (
-                  <>
-                    <Button
-                      component='label'
-                      variant='contained'
-                      startIcon={<ImportContactsIcon />}
-                    >
-                      Pick This Book
-                    </Button>
-                    <AuthorTypography align='center'>
-                      Written By: <br />
-                      {book.author}
-                    </AuthorTypography>
-                  </>
-                )}
-              </SideOfImageBox>
-            </TopContainer>
-            <ContentContainer>
-              <Tooltip title={book.title} placement='top' arrow>
-                <TitleTypography variant='body1'>
-                  {truncateTitle(book.title, 10)}
-                </TitleTypography>
-              </Tooltip>
-            </ContentContainer>
-          </>
-        )}
-      </StyledBookCard>
-    </>
+      </div>
+      {!loading && (
+        <>
+          <TopContainer>
+            <ImageBox onClick={handleBookClick}>
+              <Image
+                src={
+                  book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"
+                }
+                alt='Book Cover'
+                fill
+                sizes='max-width: 100px, max-height: 180px'
+                priority
+                quality={100}
+              />
+            </ImageBox>
+            <SideOfImageBox>
+              {book.author && (
+                <>
+                  <PickBookButton
+                    variant='contained'
+                    startIcon={<ImportContactsIcon />}
+                    onClick={handleBookClick}
+                  >
+                    Pick This Book
+                  </PickBookButton>
+                  <AuthorTypography align='center'>
+                    Written By: <br />
+                    {book.author}
+                  </AuthorTypography>
+                </>
+              )}
+            </SideOfImageBox>
+          </TopContainer>
+          <ContentContainer>
+            <Tooltip title={book.title} placement='top' arrow>
+              <TitleTypography variant='body1'>
+                {truncateTitle(book.title, 10)}
+              </TitleTypography>
+            </Tooltip>
+          </ContentContainer>
+        </>
+      )}
+    </StyledBookCard>
   );
 };
