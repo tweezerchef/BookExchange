@@ -3,7 +3,7 @@ import { Books } from "@prisma/client";
 import { FC, useRef } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
-import { ExploreBooks } from "./ExploreBooks";
+import { PickBookCarousel } from "./PickBookCarousel";
 import { useContainerQuery } from "../Carousels/hooks/useContainerQuery";
 import { ExploreBooksBoxWrapper } from "../Carousels/styles/exploreBooksStyle";
 
@@ -15,21 +15,17 @@ type Breakpoint = {
 interface ExploreBooksBoxProps {
   books: Books[];
   setBooks: React.Dispatch<React.SetStateAction<Books[]>>;
-  user?: {
+  user: {
     id: string;
     email: string;
     userName: string;
   };
-  isRegistration?: boolean;
-  onRatingChange?: () => void;
 }
 
 export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
   books,
   setBooks,
-  user = null,
-  isRegistration,
-  onRatingChange,
+  user,
 }) => {
   const containerRef = useRef(null);
   const theme = useTheme();
@@ -58,7 +54,7 @@ export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
   const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (
     <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
-      <ExploreBooks
+      <PickBookCarousel
         {...(user && { user })}
         books={books}
         setBooks={setBooks}
