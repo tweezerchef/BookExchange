@@ -6,7 +6,7 @@ import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import { Books } from "@prisma/client";
-import { PickBookCard } from "./components/PickBookCard";
+import { PickBookCard } from "./createClub/components/PickBookCard";
 import { StyledDivider } from "../chips/chipStyle";
 import { ExploreChip } from "../chips/ExploreChip";
 import {

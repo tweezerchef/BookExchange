@@ -7,7 +7,7 @@ import {
   ClubImageBox,
   NameTypography,
   LowerClubBox,
-} from "../clubCardStyle";
+} from "../../clubCardStyle";
 
 interface ClubBookProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

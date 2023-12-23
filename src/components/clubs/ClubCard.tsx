@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Books, Clubs } from "@prisma/client";
 import Image from "next/image";
 import { ClubBox } from "./components/ClubBox";
-import { BookBox } from "./components/BookBox";
+import { BookBox } from "./createClub/components/BookBox";
 import { StyledClubCard } from "./clubCardStyle";
 
 interface ClubsBook extends Clubs {
