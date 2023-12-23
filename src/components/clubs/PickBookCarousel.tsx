@@ -6,7 +6,7 @@ import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
 import { Books } from "@prisma/client";
-import { BookCard } from "../book/BookCard";
+import { PickBookCard } from "./components/PickBookCard";
 import { StyledDivider } from "../chips/chipStyle";
 import { ExploreChip } from "../chips/ExploreChip";
 import {
@@ -68,12 +68,7 @@ export const PickBookCarousel: React.FC<ExploreBooksProps> = ({
             <MobileBox booksPerPage={booksPerPage}>
               {books.map((book) => (
                 <Box key={book.id || book.title} sx={{ width: "100%" }}>
-                  <BookCard
-                    book={book}
-                    user={user}
-                    isRegistration={isRegistration}
-                    onRatingChange={onRatingChange}
-                  />
+                  <PickBookCard book={book} user={user} />
                 </Box>
               ))}
             </MobileBox>
@@ -111,13 +106,7 @@ export const PickBookCarousel: React.FC<ExploreBooksProps> = ({
                         // eslint-disable-next-line @typescript-eslint/no-shadow
                         .map((book: Books) => (
                           <Box key={book.id || book.title}>
-                            <BookCard
-                              book={book}
-                              {...(user && { user })}
-                              isRegistration={isRegistration}
-                              onRatingChange={onRatingChange}
-                              // nearMeBooks={nearMeBooks}
-                            />
+                            <PickBookCard book={book} {...(user && { user })} />
                           </Box>
                         ))}
                     </Stack>

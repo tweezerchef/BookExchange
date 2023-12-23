@@ -17,26 +17,22 @@ interface Book extends Books {
   wishlist?: UserBooks[];
   owned?: UserBooks[];
 }
-interface BookProps {
+interface PickBookProps {
   book: Book;
   user?: {
     id: string;
     email: string;
     userName: string;
   };
-  isRegistration?: boolean;
-  onRatingChange?: () => void;
 }
 type Review = {
   User: User;
   review: string;
 };
 
-export const BookCard: React.FC<BookProps> = ({
+export const PickBookCard: React.FC<PickBookProps> = ({
   book,
   user = null,
-  isRegistration,
-  onRatingChange,
 }) => {
   const [bigBookOpen, setBigBookOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -74,7 +70,7 @@ export const BookCard: React.FC<BookProps> = ({
   }, [getBookReviews]);
   return (
     <>
-      {bigBookOpen && (
+      {/* {bigBookOpen && (
         <BigBook
           book={book}
           bigBookOpen={bigBookOpen}
@@ -82,7 +78,7 @@ export const BookCard: React.FC<BookProps> = ({
           reviews={reviews}
           setReviews={setReviews}
         />
-      )}
+      )} */}
       <StyledBookCard elevation={3}>
         <div className='backgroundImage'>
           <Image

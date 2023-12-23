@@ -12,7 +12,7 @@ type Breakpoint = {
   itemsPerPage: number;
 }[];
 
-interface ExploreBooksBoxProps {
+interface PickBookBoxProps {
   books: Books[];
   setBooks: React.Dispatch<React.SetStateAction<Books[]>>;
   user: {
@@ -22,7 +22,7 @@ interface ExploreBooksBoxProps {
   };
 }
 
-export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
+export const PickBookBox: FC<PickBookBoxProps> = ({
   books,
   setBooks,
   user,
@@ -60,8 +60,6 @@ export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
         setBooks={setBooks}
         booksPerPage={booksPerPage}
         isMobile={isMobile}
-        isRegistration={isRegistration}
-        onRatingChange={onRatingChange}
       />
     </ExploreBooksBoxWrapper>
   );
