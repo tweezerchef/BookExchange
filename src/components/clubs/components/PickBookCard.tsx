@@ -1,7 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Tooltip from "@mui/material/Tooltip";
+import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import { User, UserBooks, Books } from "@prisma/client";
+import Button from "@mui/material/Button";
 import {
   StyledBookCard,
   ImageBox,
@@ -24,6 +26,7 @@ interface PickBookProps {
     email: string;
     userName: string;
   };
+  setClubBook: React.Dispatch<React.SetStateAction<Books>>;
 }
 type Review = {
   User: User;
@@ -33,6 +36,7 @@ type Review = {
 export const PickBookCard: React.FC<PickBookProps> = ({
   book,
   user = null,
+  setClubBook,
 }) => {
   const [bigBookOpen, setBigBookOpen] = useState(false);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -107,10 +111,19 @@ export const PickBookCard: React.FC<PickBookProps> = ({
               </ImageBox>
               <SideOfImageBox>
                 {book.author && (
-                  <AuthorTypography align='center'>
-                    Written By: <br />
-                    {book.author}
-                  </AuthorTypography>
+                  <>
+                    <Button
+                      component='label'
+                      variant='contained'
+                      startIcon={<ImportContactsIcon />}
+                    >
+                      Pick This Book
+                    </Button>
+                    <AuthorTypography align='center'>
+                      Written By: <br />
+                      {book.author}
+                    </AuthorTypography>
+                  </>
                 )}
               </SideOfImageBox>
             </TopContainer>

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Books } from "@prisma/client";
-import { use } from "passport";
 import { useHomeState } from "../context/context";
 import { PickBookBox } from "../components/clubs/PickBookBox";
 
@@ -20,7 +19,12 @@ export default function CreateClub() {
   return (
     <>
       <h1>Create Club</h1>
-      <PickBookBox books={books} setBooks={setBooks} user={user} />
+      <PickBookBox
+        books={books}
+        setBooks={setBooks}
+        user={user}
+        setClubBook={setClubBook}
+      />
     </>
   );
 }

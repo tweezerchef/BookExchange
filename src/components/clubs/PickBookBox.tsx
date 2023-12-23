@@ -20,12 +20,14 @@ interface PickBookBoxProps {
     email: string;
     userName: string;
   };
+  setClubBook: React.Dispatch<React.SetStateAction<Books>>;
 }
 
 export const PickBookBox: FC<PickBookBoxProps> = ({
   books,
   setBooks,
   user,
+  setClubBook,
 }) => {
   const containerRef = useRef(null);
   const theme = useTheme();
@@ -58,6 +60,7 @@ export const PickBookBox: FC<PickBookBoxProps> = ({
         {...(user && { user })}
         books={books}
         setBooks={setBooks}
+        setClubBook={setClubBook}
         booksPerPage={booksPerPage}
         isMobile={isMobile}
       />

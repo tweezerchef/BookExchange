@@ -17,7 +17,7 @@ import {
   MobileBox,
 } from "../Carousels/styles/exploreBooksStyle";
 
-type ExploreBooksProps = {
+type PickBookCarouselProps = {
   books: Books[];
   setBooks: (books: Books[]) => void;
   booksPerPage: number;
@@ -27,16 +27,16 @@ type ExploreBooksProps = {
     userName: string;
   };
   isMobile: boolean;
-  isRegistration?: boolean;
-  onRatingChange?: () => void;
+  setClubBook: React.Dispatch<React.SetStateAction<Books>>;
 };
 
-export const PickBookCarousel: React.FC<ExploreBooksProps> = ({
+export const PickBookCarousel: React.FC<PickBookCarouselProps> = ({
   setBooks,
   books,
   booksPerPage,
   user,
   isMobile,
+  setClubBook,
 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
@@ -68,7 +68,11 @@ export const PickBookCarousel: React.FC<ExploreBooksProps> = ({
             <MobileBox booksPerPage={booksPerPage}>
               {books.map((book) => (
                 <Box key={book.id || book.title} sx={{ width: "100%" }}>
-                  <PickBookCard book={book} user={user} />
+                  <PickBookCard
+                    book={book}
+                    user={user}
+                    setClubBook={setClubBook}
+                  />
                 </Box>
               ))}
             </MobileBox>
@@ -106,7 +110,11 @@ export const PickBookCarousel: React.FC<ExploreBooksProps> = ({
                         // eslint-disable-next-line @typescript-eslint/no-shadow
                         .map((book: Books) => (
                           <Box key={book.id || book.title}>
-                            <PickBookCard book={book} {...(user && { user })} />
+                            <PickBookCard
+                              book={book}
+                              user={user}
+                              setClubBook={setClubBook}
+                            />
                           </Box>
                         ))}
                     </Stack>
