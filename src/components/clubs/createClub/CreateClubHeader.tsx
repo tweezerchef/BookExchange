@@ -1,6 +1,6 @@
-import { Container } from "@mui/material";
 import { Books } from "@prisma/client";
 import { FC } from "react";
+import { HeaderContainer } from "./headerStyle";
 
 interface CreateClubHeaderProps {
   clubBook: Books;
@@ -15,7 +15,7 @@ export const CreateClubHeader: FC<CreateClubHeaderProps> = ({
   clubDescription,
   clubImage,
 }) => (
-  <Container>
+  <HeaderContainer>
     <h1>Create Club</h1>
-  </Container>
+  </HeaderContainer>
 );

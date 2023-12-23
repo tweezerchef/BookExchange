@@ -13,9 +13,9 @@ export const SideBarBox = styled('div')({
   width: 180,
   height: "100vh",
   position: "sticky",
-        '::-webkit-scrollbar': {
-          display: 'none',
-        },
-        '-ms-overflow-style': 'none',
-        'scrollbar-width': 'none',
+        // '::-webkit-scrollbar': {
+        //   display: 'none',
+        // },
+        // '-ms-overflow-style': 'none',
+        // 'scrollbar-width': 'none',
 });

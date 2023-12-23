@@ -2,6 +2,12 @@ import { useEffect, useState } from "react";
 import { Books } from "@prisma/client";
 import { useHomeState } from "../context/context";
 import { PickBookBox } from "../components/clubs/PickBookBox";
+import { CreateClubHeader } from "../components/clubs/createClub/CreateClubHeader";
+import {
+  CreateClubBox,
+  HeaderContainer,
+  ContentContainer,
+} from "../styles/pageStyles/pageStyles";
 
 export default function CreateClub() {
   const { user, randomBooks } = useHomeState();
@@ -17,14 +23,26 @@ export default function CreateClub() {
   }, [randomBooks]);
 
   return (
-    <>
-      <h1>Create Club</h1>
-      <PickBookBox
-        books={books}
-        setBooks={setBooks}
-        user={user}
-        setClubBook={setClubBook}
-      />
-    </>
+    <CreateClubBox>
+      <HeaderContainer>
+        {/* <CreateClubHeader
+          clubBook={clubBook}
+          clubName={clubName}
+          clubDescription={clubDescription}
+          clubImage={clubImage}
+        /> */}
+        Header
+      </HeaderContainer>
+
+      <ContentContainer>
+        {/* <PickBookBox
+          books={books}
+          setBooks={setBooks}
+          user={user}
+          setClubBook={setClubBook}
+        /> */}
+        Content
+      </ContentContainer>
+    </CreateClubBox>
   );
 }
