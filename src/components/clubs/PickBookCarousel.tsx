@@ -59,6 +59,7 @@ export const PickBookCarousel: React.FC<PickBookCarouselProps> = ({
           setBooks={setBooks}
           booksPerPage={booksPerPage}
           currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
       </StyledDivider>
       <OuterWrapperBox isMobile={isMobile}>
@@ -68,11 +69,7 @@ export const PickBookCarousel: React.FC<PickBookCarouselProps> = ({
             <MobileBox booksPerPage={booksPerPage}>
               {books.map((book) => (
                 <Box key={book.id || book.title} sx={{ width: "100%" }}>
-                  <PickBookCard
-                    book={book}
-                    user={user}
-                    setClubBook={setClubBook}
-                  />
+                  <PickBookCard book={book} setClubBook={setClubBook} />
                 </Box>
               ))}
             </MobileBox>
@@ -112,7 +109,6 @@ export const PickBookCarousel: React.FC<PickBookCarouselProps> = ({
                           <Box key={book.id || book.title}>
                             <PickBookCard
                               book={book}
-                              user={user}
                               setClubBook={setClubBook}
                             />
                           </Box>

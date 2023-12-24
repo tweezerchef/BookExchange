@@ -13,6 +13,7 @@ interface ExploreChipProps {
   setBooks: React.Dispatch<React.SetStateAction<Books[]>>;
   booksPerPage: number;
   currentPage: number;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 }
 interface AutoCompleteData {
   id: string;
@@ -23,6 +24,7 @@ export function ExploreChip({
   setBooks,
   booksPerPage,
   currentPage,
+  setCurrentPage,
 }: ExploreChipProps) {
   const [search, setSearch] = useState<string>("");
   const [autoCompleteData, setAutoCompleteData] = useState<AutoCompleteData[]>(
@@ -41,9 +43,10 @@ export function ExploreChip({
         getOptionLabel={(option) =>
           typeof option === "string" ? option : option.title
         }
-        onChange={(event, value) =>
-          handleAutoCompleteChange(event, value, setBooks)
-        }
+        onChange={(event, value) => {
+          handleAutoCompleteChange(event, value, setBooks);
+          setCurrentPage(0);
+        }}
         onInputChange={(event, newInputValue) => {
           setSearch(newInputValue);
         }}

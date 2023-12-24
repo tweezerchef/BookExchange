@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import { useRouter } from "next/router";
 import { memo } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Container } from "@mui/material";
 import Header from "./Header";
 import Sidebar from "./SideBar";
 
@@ -27,7 +26,10 @@ const Layout = ({ children }) => {
         sx={{ display: "flex", flexGrow: 1, overflow: "hidden", width: "100%" }}
       >
         {!matches && <Sidebar />}
-        <Box component='main' sx={{ flexGrow: 1, overflowY: "auto" }}>
+        <Box
+          component='main'
+          sx={{ flexGrow: 1, overflowY: "auto", overflowX: "clip" }}
+        >
           {children}
         </Box>
       </Box>

@@ -12,7 +12,9 @@ import {
 export default function CreateClub() {
   const { user, randomBooks } = useHomeState();
   const [books, setBooks] = useState<Books[]>([]);
-  const [clubBook, setClubBook] = useState<Books>(null);
+  const [clubBook, setClubBook] = useState<Books | null>(null);
+  const [bookStartDate, setBookStartDate] = useState<Date | null>(null);
+  const [bookEndDate, setBookEndDate] = useState<Date | null>(null);
   const [clubName, setClubName] = useState("");
   const [clubDescription, setClubDescription] = useState("");
   const [clubImage, setClubImage] = useState("");
@@ -25,22 +27,21 @@ export default function CreateClub() {
   return (
     <CreateClubBox>
       <HeaderContainer>
-        {/* <CreateClubHeader
+        <CreateClubHeader
           clubBook={clubBook}
           clubName={clubName}
           clubDescription={clubDescription}
           clubImage={clubImage}
-        /> */}
-        Header
+        />
       </HeaderContainer>
 
       <ContentContainer>
-        {/* <PickBookBox
+        <PickBookBox
           books={books}
           setBooks={setBooks}
           user={user}
           setClubBook={setClubBook}
-        /> */}
+        />
         Content
       </ContentContainer>
     </CreateClubBox>

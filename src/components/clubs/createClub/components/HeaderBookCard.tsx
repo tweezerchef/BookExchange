@@ -1,9 +1,7 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Tooltip from "@mui/material/Tooltip";
-import ImportContactsIcon from "@mui/icons-material/ImportContacts";
-import { User, UserBooks, Books } from "@prisma/client";
-import Button from "@mui/material/Button";
+import { UserBooks, Books } from "@prisma/client";
 import {
   StyledBookCard,
   ImageBox,
@@ -22,13 +20,9 @@ interface Book extends Books {
 }
 interface PickBookProps {
   book: Book;
-  setClubBook: React.Dispatch<React.SetStateAction<Books>>;
 }
 
-export const PickBookCard: React.FC<PickBookProps> = ({
-  book,
-  setClubBook,
-}) => {
+export const HeaderBookCard: React.FC<PickBookProps> = ({ book }) => {
   const [loading, setLoading] = useState(true);
 
   function truncateTitle(title: string, wordLimit: number) {
@@ -39,44 +33,36 @@ export const PickBookCard: React.FC<PickBookProps> = ({
     return title;
   }
 
-  const handleBookClick = useCallback(() => {
-    setClubBook(book);
-  }, [book, setClubBook]);
   return (
     <StyledBookCard elevation={3}>
-      <div className='backgroundImage'>
-        <Image
-          src='/mountainBackgound.png'
-          alt='Background'
-          fill
-          sizes='max-width: 220px, max-height: 220px'
-          priority
-          onLoad={() => setLoading(false)}
-        />
-      </div>
+      {book && (
+        <div className='backgroundImage'>
+          <Image
+            src='/mountainBackgound.png'
+            alt='Background'
+            layout='fill'
+            sizes='(max-width: 220px) 100vw, 220px'
+            priority
+            onLoad={() => setLoading(false)}
+          />
+        </div>
+      )}
       {!loading && (
         <>
           <TopContainer>
-            <ImageBox onClick={handleBookClick}>
+            <ImageBox>
               <Image
                 src={
                   book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"
                 }
                 alt='Book Cover'
                 fill
-                sizes='max-width: 100px, max-height: 180px'
+                sizes='(max-width: 100px) 100vw, 100px'
                 priority
                 quality={100}
               />
             </ImageBox>
             <SideOfImageBox>
-              <PickBookButton
-                variant='contained'
-                startIcon={<ImportContactsIcon />}
-                onClick={handleBookClick}
-              >
-                Pick This Book
-              </PickBookButton>
               {book.author && (
                 <AuthorTypography align='center'>
                   Written By: <br />

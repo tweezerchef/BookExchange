@@ -1,6 +1,7 @@
 import { Books } from "@prisma/client";
 import { FC } from "react";
 import { HeaderContainer } from "./headerStyle";
+import { HeaderBookCard } from "./components/HeaderBookCard";
 
 interface CreateClubHeaderProps {
   clubBook: Books;
@@ -17,5 +18,6 @@ export const CreateClubHeader: FC<CreateClubHeaderProps> = ({
 }) => (
   <HeaderContainer>
     <h1>Create Club</h1>
+    <HeaderBookCard book={clubBook} />
   </HeaderContainer>
 );

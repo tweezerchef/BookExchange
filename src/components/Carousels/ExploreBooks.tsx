@@ -61,6 +61,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
           setBooks={setBooks}
           booksPerPage={booksPerPage}
           currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
       </StyledDivider>
       <OuterWrapperBox isMobile={isMobile}>
