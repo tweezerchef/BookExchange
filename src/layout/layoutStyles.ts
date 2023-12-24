@@ -12,10 +12,11 @@ export const BackgroundImageBox = styled(Box)`
 export const SideBarBox = styled('div')({
   width: 180,
   height: "100vh",
+  overflowX: "auto",
   position: "sticky",
-        // '::-webkit-scrollbar': {
-        //   display: 'none',
-        // },
-        // '-ms-overflow-style': 'none',
-        // 'scrollbar-width': 'none',
+        '::-webkit-scrollbar': {
+          display: 'none',
+        },
+        '-ms-overflow-style': 'none',
+        'scrollbar-width': 'none',
 });
