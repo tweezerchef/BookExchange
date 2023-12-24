@@ -10,11 +10,12 @@
     "db:connect": "node scripts/dbConnect.js"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
+    "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@googlemaps/google-maps-services-js": "^3.3.41",
     "@mui/icons-material": "^5.14.16",
-    "@mui/material": "^5.14.16",
+    "@mui/material": "^5.15.1",
+    "@mui/x-date-pickers": "^6.18.6",
     "@prisma/client": "^5.7.1",
     "@types/bcrypt": "^5.0.1",
     "@types/got": "^9.6.12",
