@@ -21,16 +21,17 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <Container sx={{ overflowX: "clip" }}>
-      <Box minWidth='630px'>
-        <Header />
-
-        <Box maxWidth='1350px' width='100%' display='flex' minWidth='620px'>
-          {!matches && <Sidebar />}
-          <main style={{ flexGrow: 1 }}>{children}</main>
+    <Box sx={{ display: "flex", flexDirection: "column", height: "97vh" }}>
+      <Header />
+      <Box
+        sx={{ display: "flex", flexGrow: 1, overflow: "hidden", width: "100%" }}
+      >
+        {!matches && <Sidebar />}
+        <Box component='main' sx={{ flexGrow: 1, overflowY: "auto" }}>
+          {children}
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 };
 
