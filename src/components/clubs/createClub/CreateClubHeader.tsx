@@ -1,23 +1,26 @@
 import { Books } from "@prisma/client";
-import { FC } from "react";
+import { FC, useState } from "react";
+import dayjs, { Dayjs } from "dayjs";
 import { HeaderContainer } from "./headerStyle";
 import { HeaderBookCard } from "./components/HeaderBookCard";
+import { BookDatePicker } from "./components/components/BookDatePicker";
 
 interface CreateClubHeaderProps {
   clubBook: Books;
-  clubName: string;
-  clubDescription: string;
-  clubImage: string;
 }
 
-export const CreateClubHeader: FC<CreateClubHeaderProps> = ({
-  clubBook,
-  clubName,
-  clubDescription,
-  clubImage,
-}) => (
-  <HeaderContainer>
-    <h1>Create Club</h1>
-    <HeaderBookCard book={clubBook} />
-  </HeaderContainer>
-);
+export const CreateClubHeader: FC<CreateClubHeaderProps> = ({ clubBook }) => {
+  const [bookStartDate, setBookStartDate] = useState<Dayjs | null>(dayjs());
+  const [bookEndDate, setBookEndDate] = useState<Dayjs | null>(dayjs());
+  return (
+    <HeaderContainer>
+      <HeaderBookCard book={clubBook} />
+      <BookDatePicker
+        bookStartDate={bookStartDate}
+        bookEndDate={bookEndDate}
+        setBookStartDate={setBookStartDate}
+        setBookEndDate={setBookEndDate}
+      />
+    </HeaderContainer>
+  );
+};

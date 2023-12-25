@@ -15,18 +15,12 @@ type Breakpoint = {
 interface PickBookBoxProps {
   books: Books[];
   setBooks: React.Dispatch<React.SetStateAction<Books[]>>;
-  user: {
-    id: string;
-    email: string;
-    userName: string;
-  };
   setClubBook: React.Dispatch<React.SetStateAction<Books>>;
 }
 
 export const PickBookBox: FC<PickBookBoxProps> = ({
   books,
   setBooks,
-  user,
   setClubBook,
 }) => {
   const containerRef = useRef(null);
@@ -57,7 +51,6 @@ export const PickBookBox: FC<PickBookBoxProps> = ({
   return (
     <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
       <PickBookCarousel
-        {...(user && { user })}
         books={books}
         setBooks={setBooks}
         setClubBook={setClubBook}

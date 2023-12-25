@@ -13,11 +13,6 @@ export default function CreateClub() {
   const { user, randomBooks } = useHomeState();
   const [books, setBooks] = useState<Books[]>([]);
   const [clubBook, setClubBook] = useState<Books | null>(null);
-  const [bookStartDate, setBookStartDate] = useState<Date | null>(null);
-  const [bookEndDate, setBookEndDate] = useState<Date | null>(null);
-  const [clubName, setClubName] = useState("");
-  const [clubDescription, setClubDescription] = useState("");
-  const [clubImage, setClubImage] = useState("");
 
   useEffect(() => {
     if (!randomBooks) return;
@@ -27,22 +22,15 @@ export default function CreateClub() {
   return (
     <CreateClubBox>
       <HeaderContainer>
-        <CreateClubHeader
-          clubBook={clubBook}
-          clubName={clubName}
-          clubDescription={clubDescription}
-          clubImage={clubImage}
-        />
+        <CreateClubHeader clubBook={clubBook} />
       </HeaderContainer>
 
       <ContentContainer>
         <PickBookBox
           books={books}
           setBooks={setBooks}
-          user={user}
           setClubBook={setClubBook}
         />
-        Content
       </ContentContainer>
     </CreateClubBox>
   );

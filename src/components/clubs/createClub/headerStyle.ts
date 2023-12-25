@@ -3,15 +3,13 @@ import Container from "@mui/material/Container";
 
 
 export const HeaderContainer = styled(Container)`
-  /* position: sticky;
-  z-index: 1100;
-  margin-top: 2em;
-  margin-bottom: 2em;
-  padding: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  @media (max-width: 960px) {
-    width: 100%;
-  } */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+background-color: #fff;
+border-bottom: 1px solid #ccc;
+
 `;
 const ContentContainer = styled(Container)`
   overflow-y: auto; // Makes the content area scrollable
