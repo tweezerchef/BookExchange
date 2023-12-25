@@ -40,9 +40,7 @@ export const CreateClubBox = styled("div")`
   `;
 
 export const HeaderContainer = styled(Container)`
-position: sticky;
 top: 0;
-z-index: 1100; // Keep it on top of other elements if necessary
 margin-top: 2em;
 margin-bottom: 2em;
 padding: 0;
@@ -51,7 +49,7 @@ padding: 0;
 }
 `;
 export const ContentContainer = styled(Container)`
-  overflow-y: auto; // Makes the content area scrollable
-  max-height: calc(100vh - 100px); // Adjust the 100px to the actual combined height of your header and any other non-scrollable content above the ContentContainer
+
+
   position: relative;
 `;
