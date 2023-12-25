@@ -10,7 +10,7 @@ import {
 } from "../styles/pageStyles/pageStyles";
 
 export default function CreateClub() {
-  const { user, randomBooks } = useHomeState();
+  const { randomBooks } = useHomeState();
   const [books, setBooks] = useState<Books[]>([]);
   const [clubBook, setClubBook] = useState<Books | null>(null);
 
@@ -24,7 +24,6 @@ export default function CreateClub() {
       <HeaderContainer>
         <CreateClubHeader clubBook={clubBook} />
       </HeaderContainer>
-
       <ContentContainer>
         <PickBookBox
           books={books}
