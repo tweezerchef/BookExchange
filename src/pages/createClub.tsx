@@ -9,14 +9,14 @@ import {
   ContentContainer,
 } from "../styles/pageStyles/pageStyles";
 
-export default function CreateClub() {
+export default function CreateClub(props) {
   const { randomBooks } = useHomeState();
   const [books, setBooks] = useState<Books[]>([]);
   const [clubBook, setClubBook] = useState<Books | null>(null);
 
   useEffect(() => {
     if (!randomBooks) return;
-    setBooks(randomBooks);
+    setBooks(randomBooks as Books[]);
   }, [randomBooks]);
 
   return (
