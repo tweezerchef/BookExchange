@@ -41,7 +41,6 @@ export const CreateClubBox = styled("div")`
 
 export const HeaderContainer = styled(Container)`
 top: 0;
-margin-top: 2em;
 margin-bottom: 2em;
 padding: 0;
 @media (max-width: 960px) {
@@ -52,4 +51,11 @@ export const ContentContainer = styled(Container)`
 
 
   position: relative;
+`;
+export const BannerContainer = styled(Box)`
+  position: relative;
+  height: 500px; // Or any other height you prefer
+  width: 90%;
+  margin: 0 auto;
+  padding: 0;
 `;

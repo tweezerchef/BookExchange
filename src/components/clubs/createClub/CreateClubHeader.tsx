@@ -18,17 +18,17 @@ export const CreateClubHeader: FC<CreateClubHeaderProps> = ({ clubBook }) => {
   const [clubImage, setClubImage] = useState<string>("");
   return (
     <HeaderContainer>
+      <ClubImagePicker
+        clubImage={clubImage}
+        setClubImage={setClubImage}
+        clubName={clubName}
+      />
       <HeaderBookCard book={clubBook} />
       <BookDatePicker
         bookStartDate={bookStartDate}
         bookEndDate={bookEndDate}
         setBookStartDate={setBookStartDate}
         setBookEndDate={setBookEndDate}
-      />
-      <ClubImagePicker
-        clubImage={clubImage}
-        setClubImage={setClubImage}
-        clubName={clubName}
       />
     </HeaderContainer>
   );

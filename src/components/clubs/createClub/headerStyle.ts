@@ -12,7 +12,6 @@ border-bottom: 1px solid #ccc;
 
 `;
 const ContentContainer = styled(Container)`
-  overflow-y: auto; // Makes the content area scrollable
-  /* height: calc(100vh -  Height of your header and other offsets ); */
+
   position: relative;
 `;

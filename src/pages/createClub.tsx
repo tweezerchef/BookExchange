@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import { Books } from "@prisma/client";
+import Image from "next/image";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 import { useHomeState } from "../context/context";
 import { PickBookBox } from "../components/clubs/PickBookBox";
 import { CreateClubHeader } from "../components/clubs/createClub/CreateClubHeader";
@@ -7,6 +10,7 @@ import {
   CreateClubBox,
   HeaderContainer,
   ContentContainer,
+  BannerContainer,
 } from "../styles/pageStyles/pageStyles";
 
 export default function CreateClub(props) {
@@ -20,17 +24,24 @@ export default function CreateClub(props) {
   }, [randomBooks]);
 
   return (
-    <CreateClubBox>
-      <HeaderContainer>
-        <CreateClubHeader clubBook={clubBook} />
-      </HeaderContainer>
-      <ContentContainer>
-        <PickBookBox
-          books={books}
-          setBooks={setBooks}
-          setClubBook={setClubBook}
-        />
-      </ContentContainer>
-    </CreateClubBox>
+    <>
+      <Container>
+        <Typography variant='h2' align='center'>
+          Create a Club
+        </Typography>
+      </Container>
+      <CreateClubBox>
+        <HeaderContainer>
+          <CreateClubHeader clubBook={clubBook} />
+        </HeaderContainer>
+        <ContentContainer>
+          <PickBookBox
+            books={books}
+            setBooks={setBooks}
+            setClubBook={setClubBook}
+          />
+        </ContentContainer>
+      </CreateClubBox>
+    </>
   );
 }
