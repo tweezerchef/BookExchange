@@ -6,12 +6,14 @@ import { HeaderBookCard } from "./components/HeaderBookCard";
 import { BookDatePicker } from "./components/components/BookDatePicker";
 import { ClubImagePicker } from "./components/components/ClubImagePicker";
 import { ClubNamePicker } from "./components/components/ClubNamePicker";
+import { useHomeState } from "../../../context/context";
 
 interface CreateClubHeaderProps {
   clubBook: Books;
 }
 
 export const CreateClubHeader: FC<CreateClubHeaderProps> = ({ clubBook }) => {
+  const { user } = useHomeState();
   const [bookStartDate, setBookStartDate] = useState<Dayjs | null>(dayjs());
   const [bookEndDate, setBookEndDate] = useState<Dayjs | null>(dayjs());
   const [clubName, setClubName] = useState<string>("");
@@ -26,7 +28,7 @@ export const CreateClubHeader: FC<CreateClubHeaderProps> = ({ clubBook }) => {
       bookEndDate &&
       !bookEndDate.isBefore(bookStartDate) &&
       clubBook &&
-      clubBook.id
+      clubBook.ISBN10
     ) {
       return true;
     }
@@ -41,9 +43,9 @@ export const CreateClubHeader: FC<CreateClubHeaderProps> = ({ clubBook }) => {
       clubImage,
       bookStartDate: bookStartDate ? bookStartDate.toISOString() : null,
       bookEndDate: bookEndDate ? bookEndDate.toISOString() : null,
-      clubBookId: clubBook.ISBN10, // Assuming clubBook has an 'id' field
+      clubBookISBN10: clubBook.ISBN10,
     };
-
+    console.log(clubData);
     // Submit the data to your database
     // This could be an API call or any other method you use
     // Example: await submitClubData(clubData);
