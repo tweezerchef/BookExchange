@@ -26,11 +26,6 @@ transition: box-shadow 0.3s, background-color 0.3s;
 overflow: hidden;
 padding: 0.5em;
 
-&:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust shadow as needed */
-  background-color: #ffffff94;
-}
 @media (max-width: ${breakpoints.values.md}px) {
   width: 180px;
   height: 162px;
@@ -75,10 +70,6 @@ export const ImageBox = styled(Box)`
   overflow: hidden;
   background-color: transparent;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.15);
-  }
 `;
 
 export const SideOfImageBox = styled(Box)`
@@ -91,7 +82,6 @@ export const SideOfImageBox = styled(Box)`
   align-items: center;
   gap: 0.5em;
   background-color: transparent;
-  cursor: pointer;
 `;
 
 export const ContentContainer = styled(Box)`
@@ -134,9 +124,6 @@ export const TitleTypography = styled(Typography)`
       font-size: 0.7rem; // Even smaller font size on extra small screens
     }
 
-    &:hover {
-        color: #333;
-    }
 `;
 export const AuthorTypography = styled(Typography)`
   font-size: .9rem;
