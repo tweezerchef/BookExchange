@@ -14,6 +14,7 @@ interface CreateClubHeaderProps {
 
 export const CreateClubHeader: FC<CreateClubHeaderProps> = ({ clubBook }) => {
   const { user } = useHomeState();
+  const userId = user?.id;
   const [bookStartDate, setBookStartDate] = useState<Dayjs | null>(dayjs());
   const [bookEndDate, setBookEndDate] = useState<Dayjs | null>(dayjs());
   const [clubName, setClubName] = useState<string>("");
@@ -44,12 +45,27 @@ export const CreateClubHeader: FC<CreateClubHeaderProps> = ({ clubBook }) => {
       bookStartDate: bookStartDate ? bookStartDate.toISOString() : null,
       bookEndDate: bookEndDate ? bookEndDate.toISOString() : null,
       clubBookISBN10: clubBook.ISBN10,
+      userId,
     };
     console.log(clubData);
-    // Submit the data to your database
-    // This could be an API call or any other method you use
-    // Example: await submitClubData(clubData);
+    fetch("/api/clubs/createClub", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(clubData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        // Handle success here (e.g., show a success message, redirect, etc.)
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Handle errors here (e.g., show an error message)
+      });
   };
+
   return (
     <HeaderContainer>
       <ClubNamePicker

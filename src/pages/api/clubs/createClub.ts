@@ -44,5 +44,12 @@ const handler: NextApiHandler = async (
         return res.status(500).json({ message: 'Internal Server Error' });
     }
 }
+export const config = {
+    api: {
+        bodyParser: {
+            sizeLimit: '4mb' // Set desired value here
+        }
+    }
+}
 
 export default handler
