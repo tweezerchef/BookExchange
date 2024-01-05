@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable @typescript-eslint/no-shadow */
 import { transGoogToBKModel } from "./transGoogToBkModel";
 import { findOrCreateBookISBN } from "./findOrCreateBookISBN";

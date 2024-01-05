@@ -1,6 +1,8 @@
 import { NextApiRequest, NextApiHandler, NextApiResponse } from "next";
 import { convertBase64ToStream } from "../../../utils/convertBase64ToStream";
 import { uploadToS3 } from "../../../utils/s3Upload";
+import { createBookClub } from "../../../utils/clubs/createBookClub";
+import { createClubBook } from "../../../utils/clubs/createClubBook";
 
 interface CreateClubRequest {
     bookEndDate: Date;
@@ -27,6 +29,9 @@ const base64Data = clubImage.replace(/^data:image\/\w+;base64,/, "");
 const stream =  convertBase64ToStream(base64Data);
 const fileName = `clubAvi/${clubName}.png`;
 uploadToS3(stream, fileName);
+
+const newClub = await createBookClub(clubName, clubDescription, fileName, userId);
+
 
 
 
