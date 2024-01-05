@@ -41,11 +41,11 @@ export const CreateClubBox = styled("div")`
 
 export const HeaderContainer = styled(Container)`
 top: 0;
-margin-bottom: 2em;
+margin-bottom: 1em;
 padding: 0;
-@media (max-width: 960px) {
+/* @media (max-width: 960px) {
   width: 100%;
-}
+} */
 `;
 export const ContentContainer = styled(Container)`
 
