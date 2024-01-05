@@ -39,7 +39,7 @@ export const BookDatePicker: FC<BookDatePickerProps> = ({
       <Button
         variant='contained'
         onClick={handleSubmit}
-        disabled={!isFormValid()} // Disable button if form is not valid
+        disabled={!isFormValid()}
       >
         Submit Club
       </Button>
