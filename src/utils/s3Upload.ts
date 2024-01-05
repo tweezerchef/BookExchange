@@ -27,7 +27,6 @@ export async function uploadToS3(fileStream: Readable, fileName: string): Promis
         }
       });
     });
-    // Once the upload is successful, obtain a signed URL for the uploaded file
     const signedUrl = await getSignedURL(fileName);
     return signedUrl;  // Return the signed URL
   } catch (error) {
