@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import Drawer, {DrawerProps} from "@mui/material/Drawer";
-import { styled } from "@mui/material/styles";
+import { styled } from '@compiled/react'
 
 interface StyledDrawerProps extends DrawerProps {
     scrollbarWidth?: number;

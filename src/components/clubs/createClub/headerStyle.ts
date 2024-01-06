@@ -1,4 +1,4 @@
-import { styled } from "@mui/material/styles";
+import { styled } from '@compiled/react'
 import Container from "@mui/material/Container";
 
 

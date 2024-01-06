@@ -1,5 +1,4 @@
-
-import { styled } from "@mui/material/styles";
+import { styled } from '@compiled/react'
 import Avatar from "@mui/material/Avatar";
 import Box from '@mui/material/Box';
 import IconButton from "@mui/material/IconButton";

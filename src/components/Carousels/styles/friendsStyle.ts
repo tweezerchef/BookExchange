@@ -1,4 +1,4 @@
-import { styled } from "@mui/material/styles";
+import { styled } from '@compiled/react'
 import Box, { BoxProps } from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import { Friends } from '@prisma/client';

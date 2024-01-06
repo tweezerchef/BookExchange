@@ -1,4 +1,4 @@
-import { styled } from "@mui/material/styles";
+import { styled } from '@compiled/react'
 import { blueGrey } from '@mui/material/colors';
 import Chip from '@mui/material/Chip';
 import  Divider  from "@mui/material/Divider";

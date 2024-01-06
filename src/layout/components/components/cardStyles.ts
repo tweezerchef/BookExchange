@@ -1,4 +1,4 @@
-import { styled } from '@mui/material/styles';
+import { styled } from '@compiled/react'
 import Card from '@mui/material/Card';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';

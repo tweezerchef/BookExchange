@@ -1,4 +1,4 @@
-import { styled } from "@mui/material/styles";
+import { styled } from "@compiled/react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";

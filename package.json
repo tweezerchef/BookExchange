@@ -10,6 +10,8 @@
     "db:connect": "node scripts/dbConnect.js"
   },
   "dependencies": {
+    "@compiled/codemods": "^0.9.1",
+    "@compiled/react": "^0.16.8",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@googlemaps/google-maps-services-js": "^3.3.41",
@@ -47,6 +49,7 @@
     "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
+    "@compiled/babel-plugin": "^0.28.1",
     "@next/eslint-plugin-next": "^14.0.1",
     "@types/autosuggest-highlight": "^3.2.2",
     "@types/cookie": "^0.5.2",

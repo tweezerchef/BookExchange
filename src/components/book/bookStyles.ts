@@ -1,4 +1,4 @@
-import { styled } from "@mui/material/styles";
+import { styled } from '@compiled/react'
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
