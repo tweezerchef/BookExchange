@@ -6,8 +6,8 @@ import { createClubBook } from "../../../utils/clubs/createClubBook";
 import { findOrCreateBookISBNOnly } from "../../../utils/books/findOrCreateBookISBN";
 
 interface CreateClubRequest {
-    bookEndDate: Date;
-    bookStartDate: Date;
+    bookEndDate: string;
+    bookStartDate: string;
     clubBookISBN10: string;
     clubDescription: string;
     clubImage: string;
@@ -24,7 +24,14 @@ const handler: NextApiHandler = async (
         res.status(405).json({ message: "Method not allowed" });
     }
     try {
+
         const { bookEndDate, bookStartDate, clubBookISBN10, clubDescription, clubImage, clubName, userId } = req.body as CreateClubRequest;
+
+        const bookStartDateDate = new Date(bookStartDate);
+        const bookEndDateDate = new Date(bookEndDate);
+        const bookStartDateISO = bookStartDateDate.toISOString();
+        const bookEndDateISO = bookEndDateDate.toISOString();
+
         const base64Data = clubImage.replace(/^data:image\/\w+;base64,/, "");
         const stream = convertBase64ToStream(base64Data);
         const fileName = `clubAvi/${clubName}.png`;
@@ -37,6 +44,8 @@ const handler: NextApiHandler = async (
 
         const clubId = bookClub.id;
         const booksId = book.id;
+        const startDateISO = "2024-01-10T10:00:00.000Z";
+        const endDateISO = "2024-02-10T10:00:00.000Z"
         await createClubBook(booksId, clubId, bookStartDate, bookEndDate);
         return  res.status(200).json(clubId)
     } catch (error) {

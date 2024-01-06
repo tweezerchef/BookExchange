@@ -1,6 +1,6 @@
 import prisma from "../prismaClient";
 
-export const createClubBook = async (booksId: string, clubId: string, startDate: Date, endDate: Date) => {
+export const createClubBook = async (booksId: string, clubId: string, startDate: string, endDate: string) => {
     const currentClubBook = await prisma.clubsBooks.findFirst({
         where: {
             clubId,

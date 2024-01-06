@@ -273,15 +273,15 @@ model ClubsAdmins {
 }
 
 model ClubsBooks {
-  id          String   @id @default(uuid())
+  id          String  @id @default(uuid())
   booksId     String
   clubId      String
-  currentBook Boolean  @default(false)
+  currentBook Boolean @default(false)
   description String?
-  startDate   DateTime
-  endDate     DateTime
-  Books       Books    @relation(fields: [booksId], references: [id])
-  Clubs       Clubs    @relation(fields: [clubId], references: [id])
+  startDate   String
+  endDate     String
+  Books       Books   @relation(fields: [booksId], references: [id])
+  Clubs       Clubs   @relation(fields: [clubId], references: [id])
 }
 
 model ClubMembers {
