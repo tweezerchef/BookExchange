@@ -27,16 +27,12 @@ const handler: NextApiHandler = async (
 
         const { bookEndDate, bookStartDate, clubBookISBN10, clubDescription, clubImage, clubName, userId } = req.body as CreateClubRequest;
 
-        const bookStartDateDate = new Date(bookStartDate);
-        const bookEndDateDate = new Date(bookEndDate);
-        const bookStartDateISO = bookStartDateDate.toISOString();
-        const bookEndDateISO = bookEndDateDate.toISOString();
-
+        // image handling
         const base64Data = clubImage.replace(/^data:image\/\w+;base64,/, "");
         const stream = convertBase64ToStream(base64Data);
         const fileName = `clubAvi/${clubName}.png`;
         uploadToS3(stream, fileName);
-
+        // prisma stuff
         const [bookClub, book] = await Promise.all([
             createBookClub(clubName, clubDescription, fileName, userId),
             findOrCreateBookISBNOnly(clubBookISBN10)
