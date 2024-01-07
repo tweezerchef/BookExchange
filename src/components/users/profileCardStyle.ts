@@ -52,7 +52,7 @@ export const StyledAvatar = styled(Avatar)`
 width: 70px;
 height: 70px;
 border: 1.5px solid #e0e0e0;
-boxShadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
 `;
 
 export const GenreBox = styled(Box)`
@@ -60,7 +60,7 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 gap: 1.5em;
-backgroundColor: rgba(240, 240, 240, 0.5);
+background-color: rgba(240, 240, 240, 0.5);
 padding: 0.5em;
 border-radius: 8px;
 

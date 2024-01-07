@@ -13,7 +13,7 @@ export const InputGroup = styled(Box)`
   }
 `;
 
-export const Input = styled("input")`
+export const Input = styled.input`
   width: 200px;
   outline: none;
   padding: 8px 16px;
@@ -34,7 +34,7 @@ export const ErrorBox = styled(Box)`
   margin: "0 10px";
 `;
 
-export const BackgroundImageContainer = styled("div")`
+export const BackgroundImageContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;

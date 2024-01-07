@@ -1,4 +1,4 @@
-import {styled} from "@mui/material/styles";
+import {styled} from "@compiled/react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 
@@ -10,7 +10,7 @@ export const CenteredContainer = styled(Container)`
   width: 100%;
 `;
 
-export const BackgroundImageContainer = styled("div")`
+export const BackgroundImageContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -35,7 +35,7 @@ width: 100%;
 
   text-align: center;
 `;
-export const CreateClubBox = styled("div")`
+export const CreateClubBox = styled.div`
   position : relative;
   `;
 

@@ -4,7 +4,11 @@ import Box from '@mui/material/Box';
 import IconButton from "@mui/material/IconButton";
 import Dialog from "@mui/material/Dialog";
 import { Popover } from "@mui/material";
+import { Theme } from "@mui/material/styles";
 
+interface  ThemeProps{
+  theme: Theme
+}
 export const Wrapper = styled(Box)({
     alignSelf: "center",
     justifyContent: "center",
@@ -20,7 +24,7 @@ export const hiddenFileInputStyle = css({
 
 
 
-export const LargeAvatar = styled(Avatar)(({ theme }) => ({  margin: 4,
+export const LargeAvatar = styled(Avatar)<ThemeProps>(( theme ) => ({  margin: 4,
     width: theme.spacing(7),
     height: theme.spacing(7),
   }));
