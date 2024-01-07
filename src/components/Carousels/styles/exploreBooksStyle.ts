@@ -29,24 +29,16 @@ export const OuterWrapperBox = styled(Box)<OuterWrapperBoxProps>`
 `;
 export const MobileBox = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'booksPerPage',
-})<MobileBoxProps>(({ booksPerPage, theme }) => ({
+})({
   display: 'flex',
   flexDirection: 'row',
-  overflowX: 'auto',
-  scrollSnapType: 'x mandatory',
-
-  '& > div': {
-    flex: 'none',
-    scrollSnapAlign: 'start',
-    width: `calc((100% / ${booksPerPage}) - 10px)`,
-    marginRight: '10px',
-  },
-
-  '&::-webkit-scrollbar': {
-    display: 'none',
-  },
-  scrollbarWidth: 'none',
-}));
+  alignContent: 'center',
+  justifyContent: 'center',
+  width: '100%',
+  overflowX: 'hidden',
+  minHeight: '230px',
+  height: '100%',
+});
 
 export const OuterBox = styled(Box)`
   display: flex;
@@ -57,35 +49,31 @@ export const OuterBox = styled(Box)`
   overflow-x: hidden;
   min-height: 230px;
   height: 100%;
-  //   marginTop: 1.5vh;
-  //   paddingBottom: 0;
 `;
 export const LeftIconButton = styled(IconButton)<{ booksPerPage: number }>`
   position: absolute;
   left: ${({ booksPerPage }) => {
-    const halfCardWidth = '225px'; // Half the width of the book card
+    const halfCardWidth = '225px';
     if (booksPerPage === 2) {
-      // Position the left button for 2 books per page
       return `calc(50% - ${halfCardWidth})`;
     } if (booksPerPage === 1) {
-      // Position the left button for 1 book per page
+
       return `calc(50% - ${halfCardWidth})`;
     }
-    return '0px'; // Default position when more than two books
+    return '0px';
   }};
   z-index: 1;
 `;
 export const RightIconButton = styled(IconButton)<{ booksPerPage: number}>`
   position: absolute;
   right: ${({ booksPerPage}) => {
-    // Assuming bookCardWidth is the full width of a single book card
-    const halfCardWidth = `${225}px`; // Calculate half the width of the book card
+    const halfCardWidth = `${225}px`;
     if (booksPerPage === 2) {
-      return `calc(50% - ${halfCardWidth})`; // Position for 2 books per page
+      return `calc(50% - ${halfCardWidth})`;
     } if (booksPerPage === 1) {
-      return `calc(50% - ${halfCardWidth})`; // Position for 1 book per page
+      return `calc(50% - ${halfCardWidth})`;
     }
-    return `0px`; // Default position for more than two books
+    return `0px`;
   }};
   z-index: 1;
 `;
@@ -110,9 +98,3 @@ ${({ isMobile }) => ({
   alightContent: "center",
 })}
 `;
-
-// export const ExploreBooksBox = styled(Box)<OuterWrapperBoxProps>`
-// ${({ isMobile }) => ({
-
-// })}
-// `

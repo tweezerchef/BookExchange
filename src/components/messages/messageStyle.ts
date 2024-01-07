@@ -1,37 +1,40 @@
 import Box from "@mui/material/Box";
+import { BoxProps , Theme } from "@mui/material";
 import Drawer, {DrawerProps} from "@mui/material/Drawer";
-import { styled } from '@compiled/react'
+import { styled, CSSProps } from '@compiled/react'
 
 interface StyledDrawerProps extends DrawerProps {
     scrollbarWidth?: number;
+    theme: Theme;
+    }
+    interface DrawerButtonProps extends BoxProps {
+      theme: Theme;
     }
 
 
 
-export const DrawerButton = styled(Box)(({ theme }) => ({
-    display: 'flex',
+export const DrawerButton = styled(Box)({
+  display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: theme.spacing(1),
   borderTopLeftRadius: 8,
   borderTopRightRadius: 8,
   backgroundColor: '#ffe99bbe',
   cursor: 'pointer',
-  boxShadow: theme.shadows[1],
   position: 'fixed',
   bottom: 0,
   height: 40,
-  width: `calc(350px - ${theme.spacing(2)})`,
-  zIndex: theme.zIndex.drawer + 2,
-  right: theme.spacing(2),
-  }));
+  zIndex: 1202, // Replace with a static value or use theme.zIndex.drawer + 2 in the component instance
+  right: '16px', // Replace with a static value or use theme.spacing(2) in the component instance
+  boxShadow: '0px 1px 1px -1px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)', // Replace with a static value or use theme.shadows[1] in the component instance
+});
 
-  export const OpenDrawerBox = styled(Box)(({ theme }) => ({
+  export const OpenDrawerBox = styled(Box)<DrawerButtonProps>(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: theme.spacing(1),
-    borderTopLeftRadius: 8, // Only round the top corners
+    borderTopLeftRadius: 8,
     borderTopRightRadius: 8,
     backgroundColor: '#ffea9b',
     boxShadow: theme.shadows[1],
@@ -49,7 +52,7 @@ export const DrawerButton = styled(Box)(({ theme }) => ({
       height: 400,
       maxWidth: '100%',
       backgroundColor: '#adacacff',
-      right: `calc(${theme.spacing(2)} + ${scrollbarWidth}px)`, // Adjust for scrollbar
+      right: `calc(${theme.spacing(2)} + ${scrollbarWidth}px)`,
       left: 'auto',
       boxSizing: 'border-box',
     },

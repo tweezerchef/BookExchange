@@ -4,6 +4,8 @@ import Typography from "@mui/material/Typography";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Box from "@mui/material/Box";
 import { Conversations, DirectMessages, User } from "@prisma/client";
+import { useTheme } from "@mui/material/styles";
+import { css } from "@compiled/react";
 import { useScrollbarWidth } from "./hooks/useScrollbarWidth";
 import { DrawerButton, StyledDrawer } from "./messageStyle";
 import { MessagesDrawer } from "./components/components/MessagesDrawer";
@@ -29,6 +31,7 @@ interface ReplyObject {
 }
 
 export function Messages() {
+  const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const [newMessages, setNewMessages] = useState(true);
   const [autoCompleteData, setAutoCompleteData] = useState<AutoCompleteData[]>(
@@ -63,7 +66,15 @@ export function Messages() {
   return (
     <>
       {!isOpen && (
-        <DrawerButton onClick={toggleDrawer(true)}>
+        <DrawerButton
+          onClick={toggleDrawer(true)}
+          style={{
+            width: `calc(350px - ${theme.spacing(2)})`,
+            zIndex: theme.zIndex.drawer + 2,
+            right: theme.spacing(2),
+            boxShadow: theme.shadows[1],
+          }}
+        >
           <Box justifyContent='left'>
             <KeyboardArrowUpIcon />
           </Box>

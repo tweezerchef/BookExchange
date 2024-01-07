@@ -93,12 +93,12 @@ export const ContentContainer = styled(Box)`
   margin-top: 0.5em;
   display: flex;
   flex-direction: column;
-  justify-content: center; // Vertically center the content
-  align-items: center; // Horizontally center the content
+  justify-content: center;
+  align-items: center;
   justify-items: center;
   width: 100%;
-  height: auto; // Take up the remaining space
-  text-align: center; // Center the text
+  height: auto;
+  text-align: center;
   text-justify: center;
 `;
 
