@@ -144,8 +144,8 @@ export const AuthorTypography = styled(Typography)`
 export const PickBookButton = styled(Button)(({ theme }) => ({
   backgroundColor: '#749cc3', // A blue color that should match your design
   color: '#ffffff',
-  margin: theme.spacing(1),
-  borderRadius: theme.shape.borderRadius,
+  margin: 1,
+  borderRadius: 4,
   cursor: 'pointer',
   fontWeight: 'bold',
   textTransform: 'uppercase',
