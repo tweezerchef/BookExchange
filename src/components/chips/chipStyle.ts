@@ -15,7 +15,7 @@ export const FlameStyledChip = styled(Chip)`
     color: black;
     size: lg;
 `
-export const ChipContainer = styled("div")({
+export const ChipContainer = styled.div({
     display: "inline-flex",
     alignItems: "center",
     width: "300px",

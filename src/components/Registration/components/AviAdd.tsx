@@ -21,7 +21,7 @@ import { useHomeState } from "../../../context/context";
 import { dataURLtoBlob } from "../../../utils/clientUtils/dataURLtoBlob";
 import { useFormData } from "../../../context/regContext";
 import {
-  HiddenFileInput,
+  hiddenFileInputStyle,
   LargeAvatar,
   Wrapper,
   BigIconButton,
@@ -191,7 +191,8 @@ const ProfileAvatar: FC = () => {
           <ToolTip title='AVI Preview' arrow placement='top-end'>
             <LargeAvatar src={avatarUrl} />
           </ToolTip>
-          <HiddenFileInput
+          <input
+            style={{ display: "none" }}
             accept='image/*'
             id='icon-button-file'
             type='file'

@@ -89,14 +89,14 @@ line-height: 1.1em;
 margin-top: .03em;
 padding-top: 15px;
 @media (max-width: ${breakpoints.values.md}px) {
-  font-size: 1rem; // Smaller font size on medium screens
+  font-size: 1rem;
 }
 @media (max-width: ${breakpoints.values.sm}px) {
-  font-size: 0.8rem; // Smaller font size on small screens
+  font-size: 0.8rem;
 }
 
 @media (max-width: ${breakpoints.values.xs}px) {
-  font-size: 0.7rem; // Even smaller font size on extra small screens
+  font-size: 0.7rem;
 }
 
 &:hover {
@@ -116,14 +116,14 @@ letter-spacing: 0.4px;
 white-space: pre-line;
 line-height: 1.1em;
 @media (max-width: ${breakpoints.values.md}px) {
-  font-size: .85rem; // Smaller font size on medium screens
+  font-size: .85rem;
 }
 @media (max-width: ${breakpoints.values.sm}px) {
-  font-size: 0.8rem; // Smaller font size on small screens
+  font-size: 0.8rem;
 }
 
 @media (max-width: ${breakpoints.values.xs}px) {
-  font-size: 0.7rem; // Even smaller font size on extra small screens
+  font-size: 0.7rem;
 }
 
 &:hover {

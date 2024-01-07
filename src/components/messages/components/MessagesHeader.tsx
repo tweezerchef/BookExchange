@@ -4,6 +4,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Box from "@mui/material/Box";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Conversations, DirectMessages, User } from "@prisma/client";
+import { useTheme } from "@mui/material/styles";
 import { OpenDrawerBox } from "../messageStyle";
 import { SearchField } from "./components/SearchField";
 
@@ -38,6 +39,7 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
   setUserNames,
   userNames,
 }) => {
+  const theme = useTheme();
   const isValidUser =
     search && autoCompleteData.some((user) => user.id === search.id);
   // const findOrCreateConversationWithUser = (
@@ -66,7 +68,14 @@ export const MessagesHeader: FC<MessagesHeaderProps> = ({
   };
 
   return (
-    <OpenDrawerBox>
+    <OpenDrawerBox
+      style={{
+        padding: theme.spacing(1),
+        right: theme.spacing(2),
+        zIndex: theme.zIndex.drawer + 2,
+        boxShadow: theme.shadows[1],
+      }}
+    >
       <Box justifyContent='left'>
         <KeyboardArrowDownIcon onClick={toggleDrawer(false)} />
       </Box>

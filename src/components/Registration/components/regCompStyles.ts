@@ -1,4 +1,4 @@
-import { styled } from '@compiled/react'
+import { styled, css } from '@compiled/react'
 import Avatar from "@mui/material/Avatar";
 import Box from '@mui/material/Box';
 import IconButton from "@mui/material/IconButton";
@@ -14,9 +14,11 @@ export const Wrapper = styled(Box)({
     flexDirection: "row",
   })
 
-export const HiddenFileInput = styled("input")({
-    display: "none",
-  });
+export const hiddenFileInputStyle = css({
+  display: 'none',
+});
+
+
 
 export const LargeAvatar = styled(Avatar)(({ theme }) => ({  margin: 4,
     width: theme.spacing(7),

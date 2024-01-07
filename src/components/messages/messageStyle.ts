@@ -29,22 +29,19 @@ export const DrawerButton = styled(Box)({
   boxShadow: '0px 1px 1px -1px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12)', // Replace with a static value or use theme.shadows[1] in the component instance
 });
 
-  export const OpenDrawerBox = styled(Box)<DrawerButtonProps>(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(1),
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
-    backgroundColor: '#ffea9b',
-    boxShadow: theme.shadows[1],
-    bottom: 0,
-    right: theme.spacing(2),
-    zIndex: theme.zIndex.drawer + 2,
-  }));
+export const OpenDrawerBox = styled(Box)({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  borderTopLeftRadius: 8,
+  borderTopRightRadius: 8,
+  backgroundColor: '#ffea9b',
+  bottom: 0,
+  // Static right, zIndex, and boxShadow values can be set here or dynamically in usage
+});
 
 
-  export const StyledDrawer = styled(Drawer)<StyledDrawerProps>(({ theme, scrollbarWidth }) => ({
+  export const StyledDrawer = styled(Drawer)<StyledDrawerProps>({
     '.MuiDrawer-paper': {
       borderTopLeftRadius: 8,
       borderTopRightRadius: 8,
@@ -52,8 +49,7 @@ export const DrawerButton = styled(Box)({
       height: 400,
       maxWidth: '100%',
       backgroundColor: '#adacacff',
-      right: `calc(${theme.spacing(2)} + ${scrollbarWidth}px)`,
       left: 'auto',
       boxSizing: 'border-box',
     },
-  }));
+  });

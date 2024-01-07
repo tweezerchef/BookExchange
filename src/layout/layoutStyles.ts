@@ -9,7 +9,7 @@ export const BackgroundImageBox = styled(Box)`
   bottom: 0;
   z-index: -1;
 `;
-export const SideBarBox = styled('div')({
+export const SideBarBox = styled.div({
   width: 180,
   height: "100vh",
   overflowX: "auto",
