@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@compiled/babel-plugin": "^0.28.1",
+    "@compiled/eslint-plugin": "^0.13.5",
     "@next/eslint-plugin-next": "^14.0.1",
     "@types/autosuggest-highlight": "^3.2.2",
     "@types/cookie": "^0.5.2",

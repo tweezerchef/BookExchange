@@ -57,9 +57,11 @@ module.exports = {
     "next", // https://github.com/vercel/next.js/blob/canary/packages/eslint-config-next/package.json
     // "next/core-web-vitals",
     // "plugin:@next/next/recommended",
+    "@compiled",
   ],
 
   rules: {
+    "@compiled/jsx-pragma": "error",
     "no-plusplus": "off",
     "react/function-component-definition": "off",
     "@typescript-eslint/restrict-plus-operands": "off",

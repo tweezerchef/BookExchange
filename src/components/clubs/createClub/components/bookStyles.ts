@@ -3,6 +3,8 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
+import { Theme, useTheme } from "@mui/material/styles";
+const theme = useTheme<Theme>();
 
 const breakpoints = {
   values: {
@@ -141,7 +143,7 @@ export const AuthorTypography = styled(Typography)`
     font-size: 0.7rem; // Even smaller font size on extra small screens
   }
 `;
-export const PickBookButton = styled(Button)(({ theme }) => ({
+export const PickBookButton = styled(Button)({
   backgroundColor: '#749cc3', // A blue color that should match your design
   color: '#ffffff',
   margin: 1,
@@ -158,4 +160,4 @@ export const PickBookButton = styled(Button)(({ theme }) => ({
   '&:focus': {
     outline: 'none',
   },
-}));
+});
