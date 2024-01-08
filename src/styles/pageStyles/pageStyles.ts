@@ -43,9 +43,7 @@ export const HeaderContainer = styled(Container)`
 top: 0;
 margin-bottom: 1em;
 padding: 0;
-/* @media (max-width: 960px) {
-  width: 100%;
-} */
+
 `;
 export const ContentContainer = styled(Container)`
 
@@ -54,7 +52,7 @@ export const ContentContainer = styled(Container)`
 `;
 export const BannerContainer = styled(Box)`
   position: relative;
-  height: 500px; // Or any other height you prefer
+  height: 500px;
   width: 90%;
   margin: 0 auto;
   padding: 0;

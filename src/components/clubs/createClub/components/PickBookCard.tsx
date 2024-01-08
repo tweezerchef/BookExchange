@@ -1,9 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import Tooltip from "@mui/material/Tooltip";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
-import { User, UserBooks, Books } from "@prisma/client";
-import Button from "@mui/material/Button";
+import { UserBooks, Books } from "@prisma/client";
 import {
   StyledBookCard,
   ImageBox,
@@ -14,6 +13,7 @@ import {
   AuthorTypography,
   PickBookButton,
 } from "./bookStyles";
+import { useTheme } from "@mui/material";
 
 interface Book extends Books {
   books?: Book[];
@@ -29,6 +29,7 @@ export const PickBookCard: React.FC<PickBookProps> = ({
   book,
   setClubBook,
 }) => {
+  const theme = useTheme();
   const [loading, setLoading] = useState(true);
 
   function truncateTitle(title: string, wordLimit: number) {
@@ -74,6 +75,11 @@ export const PickBookCard: React.FC<PickBookProps> = ({
                 variant='contained'
                 startIcon={<ImportContactsIcon />}
                 onClick={handleBookClick}
+                style={{
+                  transition: theme.transitions.create(["background-color"], {
+                    duration: theme.transitions.duration.short,
+                  }),
+                }}
               >
                 Pick This Book
               </PickBookButton>

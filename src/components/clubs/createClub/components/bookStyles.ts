@@ -3,16 +3,15 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 import { Button } from "@mui/material";
-import { Theme, useTheme } from "@mui/material/styles";
-const theme = useTheme<Theme>();
+
 
 const breakpoints = {
   values: {
-    xs: 0, // mobile
-    sm: 600, // tablets
-    md: 960, // small laptop
-    lg: 1280, // desktop
-    xl: 1920, // large screens
+    xs: 0,
+    sm: 600,
+    md: 960,
+    lg: 1280,
+    xl: 1920,
   },
 };
 
@@ -92,12 +91,12 @@ export const ContentContainer = styled(Box)`
   margin-bottom: 0em;
   display: flex;
   flex-direction: column;
-  justify-content: center; // Vertically center the content
-  align-items: center; // Horizontally center the content
+  justify-content: center;
+  align-items: center;
   justify-items: center;
   width: 100%;
-  height: 100%; // Take up the remaining space
-  text-align: center; // Center the text
+  height: 100%;
+  text-align: center;
   text-justify: center;
   background-color: transparent;
 `;
@@ -116,14 +115,14 @@ export const TitleTypography = styled(Typography)`
     padding: 0 5px;
     margin-bottom: 5px;
     @media (max-width: ${breakpoints.values.md}px) {
-      font-size: .9rem; // Smaller font size on medium screens
+      font-size: .9rem;
     }
     @media (max-width: ${breakpoints.values.sm}px) {
-      font-size: 0.8rem; // Smaller font size on small screens
+      font-size: 0.8rem;
     }
 
     @media (max-width: ${breakpoints.values.xs}px) {
-      font-size: 0.7rem; // Even smaller font size on extra small screens
+      font-size: 0.7rem;
     }
 
 `;
@@ -133,29 +132,27 @@ export const AuthorTypography = styled(Typography)`
   white-space: pre-line;
   line-height: 1.1em;
   @media (max-width: ${breakpoints.values.md}px) {
-    font-size: .9rem; // Smaller font size on medium screens
+    font-size: .9rem;
   }
   @media (max-width: ${breakpoints.values.sm}px) {
-    font-size: 0.8rem; // Smaller font size on small screens
+    font-size: 0.8rem;
   }
 
   @media (max-width: ${breakpoints.values.xs}px) {
-    font-size: 0.7rem; // Even smaller font size on extra small screens
+    font-size: 0.7rem;
   }
 `;
 export const PickBookButton = styled(Button)({
-  backgroundColor: '#749cc3', // A blue color that should match your design
+  backgroundColor: '#749cc3',
   color: '#ffffff',
   margin: 1,
   borderRadius: 4,
   cursor: 'pointer',
   fontWeight: 'bold',
   textTransform: 'uppercase',
-  transition: theme.transitions.create(['background-color'], {
-    duration: theme.transitions.duration.short,
-  }),
+
   '&:hover': {
-    backgroundColor: '#7ab8cd', // A lighter blue for hover effect
+    backgroundColor: '#7ab8cd',
   },
   '&:focus': {
     outline: 'none',
