@@ -6,11 +6,11 @@ import Typography from "@mui/material/Typography";
 
 const breakpoints = {
   values: {
-    xs: 0, // mobile
-    sm: 600, // tablets
-    md: 960, // small laptop
-    lg: 1280, // desktop
-    xl: 1920, // large screens
+    xs: 0,
+    sm: 600,
+    md: 960,
+    lg: 1280,
+    xl: 1920,
   },
 };
 
@@ -86,14 +86,14 @@ line-height: 1.1em;
 margin-top: .03em;
 padding-top: 15px;
 @media (max-width: ${breakpoints.values.md}px) {
-  font-size: 1rem; // Smaller font size on medium screens
+  font-size: 1rem;
 }
 @media (max-width: ${breakpoints.values.sm}px) {
-  font-size: 0.8rem; // Smaller font size on small screens
+  font-size: 0.8rem;
 }
 
 @media (max-width: ${breakpoints.values.xs}px) {
-  font-size: 0.7rem; // Even smaller font size on extra small screens
+  font-size: 0.7rem;
 }
 
 &:hover {

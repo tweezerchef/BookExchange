@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
   const isIndexPage = router.pathname === "/";
   const isSignUpPage = router.pathname === "/signUp";
   const isRegistrationPage = router.pathname === "/register";
-  const matches = useMediaQuery("(max-width:450px)");
+  const matches = useMediaQuery("(min-width:505px)");
 
   // Don't render Header and Sidebar on the Login and Index pages
   if (isLoginPage || isIndexPage || isSignUpPage || isRegistrationPage) {
@@ -25,7 +25,7 @@ const Layout = ({ children }) => {
       <Box
         sx={{ display: "flex", flexGrow: 1, overflow: "hidden", width: "100%" }}
       >
-        {!matches && <Sidebar />}
+        {matches && <Sidebar />}
         <Box
           component='main'
           sx={{ flexGrow: 1, overflowY: "auto", overflowX: "clip" }}
