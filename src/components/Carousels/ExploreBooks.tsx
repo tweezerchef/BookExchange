@@ -2,6 +2,7 @@ import { useState, memo } from "react";
 import Box from "@mui/material/Box";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
+import NavigateBeforeTwoToneIcon from "@mui/icons-material/NavigateBeforeTwoTone";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { useTheme } from "@mui/material/styles";
@@ -92,7 +93,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
                 disabled={currentPage === 0}
                 booksPerPage={booksPerPage}
               >
-                <NavigateBeforeIcon />
+                <NavigateBeforeTwoToneIcon fontSize='large' />
               </LeftIconButton>
               {books.map((book, index) => (
                 <BookBox
@@ -140,7 +141,7 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
                 }
                 booksPerPage={booksPerPage}
               >
-                <NavigateNextIcon />
+                <NavigateNextIcon fontSize='large' />
               </RightIconButton>
             </OuterWrapperBox>
           </>
