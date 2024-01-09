@@ -87,6 +87,10 @@ const Home: React.FC<HomeProps> = memo(
 
     return (
       <Box sx={{ flexGrow: 1, p: 2 }}>
+        <Link href={`/club/55262086-79de-492a-85b1-626b0d44d530`}>
+          Go to Club
+        </Link>
+
         {books && !isLoading && (
           <>
             <Link href='/createClub'>Create Club</Link>
