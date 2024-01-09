@@ -49,7 +49,7 @@ export const PickBookBox: FC<PickBookBoxProps> = ({
 
   const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (
-    <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
+    <ExploreBooksBoxWrapper>
       <PickBookCarousel
         books={books}
         setBooks={setBooks}
