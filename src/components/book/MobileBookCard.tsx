@@ -9,8 +9,9 @@ import {
   TitleTypography,
   AuthorTypography,
   UnderStarBox,
+  TitleBox,
 } from "./mobileBookStyles";
-import { StarRating } from "./StarRating";
+import { MobileStarRating } from "./MobileStarRating";
 import { ButtonStack } from "./bookButtons/ButtonStack";
 import { BigBook } from "./BigBook";
 
@@ -91,7 +92,6 @@ export const MobileBookCard: React.FC<BookProps> = ({
             src='/mountainBackgound.png'
             alt='Background'
             fill
-            objectFit='cover'
             sizes='max-width: 220px, max-height: 220px'
             priority
             onLoad={() => setLoading(false)}
@@ -99,12 +99,6 @@ export const MobileBookCard: React.FC<BookProps> = ({
         </div>
         {!loading && (
           <>
-            <StarRating
-              book={book}
-              {...(user && { user })}
-              isRegistration={isRegistration}
-              onRatingChange={onRatingChange}
-            />
             <UnderStarBox>
               <ImageBox onClick={handleBookClick}>
                 <Image
@@ -112,13 +106,20 @@ export const MobileBookCard: React.FC<BookProps> = ({
                     book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"
                   }
                   alt='Book Cover'
-                  fill
-                  sizes='max-width: 80px, max-height: 150px'
+                  layout='responsive' // Change to 'responsive' if the image should scale with the container
+                  width={100} // Match the width of the ImageBox
+                  height={150} // Match the height of the ImageBox
                   priority
                   quality={100}
                 />
               </ImageBox>
               <ContentContainer>
+                <MobileStarRating
+                  book={book}
+                  {...(user && { user })}
+                  isRegistration={isRegistration}
+                  onRatingChange={onRatingChange}
+                />
                 <ButtonStack book={book} {...(user && { user })} />
 
                 {book.author && (
@@ -127,13 +128,13 @@ export const MobileBookCard: React.FC<BookProps> = ({
                     {book.author}
                   </AuthorTypography>
                 )}
-                <Tooltip title={book.title} placement='top' arrow>
-                  <TitleTypography variant='body1'>
-                    {truncateTitle(book.title, 10)}
-                  </TitleTypography>
-                </Tooltip>
               </ContentContainer>
             </UnderStarBox>
+            <TitleBox>
+              <TitleTypography variant='body1'>
+                {truncateTitle(book.title, 10)}
+              </TitleTypography>
+            </TitleBox>
           </>
         )}
       </StyledBookCard>

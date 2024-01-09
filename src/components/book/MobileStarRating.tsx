@@ -10,7 +10,7 @@ interface StarRatingProps {
   onRatingChange?: () => void;
 }
 
-export const StarRating: React.FC<StarRatingProps> = ({
+export const MobileStarRating: React.FC<StarRatingProps> = ({
   book,
   user,
   onRatingChange,
@@ -81,12 +81,10 @@ export const StarRating: React.FC<StarRatingProps> = ({
   return (
     <Rating
       name='half-rating'
+      size='small'
       value={starRatingValue}
       precision={0.5}
-      onChange={handleStarRatingChange} // Attach the onChange handler
-      style={{
-        paddingTop: 10,
-      }}
+      onChange={handleStarRatingChange}
     />
   );
 };

@@ -26,7 +26,7 @@ padding-bottom: 0;
 `;
 export const GridContainer = styled(Box)`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   width: 100%;
   padding: 16px;

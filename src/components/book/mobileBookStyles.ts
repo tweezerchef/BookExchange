@@ -3,26 +3,17 @@ import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
 import Box from "@mui/material/Box";
 
-const breakpoints = {
-  values: {
-    xs: 0,
-    sm: 600,
-    md: 960,
-    lg: 1280,
-    xl: 1920,
-  },
-};
-
 export const StyledBookCard = styled(Card)`
   display: flex;
   flex-direction: column;
+  flex: 1 0 200px;
   align-items: center;
   justify-content: flex-start;
   padding: .5rem;
-  margin: 0.25rem;
+  margin: 0.25rem auto;
   border: 1px solid #ccc;
   border-radius: 8px;
-  width: 100%;
+  max-width: 200px;
   height: auto;
 
 .backgroundImage{
@@ -36,21 +27,17 @@ export const StyledBookCard = styled(Card)`
   z-index: -1;
 }
 `;
-export const StarRatingBox = styled(Box)`
+export const TitleBox = styled(Box)`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.2rem;
 `;
 
 export const UnderStarBox = styled(Box)`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  min-width: 150px;
-  max-width: 80%;
   width: 100%;
 `;
 
@@ -59,8 +46,8 @@ export const UnderStarBox = styled(Box)`
 export const ImageBox = styled(Box)`
   transition: box-shadow 0.3s;
   position: relative;
-  width: 80px;
-  height: 150px;
+  width: 70px;
+  height: 105px;
   overflow: hidden;
   background-color: transparent;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -78,12 +65,14 @@ export const ContentContainer = styled(Box)`
   text-align: center;
   text-justify: center;
   background-color: transparent;
+  max-width: 200px;
 `;
 
 export const TitleTypography = styled(Typography)`
     font-size: .8rem;
     justify-self: center;
     text-overflow: ellipsis;
+    max-width: 180px;
     letter-spacing: 0.4px;
     white-space: nowrap;
     overflow: hidden;
