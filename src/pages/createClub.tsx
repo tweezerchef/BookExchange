@@ -6,12 +6,7 @@ import Box from "@mui/material/Box";
 import { useHomeState } from "../context/context";
 import { PickBookBox } from "../components/clubs/PickBookBox";
 import { CreateClubHeader } from "../components/clubs/createClub/CreateClubHeader";
-import {
-  CreateClubBox,
-  HeaderContainer,
-  ContentContainer,
-  BannerContainer,
-} from "../styles/pageStyles/pageStyles";
+import { HeaderContainer } from "../styles/pageStyles/pageStyles";
 
 export default function CreateClub(props) {
   const { randomBooks } = useHomeState();

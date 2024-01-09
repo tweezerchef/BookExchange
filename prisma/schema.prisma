@@ -298,6 +298,7 @@ model Discussions {
   id               String             @id @default(uuid())
   userId           String
   title            String
+  body             String
   clubsId          String
   bookId           String?
   thumbsDown       Int                @default(0)
@@ -305,7 +306,6 @@ model Discussions {
   createdAt        DateTime           @default(now())
   image            String?
   bookTitle        String?
-  timeline         String?
   books            Books?             @relation(fields: [bookId], references: [id])
   clubs            Clubs              @relation(fields: [clubsId], references: [id])
   creator          User               @relation(fields: [userId], references: [id])
@@ -326,12 +326,15 @@ model DiscussionsUsers {
 model Posts {
   id            String       @id @default(uuid())
   userId        String
-  body          String
+  post          String
   discussionsId String
   createdAt     DateTime     @default(now())
   thumbsDown    Int          @default(0)
   thumbsUp      Int          @default(0)
   BookId        String?
+  parentId      String?
+  parentPost    Posts?       @relation("PostReplies", fields: [parentId], references: [id])
+  replies       Posts[]      @relation("PostReplies")
   Books         Books?       @relation(fields: [BookId], references: [id])
   discussion    Discussions  @relation(fields: [discussionsId], references: [id])
   user          User         @relation(fields: [userId], references: [id])

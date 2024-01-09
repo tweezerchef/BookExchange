@@ -1,0 +1,2 @@
+INSERT INTO Discussions (userId, title, body, clubsId, bookId, thumbsDown, thumbsUp, createdAt, image, bookTitle)
+VALUES ('existing-user-id', 'Exploring the Depths of Dune', 'This is a fascinating discussion about the intricate world and themes of Frank Herbert''s Dune. Let''s dive into the universe of Arrakis, discuss the complex characters, and explore the novel''s profound themes.', 'existing-club-id', 'dune-book-id', 0, 0, CURRENT_TIMESTAMP, 'optional-image-url', 'Dune');
