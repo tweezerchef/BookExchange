@@ -86,7 +86,7 @@ export const MobileBookCard: React.FC<BookProps> = ({
           setReviews={setReviews}
         />
       )}
-      <StyledBookCard elevation={3}>
+      <StyledBookCard>
         <div className='backgroundImage'>
           <Image
             src='/mountainBackgound.png'
@@ -106,9 +106,9 @@ export const MobileBookCard: React.FC<BookProps> = ({
                     book.image ? book.image : "https://i.imgur.com/XrUd1L2.jpg"
                   }
                   alt='Book Cover'
-                  layout='responsive' // Change to 'responsive' if the image should scale with the container
-                  width={100} // Match the width of the ImageBox
-                  height={150} // Match the height of the ImageBox
+                  layout='responsive'
+                  width={100}
+                  height={150}
                   priority
                   quality={100}
                 />

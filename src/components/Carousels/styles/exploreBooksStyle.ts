@@ -103,8 +103,7 @@ export const ExploreBooksBoxWrapper = styled(Box)`
 
 
   @media (max-width: 450px) {
-    min-height: 60vw;
-    max-height: 80vw;
+    height: 230px;
     margin-top: 0.2vh;
     min-width: 100%;
     overflow-x: auto;

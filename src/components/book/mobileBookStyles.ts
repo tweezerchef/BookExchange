@@ -7,6 +7,7 @@ export const StyledBookCard = styled(Card)`
   display: flex;
   flex-direction: column;
   flex: 1 0 200px;
+  position: relative;
   align-items: center;
   justify-content: flex-start;
   padding: .5rem;
@@ -15,9 +16,9 @@ export const StyledBookCard = styled(Card)`
   border-radius: 8px;
   max-width: 200px;
   height: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
 .backgroundImage{
-  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -25,6 +26,8 @@ export const StyledBookCard = styled(Card)`
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.6);
   z-index: -1;
+  width: 100%;
+  height: 100%;
 }
 `;
 export const TitleBox = styled(Box)`
@@ -72,7 +75,7 @@ export const TitleTypography = styled(Typography)`
     font-size: .8rem;
     justify-self: center;
     text-overflow: ellipsis;
-    max-width: 180px;
+    width: 180px;
     letter-spacing: 0.4px;
     white-space: nowrap;
     overflow: hidden;
