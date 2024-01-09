@@ -7,11 +7,6 @@ import { ExploreBooks } from "./ExploreBooks";
 import { useContainerQuery } from "./hooks/useContainerQuery";
 import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
 
-type Breakpoint = {
-  width: number;
-  itemsPerPage: number;
-}[];
-
 interface ExploreBooksBoxProps {
   books: Books[];
   setBooks: React.Dispatch<React.SetStateAction<Books[]>>;
@@ -32,7 +27,6 @@ export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
   onRatingChange,
 }) => {
   const containerRef = useRef(null);
-  const theme = useTheme();
 
   const breakpoints = [
     { width: 900, itemsPerPage: 4 },
@@ -41,7 +35,7 @@ export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
     { width: 0, itemsPerPage: 2 },
   ];
 
-  const isViewportUnder450 = useMediaQuery("(max-width:450px)");
+  const isMobile = useMediaQuery("(max-width:500px)");
 
   const { itemsPerPage: containerItemsPerPage } = useContainerQuery(
     containerRef,
@@ -49,15 +43,14 @@ export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
   );
 
   let booksPerPage: number;
-  if (isViewportUnder450) {
-    booksPerPage = 5; // 1 book per page under 500px
+  if (isMobile) {
+    booksPerPage = 1; // 1 book per page under 500px
   } else {
     booksPerPage = containerItemsPerPage; // Use container query result otherwise
   }
 
-  const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (
-    <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
+    <ExploreBooksBoxWrapper>
       <ExploreBooks
         {...(user && { user })}
         books={books}

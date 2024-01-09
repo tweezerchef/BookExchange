@@ -10,29 +10,31 @@ interface MobileBoxProps extends BoxProps {
   booksPerPage: number;
 }
 
-export const OuterWrapperBox = styled(Box)<OuterWrapperBoxProps>`
-  ${({ isMobile }) => ({
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "center",
-    width: "100%",
-    minWidth: isMobile ? "100%" : "630px",
-    minHeight: isMobile ? "30vw" : "200px",
-    height: isMobile ? "80vw" : "20vw",
-    maxHeight: isMobile ? "30vw" : "220px",
-    marginTop: isMobile ? ".2vh" : "1.5vh",
-    overflow: "hidden",
-    paddingBottom: 0,
-  })}
+export const OuterWrapperBox = styled(Box)`
+position: relative;
+display: flex;
+align-items: center;
+flex-direction: row;
+justify-content: center;
+width: 100%;
+height: 20vw;
+max-height: 220px;
+margin-top: 1.5vh;
+overflow: hidden;
+padding-bottom: 0;
+
+@media (min-width: 450px) {
+  width: 100%;
+  height: 100%;
+  margin-top: 0.2vh;
+}
 `;
-export const MobileBox = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'booksPerPage',
-})({
+
+export const MobileBox = styled(Box)({
   display: 'flex',
   flexDirection: 'row',
   alignContent: 'center',
+  flexGap: '5em',
   justifyContent: 'center',
   width: '100%',
   overflowX: 'hidden',
@@ -80,21 +82,27 @@ export const RightIconButton = styled(IconButton)<{ booksPerPage: number}>`
 
 export const BookBox = styled(Box)`
   top: 0;
-  marginLeft: 3px;
-  marginRight: 3px;
+  margin-left: 3px;
+  margin-right: 3px;
   width: 100%;
   height: 100%;
 `;
 
-export const ExploreBooksBoxWrapper = styled(Box)<OuterWrapperBoxProps>`
-${({ isMobile }) => ({
-  minHeight: isMobile ? "30vw" : "150px",
-  maxHeight: isMobile ? "80vw" : "300px",
-  marginTop: isMobile ? ".2vh" : "1.5vh",
-  minWidth: isMobile ? "100%" : "630px",
-  width: "100%",
-  overflow: "clip",
-  alightItems: "center",
-  alightContent: "center",
-})}
+export const ExploreBooksBoxWrapper = styled(Box)`
+  min-height: 150px;
+  max-height: 300px;
+  margin-top: 1.5vh;
+  min-width: 630px;
+  width: 100%;
+  overflow: clip;
+  align-items: center;
+  align-content: center;
+
+
+  @media (max-width: 450px) {
+    min-height: 30vw;
+    max-height: 80vw;
+    margin-top: 0.2vh;
+    min-width: 100%;
+  }
 `;

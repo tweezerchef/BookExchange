@@ -64,11 +64,11 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
           setCurrentPage={setCurrentPage}
         />
       </StyledDivider>
-      <OuterWrapperBox isMobile={isMobile}>
+      <OuterWrapperBox>
         {books &&
           books.length >= 1 &&
           (isMobile ? (
-            <MobileBox booksPerPage={booksPerPage}>
+            <MobileBox>
               {books.map((book) => (
                 <Box key={book.id || book.title} sx={{ width: "100%" }}>
                   <BookCard
