@@ -16,6 +16,7 @@ import {
   OuterWrapperBox,
   MobileBox,
 } from "./styles/exploreBooksStyle";
+import { MobileBookCard } from "../book/MobileBookCard";
 
 type ExploreBooksProps = {
   books: Books[];
@@ -64,24 +65,25 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
           setCurrentPage={setCurrentPage}
         />
       </StyledDivider>
-      <OuterWrapperBox>
-        {books &&
-          books.length >= 1 &&
-          (isMobile ? (
-            <MobileBox>
-              {books.map((book) => (
-                <Box key={book.id || book.title} sx={{ width: "100%" }}>
-                  <BookCard
-                    book={book}
-                    user={user}
-                    isRegistration={isRegistration}
-                    onRatingChange={onRatingChange}
-                  />
-                </Box>
-              ))}
-            </MobileBox>
-          ) : (
-            <>
+
+      {books &&
+        books.length >= 1 &&
+        (isMobile ? (
+          <MobileBox>
+            {books.map((book) => (
+              <Box key={book.id || book.title} sx={{ width: "100%" }}>
+                <MobileBookCard
+                  book={book}
+                  user={user}
+                  isRegistration={isRegistration}
+                  onRatingChange={onRatingChange}
+                />
+              </Box>
+            ))}
+          </MobileBox>
+        ) : (
+          <>
+            <OuterWrapperBox>
               <LeftIconButton
                 onClick={handlePrevPage}
                 disabled={currentPage === 0}
@@ -137,9 +139,9 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
               >
                 <NavigateNextIcon />
               </RightIconButton>
-            </>
-          ))}
-      </OuterWrapperBox>
+            </OuterWrapperBox>
+          </>
+        ))}
     </>
   );
 };

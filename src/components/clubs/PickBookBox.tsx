@@ -42,9 +42,9 @@ export const PickBookBox: FC<PickBookBoxProps> = ({
 
   let booksPerPage: number;
   if (isViewportUnder450) {
-    booksPerPage = 5; // 1 book per page under 500px
+    booksPerPage = 5;
   } else {
-    booksPerPage = containerItemsPerPage; // Use container query result otherwise
+    booksPerPage = containerItemsPerPage;
   }
 
   const isMobile = useMediaQuery(theme.breakpoints.down(450));

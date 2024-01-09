@@ -18,13 +18,13 @@ export const StyledBookCard = styled(Card)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1rem; // using rem for responsiveness
-  margin: 0.5rem;
+  padding: .5rem;
+  margin: 0.25rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   width: 100%;
-  min-height: 250px; // minimum height for consistency
-  max-height: 300px; // maximum height to control size
+  min-height: 200px;
+  max-height: 250px;
 
 &:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -46,8 +46,8 @@ export const TopContainer = styled(Box)`
   display: flex;
   flex-direction: row;
   width: 100%;
-  min-height: 120px;
-  max-height: 140px;
+  min-height: 100px;
+  max-height: 120px;
   justify-content: start;
   align-items: start;
   background-color: transparent;
@@ -56,8 +56,8 @@ export const TopContainer = styled(Box)`
 export const ImageBox = styled(Box)`
   transition: box-shadow 0.3s;
   position: relative;
-  width: 80%;
-  height: 100%;
+  width: 70%;
+  height: 90%;
   overflow: hidden;
   background-color: transparent;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -78,6 +78,7 @@ export const SideOfImageBox = styled(Box)`
   gap: 0.5em;
   background-color: transparent;
   cursor: pointer;
+  overflow: hidden;
 `;
 
 export const ContentContainer = styled(Box)`
@@ -97,7 +98,7 @@ export const ContentContainer = styled(Box)`
 `;
 
 export const TitleTypography = styled(Typography)`
-    font-size: 1rem;
+    font-size: .8rem;
     justify-self: center;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -109,17 +110,6 @@ export const TitleTypography = styled(Typography)`
     line-height: 1.1em;
     padding: 0 5px;
     margin-bottom: 5px;
-    @media (max-width: ${breakpoints.values.md}px) {
-      font-size: .9rem;
-    }
-    @media (max-width: ${breakpoints.values.sm}px) {
-      font-size: 0.8rem;
-    }
-
-    @media (max-width: ${breakpoints.values.xs}px) {
-      font-size: 0.7rem;
-    }
-
     &:hover {
         color: #333;
     }
@@ -129,14 +119,4 @@ export const AuthorTypography = styled(Typography)`
   text-overflow: ellipsis " [..]";
   white-space: pre-line;
   line-height: 1.1em;
-  @media (max-width: ${breakpoints.values.md}px) {
-    font-size: .9rem;
-  }
-  @media (max-width: ${breakpoints.values.sm}px) {
-    font-size: 0.8rem;
-  }
-
-  @media (max-width: ${breakpoints.values.xs}px) {
-    font-size: 0.7rem;
-  }
 `;

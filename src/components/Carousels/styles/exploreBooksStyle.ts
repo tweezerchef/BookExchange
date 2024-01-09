@@ -23,11 +23,6 @@ margin-top: 1.5vh;
 overflow: hidden;
 padding-bottom: 0;
 
-@media (min-width: 450px) {
-  width: 100%;
-  height: 100%;
-  margin-top: 0.2vh;
-}
 `;
 
 export const MobileBox = styled(Box)({
@@ -37,7 +32,7 @@ export const MobileBox = styled(Box)({
   flexGap: '5em',
   justifyContent: 'center',
   width: '100%',
-  overflowX: 'hidden',
+  overflowX: 'auto',
   minHeight: '230px',
   height: '100%',
 });
@@ -52,6 +47,7 @@ export const OuterBox = styled(Box)`
   min-height: 230px;
   height: 100%;
 `;
+
 export const LeftIconButton = styled(IconButton)<{ booksPerPage: number }>`
   position: absolute;
   left: ${({ booksPerPage }) => {
@@ -100,9 +96,10 @@ export const ExploreBooksBoxWrapper = styled(Box)`
 
 
   @media (max-width: 450px) {
-    min-height: 30vw;
+    min-height: 60vw;
     max-height: 80vw;
     margin-top: 0.2vh;
     min-width: 100%;
+    overflow-x: auto;
   }
 `;
