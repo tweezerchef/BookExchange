@@ -15,6 +15,7 @@ import {
   RightIconButton,
   OuterWrapperBox,
   MobileBox,
+  GridContainer,
 } from "./styles/exploreBooksStyle";
 import { MobileBookCard } from "../book/MobileBookCard";
 
@@ -69,18 +70,20 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
       {books &&
         books.length >= 1 &&
         (isMobile ? (
-          <MobileBox>
-            {books.map((book) => (
-              <Box key={book.id || book.title} sx={{ width: "100%" }}>
-                <MobileBookCard
-                  book={book}
-                  user={user}
-                  isRegistration={isRegistration}
-                  onRatingChange={onRatingChange}
-                />
-              </Box>
-            ))}
-          </MobileBox>
+          <GridContainer>
+            <MobileBox>
+              {books.map((book) => (
+                <Box key={book.id || book.title} sx={{ width: "100%" }}>
+                  <MobileBookCard
+                    book={book}
+                    user={user}
+                    isRegistration={isRegistration}
+                    onRatingChange={onRatingChange}
+                  />
+                </Box>
+              ))}
+            </MobileBox>
+          </GridContainer>
         ) : (
           <>
             <OuterWrapperBox>

@@ -5,11 +5,10 @@ import { User, UserBooks, Books } from "@prisma/client";
 import {
   StyledBookCard,
   ImageBox,
-  SideOfImageBox,
-  TopContainer,
   ContentContainer,
   TitleTypography,
   AuthorTypography,
+  UnderStarBox,
 } from "./mobileBookStyles";
 import { StarRating } from "./StarRating";
 import { ButtonStack } from "./bookButtons/ButtonStack";
@@ -92,6 +91,7 @@ export const MobileBookCard: React.FC<BookProps> = ({
             src='/mountainBackgound.png'
             alt='Background'
             fill
+            objectFit='cover'
             sizes='max-width: 220px, max-height: 220px'
             priority
             onLoad={() => setLoading(false)}
@@ -99,7 +99,13 @@ export const MobileBookCard: React.FC<BookProps> = ({
         </div>
         {!loading && (
           <>
-            <TopContainer>
+            <StarRating
+              book={book}
+              {...(user && { user })}
+              isRegistration={isRegistration}
+              onRatingChange={onRatingChange}
+            />
+            <UnderStarBox>
               <ImageBox onClick={handleBookClick}>
                 <Image
                   src={
@@ -107,18 +113,12 @@ export const MobileBookCard: React.FC<BookProps> = ({
                   }
                   alt='Book Cover'
                   fill
-                  sizes='max-width: 100px, max-height: 180px'
+                  sizes='max-width: 80px, max-height: 150px'
                   priority
                   quality={100}
                 />
               </ImageBox>
-              <SideOfImageBox>
-                <StarRating
-                  book={book}
-                  {...(user && { user })}
-                  isRegistration={isRegistration}
-                  onRatingChange={onRatingChange}
-                />
+              <ContentContainer>
                 <ButtonStack book={book} {...(user && { user })} />
 
                 {book.author && (
@@ -127,15 +127,13 @@ export const MobileBookCard: React.FC<BookProps> = ({
                     {book.author}
                   </AuthorTypography>
                 )}
-              </SideOfImageBox>
-            </TopContainer>
-            <ContentContainer>
-              <Tooltip title={book.title} placement='top' arrow>
-                <TitleTypography variant='body1'>
-                  {truncateTitle(book.title, 10)}
-                </TitleTypography>
-              </Tooltip>
-            </ContentContainer>
+                <Tooltip title={book.title} placement='top' arrow>
+                  <TitleTypography variant='body1'>
+                    {truncateTitle(book.title, 10)}
+                  </TitleTypography>
+                </Tooltip>
+              </ContentContainer>
+            </UnderStarBox>
           </>
         )}
       </StyledBookCard>
