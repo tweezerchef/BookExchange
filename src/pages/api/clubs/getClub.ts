@@ -25,6 +25,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           where: {
             currentBook: true,
           },
+          include: {
+            Books: true,
+          },
         },
       },
     });
