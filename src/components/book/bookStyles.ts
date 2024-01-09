@@ -38,10 +38,6 @@ overflow: hidden;
   height: 144px;
 }
 
-@media (max-width: ${breakpoints.values.xs}px) {
-  width: 140px;
-  height: 126px;
-}
 .backgroundImage{
   content: "";
   position: absolute;

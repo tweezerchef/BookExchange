@@ -18,6 +18,7 @@ flex-direction: row;
 justify-content: center;
 width: 100%;
 height: 20vw;
+min-height: 160px;
 max-height: 220px;
 margin-top: 1.5vh;
 overflow: hidden;
@@ -92,7 +93,7 @@ export const BookBox = styled(Box)`
 `;
 
 export const ExploreBooksBoxWrapper = styled(Box)`
-  min-height: 150px;
+  min-height: 200px;
   max-height: 300px;
   margin-top: 1.5vh;
   min-width: 630px;

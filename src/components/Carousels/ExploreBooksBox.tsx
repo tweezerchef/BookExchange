@@ -1,10 +1,8 @@
 /* eslint-disable react/require-default-props */
 import { Books } from "@prisma/client";
-import { FC, useRef } from "react";
+import { FC } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import { ExploreBooks } from "./ExploreBooks";
-import { useContainerQuery } from "./hooks/useContainerQuery";
 import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
 
 interface ExploreBooksBoxProps {
@@ -26,28 +24,17 @@ export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
   isRegistration,
   onRatingChange,
 }) => {
-  const containerRef = useRef(null);
+  const isSmall = useMediaQuery("(max-width:650px)");
+  const isMedium = useMediaQuery("(max-width:1000px)");
 
-  const breakpoints = [
-    { width: 900, itemsPerPage: 4 },
-    { width: 650, itemsPerPage: 3 },
-    { width: 460, itemsPerPage: 2 },
-    { width: 0, itemsPerPage: 2 },
-  ];
-
-  const isMobile = useMediaQuery("(max-width:500px)");
-
-  const { itemsPerPage: containerItemsPerPage } = useContainerQuery(
-    containerRef,
-    breakpoints
-  );
-
-  let booksPerPage: number;
-  if (isMobile) {
-    booksPerPage = 1; // 1 book per page under 500px
-  } else {
-    booksPerPage = containerItemsPerPage; // Use container query result otherwise
+  let booksPerPage = 4; // Default value for large screens and above
+  if (isMedium) {
+    booksPerPage = 3;
+  } else if (isSmall) {
+    booksPerPage = 2;
   }
+
+  const isMobile = useMediaQuery("(max-width:460px)");
 
   return (
     <ExploreBooksBoxWrapper>

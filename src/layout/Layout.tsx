@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
 import { useRouter } from "next/router";
 import { memo } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -20,20 +21,34 @@ const Layout = ({ children }) => {
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "97vh" }}>
-      <Header />
+    <Container disableGutters>
       <Box
-        sx={{ display: "flex", flexGrow: 1, overflow: "hidden", width: "100%" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          height: "97vh",
+          maxWidth: "1500px",
+        }}
       >
-        {matches && <Sidebar />}
+        <Header />
         <Box
-          component='main'
-          sx={{ flexGrow: 1, overflowY: "auto", overflowX: "clip" }}
+          sx={{
+            display: "flex",
+            flexGrow: 1,
+            overflow: "hidden",
+            width: "100%",
+          }}
         >
-          {children}
+          {matches && <Sidebar />}
+          <Box
+            component='main'
+            sx={{ flexGrow: 1, overflowY: "auto", overflowX: "clip" }}
+          >
+            {children}
+          </Box>
         </Box>
       </Box>
-    </Box>
+    </Container>
   );
 };
 
