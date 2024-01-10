@@ -27,7 +27,7 @@ export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
   const isSmall = useMediaQuery("(max-width:800px)");
   const isMedium = useMediaQuery("(max-width:1100px)");
 
-  let booksPerPage = 4; // Default value for large screens and above
+  let booksPerPage = 4;
   if (isMedium) {
     booksPerPage = 3;
   } else if (isSmall) {

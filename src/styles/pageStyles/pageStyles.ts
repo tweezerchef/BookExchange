@@ -57,3 +57,9 @@ export const BannerContainer = styled(Box)`
   margin: 0 auto;
   padding: 0;
 `;
+
+export const HomeBox = styled(Box)`
+  flex-grow: 1;
+  padding: 2;
+
+  `

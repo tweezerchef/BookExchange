@@ -21,6 +21,7 @@ import {
   SET_RANDOM_BOOKS,
 } from "../context/actions";
 import { Messages } from "../components/messages/Messages";
+import { HomeBox } from "../styles/pageStyles/pageStyles";
 
 interface ImageUrls {
   [key: string]: string;
@@ -86,7 +87,7 @@ const Home: React.FC<HomeProps> = memo(
     }, []);
 
     return (
-      <Box sx={{ flexGrow: 1, p: 2 }}>
+      <HomeBox>
         <Link href={`/club/55262086-79de-492a-85b1-626b0d44d530`}>
           Go to Club
         </Link>
@@ -102,7 +103,7 @@ const Home: React.FC<HomeProps> = memo(
           </>
         )}
         <Messages />
-      </Box>
+      </HomeBox>
     );
   }
 );
