@@ -1,7 +1,6 @@
 import { styled } from '@compiled/react'
 import Box, { BoxProps } from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import { Friends } from '@prisma/client';
+
 
 interface FriendsBoxProps extends BoxProps {
   isMobile: boolean;

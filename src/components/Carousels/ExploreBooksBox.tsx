@@ -24,17 +24,20 @@ export const ExploreBooksBox: FC<ExploreBooksBoxProps> = ({
   isRegistration,
   onRatingChange,
 }) => {
-  const isSmall = useMediaQuery("(max-width:800px)");
-  const isMedium = useMediaQuery("(max-width:1100px)");
+  const isMobile = useMediaQuery("(max-width:460px)");
+  let booksPerPage = 1;
 
-  let booksPerPage = 4;
-  if (isMedium) {
+  const isMedium = useMediaQuery("(min-width:650px)");
+  const isLarge = useMediaQuery("(min-width:800px)");
+  const isExtraLarge = useMediaQuery("(min-width:1100px)");
+
+  if (isExtraLarge) {
+    booksPerPage = 4;
+  } else if (isLarge) {
     booksPerPage = 3;
-  } else if (isSmall) {
+  } else if (isMedium) {
     booksPerPage = 2;
   }
-
-  const isMobile = useMediaQuery("(max-width:460px)");
 
   return (
     <ExploreBooksBoxWrapper>

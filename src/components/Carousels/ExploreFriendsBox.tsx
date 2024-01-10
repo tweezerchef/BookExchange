@@ -1,20 +1,10 @@
-/* eslint-disable react/require-default-props */
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
-import Box from "@mui/material/Box";
 import { useEffect, useRef, useState, FC } from "react";
 import { User } from "@prisma/client";
-import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ExploreFriends } from "./ExploreFriends";
-import { useContainerQuery } from "./hooks/useContainerQuery";
-import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
 import { FriendsBoxWrapper } from "./styles/friendsStyle";
-
-type Breakpoint = {
-  width: number;
-  itemsPerPage: number;
-}[];
 
 interface ExploreFriendsBoxProps {
   user?: {
@@ -35,29 +25,21 @@ export const ExploreFriendsBox: FC<ExploreFriendsBoxProps> = ({
 }) => {
   const [randomFriends, setRandomFriends] = useState<Friend[]>([]);
   const [friendIds, setFriendIds] = useState<string[]>([]);
-  const containerRef = useRef(null);
-  const theme = useTheme();
-  const breakpoints: Breakpoint = [
-    { width: 900, itemsPerPage: 4 },
-    { width: 650, itemsPerPage: 3 },
-    { width: 300, itemsPerPage: 2 },
-    { width: 320, itemsPerPage: 2 },
-    { width: 0, itemsPerPage: 2 },
-  ];
-  const { itemsPerPage: containerItemsPerPage } = useContainerQuery(
-    containerRef,
-    breakpoints
-  );
+  const isMobile = useMediaQuery("(max-width:460px)");
+  let booksPerPage = 1;
 
-  const isViewportUnder450 = useMediaQuery("(max-width:450px)");
+  const isMedium = useMediaQuery("(min-width:650px)");
+  const isLarge = useMediaQuery("(min-width:800px)");
+  const isExtraLarge = useMediaQuery("(min-width:1100px)");
 
-  let friendsPerPage: number;
-  if (isViewportUnder450) {
-    friendsPerPage = 5;
-  } else {
-    friendsPerPage = containerItemsPerPage;
+  if (isExtraLarge) {
+    booksPerPage = 4;
+  } else if (isLarge) {
+    booksPerPage = 3;
+  } else if (isMedium) {
+    booksPerPage = 2;
   }
-  const isMobile = useMediaQuery(theme.breakpoints.down(450));
+
   useEffect(() => {
     fetch("/api/friend/combinedData")
       .then((res) => res.json() as Promise<CombinedDataResponse>)
@@ -69,22 +51,21 @@ export const ExploreFriendsBox: FC<ExploreFriendsBoxProps> = ({
   }, []);
 
   return (
-    <FriendsBoxWrapper isMobile={isMobile} ref={containerRef}>
+    <FriendsBoxWrapper isMobile={isMobile}>
       <Divider textAlign='left'>
         <Chip label='Make Some Friends' />
       </Divider>
-      {user ? ( // Use curly braces for condition and JSX expression
+      {user ? (
         <ExploreFriends
-          friendsPerPage={friendsPerPage}
+          friendsPerPage={booksPerPage}
           randomFriends={randomFriends}
           friendIds={friendIds}
           isMobile={isMobile}
           user={user}
         />
       ) : (
-        // Corrected the use of the NOT operator and the JSX expression
         <ExploreFriends
-          friendsPerPage={friendsPerPage}
+          friendsPerPage={booksPerPage}
           randomFriends={randomFriends}
           friendIds={friendIds}
           isMobile={isMobile}

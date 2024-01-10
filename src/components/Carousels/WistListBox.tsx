@@ -14,32 +14,23 @@ type Breakpoint = {
 
 export default function WishListBox() {
   const containerRef = useRef(null);
-  const theme = useTheme();
+  const isMobile = useMediaQuery("(max-width:460px)");
+  let booksPerPage = 1;
 
-  const breakpoints = [
-    { width: 900, itemsPerPage: 4 },
-    { width: 650, itemsPerPage: 3 },
-    { width: 460, itemsPerPage: 2 },
-    { width: 0, itemsPerPage: 2 },
-  ];
+  const isMedium = useMediaQuery("(min-width:650px)");
+  const isLarge = useMediaQuery("(min-width:800px)");
+  const isExtraLarge = useMediaQuery("(min-width:1100px)");
 
-  const isViewportUnder450 = useMediaQuery("(max-width:450px)");
-
-  const { itemsPerPage: containerItemsPerPage } = useContainerQuery(
-    containerRef,
-    breakpoints
-  );
-
-  let booksPerPage: number;
-  if (isViewportUnder450) {
-    booksPerPage = 5; // 1 book per page under 500px
-  } else {
-    booksPerPage = containerItemsPerPage; // Use container query result otherwise
+  if (isExtraLarge) {
+    booksPerPage = 4;
+  } else if (isLarge) {
+    booksPerPage = 3;
+  } else if (isMedium) {
+    booksPerPage = 2;
   }
 
-  const isMobile = useMediaQuery(theme.breakpoints.down(450));
   return (
-    <ExploreBooksBoxWrapper isMobile={isMobile} ref={containerRef}>
+    <ExploreBooksBoxWrapper>
       <Divider textAlign='right'>
         <Chip label='Your Wish List' />
       </Divider>
