@@ -1,10 +1,7 @@
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
-import { useRef } from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@mui/material/styles";
 import WishList from "./WishList";
-import { useContainerQuery } from "./hooks/useContainerQuery";
 import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
 
 type Breakpoint = {
@@ -13,7 +10,6 @@ type Breakpoint = {
 }[];
 
 export default function WishListBox() {
-  const containerRef = useRef(null);
   const isMobile = useMediaQuery("(max-width:460px)");
   let booksPerPage = 1;
 

@@ -9,7 +9,6 @@ import passport from "passport";
 import Google, {
   IOAuth2StrategyOption,
   Profile,
-  VerifyFunction,
 } from "passport-google-oauth";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
