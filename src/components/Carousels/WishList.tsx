@@ -4,9 +4,6 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
-import { Books } from "@prisma/client";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { BookCard } from "../book/BookCard";
 import {
   BookBox,
@@ -17,7 +14,7 @@ import {
   GridContainer,
 } from "./styles/exploreBooksStyle";
 import { MobileBookCard } from "../book/MobileBookCard";
-import { useHomeDispatch, useHomeState } from "../../context/context";
+import { useHomeState } from "../../context/context";
 
 interface WishListProps {
   booksPerPage: number;
@@ -26,7 +23,6 @@ interface WishListProps {
 
 const WishList: React.FC<WishListProps> = ({ booksPerPage, isMobile }) => {
   const state = useHomeState();
-  const dispatch = useHomeDispatch();
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined

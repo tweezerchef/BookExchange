@@ -1,14 +1,8 @@
 import { styled } from '@compiled/react'
-import Box, { BoxProps } from "@mui/material/Box";
+import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 
-interface OuterWrapperBoxProps extends BoxProps {
-  isMobile: boolean;
-}
 
-interface MobileBoxProps extends BoxProps {
-  booksPerPage: number;
-}
 
 export const OuterWrapperBox = styled(Box)`
 position: relative;
@@ -31,6 +25,7 @@ export const GridContainer = styled(Box)`
   gap: 16px;
   width: 100%;
   padding: 16px;
+
 `;
 
 export const MobileBox = styled(Box)({
@@ -40,7 +35,6 @@ export const MobileBox = styled(Box)({
   flexGap: '5em',
   justifyContent: 'center',
   width: '100%',
-  overflowX: 'auto',
   minHeight: '230px',
   height: '100%',
 });

@@ -28,3 +28,15 @@ body {
   border-style: solid;
   border-radius: 10px;
 }
+@media screen and (max-width: 768px) {
+  * {
+    /* Disable scrollbar for all elements */
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+
+    /* Hide scrollbar for Webkit browsers like Chrome and Safari */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

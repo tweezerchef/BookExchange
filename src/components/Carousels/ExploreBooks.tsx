@@ -5,7 +5,6 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import NavigateBeforeTwoToneIcon from "@mui/icons-material/NavigateBeforeTwoTone";
 import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
-import { useTheme } from "@mui/material/styles";
 import { Books } from "@prisma/client";
 import { BookCard } from "../book/BookCard";
 import { StyledDivider } from "../chips/chipStyle";
@@ -116,7 +115,6 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
                           index * booksPerPage,
                           index * booksPerPage + booksPerPage
                         )
-                        // eslint-disable-next-line @typescript-eslint/no-shadow
                         .map((book: Books) => (
                           <Box key={book.id || book.title}>
                             <BookCard
