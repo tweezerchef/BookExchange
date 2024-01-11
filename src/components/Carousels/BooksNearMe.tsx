@@ -5,28 +5,28 @@ import Slide from "@mui/material/Slide";
 import Stack from "@mui/material/Stack";
 import { useState } from "react";
 import { Books } from "@prisma/client";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import { BookCard } from "../book/BookCard";
 import {
-  OuterBox,
   BookBox,
   LeftIconButton,
   RightIconButton,
   OuterWrapperBox,
   MobileBox,
+  GridContainer,
 } from "./styles/exploreBooksStyle";
-
+import { MobileBookCard } from "../book/MobileBookCard";
 import { useHomeDispatch, useHomeState } from "../../context/context";
 
 interface BooksNearMeProps {
   booksPerPage: number;
   books: Books[];
+  isMobile: boolean;
 }
 
 export const BooksNearMe: React.FC<BooksNearMeProps> = ({
   booksPerPage,
   books,
+  isMobile,
 }) => {
   const state = useHomeState();
   const dispatch = useHomeDispatch();
@@ -34,12 +34,8 @@ export const BooksNearMe: React.FC<BooksNearMeProps> = ({
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
-  const [selectedBook, setSelectedBook] = useState<Books | null>(null);
 
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const { wishList, user } = state;
+  const { user } = state;
 
   const handleNextPage = () => {
     setSlideDirection("left");
@@ -52,17 +48,19 @@ export const BooksNearMe: React.FC<BooksNearMeProps> = ({
   };
 
   return (
-    <OuterWrapperBox isMobile={isMobile}>
+    <OuterWrapperBox>
       {books &&
         books.length >= 1 &&
         (isMobile ? (
-          <MobileBox booksPerPage={booksPerPage}>
-            {books.map((book) => (
-              <Box key={book.id || book.title} sx={{ width: "100%" }}>
-                <BookCard book={book} user={user} />
-              </Box>
-            ))}
-          </MobileBox>
+          <GridContainer>
+            <MobileBox>
+              {books.map((book) => (
+                <Box key={book.id || book.title} sx={{ width: "100%" }}>
+                  <MobileBookCard book={book} user={user} />
+                </Box>
+              ))}
+            </MobileBox>
+          </GridContainer>
         ) : (
           <>
             <LeftIconButton

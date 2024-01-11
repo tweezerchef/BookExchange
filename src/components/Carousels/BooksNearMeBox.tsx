@@ -16,12 +16,28 @@ interface UserBooksWithBooks extends UserBooks {
 interface ApiResponseItem {
   UserBooks: UserBooksWithBooks[];
 }
+
 export const BooksNearMeBox: FC = () => {
   const state = useHomeState();
   const { user } = state;
   const userId = user?.id || "0";
 
   const [books, setBooks] = useState<Books[] | null>(null);
+
+  const isMobile = useMediaQuery("(max-width:460px)");
+  let booksPerPage = 1;
+
+  const isMedium = useMediaQuery("(min-width:650px)");
+  const isLarge = useMediaQuery("(min-width:800px)");
+  const isExtraLarge = useMediaQuery("(min-width:1100px)");
+
+  if (isExtraLarge) {
+    booksPerPage = 4;
+  } else if (isLarge) {
+    booksPerPage = 3;
+  } else if (isMedium) {
+    booksPerPage = 2;
+  }
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -46,27 +62,18 @@ export const BooksNearMeBox: FC = () => {
     fetchBooks();
   }, [userId]);
 
-  const isMobile = useMediaQuery("(max-width:460px)");
-  let booksPerPage = 1;
-
-  const isMedium = useMediaQuery("(min-width:650px)");
-  const isLarge = useMediaQuery("(min-width:800px)");
-  const isExtraLarge = useMediaQuery("(min-width:1100px)");
-
-  if (isExtraLarge) {
-    booksPerPage = 4;
-  } else if (isLarge) {
-    booksPerPage = 3;
-  } else if (isMedium) {
-    booksPerPage = 2;
-  }
-
   return (
     <ExploreBooksBoxWrapper>
       <Divider textAlign='left'>
         <Chip label='Books Available Near You!' />
       </Divider>
-      {books && <BooksNearMe booksPerPage={booksPerPage} books={books} />}
+      {books && (
+        <BooksNearMe
+          booksPerPage={booksPerPage}
+          books={books}
+          isMobile={isMobile}
+        />
+      )}
     </ExploreBooksBoxWrapper>
   );
 };

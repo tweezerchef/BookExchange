@@ -14,25 +14,23 @@ import {
   RightIconButton,
   OuterWrapperBox,
   MobileBox,
+  GridContainer,
 } from "./styles/exploreBooksStyle";
-
+import { MobileBookCard } from "../book/MobileBookCard";
 import { useHomeDispatch, useHomeState } from "../../context/context";
 
 interface WishListProps {
   booksPerPage: number;
+  isMobile: boolean;
 }
 
-const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
+const WishList: React.FC<WishListProps> = ({ booksPerPage, isMobile }) => {
   const state = useHomeState();
   const dispatch = useHomeDispatch();
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
-  const [selectedBook, setSelectedBook] = useState<Books | null>(null);
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const { wishList, user } = state;
 
@@ -49,19 +47,21 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
   };
 
   return (
-    <OuterWrapperBox isMobile={isMobile}>
+    <>
       {books &&
         books.length >= 1 &&
         (isMobile ? (
-          <MobileBox booksPerPage={booksPerPage}>
-            {books.map((book) => (
-              <Box key={book.id || book.title} sx={{ width: "100%" }}>
-                <BookCard book={book} user={user} />
-              </Box>
-            ))}
-          </MobileBox>
+          <GridContainer>
+            <MobileBox>
+              {books.map((book) => (
+                <Box key={book.id || book.title} sx={{ width: "100%" }}>
+                  <MobileBookCard book={book} user={user} />
+                </Box>
+              ))}
+            </MobileBox>
+          </GridContainer>
         ) : (
-          <>
+          <OuterWrapperBox>
             <LeftIconButton
               onClick={handlePrevPage}
               disabled={currentPage === 0}
@@ -91,14 +91,9 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
                         index * booksPerPage,
                         index * booksPerPage + booksPerPage
                       )
-                      // eslint-disable-next-line @typescript-eslint/no-shadow
-                      .map((book: Books) => (
+                      .map((book) => (
                         <Box key={book.id || book.title}>
-                          <BookCard
-                            book={book}
-                            {...(user && { user })}
-                            // nearMeBooks={nearMeBooks}
-                          />
+                          <BookCard book={book} {...(user && { user })} />
                         </Box>
                       ))}
                   </Stack>
@@ -114,9 +109,9 @@ const WishList: React.FC<WishListProps> = ({ booksPerPage }) => {
             >
               <NavigateNextIcon />
             </RightIconButton>
-          </>
+          </OuterWrapperBox>
         ))}
-    </OuterWrapperBox>
+    </>
   );
 };
 

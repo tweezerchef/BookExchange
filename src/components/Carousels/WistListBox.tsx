@@ -4,11 +4,6 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import WishList from "./WishList";
 import { ExploreBooksBoxWrapper } from "./styles/exploreBooksStyle";
 
-type Breakpoint = {
-  width: number;
-  itemsPerPage: number;
-}[];
-
 export default function WishListBox() {
   const isMobile = useMediaQuery("(max-width:460px)");
   let booksPerPage = 1;
@@ -30,7 +25,7 @@ export default function WishListBox() {
       <Divider textAlign='right'>
         <Chip label='Your Wish List' />
       </Divider>
-      <WishList booksPerPage={booksPerPage} />
+      <WishList booksPerPage={booksPerPage} isMobile={isMobile} />
     </ExploreBooksBoxWrapper>
   );
 }
