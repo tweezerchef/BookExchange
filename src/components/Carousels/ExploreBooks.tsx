@@ -56,7 +56,6 @@ const ExploreBooksComponent: React.FC<ExploreBooksProps> = ({
     setSlideDirection("right");
     setCurrentPage((prevPage) => prevPage - 1);
   };
-  const theme = useTheme();
   return (
     <>
       <StyledDivider textAlign='right'>

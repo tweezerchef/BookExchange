@@ -1,12 +1,26 @@
 import Chip from "@mui/material/Chip";
 import Divider from "@mui/material/Divider";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
+import { useEffect, useState, FC } from "react";
 import { Books } from "@prisma/client";
 import { SuggestedBooks } from "./SuggestedBooks";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-export function SuggestedBooksBox() {
+interface SuggestedBooksBoxProps {
+  user?: {
+    id: string;
+    email: string;
+    userName: string;
+  };
+  isRegistration?: boolean;
+  onRatingChange?: () => void;
+}
+
+export const SuggestedBooksBox: FC<SuggestedBooksBoxProps> = ({
+  user,
+  isRegistration,
+  onRatingChange,
+}) => {
   const [books, setBooks] = useState<Books[]>([]);
   const isMobile = useMediaQuery("(max-width:460px)");
   let booksPerPage = 1;
@@ -38,7 +52,14 @@ export function SuggestedBooksBox() {
       <Divider textAlign='right'>
         <Chip label='Suggested Books' />
       </Divider>
-      <SuggestedBooks booksPerPage={booksPerPage} books={books} />
+      <SuggestedBooks
+        booksPerPage={booksPerPage}
+        books={books}
+        isMobile={isMobile}
+        user={user}
+        isRegistration={isRegistration}
+        onRatingChange={onRatingChange}
+      />
     </Box>
   );
-}
+};

@@ -15,24 +15,35 @@ import {
   LeftIconButton,
   RightIconButton,
   OuterWrapperBox,
+  GridContainer,
+  MobileBox,
 } from "./styles/exploreBooksStyle";
-
+import { MobileBookCard } from "../book/MobileBookCard";
 interface SuggestedBooksProps {
   booksPerPage: number;
   books: Books[];
+  isMobile: boolean;
+  user?: {
+    id: string;
+    email: string;
+    userName: string;
+  };
+  isRegistration?: boolean;
+  onRatingChange?: () => void;
 }
 
 export const SuggestedBooks: FC<SuggestedBooksProps> = ({
   booksPerPage,
   books,
+  isMobile,
+  user = null,
+  isRegistration,
+  onRatingChange,
 }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [slideDirection, setSlideDirection] = useState<
     "right" | "left" | undefined
   >("left");
-
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleNextPage = () => {
     setSlideDirection("left");
@@ -45,31 +56,27 @@ export const SuggestedBooks: FC<SuggestedBooksProps> = ({
   };
 
   return (
-    <OuterWrapperBox isMobile={isMobile}>
+    <OuterWrapperBox>
       {books && books.length !== 0 ? (
         isMobile ? (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              overflowX: "scroll",
-              width: "100%",
-              height: "30vh",
-              "&::-webkit-scrollbar": {
-                display: "none",
-              },
-              msOverflowStyle: "none",
-            }}
-          >
-            {books.map((book: Books) => (
-              <Box key={book.id || book.title}>
-                <BookCard book={book} />
-              </Box>
-            ))}
-          </Box>
+          <GridContainer>
+            <MobileBox>
+              {books.map((book) => (
+                <Box key={book.id || book.title} sx={{ width: "100%" }}>
+                  <MobileBookCard
+                    book={book}
+                    user={user}
+                    isRegistration={isRegistration}
+                    onRatingChange={onRatingChange}
+                  />
+                </Box>
+              ))}
+            </MobileBox>
+          </GridContainer>
         ) : (
           <OuterBox>
             <LeftIconButton
+              booksPerPage={booksPerPage}
               onClick={handlePrevPage}
               disabled={currentPage === 0}
             >
@@ -98,7 +105,10 @@ export const SuggestedBooks: FC<SuggestedBooksProps> = ({
                       )
                       .map((bookItem: Books) => (
                         <Box key={bookItem.id || bookItem.title}>
-                          <BookCard book={bookItem} />
+                          <BookCard
+                            book={bookItem}
+                            onRatingChange={onRatingChange}
+                          />
                         </Box>
                       ))}
                   </Stack>
@@ -106,6 +116,7 @@ export const SuggestedBooks: FC<SuggestedBooksProps> = ({
               </BookBox>
             ))}
             <RightIconButton
+              booksPerPage={booksPerPage}
               onClick={handleNextPage}
               disabled={
                 currentPage >= Math.ceil((books.length || 0) / booksPerPage) - 1
