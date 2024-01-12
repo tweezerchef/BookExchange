@@ -1,2 +1,2 @@
-INSERT INTO Discussions (userId, title, body, clubsId, bookTitle)
+INSERT INTO discussions (userId, title, body, clubsId, bookTitle)
 VALUES ('631fedc2-29f0-4784-aeed-708a0288d5f7', 'Exploring the Depths of Dune', 'This is a fascinating discussion about the intricate world and themes of Frank Herbert''s Dune. Let''s dive into the universe of Arrakis, discuss the complex characters, and explore the novel''s profound themes.', '55262086-79de-492a-85b1-626b0d44d530', 'Dune');
