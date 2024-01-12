@@ -1,5 +1,5 @@
 import { ListItem, Typography } from "@mui/material";
-import NestedComment from "./NestedComment";
+import { NestedComment } from "./NestedComment";
 
 export function CommentCard({ post, replies }) {
   return (
