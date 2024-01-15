@@ -105,7 +105,7 @@ function EntryCard() {
             alt='Background'
             fill
             sizes='600px 500px'
-            quality={100}
+            quality={70}
             priority
             onLoad={() => setIsBgImageLoaded(true)}
           />
@@ -123,11 +123,11 @@ function EntryCard() {
             }}
           >
             <Image
-              src={logoImageURL}
+              src='/BXLogo.webp'
               alt='logo'
-              width={185}
-              height={165}
-              quality={80}
+              width={190}
+              height={200}
+              quality={100}
             />
           </Box>
           <InputGroup>
