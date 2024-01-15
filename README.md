@@ -31,3 +31,32 @@ The user is asked to rate 10 books in order to get a feel for their taste in boo
 ![Rate Books Page](/rateBooks.png)
 Finally the user can find and add friends of theirs that already use the app.
 ![Add Friends Page](/FindFriends.png)
+
+## Home Page
+
+The home page contains elusively custom built carousals for easy navigation. Each one contains unique information, books available near the user, books that the user might like, and books that the user has requested.  The user can also search for books by title or author. Friends they have, or potential friends to connect with. On the top is a navigation bar and on the side is the users "feed" which contains recent activity from their friends.
+![Home Page](/homePage.png)
+
+## Recommended Books
+
+To recommend books to people we take all their genre and book preferences, what they like and don't like. This is then sent to Open AI to generate a list of books that the user might like. The books are then searched for in our DB and if not found we search the Google Books API.  The user can then add the book to their library or request it from another user.
+
+## Book Cards
+
+Each book card has the ability to rate the book, add it to your library, add it to you wishlist, and the ability to see more information about the book.  Each card is clickable to view a larger more in depth version.  This includes a description of the book, users who have the book in their library locally, clubs discussing the book, reviews by users of the book, NY times reviews of the book, and the ability to write your own review.
+
+![Book Card](/bookCard.png)
+This is a work in progress large view of the book card.
+![Book Card Large](/bigBook.png)
+
+## Friends
+
+Users can make friends with each other, for either on line or real world purposes.  They can also see their friends libraries and borrow books from them.  They can also see their friends wish lists and buy them books.  They can also see their friends clubs and join them. Any time a users avi appears anywhere on the page it is a link to their profile page.
+
+## Clubs
+
+Book Clubs are another feature in our app.  Users can create clubs around any subject, pick an Image, name and description for the club.  They can then invite their friends to join the club or users can find the club for themselves.  Once a club is created, the user can create discussions for the club.  The user can also create polls for the club.  These polls can be used to decide what book to read next, or what to do at the next event.  The user can also create a discussion post for the club.  This can be used to discuss the current book, or anything else the club members want to discuss. There will always be an assigned book for the time period for every club and the club will meet online to discuss it either periodically or at the end of the time period.
+
+## Messaging
+
+Users can message their friends and club members.  They can also create group chats with multiple users. In addition they can send requests to borrow books from other users.  There is a form for book lending that is tracked by the site, including when the book is loaned, due, the condition the book was received in, and the condition the book was returned in.  User will be able to rate each other on their book lending experience.
